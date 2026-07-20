@@ -1,0 +1,12 @@
+voice_package:
+  id: en_placeholder_v1
+  name: English (Placeholder)
+  speaker: TTS Fallback
+  language: en
+  dialect: Standard
+  style: neutral
+  speed: normal
+  quality: tts
+  version: "1.0"
+  recorded_at: null
+  license: placeholder

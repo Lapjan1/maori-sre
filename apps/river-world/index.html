@@ -55,6 +55,13 @@
     font-size: 0.85rem; cursor: pointer;
   }
   .lang-select option { color: var(--text); background: #fff; }
+  .voice-select {
+    background: rgba(255,255,255,0.1);
+    color: #fff; border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 6px; padding: 0.2rem 0.4rem;
+    font-size: 0.7rem; cursor: pointer; max-width: 120px;
+  }
+  .voice-select option { color: var(--text); background: #fff; }
 
   /* Sidebar */
   .sidebar-overlay {
@@ -215,6 +222,9 @@
       <option value="en" selected>English</option>
       <option value="af">Afrikaans</option>
     </select>
+    <select class="voice-select" id="voice-selector" title="Voice package">
+      <option value="">Voice</option>
+    </select>
   </div>
 
   <div id="app">
@@ -231,6 +241,7 @@
 
   <script src="experiences.js"></script>
   <script src="surface_forms.js"></script>
+  <script src="voice_packages.js"></script>
   <script src="session.js"></script>
   <script src="audio.js"></script>
   <script src="app.js"></script>

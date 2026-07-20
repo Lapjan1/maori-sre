@@ -1,30 +1,55 @@
 /**
  * River World — Audio Layer
  *
+ * Architecture:
+ *   Entity (semantic) → Surface Form → Voice Package → Audio File
+ *
  * Fallback chain:
- *   1. Native recording (audio_ref in surface form pronunciation)
- *   2. Cached TTS audio (not yet implemented)
- *   3. Web Speech API
+ *   1. Current voice package native recording (audio_ref in surface form)
+ *   2. Any other voice package recording for the same surface form
+ *   3. Web Speech API (TTS)
  *   4. No audio available (silent fail)
  */
 const Audio = (() => {
-  const AUDIO_BASE = "audio/";
+  let _selectedPackages = {};  // { lang: packageId }
+
+  function init() {
+    if (typeof VOICE_PACKAGES !== "undefined" && typeof DEFAULT_VOICE_PACKAGES !== "undefined") {
+      _selectedPackages = { ...DEFAULT_VOICE_PACKAGES };
+    }
+  }
+
+  function setVoicePackage(lang, packageId) {
+    _selectedPackages[lang] = packageId;
+    try {
+      localStorage.setItem("river_world_voice_pkg", JSON.stringify(_selectedPackages));
+    } catch (e) { /* ignore */ }
+  }
+
+  function getVoicePackage(lang) {
+    return _selectedPackages[lang] || DEFAULT_VOICE_PACKAGES?.[lang] || null;
+  }
+
+  function getAvailablePackages(lang) {
+    if (typeof VOICE_PACKAGES === "undefined") return [];
+    return Object.values(VOICE_PACKAGES).filter((p) => p.language === lang);
+  }
 
   function speak(text, lang, entityId) {
-    // Step 1: Try native recording via surface form
+    // Step 1: Try native recording from surface form
     if (entityId) {
-      const sfId = SURFACE_FORM_INDEX[entityId]?.[lang];
+      const sfId = SURFACE_FORM_INDEX?.[entityId]?.[lang];
       if (sfId) {
         const sf = SURFACE_FORMS[sfId];
-        const bestRef = _bestAudioRef(sf);
+        const bestRef = _bestAudioRef(sf, lang);
         if (bestRef) {
-          _playNative(bestRef.ref);
+          _playNative(bestRef, sf.text || text);
           return;
         }
       }
     }
 
-    // Step 2: (Reserved) Cached TTS — not yet implemented
+    // Step 2: (Reserved) Cached TTS
 
     // Step 3: Web Speech API
     if ("speechSynthesis" in window) {
@@ -33,33 +58,38 @@ const Audio = (() => {
     }
 
     // Step 4: No audio available
-    console.debug("Audio: no native recording, no Web Speech available.");
+    console.debug("Audio: no native recording, no Web Speech.");
   }
 
-  function _bestAudioRef(surfaceForm) {
+  function _bestAudioRef(surfaceForm, lang) {
     if (!surfaceForm?.pronunciation?.audio_refs) return null;
     const refs = surfaceForm.pronunciation.audio_refs;
-    // Prefer studio quality, then field, never tts
+    const currentPkg = getVoicePackage(lang);
+
+    // Rank: current package studio > current package field > other studio > other field
     const ranked = refs
       .filter((r) => r.quality !== "tts")
       .sort((a, b) => {
+        const aCurrent = a.package === currentPkg ? 0 : 10;
+        const bCurrent = b.package === currentPkg ? 0 : 10;
         const order = { studio: 0, field: 1 };
-        return (order[a.quality] ?? 2) - (order[b.quality] ?? 2);
+        const aRank = aCurrent + (order[a.quality] ?? 2);
+        const bRank = bCurrent + (order[b.quality] ?? 2);
+        return aRank - bRank;
       });
     return ranked[0] || null;
   }
 
-  function _playNative(relPath) {
-    try {
-      const audio = new Audio(AUDIO_BASE + relPath);
-      audio.play().catch(() => {
-        // File not found — fall through to Web Speech will be handled
-        // by the caller if they call speak() again; we fail silently.
-        console.debug("Audio: native file not found:", relPath);
-      });
-    } catch (e) {
-      console.debug("Audio: failed to play native:", relPath, e);
-    }
+  function _playNative(audioRef, fallbackText) {
+    const pkg = VOICE_PACKAGES?.[audioRef.package];
+    const basePath = pkg?.base_path || "audio/";
+    const fullPath = basePath + audioRef.ref;
+
+    const audio = new Audio(fullPath);
+    audio.play().catch(() => {
+      console.debug("Audio: file not found:", fullPath);
+      // Fall through: caller can retry with Web Speech if they want
+    });
   }
 
   function _speakWeb(text, lang) {
@@ -76,5 +106,5 @@ const Audio = (() => {
     return map[lang] || lang;
   }
 
-  return { speak };
+  return { init, speak, setVoicePackage, getVoicePackage, getAvailablePackages };
 })();

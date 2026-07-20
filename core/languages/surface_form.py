@@ -25,10 +25,11 @@ from pathlib import Path
 @dataclass
 class AudioRef:
     ref: str
+    package: Optional[str] = None      # voice package id, e.g. "af_standard_male_v1"
     speaker: Optional[str] = None
     dialect: Optional[str] = None
-    speed: str = "normal"        # normal, slow
-    quality: str = "studio"      # studio, field, tts
+    speed: str = "normal"              # normal, slow
+    quality: str = "studio"            # studio, field, tts
 
 
 @dataclass
@@ -151,6 +152,7 @@ class SurfaceFormRegistry:
                 pron["audio_refs"] = [
                     {
                         "ref": r.ref,
+                        "package": r.package,
                         "speaker": r.speaker,
                         "dialect": r.dialect,
                         "speed": r.speed,

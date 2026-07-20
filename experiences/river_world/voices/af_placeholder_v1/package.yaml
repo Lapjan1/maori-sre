@@ -1,0 +1,12 @@
+voice_package:
+  id: af_placeholder_v1
+  name: Afrikaans (Placeholder)
+  speaker: TTS Fallback
+  language: af
+  dialect: Standard
+  style: neutral
+  speed: normal
+  quality: tts
+  version: "1.0"
+  recorded_at: null
+  license: placeholder

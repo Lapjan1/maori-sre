@@ -1,0 +1,12 @@
+voice_package:
+  id: mi_placeholder_v1
+  name: Māori (Placeholder)
+  speaker: TTS Fallback
+  language: mi
+  dialect: Standard
+  style: neutral
+  speed: normal
+  quality: tts
+  version: "1.0"
+  recorded_at: null
+  license: placeholder

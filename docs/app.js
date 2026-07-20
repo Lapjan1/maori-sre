@@ -13,7 +13,9 @@ const App = (() => {
         '<p style="padding:2rem;text-align:center;">No experiences found.</p>';
       return;
     }
+    Audio.init();
     _restoreLang();
+    _populateVoicePackages();
     _renderExperienceList();
     _showExperience(0);
     Session.log("app_started", { totalExperiences: _experiences.length });
@@ -34,8 +36,29 @@ const App = (() => {
     _currentLang = lang;
     _saveLang();
     document.getElementById("lang-selector").value = lang;
+    _populateVoicePackages();
     _showExperience(_currentIndex);
     Session.log("language_changed", { lang });
+  }
+
+  function _populateVoicePackages() {
+    const sel = document.getElementById("voice-selector");
+    if (!sel) return;
+    sel.innerHTML = "";
+    const pkgs = Audio.getAvailablePackages(_currentLang);
+    if (pkgs.length <= 1) {
+      sel.style.display = "none";
+      return;
+    }
+    sel.style.display = "";
+    const current = Audio.getVoicePackage(_currentLang);
+    pkgs.forEach((p) => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = p.name;
+      if (p.id === current) opt.selected = true;
+      sel.appendChild(opt);
+    });
   }
 
   function _showExperience(index) {
@@ -229,6 +252,10 @@ const App = (() => {
   document.addEventListener("change", (e) => {
     if (e.target.id === "lang-selector") {
       setLang(e.target.value);
+    }
+    if (e.target.id === "voice-selector") {
+      Audio.setVoicePackage(_currentLang, e.target.value);
+      Session.log("voice_package_changed", { lang: _currentLang, package: e.target.value });
     }
   });
 
