@@ -1,9 +1,11 @@
-const CACHE = "river-world-v1";
+const CACHE = "river-world-v2";
 const URLS = [
   "index.html",
   "app.js",
   "session.js",
   "audio.js",
+  "surface_forms.js",
+  "voice_packages.js",
   "experiences.js",
   "manifest.json",
 ];
