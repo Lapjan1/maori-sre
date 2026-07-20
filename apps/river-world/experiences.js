@@ -1,4 +1,4 @@
-const EXPERIENCES = [
+var EXPERIENCES = [
   {
     "id": "RIVER_001",
     "type": "story",
