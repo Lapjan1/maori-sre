@@ -1,12 +1,23 @@
 voice_package:
   id: af_placeholder_v1
-  name: Afrikaans (Placeholder)
-  speaker: TTS Fallback
   language: af
   dialect: Standard
-  style: neutral
-  speed: normal
-  quality: tts
+  register: educational
+  license: CC-BY-SA-4.0
+  recorded: null
+  sample_rate: 48000
+  format: ogg
   version: "1.0"
-  recorded_at: null
-  license: placeholder
+  speaker:
+    name: TTS Fallback
+    native: false
+  coverage:
+    corpus: river_world_alpha
+    experience_count: 10
+    surface_form_count: 33
+    percentage: 0
+  review:
+    native: false
+    reviewed: false
+    pronunciation: unreviewed
+    grammar: unreviewed
