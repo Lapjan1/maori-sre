@@ -153,6 +153,14 @@
     transition: transform 0.1s;
   }
   .btn-audio-sm:hover { transform: scale(1.15); }
+  .word-chip {
+    color: var(--water); cursor: pointer; border: none;
+    background: none; padding: 0; font: inherit; font-size: inherit;
+    border-bottom: 2px dotted var(--water); transition: background 0.1s;
+    border-radius: 2px;
+  }
+  .word-chip:hover { background: rgba(74,139,168,0.1); }
+  .word-chip:active { background: rgba(74,139,168,0.2); }
   .entity-ipa {
     display: block; font-size: 0.75rem; color: var(--water);
     font-family: "DejaVu Sans Mono", "Segoe UI", monospace;

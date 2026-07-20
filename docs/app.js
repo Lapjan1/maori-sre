@@ -105,7 +105,7 @@ const App = (() => {
           .map(
             (s, i) => `
           <div class="sentence-row">
-            <p class="sentence">${_escape(s)}</p>
+            <p class="sentence">${_renderSentenceChips(s, exp.entities, _currentLang)}</p>
             <div class="sentence-meta">
               ${enSentences[i] && _currentLang !== "en"
                 ? `<span class="sentence-en">${_escape(enSentences[i])}</span>`
@@ -162,6 +162,30 @@ const App = (() => {
     `;
   }
 
+  function _renderSentenceChips(sentence, entities, lang) {
+    if (!entities || !entities.length) return _escape(sentence);
+    const labelMap = {};
+    entities.forEach(e => {
+      const id = e.entity_id || e.id;
+      const label = _entityLabel(e, lang);
+      if (label && !/\s/.test(label)) {
+        labelMap[label.toLowerCase()] = { id, label };
+      }
+    });
+    if (!Object.keys(labelMap).length) return _escape(sentence);
+
+    const tokens = sentence.split(/(\s+)/);
+    return tokens.map(t => {
+      if (t.trim() === "") return t;
+      const key = t.replace(/^[^\wāēīōūĀĒĪŌŪ']+|[^\wāēīōūĀĒĪŌŪ']+$/g, "").toLowerCase();
+      const info = labelMap[key];
+      if (info) {
+        return `<button class="word-chip" data-entity="${_escape(info.id)}" data-lang="${_escape(lang)}">${_escape(t)}</button>`;
+      }
+      return _escape(t);
+    }).join("");
+  }
+
   function _renderExperienceList() {
     const container = document.getElementById("exp-list");
     container.innerHTML = _experiences
@@ -209,6 +233,19 @@ const App = (() => {
 
     // Entity audio buttons (with native recording fallback)
     if (e.target.classList.contains("btn-audio-sm")) {
+      const entityId = e.target.dataset.entity;
+      const lang = e.target.dataset.lang;
+      if (entityId) {
+        const sf = _lookupSurfaceForm(entityId, lang);
+        const text = sf?.text || entityId;
+        Audio.speak(text, lang, entityId);
+        Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
+      }
+      return;
+    }
+
+    // Inline word chips — same as entity audio
+    if (e.target.classList.contains("word-chip")) {
       const entityId = e.target.dataset.entity;
       const lang = e.target.dataset.lang;
       if (entityId) {

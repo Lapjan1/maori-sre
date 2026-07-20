@@ -43,7 +43,7 @@ const Audio = (() => {
         const sf = SURFACE_FORMS[sfId];
         const bestRef = _bestAudioRef(sf, lang);
         if (bestRef) {
-          _playNative(bestRef, sf.text || text);
+          _playNative(bestRef, sf.text || text, lang);
           return;
         }
       }
@@ -80,7 +80,7 @@ const Audio = (() => {
     return ranked[0] || null;
   }
 
-  function _playNative(audioRef, fallbackText) {
+  function _playNative(audioRef, fallbackText, lang) {
     const pkg = VOICE_PACKAGES?.[audioRef.package];
     const basePath = pkg?.base_path || "audio/";
     const fullPath = basePath + audioRef.ref;
@@ -88,7 +88,9 @@ const Audio = (() => {
     const audio = new Audio(fullPath);
     audio.play().catch(() => {
       console.debug("Audio: file not found:", fullPath);
-      // Fall through: caller can retry with Web Speech if they want
+      if (fallbackText && lang && "speechSynthesis" in window) {
+        _speakWeb(fallbackText, lang);
+      }
     });
   }
 
