@@ -138,6 +138,23 @@
   }
   .btn-audio:hover { transform: scale(1.1); }
   .btn-audio:active { transform: scale(0.95); }
+  .btn-audio-sm {
+    background: var(--green); color: #fff; border: none;
+    border-radius: 50%; width: 24px; height: 24px;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 0.65rem; margin-top: 0.3rem;
+    transition: transform 0.1s;
+  }
+  .btn-audio-sm:hover { transform: scale(1.15); }
+  .entity-ipa {
+    display: block; font-size: 0.75rem; color: var(--water);
+    font-family: "DejaVu Sans Mono", "Segoe UI", monospace;
+    margin-top: 0.15rem;
+  }
+  .entity-syllables {
+    display: block; font-size: 0.7rem; color: var(--muted);
+    margin-top: 0.1rem;
+  }
 
   /* Entity grid */
   .exp-entities { margin-bottom: 1.5rem; }
@@ -213,6 +230,7 @@
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <script src="experiences.js"></script>
+  <script src="surface_forms.js"></script>
   <script src="session.js"></script>
   <script src="audio.js"></script>
   <script src="app.js"></script>

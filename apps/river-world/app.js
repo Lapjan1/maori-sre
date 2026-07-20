@@ -100,12 +100,15 @@ const App = (() => {
         <div class="entity-grid">
           ${exp.entities
             .map(
-              (e) => `
+              (e) => {
+                const sf = _lookupSurfaceForm(e.entity_id || e.id, _currentLang);
+                const pron = sf?.pronunciation;
+                return `
             <div class="entity-card">
-              <span class="entity-label">${_escape(e.label[_currentLang] || e.label["default"] || e.id)}</span>
+              <span class="entity-label">${_escape(_entityLabel(e, _currentLang))}</span>
               <span class="entity-cat">${e.category}</span>
-              ${e.label["en"] && _currentLang !== "en"
-                ? `<span class="entity-en">${_escape(e.label["en"])}</span>`
+              ${_currentLang !== "en"
+                ? `<span class="entity-en">${_escape(_entityLabel(e, "en"))}</span>`
                 : ""}
               ${_currentLang === "en" && e.label["mi"]
                 ? `<span class="entity-native">mi: ${_escape(e.label["mi"])}</span>`
@@ -113,7 +116,13 @@ const App = (() => {
               ${_currentLang === "en" && e.label["af"]
                 ? `<span class="entity-native">af: ${_escape(e.label["af"])}</span>`
                 : ""}
-            </div>`
+              ${pron?.ipa ? `<span class="entity-ipa">${_escape(pron.ipa)}</span>` : ""}
+              ${pron?.syllables?.length ? `<span class="entity-syllables">${_escape(pron.syllables.join(" · "))}</span>` : ""}
+              ${pron?.audio_refs?.length
+                ? `<button class="btn-audio-sm" data-entity="${_escape(e.entity_id || e.id)}" data-lang="${_currentLang}" title="Listen">\u25B6</button>`
+                : ""}
+            </div>`;
+              }
             )
             .join("")}
         </div>
@@ -151,6 +160,16 @@ const App = (() => {
     return d.innerHTML;
   }
 
+  function _entityLabel(e, lang) {
+    return e.label[lang] || e.label["default"] || e.id;
+  }
+
+  function _lookupSurfaceForm(entityId, lang) {
+    if (typeof SURFACE_FORMS === "undefined") return null;
+    const sfId = SURFACE_FORM_INDEX?.[entityId]?.[lang];
+    return sfId ? SURFACE_FORMS[sfId] : null;
+  }
+
   // --- Event delegation ---
 
   document.addEventListener("click", (e) => {
@@ -161,6 +180,19 @@ const App = (() => {
       if (text) {
         Audio.speak(text, lang);
         Session.log("audio_played", { text, lang, experience_id: _experiences[_currentIndex]?.id });
+      }
+      return;
+    }
+
+    // Entity audio buttons (with native recording fallback)
+    if (e.target.classList.contains("btn-audio-sm")) {
+      const entityId = e.target.dataset.entity;
+      const lang = e.target.dataset.lang;
+      if (entityId) {
+        const sf = _lookupSurfaceForm(entityId, lang);
+        const text = sf?.text || entityId;
+        Audio.speak(text, lang, entityId);
+        Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
       }
       return;
     }

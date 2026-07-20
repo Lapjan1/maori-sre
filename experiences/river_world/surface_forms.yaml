@@ -1,0 +1,779 @@
+surface_forms:
+
+  # ─── THING_001 (water / wai / water) ───────────────────────────────────
+  - id: SF_EN_THING_001
+    entity_id: THING_001
+    lang: en
+    text: water
+    pronunciation:
+      ipa: "/ˈwɔːtər/"
+      syllables: ["waw", "ter"]
+      stress: 1
+  - id: SF_MI_THING_001
+    entity_id: THING_001
+    lang: mi
+    text: wai
+    pronunciation:
+      ipa: "/wai/"
+      syllables: ["wai"]
+  - id: SF_AF_THING_001
+    entity_id: THING_001
+    lang: af
+    text: water
+    pronunciation:
+      ipa: "/ˈvɑːtər/"
+      syllables: ["va", "ter"]
+      stress: 1
+
+  # ─── PLACE_005 (river / awa / rivier) ────────────────────────────────────
+  - id: SF_EN_PLACE_005
+    entity_id: PLACE_005
+    lang: en
+    text: river
+    pronunciation:
+      ipa: "/ˈrɪvər/"
+      syllables: ["ri", "ver"]
+      stress: 1
+  - id: SF_MI_PLACE_005
+    entity_id: PLACE_005
+    lang: mi
+    text: awa
+    pronunciation:
+      ipa: "/awa/"
+      syllables: ["a", "wa"]
+  - id: SF_AF_PLACE_005
+    entity_id: PLACE_005
+    lang: af
+    text: rivier
+    pronunciation:
+      ipa: "/rəˈfiːr/"
+      syllables: ["re", "fier"]
+      stress: 2
+
+  # ─── STATE_001 (thirsty / matewai / dors) ──────────────────────────────
+  - id: SF_EN_STATE_001
+    entity_id: STATE_001
+    lang: en
+    text: thirsty
+    pronunciation:
+      ipa: "/ˈθɜːrsti/"
+      syllables: ["thur", "sty"]
+      stress: 1
+  - id: SF_MI_STATE_001
+    entity_id: STATE_001
+    lang: mi
+    text: matewai
+    pronunciation:
+      ipa: "/matewai/"
+      syllables: ["ma", "te", "wai"]
+  - id: SF_AF_STATE_001
+    entity_id: STATE_001
+    lang: af
+    text: dors
+    pronunciation:
+      ipa: "/dɔrs/"
+      syllables: ["dors"]
+
+  # ─── STATE_002 (hydrated / kore matewai / nie dors nie) ──────────────
+  - id: SF_EN_STATE_002
+    entity_id: STATE_002
+    lang: en
+    text: hydrated
+    pronunciation:
+      ipa: "/ˈhaɪdreɪtɪd/"
+      syllables: ["hy", "dray", "tid"]
+      stress: 1
+  - id: SF_MI_STATE_002
+    entity_id: STATE_002
+    lang: mi
+    text: kore matewai
+    pronunciation:
+      ipa: "/kɔre matewai/"
+      syllables: ["ko", "re", "ma", "te", "wai"]
+  - id: SF_AF_STATE_002
+    entity_id: STATE_002
+    lang: af
+    text: nie dors nie
+    pronunciation:
+      ipa: "/ni dɔrs ni/"
+      syllables: ["nie", "dors", "nie"]
+      stress: 2
+
+  # ─── ACTION_001 (drink / inu / drink) ────────────────────────────────
+  - id: SF_EN_ACTION_001
+    entity_id: ACTION_001
+    lang: en
+    text: drink
+    pronunciation:
+      ipa: "/drɪŋk/"
+      syllables: ["drink"]
+  - id: SF_MI_ACTION_001
+    entity_id: ACTION_001
+    lang: mi
+    text: inu
+    pronunciation:
+      ipa: "/inu/"
+      syllables: ["i", "nu"]
+  - id: SF_AF_ACTION_001
+    entity_id: ACTION_001
+    lang: af
+    text: drink
+    pronunciation:
+      ipa: "/drəŋk/"
+      syllables: ["drink"]
+
+  # ─── ACTION_002 (walk / hīkoi / loop) ──────────────────────────────────
+  - id: SF_EN_ACTION_002
+    entity_id: ACTION_002
+    lang: en
+    text: walk
+    pronunciation:
+      ipa: "/wɔːk/"
+      syllables: ["walk"]
+  - id: SF_MI_ACTION_002
+    entity_id: ACTION_002
+    lang: mi
+    text: hīkoi
+    pronunciation:
+      ipa: "/hiːkɔi/"
+      syllables: ["hī", "koi"]
+      stress: 1
+  - id: SF_AF_ACTION_002
+    entity_id: ACTION_002
+    lang: af
+    text: loop
+    pronunciation:
+      ipa: "/lʊəp/"
+      syllables: ["loop"]
+
+  # ─── PERSON_003 (child / tamaiti / kind) ──────────────────────────────
+  - id: SF_EN_PERSON_003
+    entity_id: PERSON_003
+    lang: en
+    text: child
+    pronunciation:
+      ipa: "/tʃaɪld/"
+      syllables: ["child"]
+  - id: SF_MI_PERSON_003
+    entity_id: PERSON_003
+    lang: mi
+    text: tamaiti
+    pronunciation:
+      ipa: "/tamaiti/"
+      syllables: ["ta", "ma", "i", "ti"]
+  - id: SF_AF_PERSON_003
+    entity_id: PERSON_003
+    lang: af
+    text: kind
+    pronunciation:
+      ipa: "/kənt/"
+      syllables: ["kind"]
+
+  # ─── PERSON_010 (mother / whaea / ma) ──────────────────────────────────
+  - id: SF_EN_PERSON_010
+    entity_id: PERSON_010
+    lang: en
+    text: mother
+    pronunciation:
+      ipa: "/ˈmʌðər/"
+      syllables: ["moth", "er"]
+      stress: 1
+  - id: SF_MI_PERSON_010
+    entity_id: PERSON_010
+    lang: mi
+    text: whaea
+    pronunciation:
+      ipa: "/ɸaea/"
+      syllables: ["wha", "e", "a"]
+  - id: SF_AF_PERSON_010
+    entity_id: PERSON_010
+    lang: af
+    text: ma
+    pronunciation:
+      ipa: "/maː/"
+      syllables: ["ma"]
+
+  # ─── PERSON_011 (family / whānau / familie) ────────────────────────────
+  - id: SF_EN_PERSON_011
+    entity_id: PERSON_011
+    lang: en
+    text: family
+    pronunciation:
+      ipa: "/ˈfæməli/"
+      syllables: ["fam", "e", "ly"]
+      stress: 1
+  - id: SF_MI_PERSON_011
+    entity_id: PERSON_011
+    lang: mi
+    text: whānau
+    pronunciation:
+      ipa: "/ɸaːnau/"
+      syllables: ["whā", "nau"]
+  - id: SF_AF_PERSON_011
+    entity_id: PERSON_011
+    lang: af
+    text: familie
+    pronunciation:
+      ipa: "/fɑːˈmili/"
+      syllables: ["fa", "mie", "lie"]
+      stress: 2
+
+  # ─── ACTION_010 (give / hoatu / gee) ──────────────────────────────────
+  - id: SF_EN_ACTION_010
+    entity_id: ACTION_010
+    lang: en
+    text: give
+    pronunciation:
+      ipa: "/ɡɪv/"
+      syllables: ["give"]
+  - id: SF_MI_ACTION_010
+    entity_id: ACTION_010
+    lang: mi
+    text: hoatu
+    pronunciation:
+      ipa: "/hɔatu/"
+      syllables: ["ho", "a", "tu"]
+  - id: SF_AF_ACTION_010
+    entity_id: ACTION_010
+    lang: af
+    text: gee
+    pronunciation:
+      ipa: "/χeː/"
+      syllables: ["gee"]
+
+  # ─── ACTON_012 (fill / whakaki / vul) ──────────────────────────────────
+  - id: SF_EN_ACTION_012
+    entity_id: ACTION_012
+    lang: en
+    text: fill
+    pronunciation:
+      ipa: "/fɪl/"
+      syllables: ["fill"]
+  - id: SF_MI_ACTION_012
+    entity_id: ACTION_012
+    lang: mi
+    text: whakaki
+    pronunciation:
+      ipa: "/ɸakaki/"
+      syllables: ["wha", "ka", "ki"]
+  - id: SF_AF_ACTION_012
+    entity_id: ACTION_012
+    lang: af
+    text: vul
+    pronunciation:
+      ipa: "/fœl/"
+      syllables: ["vul"]
+
+  # ─── STATE_010 (happy / koa / bly) ──────────────────────────────────────
+  - id: SF_EN_STATE_010
+    entity_id: STATE_010
+    lang: en
+    text: happy
+    pronunciation:
+      ipa: "/ˈhæpi/"
+      syllables: ["hap", "py"]
+      stress: 1
+  - id: SF_MI_STATE_010
+    entity_id: STATE_010
+    lang: mi
+    text: koa
+    pronunciation:
+      ipa: "/kɔa/"
+      syllables: ["ko", "a"]
+  - id: SF_AF_STATE_010
+    entity_id: STATE_010
+    lang: af
+    text: bly
+    pronunciation:
+      ipa: "/blɛi/"
+      syllables: ["bly"]
+
+  # ─── THING_101 (dog / kurī / hond) ──────────────────────────────────────
+  - id: SF_EN_THING_101
+    entity_id: THING_101
+    lang: en
+    text: dog
+    pronunciation:
+      ipa: "/dɒɡ/"
+      syllables: ["dog"]
+  - id: SF_MI_THING_101
+    entity_id: THING_101
+    lang: mi
+    text: kurī
+    pronunciation:
+      ipa: "/kuɾiː/"
+      syllables: ["ku", "rī"]
+  - id: SF_AF_THING_101
+    entity_id: THING_101
+    lang: af
+    text: hond
+    pronunciation:
+      ipa: "/ɦɔnt/"
+      syllables: ["hond"]
+
+  # ─── THING_106 (rain / ua / reën) ──────────────────────────────────────
+  - id: SF_EN_THING_106
+    entity_id: THING_106
+    lang: en
+    text: rain
+    pronunciation:
+      ipa: "/reɪn/"
+      syllables: ["rain"]
+  - id: SF_MI_THING_106
+    entity_id: THING_106
+    lang: mi
+    text: ua
+    pronunciation:
+      ipa: "/ua/"
+      syllables: ["u", "a"]
+  - id: SF_AF_THING_106
+    entity_id: THING_106
+    lang: af
+    text: reën
+    pronunciation:
+      ipa: "/reːən/"
+      syllables: ["re", "en"]
+
+  # ─── ACTION_013 (fall / heke / val) ──────────────────────────────────────
+  - id: SF_EN_ACTION_013
+    entity_id: ACTION_013
+    lang: en
+    text: fall
+    pronunciation:
+      ipa: "/fɔːl/"
+      syllables: ["fall"]
+  - id: SF_MI_ACTION_013
+    entity_id: ACTION_013
+    lang: mi
+    text: heke
+    pronunciation:
+      ipa: "/heke/"
+      syllables: ["he", "ke"]
+  - id: SF_AF_ACTION_013
+    entity_id: ACTION_013
+    lang: af
+    text: val
+    pronunciation:
+      ipa: "/fal/"
+      syllables: ["val"]
+
+  # ─── ACTION_014 (flow / rere / vloei) ──────────────────────────────────
+  - id: SF_EN_ACTION_014
+    entity_id: ACTION_014
+    lang: en
+    text: flow
+    pronunciation:
+      ipa: "/floʊ/"
+      syllables: ["flow"]
+  - id: SF_MI_ACTION_014
+    entity_id: ACTION_014
+    lang: mi
+    text: rere
+    pronunciation:
+      ipa: "/ɾeɾe/"
+      syllables: ["re", "re"]
+  - id: SF_AF_ACTION_014
+    entity_id: ACTION_014
+    lang: af
+    text: vloei
+    pronunciation:
+      ipa: "/flui/"
+      syllables: ["vloei"]
+
+  # ─── THING_100 (tree / rākau / boom) ──────────────────────────────────
+  - id: SF_EN_THING_100
+    entity_id: THING_100
+    lang: en
+    text: tree
+    pronunciation:
+      ipa: "/triː/"
+      syllables: ["tree"]
+  - id: SF_MI_THING_100
+    entity_id: THING_100
+    lang: mi
+    text: rākau
+    pronunciation:
+      ipa: "/ɾaːkau/"
+      syllables: ["rā", "kau"]
+  - id: SF_AF_THING_100
+    entity_id: THING_100
+    lang: af
+    text: boom
+    pronunciation:
+      ipa: "/bʊəːm/"
+      syllables: ["boom"]
+
+  # ─── ACTION_015 (grow / tipu / groei) ──────────────────────────────────
+  - id: SF_EN_ACTION_015
+    entity_id: ACTION_015
+    lang: en
+    text: grow
+    pronunciation:
+      ipa: "/ɡroʊ/"
+      syllables: ["grow"]
+  - id: SF_MI_ACTION_015
+    entity_id: ACTION_015
+    lang: mi
+    text: tipu
+    pronunciation:
+      ipa: "/tipu/"
+      syllables: ["ti", "pu"]
+  - id: SF_AF_ACTION_015
+    entity_id: ACTION_015
+    lang: af
+    text: groei
+    pronunciation:
+      ipa: "/χrui/"
+      syllables: ["groei"]
+
+  # ─── THING_102 (fish / ika / vis) ──────────────────────────────────────
+  - id: SF_EN_THING_102
+    entity_id: THING_102
+    lang: en
+    text: fish
+    pronunciation:
+      ipa: "/fɪʃ/"
+      syllables: ["fish"]
+  - id: SF_MI_THING_102
+    entity_id: THING_102
+    lang: mi
+    text: ika
+    pronunciation:
+      ipa: "/ika/"
+      syllables: ["i", "ka"]
+  - id: SF_AF_THING_102
+    entity_id: THING_102
+    lang: af
+    text: vis
+    pronunciation:
+      ipa: "/fəs/"
+      syllables: ["vis"]
+
+  # ─── ACTION_016 (live / noho / woon) ──────────────────────────────────
+  - id: SF_EN_ACTION_016
+    entity_id: ACTION_016
+    lang: en
+    text: live
+    pronunciation:
+      ipa: "/lɪv/"
+      syllables: ["live"]
+  - id: SF_MI_ACTION_016
+    entity_id: ACTION_016
+    lang: mi
+    text: noho
+    pronunciation:
+      ipa: "/nɔhɔ/"
+      syllables: ["no", "ho"]
+  - id: SF_AF_ACTION_016
+    entity_id: ACTION_016
+    lang: af
+    text: woon
+    pronunciation:
+      ipa: "/vʊəːn/"
+      syllables: ["woon"]
+
+  # ─── ACTION_017 (swim / kauhoe / swem) ──────────────────────────────────
+  - id: SF_EN_ACTION_017
+    entity_id: ACTION_017
+    lang: en
+    text: swim
+    pronunciation:
+      ipa: "/swɪm/"
+      syllables: ["swim"]
+  - id: SF_MI_ACTION_017
+    entity_id: ACTION_017
+    lang: mi
+    text: kauhoe
+    pronunciation:
+      ipa: "/kaʊhɔe/"
+      syllables: ["kau", "ho", "e"]
+  - id: SF_AF_ACTION_017
+    entity_id: ACTION_017
+    lang: af
+    text: swem
+    pronunciation:
+      ipa: "/svɛm/"
+      syllables: ["swem"]
+
+  # ─── THING_107 (net / kupenga / net) ──────────────────────────────────
+  - id: SF_EN_THING_107
+    entity_id: THING_107
+    lang: en
+    text: net
+    pronunciation:
+      ipa: "/nɛt/"
+      syllables: ["net"]
+  - id: SF_MI_THING_107
+    entity_id: THING_107
+    lang: mi
+    text: kupenga
+    pronunciation:
+      ipa: "/kupeŋa/"
+      syllables: ["ku", "pe", "nga"]
+  - id: SF_AF_THING_107
+    entity_id: THING_107
+    lang: af
+    text: net
+    pronunciation:
+      ipa: "/nɛt/"
+      syllables: ["net"]
+
+  # ─── ACTION_018 (catch / hopu / vang) ──────────────────────────────────
+  - id: SF_EN_ACTION_018
+    entity_id: ACTION_018
+    lang: en
+    text: catch
+    pronunciation:
+      ipa: "/kætʃ/"
+      syllables: ["catch"]
+  - id: SF_MI_ACTION_018
+    entity_id: ACTION_018
+    lang: mi
+    text: hopu
+    pronunciation:
+      ipa: "/hɔpu/"
+      syllables: ["ho", "pu"]
+  - id: SF_AF_ACTION_018
+    entity_id: ACTION_018
+    lang: af
+    text: vang
+    pronunciation:
+      ipa: "/faŋ/"
+      syllables: ["vang"]
+
+  # ─── THING_103 (cup / kapu / koppie) ──────────────────────────────────
+  - id: SF_EN_THING_103
+    entity_id: THING_103
+    lang: en
+    text: cup
+    pronunciation:
+      ipa: "/kʌp/"
+      syllables: ["cup"]
+  - id: SF_MI_THING_103
+    entity_id: THING_103
+    lang: mi
+    text: kapu
+    pronunciation:
+      ipa: "/kapu/"
+      syllables: ["ka", "pu"]
+  - id: SF_AF_THING_103
+    entity_id: THING_103
+    lang: af
+    text: koppie
+    pronunciation:
+      ipa: "/ˈkɔpi/"
+      syllables: ["kop", "pie"]
+      stress: 1
+
+  # ─── THING_104 (fire / ahi / vuur) ────────────────────────────────────
+  - id: SF_EN_THING_104
+    entity_id: THING_104
+    lang: en
+    text: fire
+    pronunciation:
+      ipa: "/ˈfaɪər/"
+      syllables: ["fy", "er"]
+      stress: 1
+  - id: SF_MI_THING_104
+    entity_id: THING_104
+    lang: mi
+    text: ahi
+    pronunciation:
+      ipa: "/ahi/"
+      syllables: ["a", "hi"]
+  - id: SF_AF_THING_104
+    entity_id: THING_104
+    lang: af
+    text: vuur
+    pronunciation:
+      ipa: "/fyr/"
+      syllables: ["vuur"]
+
+  # ─── THING_105 (food / kai / kos) ──────────────────────────────────────
+  - id: SF_EN_THING_105
+    entity_id: THING_105
+    lang: en
+    text: food
+    pronunciation:
+      ipa: "/fuːd/"
+      syllables: ["food"]
+  - id: SF_MI_THING_105
+    entity_id: THING_105
+    lang: mi
+    text: kai
+    pronunciation:
+      ipa: "/kai/"
+      syllables: ["kai"]
+  - id: SF_AF_THING_105
+    entity_id: THING_105
+    lang: af
+    text: kos
+    pronunciation:
+      ipa: "/kɔs/"
+      syllables: ["kos"]
+
+  # ─── ACTION_019 (cook / tunu / kook) ──────────────────────────────────
+  - id: SF_EN_ACTION_019
+    entity_id: ACTION_019
+    lang: en
+    text: cook
+    pronunciation:
+      ipa: "/kʊk/"
+      syllables: ["cook"]
+  - id: SF_MI_ACTION_019
+    entity_id: ACTION_019
+    lang: mi
+    text: tunu
+    pronunciation:
+      ipa: "/tunu/"
+      syllables: ["tu", "nu"]
+  - id: SF_AF_ACTION_019
+    entity_id: ACTION_019
+    lang: af
+    text: kook
+    pronunciation:
+      ipa: "/kʊəːk/"
+      syllables: ["kook"]
+
+  # ─── ACTION_020 (share / tohatoha / deel) ──────────────────────────────
+  - id: SF_EN_ACTION_020
+    entity_id: ACTION_020
+    lang: en
+    text: share
+    pronunciation:
+      ipa: "/ʃɛr/"
+      syllables: ["share"]
+  - id: SF_MI_ACTION_020
+    entity_id: ACTION_020
+    lang: mi
+    text: tohatoha
+    pronunciation:
+      ipa: "/tɔhatɔha/"
+      syllables: ["to", "ha", "to", "ha"]
+  - id: SF_AF_ACTION_020
+    entity_id: ACTION_020
+    lang: af
+    text: deel
+    pronunciation:
+      ipa: "/deːl/"
+      syllables: ["deel"]
+
+  # ─── ACTION_021 (eat / kai / eet) ──────────────────────────────────────
+  - id: SF_EN_ACTION_021
+    entity_id: ACTION_021
+    lang: en
+    text: eat
+    pronunciation:
+      ipa: "/iːt/"
+      syllables: ["eat"]
+  - id: SF_MI_ACTION_021
+    entity_id: ACTION_021
+    lang: mi
+    text: kai
+    pronunciation:
+      ipa: "/kai/"
+      syllables: ["kai"]
+  - id: SF_AF_ACTION_021
+    entity_id: ACTION_021
+    lang: af
+    text: eet
+    pronunciation:
+      ipa: "/eːt/"
+      syllables: ["eet"]
+
+  # ─── STATE_011 (full / mākona / versadig) ──────────────────────────────
+  - id: SF_EN_STATE_011
+    entity_id: STATE_011
+    lang: en
+    text: full
+    pronunciation:
+      ipa: "/fʊl/"
+      syllables: ["full"]
+  - id: SF_MI_STATE_011
+    entity_id: STATE_011
+    lang: mi
+    text: mākona
+    pronunciation:
+      ipa: "/maːkɔna/"
+      syllables: ["mā", "ko", "na"]
+  - id: SF_AF_STATE_011
+    entity_id: STATE_011
+    lang: af
+    text: versadig
+    pronunciation:
+      ipa: "/fərˈsɑːdəx/"
+      syllables: ["ver", "sa", "dig"]
+      stress: 2
+
+  # ─── ACTION_022 (thank / whakawhetai / bedank) ──────────────────────────
+  - id: SF_EN_ACTION_022
+    entity_id: ACTION_022
+    lang: en
+    text: thank
+    pronunciation:
+      ipa: "/θæŋk/"
+      syllables: ["thank"]
+  - id: SF_MI_ACTION_022
+    entity_id: ACTION_022
+    lang: mi
+    text: whakawhetai
+    pronunciation:
+      ipa: "/ɸakaɸetai/"
+      syllables: ["wha", "ka", "whe", "tai"]
+  - id: SF_AF_ACTION_022
+    entity_id: ACTION_022
+    lang: af
+    text: bedank
+    pronunciation:
+      ipa: "/bəˈdaŋk/"
+      syllables: ["be", "dank"]
+      stress: 2
+
+  # ─── STATE_012 (grateful / whakawhetai / dankbaar) ──────────────────────
+  - id: SF_EN_STATE_012
+    entity_id: STATE_012
+    lang: en
+    text: grateful
+    pronunciation:
+      ipa: "/ˈɡreɪtfəl/"
+      syllables: ["grate", "ful"]
+      stress: 1
+  - id: SF_MI_STATE_012
+    entity_id: STATE_012
+    lang: mi
+    text: whakawhetai
+    pronunciation:
+      ipa: "/ɸakaɸetai/"
+      syllables: ["wha", "ka", "whe", "tai"]
+  - id: SF_AF_STATE_012
+    entity_id: STATE_012
+    lang: af
+    text: dankbaar
+    pronunciation:
+      ipa: "/ˈdaŋkbɑːr/"
+      syllables: ["dank", "baar"]
+      stress: 1
+
+  # ─── STATE_013 (together / noho tahi / saam) ────────────────────────────
+  - id: SF_EN_STATE_013
+    entity_id: STATE_013
+    lang: en
+    text: together
+    pronunciation:
+      ipa: "/təˈɡɛðər/"
+      syllables: ["to", "geth", "er"]
+      stress: 2
+  - id: SF_MI_STATE_013
+    entity_id: STATE_013
+    lang: mi
+    text: noho tahi
+    pronunciation:
+      ipa: "/nɔhɔ tahi/"
+      syllables: ["no", "ho", "ta", "hi"]
+  - id: SF_AF_STATE_013
+    entity_id: STATE_013
+    lang: af
+    text: saam
+    pronunciation:
+      ipa: "/sɑːm/"
+      syllables: ["saam"]
