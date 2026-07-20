@@ -1,0 +1,55 @@
+{
+  "manifest_version": "1.0",
+  "description": "SRE Core — Compiler and Canonical Source Language Definition",
+  "canonical_version": "1.0",
+  "compiler_version": "0.1",
+  "runtime_format_version": "1",
+  "build": {
+    "deterministic": true,
+    "provenance_mandatory": true,
+    "immutable_runtime": true
+  },
+  "layers": [
+    {
+      "name": "Canonical Source",
+      "path": "canonical/",
+      "description": "The source language of the SRE. Human-authored JSON/YAML documents defining entities, representations, affordances, interactions, relationships, and language mappings."
+    },
+    {
+      "name": "Compiler",
+      "path": "compiler/",
+      "description": "Validates canonical source and compiles it into an optimized runtime graph. Deterministic: same source → same output hash."
+    },
+    {
+      "name": "Runtime",
+      "path": "runtime/",
+      "description": "Compiled graph artifacts. Immutable once written. Never edited — recompiled from source."
+    },
+    {
+      "name": "Plugins",
+      "path": "plugins/",
+      "description": "Optional plugins for embedding, storage, TTS, STT, and lesson strategies. All plugins are swappable."
+    },
+    {
+      "name": "Formal Semantics",
+      "path": "formal/",
+      "description": "Mathematical definitions, cardinality rules, inference rules, compiler pipeline spec, and validation rules."
+    },
+    {
+      "name": "Tests",
+      "path": "tests/",
+      "description": "Schema validation, contract checks, golden output comparisons, compiler pipeline tests."
+    }
+  ],
+  "invariants": [
+    "Reality precedes language. Nothing exists because it has a word.",
+    "Meaning is interaction. Definitions are summaries of repeated interactions.",
+    "Languages are projections. No language is privileged.",
+    "AI reasons over representations, not word-to-word mappings.",
+    "The runtime graph is immutable. Never edited — always recompiled.",
+    "Compilation is deterministic. Same source → same output hash.",
+    "Every compiled artifact carries provenance tracing to its source location.",
+    "Embeddings are optional. The compiler works without any embedding plugin.",
+    "No architectural changes unless implementation exposes a real limitation."
+  ]
+}

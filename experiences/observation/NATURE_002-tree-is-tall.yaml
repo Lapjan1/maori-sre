@@ -1,0 +1,149 @@
+# Corpus Alpha — Experience 3
+# Type: observation
+# "The Tree Is Tall"
+# Level 1 — Properties, description
+
+experience_id: NATURE_002
+type: observation
+level: 1
+
+title:
+  en: "The Tree Is Tall"
+  mi: "He Rākau Roa"
+  af: "Die Boom Is Hoog"
+
+content:
+  en: "The tree is very tall. It gives shade. A bird sits in the tree."
+  mi: "He rākau roa. He marumaru. Kei runga te manu i te rākau."
+  af: "Die boom is baie hoog. Dit gee skaduwee. 'n Voël sit in die boom."
+
+entities:
+  - entity_id: THING_100
+    category: THING
+    label:
+      default: tree
+      mi: rākau
+      af: boom
+    definition: "A tall perennial plant with a trunk and branches."
+
+  - entity_id: PROPERTY_001
+    category: PROPERTY
+    label:
+      default: tall
+      mi: roa
+      af: hoog
+    definition: "Of great height."
+
+  - entity_id: THING_101
+    category: THING
+    label:
+      default: bird
+      mi: manu
+      af: voël
+    definition: "A feathered, warm-blooded animal that lays eggs and typically can fly."
+
+  - entity_id: STATE_004
+    category: STATE
+    label:
+      default: shade
+      mi: marumaru
+      af: skaduwee
+    definition: "A cool area protected from direct sunlight."
+
+affordances:
+  - entity_id: THING_100
+    action: STATE_004
+    description: "A tree affords shade on a sunny day"
+    typical_actors: [PERSON, THING]
+
+relationships:
+  - source: THING_100
+    type: associated_with
+    target: STATE_004
+    strength: 0.9
+
+language_mappings:
+  - entity_id: THING_100
+    language: mi
+    surface: rākau
+    pronunciation:
+      ipa: raːkau
+      approx: "RAH-koh"
+    grammar:
+      word_class: noun
+  - entity_id: THING_100
+    language: af
+    surface: boom
+    pronunciation:
+      approx: "boh-um"
+    grammar:
+      word_class: noun
+  - entity_id: THING_100
+    language: en
+    surface: tree
+    pronunciation:
+      ipa: triː
+      approx: "tree"
+    grammar:
+      word_class: noun
+  - entity_id: PROPERTY_001
+    language: mi
+    surface: roa
+    pronunciation:
+      ipa: roa
+      approx: "ro-ah"
+    grammar:
+      word_class: adjective
+  - entity_id: PROPERTY_001
+    language: af
+    surface: hoog
+    pronunciation:
+      approx: "hohg"
+    grammar:
+      word_class: adjective
+  - entity_id: PROPERTY_001
+    language: en
+    surface: tall
+    pronunciation:
+      ipa: tɔːl
+      approx: "tawl"
+    grammar:
+      word_class: adjective
+  - entity_id: THING_101
+    language: mi
+    surface: manu
+    pronunciation:
+      ipa: manu
+      approx: "MAH-noo"
+    grammar:
+      word_class: noun
+  - entity_id: THING_101
+    language: af
+    surface: voël
+    pronunciation:
+      approx: "fool"
+    grammar:
+      word_class: noun
+  - entity_id: THING_101
+    language: en
+    surface: bird
+    pronunciation:
+      ipa: bɜːd
+      approx: "burd"
+    grammar:
+      word_class: noun
+
+metadata:
+  author: "SRE Corpus Alpha"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: low
+  cultural_centrality:
+    mi: low
+    en: low
+    af: low
+  concepts_taught:
+    - THING_100
+    - PROPERTY_001
+    - THING_101
+    - STATE_004

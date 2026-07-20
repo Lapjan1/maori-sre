@@ -1,0 +1,70 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sre.v0.1/canonical/affordance",
+  "title": "SRE Affordance — Canonical Source",
+  "description": "An action an entity makes possible for a given actor. Affordances answer 'What can you do with X?' not 'What is X?'",
+  "type": "object",
+  "required": ["entity_id", "action", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "entity_id": {
+      "type": "string",
+      "pattern": "^(THING|PERSON|PLACE|ACTION|STATE|PROPERTY|RELATION|EVENT|TIME|QUANTITY|EMOTION|SOCIAL)_\\d{3}$",
+      "description": "The entity that affords the action."
+    },
+    "action": {
+      "type": "string",
+      "pattern": "^ACTION_\\d{3}$",
+      "description": "The action entity_id that this entity makes possible."
+    },
+    "description": {
+      "type": "string",
+      "description": "Natural language description of the affordance (e.g., 'Dog affords being walked on a leash')."
+    },
+    "typical_actors": {
+      "type": "array",
+      "description": "Entity types that typically realize this affordance.",
+      "items": {
+        "type": "string",
+        "pattern": "^(THING|PERSON|PLACE|ACTION|STATE|PROPERTY|RELATION|EVENT|TIME|QUANTITY|EMOTION|SOCIAL)$"
+      }
+    },
+    "typical_outcome": {
+      "type": "array",
+      "description": "Expected outcomes (STATE, EMOTION, or EVENT entity_ids).",
+      "items": {
+        "type": "string",
+        "pattern": "^(STATE|EMOTION|EVENT)_\\d{3}$"
+      }
+    },
+    "equipment": {
+      "type": "array",
+      "description": "Tools or other entities typically required.",
+      "items": { "type": "string" }
+    },
+    "cultural": {
+      "type": "boolean",
+      "description": "Whether this affordance is culturally specific.",
+      "default": false
+    },
+    "cultural_notes": {
+      "type": "string",
+      "description": "Required if cultural is true. Explains the cultural context."
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["source", "confidence"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["manual", "sensor", "ai_generated", "derived"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,333 @@
+# River World — Experience 1
+# Type: story
+# "The Child Drinks Water"
+# Level 1 — Basic needs, nature, state change
+
+experience_id: RIVER_001
+type: story
+level: 1
+
+title:
+  en: "The Child Drinks Water"
+  mi: "Ka Inu te Tamaiti i te Wai"
+  af: "Die Kind Drink Water"
+
+content:
+  en: >
+    A child walks to the river.
+    The child is thirsty.
+    The child drinks water from the river.
+    Now the child is not thirsty.
+  mi: >
+    Ka hīkoi te tamaiti ki te awa.
+    Kei te matewai te tamaiti.
+    Ka inu te tamaiti i te wai mai i te awa.
+    Kāore te tamaiti i te matewai ināianei.
+  af: >
+    'n Kind loop na die rivier.
+    Die kind is dors.
+    Die kind drink water uit die rivier.
+    Nou is die kind nie dors nie.
+
+entities:
+  - entity_id: PERSON_003
+    category: PERSON
+    label:
+      default: child
+      mi: tamaiti
+      af: kind
+    definition: "A young human being, not yet an adult."
+
+  - entity_id: THING_001
+    category: THING
+    label:
+      default: water
+      mi: wai
+      af: water
+    definition: "A clear, colorless liquid essential for life."
+    properties:
+      states: [liquid, ice, vapor]
+
+  - entity_id: PLACE_005
+    category: PLACE
+    label:
+      default: river
+      mi: awa
+      af: rivier
+    definition: "A natural flowing watercourse."
+
+  - entity_id: STATE_001
+    category: STATE
+    label:
+      default: thirsty
+      mi: matewai
+      af: dors
+    definition: "Needing or wanting to drink."
+
+  - entity_id: STATE_002
+    category: STATE
+    label:
+      default: hydrated
+      mi: kore matewai
+      af: nie dors nie
+    definition: "Having had enough to drink, no longer thirsty."
+
+  - entity_id: ACTION_001
+    category: ACTION
+    label:
+      default: drink
+      mi: inu
+      af: drink
+    definition: "To take a liquid into the mouth and swallow it."
+
+  - entity_id: ACTION_002
+    category: ACTION
+    label:
+      default: walk
+      mi: hīkoi
+      af: loop
+    definition: "To move at a regular pace by lifting each foot in turn."
+
+affordances:
+  - entity_id: THING_001
+    action: ACTION_001
+    description: "Water affords drinking when a person is thirsty"
+    typical_actors: [PERSON]
+    typical_outcome: [STATE_002]
+
+  - entity_id: PLACE_005
+    action: ACTION_002
+    description: "A river affords walking to its banks"
+    typical_actors: [PERSON]
+
+interactions:
+  - interaction_id: INT_R001_01
+    participants:
+      - role: Actor
+        entity_id: PERSON_003
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_002
+    sentences:
+      en: "The child walks to the river."
+      mi: "Ka hīkoi te tamaiti ki te awa."
+      af: "Die kind loop na die rivier."
+
+  - interaction_id: INT_R001_02
+    participants:
+      - role: Actor
+        entity_id: PERSON_003
+      - role: Patient
+        entity_id: THING_001
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_001
+    outcomes:
+      - entity_id: STATE_002
+    sentences:
+      en: "The child drinks water from the river."
+      mi: "Ka inu te tamaiti i te wai mai i te awa."
+      af: "Die kind drink water uit die rivier."
+
+  - interaction_id: INT_R001_03
+    participants:
+      - role: Actor
+        entity_id: PERSON_003
+    from_state: STATE_001
+    to_state: STATE_002
+    sentences:
+      en: "The child was thirsty. Now the child is hydrated."
+      mi: "I matewai te tamaiti. Kāore te tamaiti i te matewai ināianei."
+      af: "Die kind was dors. Nou is die kind gehidreer."
+
+relationships:
+  - source: THING_001
+    type: located_in
+    target: PLACE_005
+    strength: 0.9
+
+  - source: PERSON_003
+    type: associated_with
+    target: THING_001
+    strength: 0.7
+
+  - source: STATE_001
+    type: opposite_of
+    target: STATE_002
+    strength: 1.0
+
+  - source: ACTION_001
+    type: results_in
+    target: STATE_002
+    strength: 0.9
+
+language_mappings:
+  - entity_id: THING_001
+    language: mi
+    surface: wai
+    pronunciation:
+      ipa: wai
+      approx: "why"
+    grammar:
+      word_class: noun
+  - entity_id: THING_001
+    language: af
+    surface: water
+    pronunciation:
+      ipa: "ˈvɑːtər"
+      approx: "VAH-tuhr"
+    grammar:
+      word_class: noun
+  - entity_id: THING_001
+    language: en
+    surface: water
+    pronunciation:
+      ipa: "ˈwɔːtər"
+      approx: "WAH-tuhr"
+    grammar:
+      word_class: noun
+  - entity_id: PLACE_005
+    language: mi
+    surface: awa
+    pronunciation:
+      ipa: awa
+      approx: "AH-wah"
+    grammar:
+      word_class: noun
+  - entity_id: PLACE_005
+    language: af
+    surface: rivier
+    pronunciation:
+      ipa: rəˈfiːr
+      approx: "ruh-FEER"
+    grammar:
+      word_class: noun
+  - entity_id: PLACE_005
+    language: en
+    surface: river
+    pronunciation:
+      ipa: "ˈrɪvər"
+      approx: "RIV-uhr"
+    grammar:
+      word_class: noun
+  - entity_id: ACTION_001
+    language: mi
+    surface: inu
+    pronunciation:
+      ipa: inu
+      approx: "EE-noo"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_001
+    language: af
+    surface: drink
+    pronunciation:
+      ipa: drɪŋk
+      approx: "drink"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_001
+    language: en
+    surface: drink
+    pronunciation:
+      ipa: drɪŋk
+      approx: "drink"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_002
+    language: mi
+    surface: hīkoi
+    pronunciation:
+      ipa: hiːkoi
+      approx: "HEE-koy"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_002
+    language: af
+    surface: loop
+    pronunciation:
+      ipa: lʊəp
+      approx: "loohp"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_002
+    language: en
+    surface: walk
+    pronunciation:
+      ipa: wɔːk
+      approx: "wawk"
+    grammar:
+      word_class: verb
+  - entity_id: STATE_001
+    language: mi
+    surface: matewai
+    pronunciation:
+      ipa: matewai
+      approx: "MAH-teh-why"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_001
+    language: af
+    surface: dors
+    pronunciation:
+      ipa: dɔrs
+      approx: "dorss"
+    grammar:
+      word_class: adjective
+  - entity_id: STATE_001
+    language: en
+    surface: thirsty
+    pronunciation:
+      ipa: "ˈθɜːrsti"
+      approx: "THUR-stee"
+    grammar:
+      word_class: adjective
+  - entity_id: STATE_002
+    language: mi
+    surface: kore matewai
+    pronunciation:
+      ipa: kɔre matewai
+      approx: "KOH-reh MAH-teh-why"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_002
+    language: af
+    surface: gehidreer
+    pronunciation:
+      ipa: ɣəˈhidrɪər
+      approx: "guh-HEE-deer"
+    grammar:
+      word_class: adjective
+  - entity_id: STATE_002
+    language: en
+    surface: hydrated
+    pronunciation:
+      ipa: "ˈhaɪdreɪtɪd"
+      approx: "HY-dray-tid"
+    grammar:
+      word_class: adjective
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: low
+  cultural_centrality:
+    mi: low
+    en: low
+    af: low
+  concepts_taught:
+    - THING_001
+    - PLACE_005
+    - ACTION_001
+    - ACTION_002
+    - STATE_001
+    - STATE_002
+    - PERSON_003
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [PATIENT]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] [PATIENT]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s [PATIENT]"
+      language: en

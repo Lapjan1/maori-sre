@@ -1,0 +1,195 @@
+# River World — Experience 4
+# Type: observation
+# "Rain Fills the River"
+# Level 2 — Causality, state change, weather
+
+experience_id: RIVER_004
+type: observation
+level: 2
+
+title:
+  en: "Rain Fills the River"
+  mi: "Ka Whakaki te Ua i te Awa"
+  af: "Die Reën Vul die Rivier"
+
+content:
+  en: >
+    The sky is dark.
+    Rain falls from the sky.
+    The rain fills the river.
+    The river rises.
+    The water flows.
+  mi: >
+    He pōuri te rangi.
+    Ka heke te ua i te rangi.
+    Ka whakaki te ua i te awa.
+    Ka piki te awa.
+    Ka rere te wai.
+  af: >
+    Die lug is donker.
+    Reën val uit die lug.
+    Die reën vul die rivier.
+    Die rivier styg.
+    Die water vloei.
+
+entities:
+  - entity_id: THING_106
+    category: THING
+    label:
+      default: rain
+      mi: ua
+      af: reën
+    definition: "Water that falls from clouds in the sky."
+
+  - entity_id: ACTION_013
+    category: ACTION
+    label:
+      default: fall
+      mi: heke
+      af: val
+    definition: "To move downward under gravity."
+
+  - entity_id: ACTION_014
+    category: ACTION
+    label:
+      default: flow
+      mi: rere
+      af: vloei
+    definition: "To move steadily and continuously in a current."
+
+affordances:
+  - entity_id: THING_106
+    action: ACTION_012
+    description: "Rain fills rivers and streams"
+    typical_outcome: [PLACE_005]
+
+  - entity_id: THING_106
+    action: ACTION_013
+    description: "Rain falls from the sky"
+
+  - entity_id: THING_001
+    action: ACTION_014
+    description: "Water flows in rivers"
+    typical_actors: [THING_001]
+
+interactions:
+  - interaction_id: INT_R004_01
+    participants:
+      - role: Actor
+        entity_id: THING_106
+    action: ACTION_013
+    sentences:
+      en: "Rain falls from the sky."
+      mi: "Ka heke te ua i te rangi."
+      af: "Reën val uit die lug."
+
+  - interaction_id: INT_R004_02
+    participants:
+      - role: Actor
+        entity_id: THING_106
+      - role: Patient
+        entity_id: PLACE_005
+    action: ACTION_012
+    sentences:
+      en: "The rain fills the river."
+      mi: "Ka whakaki te ua i te awa."
+      af: "Die reën vul die rivier."
+
+  - interaction_id: INT_R004_03
+    participants:
+      - role: Actor
+        entity_id: THING_001
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_014
+    sentences:
+      en: "The water flows in the river."
+      mi: "Ka rere te wai i te awa."
+      af: "Die water vloei in die rivier."
+
+relationships:
+  - source: THING_106
+    type: associated_with
+    target: PLACE_005
+    strength: 0.8
+
+  - source: THING_106
+    type: associated_with
+    target: THING_001
+    strength: 1.0
+
+  - source: ACTION_012
+    type: results_in
+    target: PLACE_005
+    strength: 0.7
+
+language_mappings:
+  - entity_id: THING_106
+    language: mi
+    surface: ua
+    pronunciation:
+      ipa: ua
+      approx: "OO-ah"
+    grammar:
+      word_class: noun
+  - entity_id: THING_106
+    language: af
+    surface: reën
+    pronunciation:
+      ipa: rɪən
+      approx: "ree-uhn"
+    grammar:
+      word_class: noun
+  - entity_id: THING_106
+    language: en
+    surface: rain
+    pronunciation:
+      ipa: reɪn
+      approx: "rayn"
+    grammar:
+      word_class: noun
+  - entity_id: ACTION_014
+    language: mi
+    surface: rere
+    pronunciation:
+      ipa: rere
+      approx: "REH-reh"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_014
+    language: af
+    surface: vloei
+    pronunciation:
+      ipa: flui
+      approx: "floo-ee"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_014
+    language: en
+    surface: flow
+    pronunciation:
+      ipa: floʊ
+      approx: "floh"
+    grammar:
+      word_class: verb
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 2
+  cognitive_load: medium
+  emotional_weight: low
+  cultural_centrality:
+    mi: low
+    en: low
+    af: low
+  concepts_taught:
+    - THING_106
+    - ACTION_013
+    - ACTION_014
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [PATIENT]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] die [PATIENT]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s the [PATIENT]"
+      language: en

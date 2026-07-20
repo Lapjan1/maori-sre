@@ -1,0 +1,162 @@
+# Corpus Alpha — Experience 2
+# Type: dialogue
+# "Greeting"
+# Level 1 — Social interaction, first words
+
+experience_id: SOCIAL_001
+type: dialogue
+level: 1
+
+title:
+  en: "Saying Hello"
+  mi: "Te Mihi"
+  af: "Groet"
+
+content:
+  en: >
+    Person A: Kia ora.
+    Person B: Kia ora e hoa.
+    Person A: Kei te pēhea koe?
+    Person B: Kei te pai. Āe, kei te pai.
+  mi: >
+    Person A: Kia ora.
+    Person B: Kia ora e hoa.
+    Person A: Kei te pēhea koe?
+    Person B: Kei te pai. Āe, kei te pai.
+  af: >
+    Persoon A: Hallo.
+    Persoon B: Hallo, vriend.
+    Persoon A: Hoe gaan dit?
+    Persoon B: Goed. Ja, goed.
+
+entities:
+  - entity_id: SOCIAL_002
+    category: SOCIAL
+    label:
+      default: greeting
+      mi: mihi
+      af: groet
+    definition: "An expression of goodwill upon meeting."
+
+  - entity_id: STATE_003
+    category: STATE
+    label:
+      default: good
+      mi: pai
+      af: goed
+    definition: "A positive or desirable state."
+
+  - entity_id: PERSON_004
+    category: PERSON
+    label:
+      default: friend
+      mi: hoa
+      af: vriend
+    definition: "A person whom one knows and likes."
+
+interactions:
+  - interaction_id: INT_S001_01
+    participants:
+      - role: Actor
+        entity_id: PERSON_004
+      - role: Actor
+        entity_id: PERSON_003
+    action: SOCIAL_002
+    sentences:
+      en: "They greeted each other."
+      mi: "I mihi rāua."
+      af: "Hulle het mekaar gegroet."
+
+language_mappings:
+  - entity_id: SOCIAL_002
+    language: mi
+    surface: kia ora
+    pronunciation:
+      approx: "kee-ah oh-rah"
+    grammar:
+      word_class: interjection
+    usage:
+      register: neutral
+      notes: "Universal Māori greeting. Literally 'be well'."
+
+  - entity_id: SOCIAL_002
+    language: af
+    surface: hallo
+    pronunciation:
+      approx: "hah-loh"
+    grammar:
+      word_class: interjection
+
+  - entity_id: SOCIAL_002
+    language: en
+    surface: hello
+    pronunciation:
+      approx: "heh-loh"
+    grammar:
+      word_class: interjection
+
+  - entity_id: STATE_003
+    language: mi
+    surface: pai
+    pronunciation:
+      ipa: pai
+      approx: "pie"
+    grammar:
+      word_class: stative_verb
+
+  - entity_id: STATE_003
+    language: af
+    surface: goed
+    pronunciation:
+      approx: "ghoot"
+    grammar:
+      word_class: adjective
+
+  - entity_id: STATE_003
+    language: en
+    surface: good
+    pronunciation:
+      ipa: ɡʊd
+      approx: "good"
+    grammar:
+      word_class: adjective
+
+  - entity_id: PERSON_004
+    language: mi
+    surface: hoa
+    pronunciation:
+      ipa: hoa
+      approx: "ho-ah"
+    grammar:
+      word_class: noun
+
+  - entity_id: PERSON_004
+    language: af
+    surface: vriend
+    pronunciation:
+      approx: "frint"
+    grammar:
+      word_class: noun
+
+  - entity_id: PERSON_004
+    language: en
+    surface: friend
+    pronunciation:
+      ipa: frɛnd
+      approx: "frend"
+    grammar:
+      word_class: noun
+
+metadata:
+  author: "SRE Corpus Alpha"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: medium
+  cultural_centrality:
+    mi: high
+    en: low
+    af: medium
+  concepts_taught:
+    - SOCIAL_002
+    - STATE_003
+    - PERSON_004

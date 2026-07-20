@@ -1,0 +1,174 @@
+# River World — Experience 6
+# Type: observation
+# "Fish Live in the River"
+# Level 1 — Habitat, animals, ecology
+
+experience_id: RIVER_006
+type: observation
+level: 1
+
+title:
+  en: "Fish Live in the River"
+  mi: "Ka Noho te Ika ki te Awa"
+  af: "Vis Woon in die Rivier"
+
+content:
+  en: >
+    Fish live in the river.
+    The water is their home.
+    They swim in the water.
+  mi: >
+    Ka noho te ika ki te awa.
+    Ko te wai tō rātou kāinga.
+    Ka kauhoe rātou i te wai.
+  af: >
+    Visse woon in die rivier.
+    Die water is hul tuiste.
+    Hulle swem in die water.
+
+entities:
+  - entity_id: THING_102
+    category: ANIMAL
+    label:
+      default: fish
+      mi: ika
+      af: vis
+    definition: "An aquatic animal with gills and fins."
+
+  - entity_id: ACTION_016
+    category: ACTION
+    label:
+      default: live
+      mi: noho
+      af: woon
+    definition: "To dwell or inhabit a place."
+
+  - entity_id: ACTION_017
+    category: ACTION
+    label:
+      default: swim
+      mi: kauhoe
+      af: swem
+    definition: "To move through water using limbs or fins."
+
+affordances:
+  - entity_id: THING_102
+    action: ACTION_017
+    description: "Fish swim in water"
+
+  - entity_id: THING_102
+    action: ACTION_016
+    description: "Fish live in rivers and lakes"
+    typical_outcome: [PLACE_005]
+
+interactions:
+  - interaction_id: INT_R006_01
+    participants:
+      - role: Actor
+        entity_id: THING_102
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_016
+    sentences:
+      en: "Fish live in the river."
+      mi: "Ka noho te ika ki te awa."
+      af: "Vis woon in die rivier."
+
+  - interaction_id: INT_R006_02
+    participants:
+      - role: Actor
+        entity_id: THING_102
+      - role: Location
+        entity_id: THING_001
+    action: ACTION_017
+    sentences:
+      en: "Fish swim in the water."
+      mi: "Ka kauhoe te ika i te wai."
+      af: "Vis swem in die water."
+
+relationships:
+  - source: THING_102
+    type: associated_with
+    target: PLACE_005
+    strength: 0.9
+
+  - source: THING_102
+    type: associated_with
+    target: THING_001
+    strength: 0.8
+
+  - source: ACTION_016
+    type: associated_with
+    target: PLACE_005
+    strength: 0.8
+
+language_mappings:
+  - entity_id: THING_102
+    language: mi
+    surface: ika
+    pronunciation:
+      ipa: ika
+      approx: "EE-kah"
+    grammar:
+      word_class: noun
+  - entity_id: THING_102
+    language: af
+    surface: vis
+    pronunciation:
+      ipa: fəs
+      approx: "fuss"
+    grammar:
+      word_class: noun
+  - entity_id: THING_102
+    language: en
+    surface: fish
+    pronunciation:
+      ipa: fɪʃ
+      approx: "fish"
+    grammar:
+      word_class: noun
+  - entity_id: ACTION_016
+    language: mi
+    surface: noho
+    pronunciation:
+      ipa: noho
+      approx: "NOH-hoh"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_016
+    language: af
+    surface: woon
+    pronunciation:
+      ipa: vʊən
+      approx: "voo-uhn"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_016
+    language: en
+    surface: live
+    pronunciation:
+      ipa: lɪv
+      approx: "liv"
+    grammar:
+      word_class: verb
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: low
+  cultural_centrality:
+    mi: medium
+    en: low
+    af: low
+  concepts_taught:
+    - THING_102
+    - ACTION_016
+    - ACTION_017
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] ki te [LOCATION]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] in die [LOCATION]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s in the [LOCATION]"
+      language: en

@@ -1,0 +1,202 @@
+# River World — Experience 8
+# Type: procedure
+# "Family Cooks the Fish"
+# Level 2 — Fire, cooking, transformation
+
+experience_id: RIVER_008
+type: procedure
+level: 2
+
+title:
+  en: "Family Cooks the Fish"
+  mi: "Ka Tunu te Whānau i te Ika"
+  af: "Familie Kook die Vis"
+
+content:
+  en: >
+    The family makes a fire.
+    They clean the fish.
+    They cook the fish over the fire.
+    The fish smells good.
+  mi: >
+    Ka tahu te whānau i te ahi.
+    Ka horoi rātou i te ika.
+    Ka tunu rātou i te ika ki te ahi.
+    He kakara reka te ika.
+  af: >
+    Die familie maak 'n vuur.
+    Hulle maak die vis skoon.
+    Hulle kook die vis oor die vuur.
+    Die vis ruik lekker.
+
+entities:
+  - entity_id: THING_104
+    category: THING
+    label:
+      default: fire
+      mi: ahi
+      af: vuur
+    definition: "A hot, bright flame used for cooking and warmth."
+
+  - entity_id: THING_105
+    category: THING
+    label:
+      default: food
+      mi: kai
+      af: kos
+    definition: "Something eaten for nutrition."
+
+  - entity_id: ACTION_019
+    category: ACTION
+    label:
+      default: cook
+      mi: tunu
+      af: kook
+    definition: "To prepare food by heating it."
+
+affordances:
+  - entity_id: THING_104
+    action: ACTION_019
+    description: "Fire affords cooking food"
+    typical_actors: [PERSON]
+    typical_outcome: [THING_105]
+
+  - entity_id: THING_102
+    action: ACTION_019
+    description: "Fish can be cooked over fire"
+    typical_outcome: [THING_105]
+
+interactions:
+  - interaction_id: INT_R008_01
+    participants:
+      - role: Actor
+        entity_id: PERSON_011
+      - role: Patient
+        entity_id: THING_104
+    sentences:
+      en: "The family makes a fire."
+      mi: "Ka tahu te whānau i te ahi."
+      af: "Die familie maak 'n vuur."
+
+  - interaction_id: INT_R008_02
+    participants:
+      - role: Actor
+        entity_id: PERSON_011
+      - role: Patient
+        entity_id: THING_102
+    action: ACTION_019
+    sentences:
+      en: "The family cooks the fish over the fire."
+      mi: "Ka tunu te whānau i te ika ki te ahi."
+      af: "Die familie kook die vis oor die vuur."
+
+relationships:
+  - source: THING_104
+    type: associated_with
+    target: ACTION_019
+    strength: 0.9
+
+  - source: ACTION_019
+    type: results_in
+    target: THING_105
+    strength: 0.8
+
+  - source: THING_102
+    type: can_become
+    target: THING_105
+    strength: 0.9
+
+language_mappings:
+  - entity_id: THING_104
+    language: mi
+    surface: ahi
+    pronunciation:
+      ipa: ahi
+      approx: "AH-hee"
+    grammar:
+      word_class: noun
+  - entity_id: THING_104
+    language: af
+    surface: vuur
+    pronunciation:
+      ipa: fyr
+      approx: "foor"
+    grammar:
+      word_class: noun
+  - entity_id: THING_104
+    language: en
+    surface: fire
+    pronunciation:
+      ipa: faɪər
+      approx: "FY-uhr"
+    grammar:
+      word_class: noun
+  - entity_id: THING_105
+    language: mi
+    surface: kai
+    pronunciation:
+      ipa: kai
+      approx: "kye"
+    grammar:
+      word_class: noun
+  - entity_id: THING_105
+    language: af
+    surface: kos
+    pronunciation:
+      ipa: kɔs
+      approx: "koss"
+    grammar:
+      word_class: noun
+  - entity_id: THING_105
+    language: en
+    surface: food
+    pronunciation:
+      ipa: fuːd
+      approx: "food"
+    grammar:
+      word_class: noun
+  - entity_id: ACTION_019
+    language: mi
+    surface: tunu
+    pronunciation:
+      ipa: tunu
+      approx: "TOO-noo"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_019
+    language: af
+    surface: kook
+    pronunciation:
+      ipa: kʊək
+      approx: "kook"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_019
+    language: en
+    surface: cook
+    pronunciation:
+      ipa: kʊk
+      approx: "kook"
+    grammar:
+      word_class: verb
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 2
+  cognitive_load: medium
+  emotional_weight: low
+  cultural_centrality:
+    mi: high
+    en: low
+    af: low
+  concepts_taught:
+    - THING_104
+    - THING_105
+    - ACTION_019
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [PATIENT] ki te [TOOL]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] die [PATIENT] oor die [TOOL]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s the [PATIENT] over the [TOOL]"
+      language: en

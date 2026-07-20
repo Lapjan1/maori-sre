@@ -1,0 +1,50 @@
+---
+entity_id: THING_001
+category: THING
+label:
+  default: test_entity
+definition: "A minimal test entity."
+metadata:
+  source: manual
+  confidence: 1.0
+---
+representation:
+  entity_id: THING_001
+  modality: visual
+  content:
+    description: "A test image"
+  metadata:
+    source: manual
+    confidence: 1.0
+---
+affordance:
+  entity_id: THING_001
+  action: ACTION_001
+  description: "Test affordance"
+  metadata:
+    source: manual
+    confidence: 1.0
+---
+relationship:
+  source: THING_001
+  type: is_a
+  target: THING_010
+  strength: 1.0
+  metadata:
+    source: manual
+    confidence: 1.0
+---
+entity_id: THING_010
+category: THING
+label:
+  default: parent_entity
+metadata:
+  source: manual
+  confidence: 1.0
+---
+language: mi
+entity_id: THING_001
+surface: test
+pronunciation:
+  ipa: test
+  approx: test

@@ -1,0 +1,255 @@
+# River World — Experience 2
+# Type: story
+# "Mother Gives Water to the Child"
+# Level 1 — Family, transfer, giving
+
+experience_id: RIVER_002
+type: story
+level: 1
+
+title:
+  en: "Mother Gives Water to the Child"
+  mi: "Ka Hoatu te Whaea i te Wai ki te Tamaiti"
+  af: "Ma Gee Water aan die Kind"
+
+content:
+  en: >
+    The mother sees the child is thirsty.
+    She takes a cup.
+    She fills the cup with water from the river.
+    She gives the cup to the child.
+    The child drinks.
+    The child is happy.
+  mi: >
+    Ka kite te whaea kei te matewai te tamaiti.
+    Ka mau ia ki te kapu.
+    Ka whakakiia e ia te kapu ki te wai mai i te awa.
+    Ka hoatu e ia te kapu ki te tamaiti.
+    Ka inu te tamaiti.
+    Kei te koa te tamaiti.
+  af: >
+    Die ma sien die kind is dors.
+    Sy vat 'n koppie.
+    Sy vul die koppie met water uit die rivier.
+    Sy gee die koppie aan die kind.
+    Die kind drink.
+    Die kind is bly.
+
+entities:
+  - entity_id: PERSON_010
+    category: PERSON
+    label:
+      default: mother
+      mi: whaea
+      af: ma
+    definition: "A female parent."
+
+  - entity_id: THING_103
+    category: THING
+    label:
+      default: cup
+      mi: kapu
+      af: koppie
+    definition: "A small container used for drinking."
+
+  - entity_id: ACTION_010
+    category: ACTION
+    label:
+      default: give
+      mi: hoatu
+      af: gee
+    definition: "To pass something to another person."
+
+  - entity_id: ACTION_012
+    category: ACTION
+    label:
+      default: fill
+      mi: whakaki
+      af: vul
+    definition: "To make something full."
+
+  - entity_id: STATE_010
+    category: STATE
+    label:
+      default: happy
+      mi: koa
+      af: bly
+    definition: "Feeling pleasure or contentment."
+
+affordances:
+  - entity_id: THING_103
+    action: ACTION_001
+    description: "A cup affords drinking"
+    typical_actors: [PERSON]
+
+  - entity_id: PERSON_010
+    action: ACTION_010
+    description: "A mother affords giving water to a child"
+    typical_actors: [PERSON]
+    typical_outcome: [STATE_010]
+
+interactions:
+  - interaction_id: INT_R002_01
+    participants:
+      - role: Actor
+        entity_id: PERSON_010
+      - role: Patient
+        entity_id: PERSON_003
+    from_state: STATE_001
+    sentences:
+      en: "The mother sees the child is thirsty."
+      mi: "Ka kite te whaea kei te matewai te tamaiti."
+      af: "Die ma sien die kind is dors."
+
+  - interaction_id: INT_R002_02
+    participants:
+      - role: Actor
+        entity_id: PERSON_010
+      - role: Patient
+        entity_id: THING_103
+    action: ACTION_012
+    sentences:
+      en: "The mother fills the cup with water from the river."
+      mi: "Ka whakakiia e te whaea te kapu ki te wai mai i te awa."
+      af: "Die ma vul die koppie met water uit die rivier."
+
+  - interaction_id: INT_R002_03
+    participants:
+      - role: Actor
+        entity_id: PERSON_010
+      - role: Patient
+        entity_id: THING_103
+      - role: Recipient
+        entity_id: PERSON_003
+    action: ACTION_010
+    outcomes:
+      - entity_id: STATE_010
+    sentences:
+      en: "The mother gives the cup to the child."
+      mi: "Ka hoatu e te whaea te kapu ki te tamaiti."
+      af: "Die ma gee die koppie aan die kind."
+
+  - interaction_id: INT_R002_04
+    participants:
+      - role: Actor
+        entity_id: PERSON_003
+      - role: Patient
+        entity_id: THING_001
+    action: ACTION_001
+    sentences:
+      en: "The child drinks."
+      mi: "Ka inu te tamaiti."
+      af: "Die kind drink."
+
+relationships:
+  - source: PERSON_010
+    type: parent_of
+    target: PERSON_003
+    strength: 1.0
+
+  - source: PERSON_010
+    type: associated_with
+    target: THING_103
+    strength: 0.8
+
+  - source: THING_103
+    type: associated_with
+    target: ACTION_001
+    strength: 0.9
+
+language_mappings:
+  - entity_id: PERSON_010
+    language: mi
+    surface: whaea
+    pronunciation:
+      ipa: faea
+      approx: "FY-eh"
+    grammar:
+      word_class: noun
+  - entity_id: PERSON_010
+    language: af
+    surface: ma
+    pronunciation:
+      ipa: mɑː
+      approx: "mah"
+    grammar:
+      word_class: noun
+  - entity_id: PERSON_010
+    language: en
+    surface: mother
+    pronunciation:
+      ipa: "ˈmʌðər"
+      approx: "MUTH-uhr"
+    grammar:
+      word_class: noun
+  - entity_id: THING_103
+    language: mi
+    surface: kapu
+    pronunciation:
+      ipa: kapu
+      approx: "KAH-poo"
+    grammar:
+      word_class: noun
+  - entity_id: THING_103
+    language: af
+    surface: koppie
+    pronunciation:
+      ipa: ˈkɔpi
+      approx: "KOH-pee"
+    grammar:
+      word_class: noun
+  - entity_id: THING_103
+    language: en
+    surface: cup
+    pronunciation:
+      ipa: kʌp
+      approx: "kup"
+    grammar:
+      word_class: noun
+  - entity_id: ACTION_010
+    language: mi
+    surface: hoatu
+    pronunciation:
+      ipa: hoatu
+      approx: "HOH-ah-too"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_010
+    language: af
+    surface: gee
+    pronunciation:
+      ipa: ɣɪə
+      approx: "ghee-uh"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_010
+    language: en
+    surface: give
+    pronunciation:
+      ipa: ɡɪv
+      approx: "giv"
+    grammar:
+      word_class: verb
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: medium
+  cultural_centrality:
+    mi: medium
+    en: low
+    af: low
+  concepts_taught:
+    - PERSON_010
+    - THING_103
+    - ACTION_010
+    - ACTION_012
+    - STATE_010
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [PATIENT] ki te [RECIPIENT]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] [PATIENT] aan die [RECIPIENT]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s the [PATIENT] to the [RECIPIENT]"
+      language: en

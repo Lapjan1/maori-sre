@@ -1,0 +1,207 @@
+# Corpus Alpha — Experience 4
+# Type: procedure
+# "Wash Your Hands Before Eating"
+# Level 1 — Hygiene, sequence, body
+
+experience_id: FOOD_001
+type: procedure
+level: 1
+
+title:
+  en: "Wash Your Hands"
+  mi: "Horoi Ō Ringa"
+  af: "Was Jou Hande"
+
+content:
+  en: >
+    Before you eat, wash your hands.
+    First, turn on the water.
+    Then, use soap.
+    Rub your hands together.
+    Rinse with water.
+    Dry your hands.
+    Now you can eat.
+  mi: >
+    I mua i te kai, horoi ō ringa.
+    Tuatahi, whakatuwhera te wai.
+    Kātahi, whakamahia te hopi.
+    Mirimiri ō ringa.
+    Horoi ki te wai.
+    Whakamaroke ō ringa.
+    Ināianei, taea e koe te kai.
+  af: >
+    Voor jy eet, was jou hande.
+    Eerste, draai die water oop.
+    Dan, gebruik seep.
+    Vryf jou hande saam.
+    Spoel met water.
+    Droog jou hande.
+    Nou kan jy eet.
+
+entities:
+  - entity_id: ACTION_005
+    category: ACTION
+    label:
+      default: wash
+      mi: horoi
+      af: was
+    definition: "To clean with water and usually soap."
+
+  - entity_id: THING_102
+    category: THING
+    label:
+      default: soap
+      mi: hopi
+      af: seep
+    definition: "A substance used with water for cleaning."
+
+  - entity_id: THING_103
+    category: THING
+    label:
+      default: hand
+      mi: ringa
+      af: hand
+    definition: "The end part of the arm, used for grasping."
+
+  - entity_id: ACTION_006
+    category: ACTION
+    label:
+      default: dry
+      mi: whakamaroke
+      af: droog
+    definition: "To make or become dry by removing moisture."
+
+  - entity_id: ACTION_007
+    category: ACTION
+    label:
+      default: rub
+      mi: mirimiri
+      af: vryf
+    definition: "To move one thing back and forth against another."
+
+  - entity_id: ACTION_008
+    category: ACTION
+    label:
+      default: rinse
+      mi: horoi
+      af: spoel
+    definition: "To wash with clean water to remove soap."
+
+affordances:
+  - entity_id: THING_102
+    action: ACTION_005
+    description: "Soap affords washing when combined with water"
+    typical_actors: [PERSON]
+
+  - entity_id: THING_103
+    action: ACTION_005
+    description: "Hands afford being washed"
+    typical_actors: [PERSON]
+
+relationships:
+  - source: THING_103
+    type: part_of
+    target: PERSON_003
+    strength: 1.0
+
+  - source: ACTION_005
+    type: requires
+    target: THING_001
+    strength: 1.0
+    metadata:
+      notes: "Washing typically requires water"
+
+  - source: ACTION_005
+    type: requires
+    target: THING_102
+    strength: 0.8
+    metadata:
+      notes: "Washing with soap is more effective"
+
+language_mappings:
+  - entity_id: ACTION_005
+    language: mi
+    surface: horoi
+    pronunciation:
+      ipa: horoi
+      approx: "ho-roy"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_005
+    language: af
+    surface: was
+    pronunciation:
+      approx: "vahs"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_005
+    language: en
+    surface: wash
+    pronunciation:
+      ipa: wɒʃ
+      approx: "wosh"
+    grammar:
+      word_class: verb
+  - entity_id: THING_103
+    language: mi
+    surface: ringa
+    pronunciation:
+      ipa: ringa
+      approx: "RING-ah"
+    grammar:
+      word_class: noun
+  - entity_id: THING_103
+    language: af
+    surface: hand
+    pronunciation:
+      approx: "hahnt"
+    grammar:
+      word_class: noun
+  - entity_id: THING_103
+    language: en
+    surface: hand
+    pronunciation:
+      ipa: hænd
+      approx: "hand"
+    grammar:
+      word_class: noun
+  - entity_id: THING_102
+    language: mi
+    surface: hopi
+    pronunciation:
+      ipa: hopi
+      approx: "ho-pee"
+    grammar:
+      word_class: noun
+  - entity_id: THING_102
+    language: af
+    surface: seep
+    pronunciation:
+      approx: "sayp"
+    grammar:
+      word_class: noun
+  - entity_id: THING_102
+    language: en
+    surface: soap
+    pronunciation:
+      ipa: səʊp
+      approx: "sohp"
+    grammar:
+      word_class: noun
+
+metadata:
+  author: "SRE Corpus Alpha"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: low
+  cultural_centrality:
+    mi: low
+    en: low
+    af: low
+  concepts_taught:
+    - ACTION_005
+    - ACTION_006
+    - ACTION_007
+    - ACTION_008
+    - THING_102
+    - THING_103

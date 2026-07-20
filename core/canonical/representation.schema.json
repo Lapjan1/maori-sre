@@ -1,0 +1,74 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sre.v0.1/canonical/representation",
+  "title": "SRE Representation — Canonical Source",
+  "description": "A multi-modal observation of an entity. Representations are language-independent — images, sounds, and tactile patterns stand on their own.",
+  "type": "object",
+  "required": ["entity_id", "modality", "content"],
+  "additionalProperties": false,
+  "properties": {
+    "entity_id": {
+      "type": "string",
+      "pattern": "^(THING|PERSON|PLACE|ACTION|STATE|PROPERTY|RELATION|EVENT|TIME|QUANTITY|EMOTION|SOCIAL)_\\d{3}$",
+      "description": "The entity this representation belongs to."
+    },
+    "modality": {
+      "type": "string",
+      "enum": ["visual", "auditory", "tactile", "olfactory", "kinetic", "temporal", "spatial"],
+      "description": "The sensory modality this representation captures."
+    },
+    "content": {
+      "type": "object",
+      "description": "The representation data. Structure depends on modality.",
+      "minProperties": 1,
+      "additionalProperties": true
+    },
+    "primary": {
+      "type": "string",
+      "description": "Human-readable summary of the representation (e.g., 'four-legged mammal with tail')."
+    },
+    "media": {
+      "type": "array",
+      "description": "References to media files (images, audio clips, video).",
+      "items": {
+        "type": "object",
+        "required": ["type", "path"],
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["image", "audio", "video", "3d_model"]
+          },
+          "format": { "type": "string" },
+          "path": { "type": "string" },
+          "alt_text": {
+            "type": "object",
+            "description": "Alt text keyed by language code.",
+            "additionalProperties": { "type": "string" }
+          }
+        }
+      }
+    },
+    "distinguishing": {
+      "type": "array",
+      "description": "Features that distinguish this entity from similar ones.",
+      "items": { "type": "string" }
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["source", "confidence"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["manual", "sensor", "ai_generated", "derived"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "author": { "type": "string" },
+        "created": { "type": "string", "format": "date-time" }
+      }
+    }
+  }
+}

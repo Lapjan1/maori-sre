@@ -1,0 +1,134 @@
+# River World — Experience 3
+# Type: observation
+# "Dog Drinks from the River"
+# Level 1 — Animals, observation
+
+experience_id: RIVER_003
+type: observation
+level: 1
+
+title:
+  en: "Dog Drinks from the River"
+  mi: "Ka Inu te Kurī i te Awa"
+  af: "Die Hond Drink uit die Rivier"
+
+content:
+  en: >
+    A dog walks to the river.
+    The dog is thirsty.
+    The dog drinks water from the river.
+    The dog is no longer thirsty.
+  mi: >
+    Ka hīkoi te kurī ki te awa.
+    Kei te matewai te kurī.
+    Ka inu te kurī i te wai mai i te awa.
+    Kāore te kurī i te matewai ināianei.
+  af: >
+    'n Hond loop na die rivier.
+    Die hond is dors.
+    Die hond drink water uit die rivier.
+    Die hond is nie meer dors nie.
+
+entities:
+  - entity_id: THING_101
+    category: ANIMAL
+    label:
+      default: dog
+      mi: kurī
+      af: hond
+    definition: "A domesticated carnivorous mammal."
+
+affordances:
+  - entity_id: THING_101
+    action: ACTION_001
+    description: "A dog drinks water when thirsty"
+    typical_outcome: [STATE_002]
+
+  - entity_id: THING_101
+    action: ACTION_002
+    description: "A dog can walk to the river"
+
+interactions:
+  - interaction_id: INT_R003_01
+    participants:
+      - role: Actor
+        entity_id: THING_101
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_002
+    sentences:
+      en: "The dog walks to the river."
+      mi: "Ka hīkoi te kurī ki te awa."
+      af: "Die hond loop na die rivier."
+
+  - interaction_id: INT_R003_02
+    participants:
+      - role: Actor
+        entity_id: THING_101
+      - role: Patient
+        entity_id: THING_001
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_001
+    outcomes:
+      - entity_id: STATE_002
+    sentences:
+      en: "The dog drinks water from the river."
+      mi: "Ka inu te kurī i te wai mai i te awa."
+      af: "Die hond drink water uit die rivier."
+
+relationships:
+  - source: THING_101
+    type: associated_with
+    target: THING_001
+    strength: 0.7
+
+  - source: THING_101
+    type: associated_with
+    target: PLACE_005
+    strength: 0.6
+
+language_mappings:
+  - entity_id: THING_101
+    language: mi
+    surface: kurī
+    pronunciation:
+      ipa: kuriː
+      approx: "KOO-ree"
+    grammar:
+      word_class: noun
+  - entity_id: THING_101
+    language: af
+    surface: hond
+    pronunciation:
+      ipa: hɔnt
+      approx: "hohnt"
+    grammar:
+      word_class: noun
+  - entity_id: THING_101
+    language: en
+    surface: dog
+    pronunciation:
+      ipa: dɒɡ
+      approx: "dog"
+    grammar:
+      word_class: noun
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: low
+  cultural_centrality:
+    mi: low
+    en: low
+    af: low
+  concepts_taught:
+    - THING_101
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [PATIENT]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] [PATIENT]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s [PATIENT]"
+      language: en

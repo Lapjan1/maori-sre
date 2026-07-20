@@ -1,0 +1,207 @@
+# River World — Experience 10
+# Type: story
+# "The Child Thanks the Mother"
+# Level 1 — Gratitude, emotion, family bonds
+
+experience_id: RIVER_010
+type: story
+level: 1
+
+title:
+  en: "The Child Thanks the Mother"
+  mi: "Ka Whakawhetai te Tamaiti ki te Whaea"
+  af: "Die Kind Bedank die Ma"
+
+content:
+  en: >
+    The child is full.
+    The child looks at the mother.
+    "Thank you, Mother, for the food," says the child.
+    The mother smiles.
+    "You are welcome, my child," she says.
+    The family is together.
+  mi: >
+    Kua mākona te tamaiti.
+    Ka titiro te tamaiti ki te whaea.
+    "Ngā mihi e te whaea mō te kai," e kī ana te tamaiti.
+    Ka kata te whaea.
+    "Ko tēnei te whakautu, e taku tamaiti," tāna.
+    Kei te noho tahi te whānau.
+  af: >
+    Die kind is versadig.
+    Die kind kyk na die ma.
+    "Dankie, Ma, vir die kos," sê die kind.
+    Die ma glimlag.
+    "Jy is welkom, my kind," sê sy.
+    Die familie is saam.
+
+entities:
+  - entity_id: ACTION_022
+    category: ACTION
+    label:
+      default: thank
+      mi: whakawhetai
+      af: bedank
+    definition: "To express gratitude to someone."
+
+  - entity_id: STATE_012
+    category: STATE
+    label:
+      default: grateful
+      mi: whakawhetai
+      af: dankbaar
+    definition: "Feeling appreciation for something received."
+
+  - entity_id: STATE_013
+    category: STATE
+    label:
+      default: together
+      mi: noho tahi
+      af: saam
+    definition: "Being with others, not alone."
+
+affordances:
+  - entity_id: PERSON_003
+    action: ACTION_022
+    description: "A child can thank a parent"
+    typical_actors: [PERSON]
+    typical_outcome: [STATE_012]
+
+  - entity_id: PERSON_010
+    action: ACTION_020
+    description: "A mother shares and cares for her family"
+    typical_outcome: [STATE_013]
+
+interactions:
+  - interaction_id: INT_R010_01
+    participants:
+      - role: Actor
+        entity_id: PERSON_003
+      - role: Audience
+        entity_id: PERSON_010
+    from_state: STATE_011
+    to_state: STATE_012
+    sentences:
+      en: "The child is full. The child looks at the mother."
+      mi: "Kua mākona te tamaiti. Ka titiro te tamaiti ki te whaea."
+      af: "Die kind is versadig. Die kind kyk na die ma."
+
+  - interaction_id: INT_R010_02
+    participants:
+      - role: Speaker
+        entity_id: PERSON_003
+      - role: Audience
+        entity_id: PERSON_010
+    action: ACTION_022
+    sentences:
+      en: "\"Thank you, Mother, for the food,\" says the child."
+      mi: "\"Ngā mihi e te whaea mō te kai,\" e kī ana te tamaiti."
+      af: "\"Dankie, Ma, vir die kos,\" sê die kind."
+
+  - interaction_id: INT_R010_03
+    participants:
+      - role: Speaker
+        entity_id: PERSON_010
+      - role: Audience
+        entity_id: PERSON_003
+    sentences:
+      en: "The mother smiles. \"You are welcome, my child.\""
+      mi: "Ka kata te whaea. \"Ko tēnei te whakautu, e taku tamaiti.\""
+      af: "Die ma glimlag. \"Jy is welkom, my kind.\""
+
+  - interaction_id: INT_R010_04
+    participants:
+      - role: Actor
+        entity_id: PERSON_011
+    to_state: STATE_013
+    sentences:
+      en: "The family is together."
+      mi: "Kei te noho tahi te whānau."
+      af: "Die familie is saam."
+
+relationships:
+  - source: ACTION_022
+    type: associated_with
+    target: STATE_012
+    strength: 0.9
+
+  - source: STATE_012
+    type: associated_with
+    target: STATE_013
+    strength: 0.7
+
+  - source: PERSON_003
+    type: associated_with
+    target: PERSON_010
+    strength: 1.0
+
+language_mappings:
+  - entity_id: ACTION_022
+    language: mi
+    surface: whakawhetai
+    pronunciation:
+      ipa: fakafetai
+      approx: "FAH-kah-FEH-tye"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_022
+    language: af
+    surface: bedank
+    pronunciation:
+      ipa: bəˈdaŋk
+      approx: "buh-DAHNK"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_022
+    language: en
+    surface: thank
+    pronunciation:
+      ipa: θæŋk
+      approx: "thank"
+    grammar:
+      word_class: verb
+  - entity_id: STATE_012
+    language: mi
+    surface: whakawhetai
+    pronunciation:
+      ipa: fakafetai
+      approx: "FAH-kah-FEH-tye"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_012
+    language: af
+    surface: dankbaar
+    pronunciation:
+      ipa: daŋkbɑːr
+      approx: "DAHNK-bahr"
+    grammar:
+      word_class: adjective
+  - entity_id: STATE_012
+    language: en
+    surface: grateful
+    pronunciation:
+      ipa: "ˈɡreɪtfəl"
+      approx: "GRAYT-ful"
+    grammar:
+      word_class: adjective
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 1
+  cognitive_load: low
+  emotional_weight: high
+  cultural_centrality:
+    mi: high
+    en: medium
+    af: medium
+  concepts_taught:
+    - ACTION_022
+    - STATE_012
+    - STATE_013
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] ki te [RECIPIENT]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] die [RECIPIENT]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s the [RECIPIENT]"
+      language: en

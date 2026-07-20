@@ -1,0 +1,50 @@
+{
+  "compiler_version": "0.1",
+  "schema_version": "0.1",
+  "compiled_at": "0000-00-00T00:00:00Z",
+  "statistics": {
+    "node_count": 2,
+    "edge_count": 1,
+    "representation_count": 1,
+    "affordance_count": 1,
+    "language_mappings": 1
+  },
+  "nodes": [
+    {
+      "id": "THING_001",
+      "category": "THING",
+      "label": "test_entity",
+      "provenance": {
+        "source_file": "tests/fixtures/canonical/minimal/entity.yaml",
+        "source_line": 1,
+        "compiler_version": "0.1",
+        "confidence": 1.0
+      }
+    },
+    {
+      "id": "THING_010",
+      "category": "THING",
+      "label": "parent_entity",
+      "provenance": {
+        "source_file": "tests/fixtures/canonical/minimal/entity.yaml",
+        "source_line": 38,
+        "compiler_version": "0.1",
+        "confidence": 1.0
+      }
+    }
+  ],
+  "edges": [
+    {
+      "source": "THING_001",
+      "type": "is_a",
+      "target": "THING_010",
+      "strength": 1.0,
+      "provenance": {
+        "source_file": "tests/fixtures/canonical/minimal/entity.yaml",
+        "source_line": 30,
+        "compiler_version": "0.1",
+        "confidence": 1.0
+      }
+    }
+  ]
+}

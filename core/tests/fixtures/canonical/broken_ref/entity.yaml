@@ -1,0 +1,20 @@
+---
+# This fixture has a broken entity reference on purpose.
+# THING_999 does not exist.
+entity_id: THING_001
+category: THING
+label:
+  default: orphaned_entity
+definition: "This entity references a non-existent target."
+metadata:
+  source: manual
+  confidence: 1.0
+---
+relationship:
+  source: THING_001
+  type: is_a
+  target: THING_999
+  strength: 1.0
+  metadata:
+    source: manual
+    confidence: 1.0

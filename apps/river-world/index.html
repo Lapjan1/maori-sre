@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>River World</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2d5a3d">
+<style>
+  :root {
+    --green: #2d5a3d;
+    --light: #f5f0eb;
+    --brown: #6b4f3a;
+    --water: #4a8ba8;
+    --text: #2c2c2c;
+    --muted: #888;
+    --card: #fff;
+    --radius: 12px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { font-size: 16px; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--light);
+    color: var(--text);
+    line-height: 1.6;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Top bar */
+  .topbar {
+    background: var(--green);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .topbar h1 { font-size: 1.1rem; font-weight: 600; flex: 1; }
+  .btn-menu {
+    background: none; border: none; color: #fff;
+    font-size: 1.5rem; cursor: pointer; padding: 0.25rem;
+    line-height: 1;
+  }
+  .lang-select {
+    background: rgba(255,255,255,0.15);
+    color: #fff; border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 6px; padding: 0.3rem 0.5rem;
+    font-size: 0.85rem; cursor: pointer;
+  }
+  .lang-select option { color: var(--text); background: #fff; }
+
+  /* Sidebar */
+  .sidebar-overlay {
+    display: none;
+    position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+    z-index: 20;
+  }
+  .sidebar {
+    position: fixed; top: 0; left: -280px; bottom: 0;
+    width: 280px; background: var(--card); z-index: 30;
+    transition: left 0.25s ease;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.15);
+    overflow-y: auto;
+  }
+  .sidebar.open { left: 0; }
+  .sidebar.open + .sidebar-overlay { display: block; }
+  .sidebar-header {
+    padding: 1rem; background: var(--green); color: #fff;
+    font-weight: 600;
+  }
+  .exp-list { padding: 0.5rem 0; }
+  .exp-list-item {
+    display: block; width: 100%; text-align: left;
+    padding: 0.75rem 1rem; border: none; background: none;
+    cursor: pointer; border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+  }
+  .exp-list-item:hover { background: #f0ebe6; }
+  .exp-list-item.active { background: #e3f0e8; border-left: 3px solid var(--green); }
+  .exp-list-title { display: block; font-weight: 500; }
+  .exp-list-type { display: block; font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+
+  /* Main content */
+  #app {
+    flex: 1;
+    padding: 1.25rem 1rem;
+    max-width: 720px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .exp-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  .exp-type {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.05em;
+    color: var(--muted); font-weight: 500;
+  }
+  .exp-id { font-size: 0.7rem; color: #bbb; font-family: monospace; }
+
+  .exp-title {
+    font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem;
+    color: var(--green); line-height: 1.3;
+  }
+
+  .exp-content { margin-bottom: 1.5rem; }
+
+  .sentence-row {
+    background: var(--card); border-radius: var(--radius);
+    padding: 0.85rem 1rem; margin-bottom: 0.6rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .sentence {
+    font-size: 1.1rem; line-height: 1.5; color: var(--text);
+  }
+  .sentence-meta {
+    display: flex; align-items: center; gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+  .sentence-en {
+    font-size: 0.85rem; color: var(--muted); font-style: italic;
+  }
+  .btn-audio {
+    background: var(--water); color: #fff; border: none;
+    border-radius: 50%; width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 0.8rem;
+    transition: transform 0.1s;
+    flex-shrink: 0;
+  }
+  .btn-audio:hover { transform: scale(1.1); }
+  .btn-audio:active { transform: scale(0.95); }
+
+  /* Entity grid */
+  .exp-entities { margin-bottom: 1.5rem; }
+  .exp-entities h3 {
+    font-size: 0.9rem; color: var(--muted); margin-bottom: 0.6rem;
+    font-weight: 500;
+  }
+  .entity-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.5rem;
+  }
+  .entity-card {
+    background: var(--card); border-radius: 8px;
+    padding: 0.6rem 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .entity-label { display: block; font-weight: 600; font-size: 0.95rem; }
+  .entity-cat { display: block; font-size: 0.65rem; color: var(--muted); text-transform: uppercase; }
+  .entity-en, .entity-native { display: block; font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+
+  /* Navigation */
+  .exp-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 0.75rem; padding: 1rem 0; margin-top: 0.5rem;
+    border-top: 1px solid #ddd;
+  }
+  .btn {
+    padding: 0.65rem 1.5rem; border: none; border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .btn:disabled { opacity: 0.4; cursor: default; }
+  .btn-primary { background: var(--green); color: #fff; }
+  .btn-primary:hover:not(:disabled) { background: #3a7a4f; }
+  .btn-secondary { background: #ddd; color: var(--text); }
+  .btn-secondary:hover:not(:disabled) { background: #ccc; }
+  .exp-counter { font-size: 0.85rem; color: var(--muted); }
+
+  /* Session debug */
+  #session-debug {
+    font-size: 0.75rem; color: #aaa; padding: 0.5rem 1rem;
+    text-align: center; cursor: pointer;
+  }
+
+  @media (max-width: 480px) {
+    html { font-size: 15px; }
+    #app { padding: 1rem 0.75rem; }
+    .entity-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <button class="btn-menu" id="menu-toggle">&#9776;</button>
+    <h1>River World</h1>
+    <select class="lang-select" id="lang-selector">
+      <option value="mi">M&#257;ori</option>
+      <option value="en" selected>English</option>
+      <option value="af">Afrikaans</option>
+    </select>
+  </div>
+
+  <div id="app">
+    <p style="padding:2rem;text-align:center;color:#888;">Loading...</p>
+  </div>
+
+  <div id="session-debug" title="Session summary"></div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">Experiences</div>
+    <div class="exp-list" id="exp-list"></div>
+  </div>
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <script src="experiences.js"></script>
+  <script src="session.js"></script>
+  <script src="audio.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

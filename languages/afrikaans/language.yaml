@@ -1,0 +1,17 @@
+# Afrikaans Language Registration
+# ISO 639-1: af
+
+language_id: af
+name:
+  native: "Afrikaans"
+  english: "Afrikaans"
+script: Latin
+typology: SVO
+features:
+  gendered_nouns: false
+  verb_conjugation: false
+  definite_article: true
+  double_negative: true
+notes: >
+  Afrikaans is a West Germanic language spoken in South Africa
+  and Namibia, derived from 17th-century Dutch.

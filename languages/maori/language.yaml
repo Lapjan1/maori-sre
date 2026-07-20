@@ -1,0 +1,19 @@
+# Māori Language Registration
+# ISO 639-1: mi
+
+language_id: mi
+name:
+  native: "te reo Māori"
+  english: "Māori"
+script: Latin
+typology: VSO
+features:
+  determiners_te_nga: true
+  tam_markers: true
+  passive_suffixes: true
+  noun_number_on_determiner: true
+  macron_diacritic: true
+notes: >
+  Māori is a Polynesian language of the Austronesian family,
+  spoken by the indigenous people of Aotearoa New Zealand.
+  This package covers both formal and colloquial registers.

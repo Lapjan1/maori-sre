@@ -1,0 +1,258 @@
+# Seed example: Water (THING_001)
+# Self-contained valid canonical source demonstrating all document types.
+
+---
+# 1. ENTITY — Water
+entity_id: THING_001
+category: THING
+label:
+  default: water
+  short: H2O
+definition: A clear, colorless liquid essential for life.
+properties:
+  natural: true
+  states: [liquid, ice, vapor]
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Drink (action)
+entity_id: ACTION_001
+category: ACTION
+label:
+  default: drink
+definition: To consume a liquid.
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Wash (action)
+entity_id: ACTION_005
+category: ACTION
+label:
+  default: wash
+definition: To clean with water.
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Hydrated (state)
+entity_id: STATE_001
+category: STATE
+label:
+  default: hydrated
+definition: Having adequate water in the body.
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Animal (thing)
+entity_id: THING_020
+category: THING
+label:
+  default: animal
+definition: A living organism.
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Hydrogen (thing)
+entity_id: THING_030
+category: THING
+label:
+  default: hydrogen
+definition: A chemical element (H).
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Oxygen (thing)
+entity_id: THING_031
+category: THING
+label:
+  default: oxygen
+definition: A chemical element (O).
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Tree (thing)
+entity_id: THING_100
+category: THING
+label:
+  default: tree
+definition: A tall perennial plant.
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — River (place)
+entity_id: PLACE_005
+category: PLACE
+label:
+  default: river
+definition: A natural flowing watercourse.
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# Entity — Child (person)
+entity_id: PERSON_003
+category: PERSON
+label:
+  default: child
+definition: A young human.
+metadata:
+  source: manual
+  confidence: 1.0
+
+---
+# 2. REPRESENTATIONS
+- entity_id: THING_001
+  modality: visual
+  content:
+    description: "Clear liquid in a glass"
+    colors: [clear]
+  primary: "Clear liquid"
+  media:
+    - type: image
+      format: webp
+      path: /media/visual/THING_001_01.webp
+      alt_text:
+        en: "A glass of water"
+  metadata:
+    source: manual
+    confidence: 1.0
+
+- entity_id: THING_001
+  modality: auditory
+  content:
+    sounds: [pouring, splashing]
+  primary: "Sound of flowing water"
+  metadata:
+    source: manual
+    confidence: 1.0
+
+---
+# 3. AFFORDANCES
+- entity_id: THING_001
+  action: ACTION_001
+  description: "Water affords drinking"
+  typical_actors: [PERSON]
+  typical_outcome: [STATE_001]
+  metadata:
+    source: manual
+    confidence: 1.0
+
+- entity_id: THING_001
+  action: ACTION_005
+  description: "Water affords washing"
+  typical_actors: [PERSON]
+  metadata:
+    source: manual
+    confidence: 1.0
+
+---
+# 4. INTERACTIONS
+- interaction_id: INT_001
+  participants:
+    - role: Actor
+      entity_id: PERSON_003
+    - role: Patient
+      entity_id: THING_001
+  action: ACTION_001
+  time:
+    label: today
+    reference: RELATIVE
+  outcomes:
+    - entity_id: STATE_001
+      description: Thirst quenched
+  language_examples:
+    en: "The child drank water"
+    mi: "I inu te tamaiti i te wai"
+  metadata:
+    source: manual
+    confidence: 1.0
+
+---
+# 5. RELATIONSHIPS
+- source: THING_001
+  type: made_of
+  target: THING_030
+  strength: 1.0
+  metadata:
+    source: manual
+    confidence: 1.0
+
+- source: THING_001
+  type: made_of
+  target: THING_031
+  strength: 1.0
+  metadata:
+    source: manual
+    confidence: 1.0
+
+- source: THING_001
+  type: associated_with
+  target: THING_100
+  strength: 0.9
+  metadata:
+    source: manual
+    confidence: 1.0
+
+- source: THING_001
+  type: located_in
+  target: PLACE_005
+  strength: 0.9
+  metadata:
+    source: manual
+    confidence: 1.0
+
+---
+# 6. LANGUAGE MAPPINGS
+- entity_id: THING_001
+  language: mi
+  surface: wai
+  pronunciation:
+    ipa: wai
+    approx: "why"
+  grammar:
+    word_class: noun
+  usage:
+    register: neutral
+  metadata:
+    source: manual
+    confidence: 1.0
+
+- entity_id: THING_001
+  language: af
+  surface: water
+  pronunciation:
+    ipa: "ˈvɑːtər"
+    approx: "VAH-tuhr"
+  grammar:
+    word_class: noun
+  metadata:
+    source: manual
+    confidence: 1.0
+
+- entity_id: THING_001
+  language: en
+  surface: water
+  pronunciation:
+    ipa: "ˈwɔːtər"
+    approx: "WAH-tuhr"
+  grammar:
+    word_class: noun
+  metadata:
+    source: manual
+    confidence: 1.0

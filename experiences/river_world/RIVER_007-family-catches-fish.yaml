@@ -1,0 +1,190 @@
+# River World — Experience 7
+# Type: procedure
+# "Family Catches a Fish"
+# Level 2 — Tools, food gathering, family
+
+experience_id: RIVER_007
+type: procedure
+level: 2
+
+title:
+  en: "Family Catches a Fish"
+  mi: "Ka Hopu te Whānau i te Ika"
+  af: "Familie Vang 'n Vis"
+
+content:
+  en: >
+    The family goes to the river.
+    The mother has a net.
+    She catches a fish from the river.
+    The fish is big.
+    The family is happy.
+  mi: >
+    Ka haere te whānau ki te awa.
+    Kei te whaea he kupenga.
+    Ka hopu ia i tētahi ika i te awa.
+    He nui te ika.
+    Kei te koa te whānau.
+  af: >
+    Die familie gaan na die rivier.
+    Die ma het 'n net.
+    Sy vang 'n vis in die rivier.
+    Die vis is groot.
+    Die familie is bly.
+
+entities:
+  - entity_id: PERSON_011
+    category: PERSON
+    label:
+      default: family
+      mi: whānau
+      af: familie
+    definition: "A group of related people living together."
+
+  - entity_id: THING_107
+    category: THING
+    label:
+      default: net
+      mi: kupenga
+      af: net
+    definition: "A mesh tool used for catching fish."
+
+  - entity_id: ACTION_018
+    category: ACTION
+    label:
+      default: catch
+      mi: hopu
+      af: vang
+    definition: "To capture or seize something."
+
+affordances:
+  - entity_id: THING_107
+    action: ACTION_018
+    description: "A net affords catching fish"
+    typical_actors: [PERSON]
+    typical_outcome: [THING_102]
+
+  - entity_id: PERSON_010
+    action: ACTION_018
+    description: "A person can catch fish with a net"
+    typical_actors: [PERSON]
+
+interactions:
+  - interaction_id: INT_R007_01
+    participants:
+      - role: Actor
+        entity_id: PERSON_011
+      - role: Location
+        entity_id: PLACE_005
+    sentences:
+      en: "The family goes to the river."
+      mi: "Ka haere te whānau ki te awa."
+      af: "Die familie gaan na die rivier."
+
+  - interaction_id: INT_R007_02
+    participants:
+      - role: Actor
+        entity_id: PERSON_010
+      - role: Patient
+        entity_id: THING_102
+      - role: Tool
+        entity_id: THING_107
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_018
+    sentences:
+      en: "The mother catches a fish with a net from the river."
+      mi: "Ka hopu te whaea i te ika ki te kupenga i te awa."
+      af: "Die ma vang 'n vis met 'n net in die rivier."
+
+relationships:
+  - source: PERSON_011
+    type: includes
+    target: PERSON_010
+    strength: 1.0
+
+  - source: PERSON_011
+    type: includes
+    target: PERSON_003
+    strength: 1.0
+
+  - source: THING_107
+    type: used_for
+    target: ACTION_018
+    strength: 0.9
+
+  - source: ACTION_018
+    type: associated_with
+    target: THING_102
+    strength: 0.9
+
+language_mappings:
+  - entity_id: THING_107
+    language: mi
+    surface: kupenga
+    pronunciation:
+      ipa: kupenga
+      approx: "koo-PENG-ah"
+    grammar:
+      word_class: noun
+  - entity_id: THING_107
+    language: af
+    surface: net
+    pronunciation:
+      ipa: net
+      approx: "net"
+    grammar:
+      word_class: noun
+  - entity_id: THING_107
+    language: en
+    surface: net
+    pronunciation:
+      ipa: net
+      approx: "net"
+    grammar:
+      word_class: noun
+  - entity_id: ACTION_018
+    language: mi
+    surface: hopu
+    pronunciation:
+      ipa: hopu
+      approx: "HOH-poo"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_018
+    language: af
+    surface: vang
+    pronunciation:
+      ipa: faŋ
+      approx: "fahng"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_018
+    language: en
+    surface: catch
+    pronunciation:
+      ipa: kætʃ
+      approx: "kach"
+    grammar:
+      word_class: verb
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 2
+  cognitive_load: medium
+  emotional_weight: medium
+  cultural_centrality:
+    mi: high
+    en: low
+    af: low
+  concepts_taught:
+    - PERSON_011
+    - THING_107
+    - ACTION_018
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [PATIENT] ki te [TOOL]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] die [PATIENT] met die [TOOL]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]es the [PATIENT] with the [TOOL]"
+      language: en

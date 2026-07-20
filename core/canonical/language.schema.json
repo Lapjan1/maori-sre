@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sre.v0.1/canonical/language",
+  "title": "SRE Language Mapping — Canonical Source",
+  "description": "A language registration and its mappings from entities and representations to surface forms.",
+  "type": "object",
+  "definitions": {
+    "language_registration": {
+      "type": "object",
+      "required": ["language_id", "name", "typology"],
+      "properties": {
+        "language_id": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}$",
+          "description": "ISO 639-1 (2-letter) or ISO 639-2 (3-letter) code."
+        },
+        "name": {
+          "type": "object",
+          "required": ["native", "english"],
+          "properties": {
+            "native": { "type": "string" },
+            "english": { "type": "string" }
+          }
+        },
+        "script": { "type": "string" },
+        "typology": {
+          "type": "string",
+          "enum": ["VSO", "SVO", "SOV", "VOS", "OSV", "OVS", "free"]
+        },
+        "features": {
+          "type": "object",
+          "additionalProperties": { "type": "boolean" }
+        }
+      }
+    },
+    "lexical_realization": {
+      "type": "object",
+      "required": ["entity_id", "surface", "pronunciation"],
+      "properties": {
+        "entity_id": {
+          "type": "string",
+          "pattern": "^(THING|PERSON|PLACE|ACTION|STATE|PROPERTY|RELATION|EVENT|TIME|QUANTITY|EMOTION|SOCIAL)_\\d{3}$"
+        },
+        "surface": {
+          "type": "string",
+          "description": "The word, phrase, or morpheme in this language."
+        },
+        "pronunciation": {
+          "type": "object",
+          "minProperties": 1,
+          "properties": {
+            "ipa": { "type": "string" },
+            "approx": { "type": "string", "description": "Approximate pronunciation for English speakers." },
+            "audio": { "type": "string", "format": "uri" }
+          }
+        },
+        "grammar": {
+          "type": "object",
+          "properties": {
+            "word_class": {
+              "type": "string",
+              "enum": ["noun", "verb", "adjective", "adverb", "determiner", "particle", "preposition", "pronoun", "conjunction", "interjection", "affix"]
+            },
+            "subclass": { "type": "string" },
+            "inflection": { "type": "string" },
+            "notes": { "type": "string" }
+          }
+        },
+        "usage": {
+          "type": "object",
+          "properties": {
+            "register": {
+              "type": "string",
+              "enum": ["neutral", "formal", "informal", "archaic", "poetic", "children", "ceremonial"]
+            },
+            "dialect": { "type": "string" },
+            "frequency": {
+              "type": "number",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "notes": { "type": "string" }
+          }
+        },
+        "common_mistakes": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "disambiguation": {
+          "type": "object",
+          "required": ["accuracy", "notes"],
+          "properties": {
+            "accuracy": {
+              "type": "string",
+              "enum": ["exact", "partial", "approximate"]
+            },
+            "notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "grammar_projection": {
+      "type": "object",
+      "required": ["template_id", "word_order"],
+      "properties": {
+        "template_id": { "type": "string" },
+        "word_order": { "type": "string" },
+        "realizations": {
+          "type": "object",
+          "description": "Role-specific rendering rules keyed by semantic role.",
+          "additionalProperties": {
+            "type": "object",
+            "properties": {
+              "lemma": { "type": "string" },
+              "particle": { "type": "string" },
+              "form_rules": { "type": "array", "items": { "type": "string" } }
+            }
+          }
+        }
+      }
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/definitions/language_registration" },
+    { "$ref": "#/definitions/lexical_realization" },
+    { "$ref": "#/definitions/grammar_projection" }
+  ]
+}

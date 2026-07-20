@@ -1,0 +1,19 @@
+# English Language Registration
+# ISO 639-1: en
+
+language_id: en
+name:
+  native: "English"
+  english: "English"
+script: Latin
+typology: SVO
+features:
+  gendered_nouns: false
+  verb_conjugation: true
+  definite_article: true
+  indefinite_article: true
+  progressive_aspect: true
+  perfect_aspect: true
+notes: >
+  English is a West Germanic language originating in England.
+  Serves as the default fallback language in the SRE.

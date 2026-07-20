@@ -1,0 +1,220 @@
+# River World — Experience 9
+# Type: dialogue
+# "Family Shares Food"
+# Level 2 — Sharing, gratitude, social interaction
+
+experience_id: RIVER_009
+type: dialogue
+level: 2
+
+title:
+  en: "Family Shares Food"
+  mi: "Ka Tohatoha te Whānau i te Kai"
+  af: "Familie Deel Kos"
+
+content:
+  en: >
+    The food is ready.
+    The mother calls the family.
+    "Come and eat," she says.
+    Everyone sits together.
+    The mother shares the fish.
+    The child eats.
+    "This is delicious," says the child.
+    The family is happy.
+  mi: >
+    Kua māoa te kai.
+    Ka karanga te whaea ki te whānau.
+    "Haere mai ki te kai," tāna.
+    Ka noho tahi te katoa.
+    Ka tohatoha te whaea i te ika.
+    Ka kai te tamaiti.
+    "He reka tēnei," e kī ana te tamaiti.
+    Kei te koa te whānau.
+  af: >
+    Die kos is gereed.
+    Die ma roep die familie.
+    "Kom en eet," sê sy.
+    Almal sit saam.
+    Die ma deel die vis.
+    Die kind eet.
+    "Dit is heerlik," sê die kind.
+    Die familie is bly.
+
+entities:
+  - entity_id: ACTION_020
+    category: ACTION
+    label:
+      default: share
+      mi: tohatoha
+      af: deel
+    definition: "To give a portion of something to others."
+
+  - entity_id: ACTION_021
+    category: ACTION
+    label:
+      default: eat
+      mi: kai
+      af: eet
+    definition: "To consume food."
+
+  - entity_id: STATE_011
+    category: STATE
+    label:
+      default: full
+      mi: mākona
+      af: versadig
+    definition: "Having eaten enough, no longer hungry."
+
+affordances:
+  - entity_id: THING_105
+    action: ACTION_021
+    description: "Food affords eating"
+    typical_actors: [PERSON]
+    typical_outcome: [STATE_011]
+
+  - entity_id: PERSON_010
+    action: ACTION_020
+    description: "A mother shares food with family"
+    typical_actors: [PERSON]
+    typical_outcome: [STATE_010]
+
+interactions:
+  - interaction_id: INT_R009_01
+    participants:
+      - role: Actor
+        entity_id: PERSON_010
+    sentences:
+      en: "The food is ready. The mother calls the family."
+      mi: "Kua māoa te kai. Ka karanga te whaea ki te whānau."
+      af: "Die kos is gereed. Die ma roep die familie."
+
+  - interaction_id: INT_R009_02
+    participants:
+      - role: Speaker
+        entity_id: PERSON_010
+      - role: Audience
+        entity_id: PERSON_011
+    sentences:
+      en: "\"Come and eat,\" she says."
+      mi: "\"Haere mai ki te kai,\" tāna."
+      af: "\"Kom en eet,\" sê sy."
+
+  - interaction_id: INT_R009_03
+    participants:
+      - role: Actor
+        entity_id: PERSON_010
+      - role: Patient
+        entity_id: THING_105
+      - role: Recipient
+        entity_id: PERSON_011
+    action: ACTION_020
+    sentences:
+      en: "The mother shares the fish with the family."
+      mi: "Ka tohatoha te whaea i te ika ki te whānau."
+      af: "Die ma deel die vis met die familie."
+
+  - interaction_id: INT_R009_04
+    participants:
+      - role: Actor
+        entity_id: PERSON_003
+      - role: Patient
+        entity_id: THING_105
+    action: ACTION_021
+    sentences:
+      en: "The child eats."
+      mi: "Ka kai te tamaiti."
+      af: "Die kind eet."
+
+  - interaction_id: INT_R009_05
+    participants:
+      - role: Speaker
+        entity_id: PERSON_003
+      - role: Audience
+        entity_id: PERSON_011
+    sentences:
+      en: "\"This is delicious,\" says the child."
+      mi: "\"He reka tēnei,\" e kī ana te tamaiti."
+      af: "\"Dit is heerlik,\" sê die kind."
+
+relationships:
+  - source: ACTION_020
+    type: associated_with
+    target: ACTION_021
+    strength: 0.8
+
+  - source: ACTION_021
+    type: results_in
+    target: STATE_011
+    strength: 0.8
+
+language_mappings:
+  - entity_id: ACTION_020
+    language: mi
+    surface: tohatoha
+    pronunciation:
+      ipa: tohatoha
+      approx: "TOH-hah-TOH-hah"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_020
+    language: af
+    surface: deel
+    pronunciation:
+      ipa: dɪəl
+      approx: "deel"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_020
+    language: en
+    surface: share
+    pronunciation:
+      ipa: ʃeər
+      approx: "share"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_021
+    language: mi
+    surface: kai
+    pronunciation:
+      ipa: kai
+      approx: "kye"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_021
+    language: af
+    surface: eet
+    pronunciation:
+      ipa: ɪət
+      approx: "ayt"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_021
+    language: en
+    surface: eat
+    pronunciation:
+      ipa: iːt
+      approx: "eet"
+    grammar:
+      word_class: verb
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 2
+  cognitive_load: medium
+  emotional_weight: high
+  cultural_centrality:
+    mi: high
+    en: medium
+    af: medium
+  concepts_taught:
+    - ACTION_020
+    - ACTION_021
+    - STATE_011
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [PATIENT] ki te [RECIPIENT]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] die [PATIENT] met die [RECIPIENT]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s the [PATIENT] with the [RECIPIENT]"
+      language: en

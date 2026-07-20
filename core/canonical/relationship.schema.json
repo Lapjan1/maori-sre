@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sre.v0.1/canonical/relationship",
+  "title": "SRE Relationship — Canonical Source",
+  "description": "A static, typed link between two entities. Relationships answer 'What is X?' not 'What can you do with X?'",
+  "type": "object",
+  "required": ["source", "type", "target"],
+  "additionalProperties": false,
+  "properties": {
+    "source": {
+      "type": "string",
+      "pattern": "^(THING|PERSON|PLACE|ACTION|STATE|PROPERTY|RELATION|EVENT|TIME|QUANTITY|EMOTION|SOCIAL)_\\d{3}$",
+      "description": "The source entity_id."
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "is_a", "has_subtype",
+        "part_of", "has_part",
+        "instance_of", "has_instance",
+        "made_of", "forms",
+        "located_in", "contains",
+        "located_at", "has_location",
+        "originates_from", "produces",
+        "transforms_to", "transforms_from",
+        "occurs_before", "occurs_after",
+        "occurs_during", "contains_event",
+        "causes", "caused_by",
+        "symbolizes", "symbolized_by",
+        "opposite_of", "similar_to", "associated_with",
+        "parent_of", "child_of",
+        "ancestor_of", "descendant_of",
+        "kin_of",
+        "belongs_to", "has_authority_over"
+      ],
+      "description": "The type of relationship from the defined taxonomy."
+    },
+    "target": {
+      "type": "string",
+      "pattern": "^(THING|PERSON|PLACE|ACTION|STATE|PROPERTY|RELATION|EVENT|TIME|QUANTITY|EMOTION|SOCIAL)_\\d{3}$",
+      "description": "The target entity_id. Must differ from source."
+    },
+    "strength": {
+      "type": "number",
+      "minimum": 0.0,
+      "maximum": 1.0,
+      "description": "How typical or defining this relationship is. 1.0 = always true, 0.1 = weakly associated."
+    },
+    "metadata": {
+      "type": "object",
+      "required": ["source", "confidence"],
+      "properties": {
+        "source": {
+          "type": "string",
+          "enum": ["manual", "sensor", "ai_generated", "derived"]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "notes": { "type": "string" }
+      }
+    }
+  }
+}

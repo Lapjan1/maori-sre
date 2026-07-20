@@ -1,0 +1,169 @@
+# River World — Experience 5
+# Type: observation
+# "Tree Grows Beside the River"
+# Level 2 — Ecology, growth, dependency
+
+experience_id: RIVER_005
+type: observation
+level: 2
+
+title:
+  en: "Tree Grows Beside the River"
+  mi: "Ka Tipu te Rākau i te Taha o te Awa"
+  af: "Boom Groei Langs die Rivier"
+
+content:
+  en: >
+    A tall tree grows beside the river.
+    Its roots reach into the water.
+    The tree drinks from the river.
+    The tree grows tall and strong.
+  mi: >
+    Ka tipu tētahi rākau teitei i te taha o te awa.
+    Ka toro atu ōna pakiaka ki te wai.
+    Ka inu te rākau i te awa.
+    Ka tupu teitei te rākau.
+  af: >
+    'n Groot boom groei langs die rivier.
+    Sy wortels strek na die water.
+    Die boom drink uit die rivier.
+    Die boom groei lank en sterk.
+
+entities:
+  - entity_id: THING_100
+    category: THING
+    label:
+      default: tree
+      mi: rākau
+      af: boom
+    definition: "A tall perennial plant with a trunk and branches."
+
+  - entity_id: ACTION_015
+    category: ACTION
+    label:
+      default: grow
+      mi: tipu
+      af: groei
+    definition: "To increase in size naturally."
+
+affordances:
+  - entity_id: THING_100
+    action: ACTION_015
+    description: "A tree grows when it has water and sunlight"
+
+  - entity_id: THING_100
+    action: ACTION_001
+    description: "A tree drinks water through its roots"
+    typical_outcome: [STATE_015]
+
+interactions:
+  - interaction_id: INT_R005_01
+    participants:
+      - role: Actor
+        entity_id: THING_100
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_015
+    sentences:
+      en: "The tree grows beside the river."
+      mi: "Ka tipu te rākau i te taha o te awa."
+      af: "Die boom groei langs die rivier."
+
+  - interaction_id: INT_R005_02
+    participants:
+      - role: Actor
+        entity_id: THING_100
+      - role: Patient
+        entity_id: THING_001
+      - role: Location
+        entity_id: PLACE_005
+    action: ACTION_001
+    sentences:
+      en: "The tree drinks water from the river through its roots."
+      mi: "Ka inu te rākau i te wai mai i te awa."
+      af: "Die boom drink water uit die rivier."
+
+relationships:
+  - source: THING_100
+    type: located_in
+    target: PLACE_005
+    strength: 0.8
+
+  - source: THING_100
+    type: depends_on
+    target: THING_001
+    strength: 0.9
+
+  - source: ACTION_015
+    type: requires
+    target: THING_001
+    strength: 0.9
+
+language_mappings:
+  - entity_id: THING_100
+    language: mi
+    surface: rākau
+    pronunciation:
+      ipa: raːkau
+      approx: "RAH-kow"
+    grammar:
+      word_class: noun
+  - entity_id: THING_100
+    language: af
+    surface: boom
+    pronunciation:
+      ipa: bʊəm
+      approx: "boo-uhm"
+    grammar:
+      word_class: noun
+  - entity_id: THING_100
+    language: en
+    surface: tree
+    pronunciation:
+      ipa: triː
+      approx: "tree"
+    grammar:
+      word_class: noun
+  - entity_id: ACTION_015
+    language: mi
+    surface: tipu
+    pronunciation:
+      ipa: tipu
+      approx: "TEE-poo"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_015
+    language: af
+    surface: groei
+    pronunciation:
+      ipa: ɣrui
+      approx: "khroo-ee"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_015
+    language: en
+    surface: grow
+    pronunciation:
+      ipa: ɡroʊ
+      approx: "groh"
+    grammar:
+      word_class: verb
+
+metadata:
+  author: "SRE Corpus Alpha — River World"
+  difficulty: 2
+  cognitive_load: medium
+  emotional_weight: low
+  cultural_centrality:
+    mi: medium
+    en: low
+    af: low
+  concepts_taught:
+    - ACTION_015
+  grammar_patterns:
+    - pattern: "Ka [ACTION] te [ACTOR] i te [LOCATION]"
+      language: mi
+    - pattern: "Die [ACTOR] [ACTION] [LOCATION]"
+      language: af
+    - pattern: "The [ACTOR] [ACTION]s [LOCATION]"
+      language: en
