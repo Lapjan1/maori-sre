@@ -50,6 +50,10 @@ class VoicePackage:
     coverage: Coverage = field(default_factory=Coverage)
     version: str = "1.0"
     review: ReviewStatus = field(default_factory=ReviewStatus)
+    fingerprint: Optional[str] = None          # sha256 of package contents
+    requires_runtime: Optional[str] = None      # e.g. ">=1.0"
+    requires_language_package: Optional[str] = None  # e.g. "maori>=1.2"
+    requires_corpus: Optional[str] = None       # e.g. "river_world>=1.0"
     # Legacy flat fields - kept for backward compat with to_js_bundle
     name: str = ""
     style: str = "neutral"
@@ -164,4 +168,12 @@ class VoicePackageRegistry:
         }
         if pkg.recorded:
             d["recorded"] = pkg.recorded
+        if pkg.fingerprint:
+            d["fingerprint"] = pkg.fingerprint
+        if pkg.requires_runtime:
+            d["requires_runtime"] = pkg.requires_runtime
+        if pkg.requires_language_package:
+            d["requires_language_package"] = pkg.requires_language_package
+        if pkg.requires_corpus:
+            d["requires_corpus"] = pkg.requires_corpus
         return json.dumps(d, ensure_ascii=False)
