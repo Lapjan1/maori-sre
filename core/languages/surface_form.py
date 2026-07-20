@@ -30,6 +30,10 @@ class AudioRef:
     dialect: Optional[str] = None
     speed: str = "normal"              # normal, slow
     quality: str = "studio"            # studio, field, tts
+    # Provenance — where this audio came from
+    source_url: Optional[str] = None       # original URL, e.g. Te Aka word page
+    retrieved: Optional[str] = None        # ISO date of retrieval, e.g. "2026-07-20"
+    source_license: Optional[str] = None   # license of the source material
 
 
 @dataclass
@@ -157,6 +161,9 @@ class SurfaceFormRegistry:
                         "dialect": r.dialect,
                         "speed": r.speed,
                         "quality": r.quality,
+                        "source_url": r.source_url,
+                        "retrieved": r.retrieved,
+                        "source_license": r.source_license,
                     }
                     for r in sf.pronunciation.audio_refs
                 ]

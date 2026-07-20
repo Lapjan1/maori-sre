@@ -16,6 +16,17 @@ surface_forms:
   pronunciation:
     syllables:
     - wai
+    audio_refs:
+    - ref: wai.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/9019
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_001
   entity_id: THING_001
   lang: af
@@ -44,6 +55,17 @@ surface_forms:
     syllables:
     - a
     - wa
+    audio_refs:
+    - ref: awa.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/563
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_PLACE_005
   entity_id: PLACE_005
   lang: af
@@ -73,6 +95,17 @@ surface_forms:
     - ma
     - te
     - wai
+    audio_refs:
+    - ref: matewai.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/3885
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_STATE_001
   entity_id: STATE_001
   lang: af
@@ -130,6 +163,17 @@ surface_forms:
     syllables:
     - i
     - nu
+    audio_refs:
+    - ref: inu.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/1754
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_001
   entity_id: ACTION_001
   lang: af
@@ -155,6 +199,17 @@ surface_forms:
     - hī
     - koi
     stress: 1
+    audio_refs:
+    - ref: hīkoi.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/1173
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_002
   entity_id: ACTION_002
   lang: af
@@ -181,6 +236,17 @@ surface_forms:
     - ma
     - i
     - ti
+    audio_refs:
+    - ref: tamaiti.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/7326
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_PERSON_003
   entity_id: PERSON_003
   lang: af
@@ -208,6 +274,17 @@ surface_forms:
     - wha
     - e
     - a
+    audio_refs:
+    - ref: whaea.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/9297
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_PERSON_010
   entity_id: PERSON_010
   lang: af
@@ -235,6 +312,17 @@ surface_forms:
     syllables:
     - whā
     - nau
+    audio_refs:
+    - ref: whānau.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/10062
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_PERSON_011
   entity_id: PERSON_011
   lang: af
@@ -263,6 +351,17 @@ surface_forms:
     - ho
     - a
     - tu
+    audio_refs:
+    - ref: hoatu.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/1307
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_010
   entity_id: ACTION_010
   lang: af
@@ -288,6 +387,17 @@ surface_forms:
     - wha
     - ka
     - ki
+    audio_refs:
+    - ref: whakaki.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/9519
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_012
   entity_id: ACTION_012
   lang: af
@@ -314,6 +424,17 @@ surface_forms:
     syllables:
     - ko
     - a
+    audio_refs:
+    - ref: koa.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/2744
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_STATE_010
   entity_id: STATE_010
   lang: af
@@ -338,6 +459,17 @@ surface_forms:
     syllables:
     - ku
     - rī
+    audio_refs:
+    - ref: kurī.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/3309
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_101
   entity_id: THING_101
   lang: af
@@ -362,6 +494,17 @@ surface_forms:
     syllables:
     - u
     - a
+    audio_refs:
+    - ref: ua.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/51889
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_106
   entity_id: THING_106
   lang: af
@@ -387,6 +530,17 @@ surface_forms:
     syllables:
     - he
     - ke
+    audio_refs:
+    - ref: heke.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/1038
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_013
   entity_id: ACTION_013
   lang: af
@@ -411,6 +565,17 @@ surface_forms:
     syllables:
     - re
     - re
+    audio_refs:
+    - ref: rere.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/6719
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_014
   entity_id: ACTION_014
   lang: af
@@ -435,6 +600,17 @@ surface_forms:
     syllables:
     - rā
     - kau
+    audio_refs:
+    - ref: rākau.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/6439
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_100
   entity_id: THING_100
   lang: af
@@ -459,6 +635,17 @@ surface_forms:
     syllables:
     - ti
     - pu
+    audio_refs:
+    - ref: tipu.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/8168
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_015
   entity_id: ACTION_015
   lang: af
@@ -483,6 +670,17 @@ surface_forms:
     syllables:
     - i
     - ka
+    audio_refs:
+    - ref: ika.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/42348
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_102
   entity_id: THING_102
   lang: af
@@ -507,6 +705,17 @@ surface_forms:
     syllables:
     - 'no'
     - ho
+    audio_refs:
+    - ref: noho.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/53247
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_016
   entity_id: ACTION_016
   lang: af
@@ -532,6 +741,17 @@ surface_forms:
     - kau
     - ho
     - e
+    audio_refs:
+    - ref: kauhoe.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/2424
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_017
   entity_id: ACTION_017
   lang: af
@@ -557,6 +777,17 @@ surface_forms:
     - ku
     - pe
     - nga
+    audio_refs:
+    - ref: kupenga.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/3274
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_107
   entity_id: THING_107
   lang: af
@@ -581,6 +812,17 @@ surface_forms:
     syllables:
     - ho
     - pu
+    audio_refs:
+    - ref: hopu.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/1405
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_018
   entity_id: ACTION_018
   lang: af
@@ -605,6 +847,17 @@ surface_forms:
     syllables:
     - ka
     - pu
+    audio_refs:
+    - ref: kapu.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/2248
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_103
   entity_id: THING_103
   lang: af
@@ -633,6 +886,17 @@ surface_forms:
     syllables:
     - a
     - hi
+    audio_refs:
+    - ref: ahi.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/69
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_104
   entity_id: THING_104
   lang: af
@@ -656,6 +920,17 @@ surface_forms:
   pronunciation:
     syllables:
     - kai
+    audio_refs:
+    - ref: kai.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/1894
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_THING_105
   entity_id: THING_105
   lang: af
@@ -680,6 +955,17 @@ surface_forms:
     syllables:
     - tu
     - nu
+    audio_refs:
+    - ref: tunu.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/8712
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_019
   entity_id: ACTION_019
   lang: af
@@ -706,6 +992,17 @@ surface_forms:
     - ha
     - to
     - ha
+    audio_refs:
+    - ref: tohatoha.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/8293
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_020
   entity_id: ACTION_020
   lang: af
@@ -729,6 +1026,17 @@ surface_forms:
   pronunciation:
     syllables:
     - kai
+    audio_refs:
+    - ref: kai.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/1894
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_021
   entity_id: ACTION_021
   lang: af
@@ -754,6 +1062,17 @@ surface_forms:
     - mā
     - ko
     - na
+    audio_refs:
+    - ref: mākona.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/3553
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_STATE_011
   entity_id: STATE_011
   lang: af
@@ -783,6 +1102,17 @@ surface_forms:
     - ka
     - whe
     - tai
+    audio_refs:
+    - ref: whakawhetai.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/10035
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_ACTION_022
   entity_id: ACTION_022
   lang: af
@@ -813,6 +1143,17 @@ surface_forms:
     - ka
     - whe
     - tai
+    audio_refs:
+    - ref: whakawhetai.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/10035
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_STATE_012
   entity_id: STATE_012
   lang: af
@@ -844,6 +1185,17 @@ surface_forms:
     - ho
     - ta
     - hi
+    audio_refs:
+    - ref: noho_tahi.mp3
+      package: mi_teaka_v1
+      speaker: Te Aka Māori Dictionary
+      dialect: Standard
+      quality: field
+      speed: normal
+      source_url: https://maoridictionary.co.nz/word/39458
+      retrieved: '2026-07-20'
+      source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational
+        use
 - id: SF_AF_STATE_013
   entity_id: STATE_013
   lang: af

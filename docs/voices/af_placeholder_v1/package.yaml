@@ -1,6 +1,6 @@
 voice_package:
-  id: mi_placeholder_v1
-  language: mi
+  id: af_placeholder_v1
+  language: af
   dialect: Standard
   register: educational
   license: CC-BY-SA-4.0

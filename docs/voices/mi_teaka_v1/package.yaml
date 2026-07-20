@@ -1,0 +1,24 @@
+voice_package:
+  id: mi_teaka_v1
+  name: "Te Aka Māori Dictionary"
+  language: mi
+  dialect: Standard
+  register: educational
+  license: "CC-BY-SA-4.0, audio from Te Aka Māori Dictionary (educational use)"
+  recorded: "2024-01-01"
+  sample_rate: 48000
+  format: mp3
+  version: "1.0"
+  speaker:
+    name: Te Aka Māori Dictionary
+    native: true
+  coverage:
+    corpus: river_world_alpha
+    experience_count: 10
+    surface_form_count: 33
+    percentage: 97
+  review:
+    native: true
+    reviewed: true
+    pronunciation: verified
+    grammar: unreviewed

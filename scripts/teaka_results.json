@@ -1,0 +1,403 @@
+{
+  "ahi": {
+    "word_id": "69",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/69.mp3",
+    "file": "audio/ahi.mp3",
+    "entity_ids": [
+      "THING_104"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_104"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "awa": {
+    "word_id": "563",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/563.mp3",
+    "file": "audio/awa.mp3",
+    "entity_ids": [
+      "PLACE_005"
+    ],
+    "sf_ids": [
+      "SF_MI_PLACE_005"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "heke": {
+    "word_id": "1038",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1038.mp3",
+    "file": "audio/heke.mp3",
+    "entity_ids": [
+      "ACTION_013"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_013"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "hoatu": {
+    "word_id": "1307",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1307.mp3",
+    "file": "audio/hoatu.mp3",
+    "entity_ids": [
+      "ACTION_010"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_010"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "hopu": {
+    "word_id": "1405",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1405.mp3",
+    "file": "audio/hopu.mp3",
+    "entity_ids": [
+      "ACTION_018"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_018"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "hīkoi": {
+    "word_id": "1173",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1173.mp3",
+    "file": "audio/hīkoi.mp3",
+    "entity_ids": [
+      "ACTION_002"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_002"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "ika": {
+    "word_id": "42348",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/42348.mp3",
+    "file": "audio/ika.mp3",
+    "entity_ids": [
+      "THING_102"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_102"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "inu": {
+    "word_id": "1754",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1754.mp3",
+    "file": "audio/inu.mp3",
+    "entity_ids": [
+      "ACTION_001"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_001"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "kai": {
+    "word_id": "1894",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1894.mp3",
+    "file": "audio/kai.mp3",
+    "entity_ids": [
+      "THING_105",
+      "ACTION_021"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_105",
+      "SF_MI_ACTION_021"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "kapu": {
+    "word_id": "2248",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/2248.mp3",
+    "file": "audio/kapu.mp3",
+    "entity_ids": [
+      "THING_103"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_103"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "kauhoe": {
+    "word_id": "2424",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/2424.mp3",
+    "file": "audio/kauhoe.mp3",
+    "entity_ids": [
+      "ACTION_017"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_017"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "koa": {
+    "word_id": "2744",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/2744.mp3",
+    "file": "audio/koa.mp3",
+    "entity_ids": [
+      "STATE_010"
+    ],
+    "sf_ids": [
+      "SF_MI_STATE_010"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "kore matewai": {
+    "word_id": null,
+    "status": "no_entries",
+    "entity_ids": [
+      "STATE_002"
+    ]
+  },
+  "kupenga": {
+    "word_id": "3274",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3274.mp3",
+    "file": "audio/kupenga.mp3",
+    "entity_ids": [
+      "THING_107"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_107"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "kurī": {
+    "word_id": "3309",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3309.mp3",
+    "file": "audio/kurī.mp3",
+    "entity_ids": [
+      "THING_101"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_101"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "matewai": {
+    "word_id": "3885",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3885.mp3",
+    "file": "audio/matewai.mp3",
+    "entity_ids": [
+      "STATE_001"
+    ],
+    "sf_ids": [
+      "SF_MI_STATE_001"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "mākona": {
+    "word_id": "3553",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3553.mp3",
+    "file": "audio/mākona.mp3",
+    "entity_ids": [
+      "STATE_011"
+    ],
+    "sf_ids": [
+      "SF_MI_STATE_011"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "noho": {
+    "word_id": "53247",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/53247.mp3",
+    "file": "audio/noho.mp3",
+    "entity_ids": [
+      "ACTION_016"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_016"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "noho tahi": {
+    "word_id": "39458",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/39458.mp3",
+    "file": "audio/noho tahi.mp3",
+    "entity_ids": [
+      "STATE_013"
+    ],
+    "sf_ids": [
+      "SF_MI_STATE_013"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "rere": {
+    "word_id": "6719",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/6719.mp3",
+    "file": "audio/rere.mp3",
+    "entity_ids": [
+      "ACTION_014"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_014"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "rākau": {
+    "word_id": "6439",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/6439.mp3",
+    "file": "audio/rākau.mp3",
+    "entity_ids": [
+      "THING_100"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_100"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "tamaiti": {
+    "word_id": "7326",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/7326.mp3",
+    "file": "audio/tamaiti.mp3",
+    "entity_ids": [
+      "PERSON_003"
+    ],
+    "sf_ids": [
+      "SF_MI_PERSON_003"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "tipu": {
+    "word_id": "8168",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/8168.mp3",
+    "file": "audio/tipu.mp3",
+    "entity_ids": [
+      "ACTION_015"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_015"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "tohatoha": {
+    "word_id": "8293",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/8293.mp3",
+    "file": "audio/tohatoha.mp3",
+    "entity_ids": [
+      "ACTION_020"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_020"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "tunu": {
+    "word_id": "8712",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/8712.mp3",
+    "file": "audio/tunu.mp3",
+    "entity_ids": [
+      "ACTION_019"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_019"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "ua": {
+    "word_id": "51889",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/51889.mp3",
+    "file": "audio/ua.mp3",
+    "entity_ids": [
+      "THING_106"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_106"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "wai": {
+    "word_id": "9019",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/9019.mp3",
+    "file": "audio/wai.mp3",
+    "entity_ids": [
+      "THING_001"
+    ],
+    "sf_ids": [
+      "SF_MI_THING_001"
+    ],
+    "status": "downloaded",
+    "match_type": "manual_override"
+  },
+  "whaea": {
+    "word_id": "9297",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/9297.mp3",
+    "file": "audio/whaea.mp3",
+    "entity_ids": [
+      "PERSON_010"
+    ],
+    "sf_ids": [
+      "SF_MI_PERSON_010"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "whakaki": {
+    "word_id": "9519",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/9519.mp3",
+    "file": "audio/whakaki.mp3",
+    "entity_ids": [
+      "ACTION_012"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_012"
+    ],
+    "status": "downloaded",
+    "match_type": "first_fallback"
+  },
+  "whakawhetai": {
+    "word_id": "10035",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/10035.mp3",
+    "file": "audio/whakawhetai.mp3",
+    "entity_ids": [
+      "ACTION_022",
+      "STATE_012"
+    ],
+    "sf_ids": [
+      "SF_MI_ACTION_022",
+      "SF_MI_STATE_012"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  },
+  "whānau": {
+    "word_id": "10062",
+    "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/10062.mp3",
+    "file": "audio/whānau.mp3",
+    "entity_ids": [
+      "PERSON_011"
+    ],
+    "sf_ids": [
+      "SF_MI_PERSON_011"
+    ],
+    "status": "downloaded",
+    "match_type": "auto"
+  }
+}
