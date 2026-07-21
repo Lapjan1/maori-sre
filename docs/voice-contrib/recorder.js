@@ -74,6 +74,7 @@ const Recorder = (() => {
   function _populateLanguages() {
     if (typeof DEFAULT_VOICE_PACKAGES === "undefined") return;
     Object.keys(DEFAULT_VOICE_PACKAGES).forEach((code) => {
+      if (code === "en") return;
       const opt = document.createElement("option");
       opt.value = code;
       opt.textContent = _langNames[code] || code.toUpperCase();
