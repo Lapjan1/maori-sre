@@ -1,4 +1,4 @@
-const CACHE = "river-world-v7";
+const CACHE = "river-world-v8";
 const URLS = [
   "index.html",
   "app.js",
@@ -8,6 +8,7 @@ const URLS = [
   "surface_forms.js",
   "voice_packages.js",
   "experiences.js",
+  "curriculum-wife.js",
   "manifest.json",
 ];
 
