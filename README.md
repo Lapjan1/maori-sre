@@ -1,16 +1,14 @@
 # Semantic Representation Engine (SRE)
 
-> A compiler for structured semantic knowledge. Transforms canonical representations of entities, affordances, interactions, and language mappings into optimized runtime graphs for language learning, semantic search, and conversational AI.
+> An open semantic infrastructure for documenting, teaching, and
+> preserving human languages.
 
-## Repositories
+Languages are not dictionaries. Language emerges from shared experience.
+Existing software usually models words. SRE models meaning.
 
-```
-core/           SRE-Core — compiler, canonical schemas, plugins, tests
-languages/      SRE-Languages — language packages (maori, afrikaans, english, ...)
-apps/           SRE-Apps — consumers of the runtime graph
-```
+**[Read why this project exists →](WHY.md)**
 
-## Quick Start
+## Quick start
 
 ```bash
 # Validate canonical source
@@ -23,25 +21,35 @@ sre build core/canonical/examples/ --out core/runtime/
 sre serve core/runtime/ --port 8080
 ```
 
-## Applications
+## Documentation
 
-- **Māori Language Learning** — first application. Offline Māori–English–Afrikaans learning with speech recognition, TTS, and AI conversation.
-- **Dictionary** — concept-aware multilingual dictionary browser.
-- **Semantic Search** — search by meaning across all languages.
+| Document | What it covers |
+|----------|---------------|
+| [WHY.md](WHY.md) | Vision and motivation |
+| [ARCHITECTURE.md](ARCHITECTURE.md) | How the system fits together |
+| [LICENSING.md](LICENSING.md) | Licensing philosophy (layered model) |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | How to contribute |
+| core/formal/*.md | Formal semantics and invariants |
+| core/sre-domain-contracts-v0.1.md | Domain contracts |
+
+## Repository layout
+
+```
+core/           SRE-Core — compiler, canonical schemas, plugins, tests
+languages/      SRE-Languages — language packages (maori, afrikaans, english, ...)
+apps/           SRE-Apps — consumers of the runtime graph
+experiences/    SRE-Experiences — structured narratives
+scripts/        Build and utility scripts
+```
 
 ## Status
 
-**v0.1** — Architecture frozen. Phase 2 (Compiler implementation) ready to begin.
+**v0.1** — Architecture frozen. Compiler implementation in progress.
+First application (River World PWA) live at
+[lapjan1.github.io/maori-sre/](https://lapjan1.github.io/maori-sre/).
 
-## Architecture
+## License
 
-| Layer | Path | Description |
-|-------|------|-------------|
-| Canonical Source | `core/canonical/` | JSON Schema — the source language of the SRE |
-| Compiler | `core/compiler/` | Validates, compiles, and builds runtime artifacts |
-| Runtime | `core/runtime/` | Compiled graph (immutable, never edited) |
-| Plugins | `core/plugins/` | Optional embedding, storage, TTS, STT, lesson plugins |
-| Formal | `core/formal/` | Mathematical semantics, inference rules, invariants |
-| Tests | `core/tests/` | Golden output comparison, contract checks |
-| Languages | `languages/` | Language packages (data only, no code) |
-| Apps | `apps/` | Runtime consumers |
+The SRE engine (core/, scripts/, compiler) is Apache 2.0.
+Language packages, voice packages, and media assets have their own
+licenses. See [LICENSE](LICENSE) and [LICENSING.md](LICENSING.md).
