@@ -4,14 +4,21 @@
  * Architecture:
  *   Entity (semantic) → Surface Form → Voice Package → Audio File
  *
- * Fallback chain:
- *   1. Current voice package native recording (audio_ref in surface form)
- *   2. Any other voice package recording for the same surface form
- *   3. Web Speech API (TTS)
- *   4. No audio available (silent fail)
+ * Playback strategy:
+ *   Web Audio API (fetch + decode + play) for native recordings,
+ *   with speechSynthesis TTS as fallback if fetch/decoding fails
+ *   or no native recording exists.
  */
 const Audio = (() => {
-  let _selectedPackages = {};  // { lang: packageId }
+  let _selectedPackages = {};
+  let _ctx = null;
+
+  function _getCtx() {
+    if (!_ctx) {
+      _ctx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return _ctx;
+  }
 
   function init() {
     if (typeof VOICE_PACKAGES !== "undefined" && typeof DEFAULT_VOICE_PACKAGES !== "undefined") {
@@ -36,29 +43,18 @@ const Audio = (() => {
   }
 
   function speak(text, lang, entityId) {
-    // Step 1: Try native recording from surface form
     if (entityId) {
       const sfId = SURFACE_FORM_INDEX?.[entityId]?.[lang];
       if (sfId) {
         const sf = SURFACE_FORMS[sfId];
         const bestRef = _bestAudioRef(sf, lang);
         if (bestRef) {
-          _playNative(bestRef, sf.text || text, lang);
+          _playNative(bestRef, text, lang);
           return;
         }
       }
     }
-
-    // Step 2: (Reserved) Cached TTS
-
-    // Step 3: Web Speech API
-    if ("speechSynthesis" in window) {
-      _speakWeb(text, lang);
-      return;
-    }
-
-    // Step 4: No audio available
-    console.debug("Audio: no native recording, no Web Speech.");
+    _tryTTS(text, lang);
   }
 
   function _bestAudioRef(surfaceForm, lang) {
@@ -66,7 +62,6 @@ const Audio = (() => {
     const refs = surfaceForm.pronunciation.audio_refs;
     const currentPkg = getVoicePackage(lang);
 
-    // Rank: current package studio > current package field > other studio > other field
     const ranked = refs
       .filter((r) => r.quality !== "tts")
       .sort((a, b) => {
@@ -85,22 +80,35 @@ const Audio = (() => {
     const basePath = pkg?.base_path || "audio/";
     const fullPath = basePath + audioRef.ref;
 
-    const audio = new Audio(fullPath);
-    audio.play().catch(() => {
-      console.debug("Audio: file not found:", fullPath);
-      if (fallbackText && lang && "speechSynthesis" in window) {
-        _speakWeb(fallbackText, lang);
-      }
-    });
+    fetch(fullPath)
+      .then((r) => {
+        if (!r.ok) throw new Error("HTTP " + r.status);
+        return r.arrayBuffer();
+      })
+      .then((buf) => _getCtx().decodeAudioData(buf))
+      .then((decoded) => {
+        const ctx = _getCtx();
+        if (ctx.state === "suspended") ctx.resume();
+        const src = ctx.createBufferSource();
+        src.buffer = decoded;
+        src.connect(ctx.destination);
+        src.start(0);
+      })
+      .catch(() => {
+        console.warn("Audio: native failed:", fullPath, "falling back to TTS");
+        _tryTTS(fallbackText, lang);
+      });
   }
 
-  function _speakWeb(text, lang) {
-    window.speechSynthesis.cancel();
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = _mapLang(lang);
-    utterance.rate = 0.9;
-    utterance.pitch = 1.0;
-    window.speechSynthesis.speak(utterance);
+  function _tryTTS(text, lang) {
+    if ("speechSynthesis" in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = _mapLang(lang);
+      utterance.rate = 0.9;
+      utterance.pitch = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
   }
 
   function _mapLang(lang) {
