@@ -48,6 +48,9 @@ const Recorder = (() => {
   const consentCheck = $("consent-check");
   const bundlePreview = $("bundle-preview");
   const yamlPreview = $("yaml-preview");
+  const correctionSection = $("correction-section");
+  const correctionField = $("correction-field");
+  const btnNext = $("btn-next");
 
   /* ---------- init ---------- */
   function init() {
@@ -62,6 +65,7 @@ const Recorder = (() => {
     btnPlay.addEventListener("click", _playRecording);
     btnReRecord.addEventListener("click", _resetRecording);
     btnDownload.addEventListener("click", _downloadBundle);
+    btnNext.addEventListener("click", _nextCard);
     consentCheck.addEventListener("change", _updateDownloadState);
     _setStatus("Choose a mode and language to start", "info");
   }
@@ -232,6 +236,8 @@ const Recorder = (() => {
     phraseNotes.textContent = _currentMode === "words"
       ? (item.notes || item.context || "")
       : (item.notes || "");
+    correctionSection.style.display = _currentMode === "words" ? "block" : "none";
+    correctionField.value = "";
     _resetRecording();
     _setStatus("Click Record when ready", "info");
   }
@@ -362,6 +368,7 @@ const Recorder = (() => {
     btnRecord.classList.remove("recording");
     metaSection.style.display = "none";
     bundlePreview.style.display = "none";
+    btnNext.style.display = "none";
     btnDownload.disabled = true;
   }
 
@@ -400,6 +407,7 @@ const Recorder = (() => {
     const mode = _currentMode;
     const meta = _currentItemMeta;
     const isPhrase = mode === "phrases";
+    const correction = correctionField.value.trim();
     let prov = "";
     if (isPhrase && meta) {
       prov = `  type: phrase
@@ -408,12 +416,17 @@ const Recorder = (() => {
   source_experience: ${meta.source_experience || ""}
 `;
     }
+    let extra = "";
+    if (correction) {
+      extra = `  correction_suggested: ${correction}
+`;
+    }
     return `contribution:
   id: ${contribId}
   type: ${isPhrase ? "phrase" : "word"}
   ref_id: ${itemId}
   language: ${lang}
-${prov}  text: ${text}
+${prov}${extra}  text: ${text}
   translation_en: ${translation}
   recording:
     filename: ${contribId}.${ext}
@@ -460,7 +473,21 @@ ${prov}  text: ${text}
     yamlLink.click();
     URL.revokeObjectURL(yamlUrl);
 
-    _setStatus(`Contribution ${contribId} downloaded. Add to review queue.`, "success");
+    btnNext.style.display = "inline-block";
+    _setStatus(`Contribution ${contribId} downloaded.`, "success");
+  }
+
+  function _nextCard() {
+    const opts = phraseSel.querySelectorAll("option");
+    const currentIdx = phraseSel.selectedIndex;
+    if (currentIdx < opts.length - 1) {
+      phraseSel.selectedIndex = currentIdx + 1;
+    } else {
+      phraseSel.selectedIndex = 0;
+    }
+    btnNext.style.display = "none";
+    bundlePreview.style.display = "none";
+    _onPhraseChange();
   }
 
   /* ---------- helpers ---------- */
