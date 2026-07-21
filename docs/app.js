@@ -5,6 +5,9 @@ const App = (() => {
   let _currentIndex = 0;
   let _currentLang = "en";
   let _experiences = [];
+  let _reviewMode = false;
+
+  const REVIEW_KEY = "river_world_pass1";
 
   function init() {
     _experiences = window.EXPERIENCES || [];
@@ -188,16 +191,247 @@ const App = (() => {
 
   function _renderExperienceList() {
     const container = document.getElementById("exp-list");
-    container.innerHTML = _experiences
+    let html = _experiences
       .map(
         (exp, i) => `
-      <button class="exp-list-item ${i === _currentIndex ? "active" : ""}"
+      <button class="exp-list-item ${i === _currentIndex && !_reviewMode ? "active" : ""}"
               data-index="${i}">
         <span class="exp-list-title">${_escape(exp.title["en"] || exp.id)}</span>
         <span class="exp-list-type">${exp.type} · Level ${exp.level}</span>
       </button>`
       )
       .join("");
+    html += `<hr class="sidebar-divider">`;
+    html += `<button class="sidebar-review ${_reviewMode ? "active" : ""}" data-action="review">Pass 1 Review</button>`;
+    container.innerHTML = html;
+  }
+
+  // --- Pass 1 Review mode ---
+
+  const REVIEW_DATA = [
+    { id: "VISIT_001", title: "Before the Journey", scenario: "At home in South Africa, packing. Thinking about the trip ahead.", phrases: [
+      ["Kei te haere au ki Aotearoa", "I am going to New Zealand"],
+      ["He taonga tēnei mō te whānau", "This is a gift for the family"],
+      ["Kei te koa au", "I am excited"]
+    ]},
+    { id: "VISIT_002", title: "Arrival", scenario: "Arriving at the airport. Being greeted by family.", rehearsal: "Family says \"Kia ora! Haere mai!\" then asks \"Kei te pēhea koe?\"", phrases: [
+      ["Kia ora", "Hello / greetings"],
+      ["Kei te pēhea koe?", "How are you?"],
+      ["Kei te pai", "I am well"],
+      ["Haere mai", "Welcome / come here"]
+    ]},
+    { id: "VISIT_003", title: "Meeting the Family", scenario: "Being introduced to family members at the house.", rehearsal: "Someone asks \"Nō hea koe?\" and you introduce yourself.", phrases: [
+      ["Ko [name] tōku ingoa", "My name is [name]"],
+      ["Nō hea koe?", "Where are you from?"],
+      ["Nō Āwherika ki te Tonga ahau", "I am from South Africa"],
+      ["Ko wai tēnei?", "Who is this?"],
+      ["Tēnā koutou", "Greetings to you all"]
+    ]},
+    { id: "VISIT_004", title: "At the House", scenario: "Being shown around the family home.", rehearsal: "You need the bathroom. Your host is showing you around.", phrases: [
+      ["Kei hea te wharepaku?", "Where is the bathroom?"],
+      ["He whare ātaahua", "A beautiful house"],
+      ["Noho mai", "Please sit / stay"],
+      ["Kei te hiamoe au", "I am sleepy"]
+    ]},
+    { id: "VISIT_005", title: "Food and Drink", scenario: "Family meal. Being offered food and drink.", rehearsal: "Someone offers you food. You are thirsty.", phrases: [
+      ["Kei te hiakai au", "I am hungry"],
+      ["Kei te matewai au", "I am thirsty"],
+      ["He wai, koa", "Some water, please"],
+      ["Kia ora mō te kai", "Thank you for the food"],
+      ["He kai, koa", "Some food, please"],
+      ["Tēnā kōrua", "Please help yourselves"]
+    ]},
+    { id: "VISIT_006", title: "The Weather", scenario: "Looking outside. Commenting on the weather.", rehearsal: "Someone says \"Pēhea te huarere?\" It is raining.", phrases: [
+      ["Kei te ua", "It is raining"],
+      ["He rā paki", "A fine day"],
+      ["Kei te wera", "It is hot"],
+      ["Kei te mātao", "It is cold"],
+      ["Pēhea te huarere?", "How is the weather?"]
+    ]},
+    { id: "VISIT_007", title: "Going Out", scenario: "Going to the local shops or marae.", rehearsal: "Someone invites you to go to the shop.", phrases: [
+      ["Haere tāua", "Let's go (you and me)"],
+      ["Kei hea te toa?", "Where is the shop?"],
+      ["Hoko kai", "Buy food"],
+      ["Haere ki te marae", "Go to the marae"]
+    ]},
+    { id: "VISIT_008", title: "Beach and Sea", scenario: "A day trip to the beach.", rehearsal: "You arrive at the beach and see the ocean.", phrases: [
+      ["Kei te haere tāua ki te one", "We are going to the beach"],
+      ["He ātaahua te moana", "The sea is beautiful"],
+      ["Kauhoe tāua", "Let's swim"],
+      ["Auē, he makariri te wai!", "Oh, the water is cold!"]
+    ]},
+    { id: "VISIT_009", title: "Family Gathering", scenario: "A larger family gathering with extended whānau.", rehearsal: "You are at a gathering with extended family.", phrases: [
+      ["Huihui tātou", "Let us gather"],
+      ["Kōrero mai", "Speak to me / tell me"],
+      ["Waiata tātou", "Let's sing"],
+      ["He nui te whānau", "The family is big"],
+      ["Aroha nui", "Much love"]
+    ]},
+    { id: "VISIT_010", title: "Social Conversation", scenario: "Sitting around the table, having casual conversation.", rehearsal: "At the table, someone asks about your trip.", phrases: [
+      ["Kei te pēhea tō haerenga?", "How is your trip?"],
+      ["He reka", "It is delicious"],
+      ["Nō hea koe?", "Where are you from?"],
+      ["E hia ō tau?", "How old are you?"],
+      ["He pai te kai", "The food is good"]
+    ]},
+    { id: "VISIT_011", title: "Thanking", scenario: "The end of a visit. Expressing gratitude.", rehearsal: "Before leaving, you want to thank your hosts properly.", phrases: [
+      ["Kia ora mō tō manaaki", "Thank you for your hospitality"],
+      ["Kia ora mō te kai", "Thank you for the food"],
+      ["He whare ātaahua", "Beautiful home"],
+      ["He whānau atawhai", "Kind family"]
+    ]},
+    { id: "VISIT_012", title: "Goodbye", scenario: "Leaving. Saying goodbye to family.", rehearsal: "You are leaving. Your family says \"Haere rā.\"", phrases: [
+      ["Haere rā", "Goodbye (to those staying)"],
+      ["E noho rā", "Goodbye (to those leaving)"],
+      ["Ka hoki mai au", "I will return"],
+      ["Ka tangī au", "I will miss you / I will cry"],
+      ["Aroha nui", "Much love"],
+      ["Kia kaha", "Be strong"]
+    ]}
+  ];
+
+  function _reviewUid(expId, idx) { return expId + "_" + idx; }
+
+  function _loadReview() {
+    try { return JSON.parse(localStorage.getItem(REVIEW_KEY)) || {}; } catch(e) { return {}; }
+  }
+
+  function _saveReview(state) {
+    localStorage.setItem(REVIEW_KEY, JSON.stringify(state));
+  }
+
+  function _reviewDone(state) {
+    let n = 0;
+    REVIEW_DATA.forEach(e => e.phrases.forEach((_, i) => { if (state[_reviewUid(e.id, i)]) n++; }));
+    return n;
+  }
+
+  function _renderReview() {
+    const state = _loadReview();
+    const total = REVIEW_DATA.reduce((s, e) => s + e.phrases.length, 0);
+    const done = _reviewDone(state);
+    let html = `<div class="review-section">`;
+    html += `<div class="review-toolbar">`;
+    html += `<button class="btn-back" data-action="back-to-exp">Back to Lessons</button>`;
+    html += `<button class="btn-export" data-action="export-review">Export</button>`;
+    html += `<button class="btn-reset" data-action="reset-review">Reset</button>`;
+    html += `<span class="review-progress">${done} / ${total}</span>`;
+    html += `</div>`;
+    html += `<h2>Pass 1 Review</h2>`;
+    html += `<p class="hdr">Mark each phrase: <b>S</b> (want to say) &middot; <b>R</b> (recognise) &middot; <b>X</b> (explore/understand)</p>`;
+
+    REVIEW_DATA.forEach(exp => {
+      html += `<div class="review-exp">`;
+      html += `<h3>${_escape(exp.title)}</h3>`;
+      html += `<p class="scenario">${_escape(exp.scenario)}</p>`;
+      html += `<table class="review-table">`;
+      exp.phrases.forEach((p, i) => {
+        const id = _reviewUid(exp.id, i);
+        const val = state[id] || "";
+        html += `<tr><td><div class="rg">`;
+        ["S","R","X"].forEach(v => {
+          const ch = val === v ? " checked" : "";
+          html += `<input type="radio" name="${id}" id="${id}_${v}" value="${v}"${ch} data-review="${id}" data-v="${v}">`;
+          html += `<label data-v="${v}" for="${id}_${v}">${v}</label>`;
+        });
+        html += `</div></td><td><b>${_escape(p[0])}</b></td><td>${_escape(p[1])}</td></tr>`;
+      });
+      html += `</table>`;
+      if (exp.rehearsal) {
+        const rk = exp.id + "_rehearsal";
+        const rv = state[rk] || "";
+        html += `<div class="review-rehearsal"><p class="q">${_escape(exp.rehearsal)}</p>`;
+        html += `<p style="font-weight:600;margin-top:4px">Could you handle this?</p>`;
+        html += `<div class="yn">`;
+        ["Yes","Not sure"].forEach(v => {
+          const ch = rv === v ? " checked" : "";
+          html += `<label><input type="radio" name="${rk}" value="${v}"${ch} data-review="${rk}" data-v="${v}"> ${v}</label>`;
+        });
+        html += `</div></div>`;
+      }
+      html += `</div>`;
+    });
+
+    const fr = state["_finalReady"] || "";
+    html += `<div class="review-footer">`;
+    html += `<h3>Final Check</h3>`;
+    html += `<p>If you had to navigate a visit using only the phrases you marked <b>S</b>, would you feel ready?</p>`;
+    html += `<div class="rr">`;
+    ["yes","partial","no"].forEach(v => {
+      const labels = {yes:"Yes, mostly", partial:"Partially", no:"No, I need more"};
+      const ch = fr === v ? " checked" : "";
+      html += `<label><input type="radio" name="_finalReady" value="${v}"${ch} data-review="_finalReady" data-v="${v}"> ${labels[v]}</label>`;
+    });
+    html += `</div>`;
+    html += `<p style="margin-top:10px;font-weight:600">What is the ONE thing you most want to say that isn't on this list?</p>`;
+    html += `<textarea id="review-missing" rows="2" placeholder="Type here...">${_escape(state["_missingPhrase"] || "")}</textarea>`;
+    html += `<p style="font-weight:600">Any other notes:</p>`;
+    html += `<textarea id="review-notes" rows="3" placeholder="Type here...">${_escape(state["_otherNotes"] || "")}</textarea>`;
+    html += `</div></div>`;
+    return html;
+  }
+
+  function _enterReview() {
+    _reviewMode = true;
+    document.getElementById("app").innerHTML = _renderReview();
+    document.getElementById("sidebar").classList.remove("open");
+    _renderExperienceList();
+  }
+
+  function _exitReview() {
+    _reviewMode = false;
+    _showExperience(_currentIndex);
+    _renderExperienceList();
+  }
+
+  function _exportReview() {
+    _saveReviewNow();
+    const state = _loadReview();
+    const result = {
+      exportedAt: new Date().toISOString(),
+      responses: {},
+      rehearsalChecks: {},
+      finalReady: state["_finalReady"] || "",
+      missingPhrase: state["_missingPhrase"] || "",
+      otherNotes: state["_otherNotes"] || ""
+    };
+    REVIEW_DATA.forEach(exp => {
+      exp.phrases.forEach((p, i) => {
+        const id = _reviewUid(exp.id, i);
+        result.responses[id] = {
+          phrase: p[0], english: p[1], experience: exp.title,
+          choice: state[id] || null
+        };
+      });
+      if (exp.rehearsal) {
+        const rk = exp.id + "_rehearsal";
+        result.rehearsalChecks[rk] = {
+          experience: exp.title, check: exp.rehearsal,
+          answer: state[rk] || null
+        };
+      }
+    });
+    const blob = new Blob([JSON.stringify(result, null, 2)], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "pass1-results.json";
+    document.body.appendChild(a); a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
+
+  function _saveReviewNow() {
+    const state = _loadReview();
+    document.querySelectorAll("[data-review]").forEach(el => {
+      if (el.type === "radio" && el.checked) {
+        state[el.name] = el.value;
+      }
+    });
+    ["review-missing", "review-notes"].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) state[id === "review-missing" ? "_missingPhrase" : "_otherNotes"] = el.value;
+    });
+    _saveReview(state);
   }
 
   function _escape(s) {
@@ -273,11 +507,50 @@ const App = (() => {
       return;
     }
 
+    // Review sidebar button
+    if (e.target.classList.contains("sidebar-review")) {
+      _enterReview();
+      return;
+    }
+
+    // Review: back to lessons
+    if (e.target.dataset.action === "back-to-exp") {
+      _saveReviewNow();
+      _exitReview();
+      return;
+    }
+
+    // Review: export
+    if (e.target.dataset.action === "export-review") {
+      _exportReview();
+      return;
+    }
+
+    // Review: reset
+    if (e.target.dataset.action === "reset-review") {
+      if (!confirm("Reset all your Pass 1 answers?")) return;
+      localStorage.removeItem(REVIEW_KEY);
+      document.getElementById("app").innerHTML = _renderReview();
+      return;
+    }
+
+    // Review: radio change (delegated via click on label for mobile)
+    if (e.target.dataset.review) {
+      _saveReviewNow();
+      const state = _loadReview();
+      const total = REVIEW_DATA.reduce((s, e) => s + e.phrases.length, 0);
+      const done = _reviewDone(state);
+      const prog = document.querySelector(".review-progress");
+      if (prog) prog.textContent = done + " / " + total;
+      return;
+    }
+
     // Experience list items
     const item = e.target.closest(".exp-list-item");
     if (item) {
       const idx = parseInt(item.dataset.index, 10);
       if (!isNaN(idx)) {
+        _reviewMode = false;
         _showExperience(idx);
         _updateList();
         document.getElementById("sidebar").classList.remove("open");
@@ -294,13 +567,24 @@ const App = (() => {
       Audio.setVoicePackage(_currentLang, e.target.value);
       Session.log("voice_package_changed", { lang: _currentLang, package: e.target.value });
     }
+    // Review textareas
+    if (e.target.id === "review-missing" || e.target.id === "review-notes") {
+      _saveReviewNow();
+    }
+  });
+
+  document.addEventListener("input", (e) => {
+    if (e.target.id === "review-missing" || e.target.id === "review-notes") {
+      _saveReviewNow();
+    }
   });
 
   function _updateList() {
-    const items = document.querySelectorAll(".exp-list-item");
-    items.forEach((el, i) => {
-      el.classList.toggle("active", i === _currentIndex);
+    document.querySelectorAll(".exp-list-item").forEach((el, i) => {
+      el.classList.toggle("active", !_reviewMode && i === _currentIndex);
     });
+    const rb = document.querySelector(".sidebar-review");
+    if (rb) rb.classList.toggle("active", _reviewMode);
   }
 
   // Sidebar toggle

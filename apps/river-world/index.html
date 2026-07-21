@@ -207,6 +207,45 @@
   .btn-secondary:hover:not(:disabled) { background: #ccc; }
   .exp-counter { font-size: 0.85rem; color: var(--muted); }
 
+  /* --- Review mode --- */
+  .review-section { padding: 0 0 1.5rem 0; }
+  .review-section h2 { font-size: 1.2rem; color: var(--green); margin-bottom: 0.3rem; }
+  .review-section .hdr { font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem; }
+  .review-exp { background: var(--card); border-radius: var(--radius); padding: 0.75rem; margin-bottom: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .review-exp h3 { font-size: 0.95rem; color: var(--green); margin-bottom: 0.25rem; }
+  .review-exp .scenario { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .review-table { width: 100%; border-collapse: collapse; }
+  .review-table td { padding: 5px 4px; border-bottom: 1px solid #eee; font-size: 0.85rem; vertical-align: middle; }
+  .review-table td:first-child { width: 22%; white-space: nowrap; }
+  .review-table td:nth-child(2) { width: 40%; }
+  .review-table td:nth-child(3) { width: 38%; }
+  .rg { display: flex; gap: 2px; justify-content: center; }
+  .rg label { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; border-radius: 50%; border: 2px solid #ccc; cursor: pointer; font-size: 0.75rem; font-weight: 600; background: #fff; }
+  .rg input { display: none; }
+  .rg input:checked + label { color: #fff; }
+  .rg input:checked + label[data-v="S"] { background: var(--green); border-color: var(--green); }
+  .rg input:checked + label[data-v="R"] { background: var(--water); border-color: var(--water); }
+  .rg input:checked + label[data-v="X"] { background: #aaa; border-color: #aaa; }
+  .review-rehearsal { background: #f0f7f4; border-radius: 6px; padding: 8px 10px; margin-top: 8px; font-size: 0.8rem; border-left: 3px solid var(--green); }
+  .review-rehearsal .q { font-weight: 600; }
+  .review-rehearsal .yn { display: flex; gap: 14px; margin-top: 5px; }
+  .review-rehearsal .yn label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.85rem; }
+  .review-footer { background: var(--card); border-radius: var(--radius); padding: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .review-footer h3 { font-size: 0.95rem; color: var(--green); margin-bottom: 0.5rem; }
+  .review-footer .rr { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0; }
+  .review-footer .rr label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; font-size: 0.85rem; }
+  .review-footer textarea { width: 100%; border: 1px solid #ccc; border-radius: 6px; padding: 7px; font-family: inherit; font-size: 0.85rem; resize: vertical; margin-bottom: 0.5rem; }
+  .review-toolbar { display: flex; gap: 8px; margin-bottom: 0.75rem; flex-wrap: wrap; }
+  .review-toolbar button { padding: 0.4rem 1rem; border: none; border-radius: 6px; font-size: 0.85rem; cursor: pointer; font-weight: 500; }
+  .btn-export { background: var(--green); color: #fff; }
+  .btn-reset { background: #ddd; color: var(--text); }
+  .btn-back { background: var(--water); color: #fff; }
+  .review-progress { font-size: 0.8rem; color: var(--muted); margin-left: auto; align-self: center; }
+  .sidebar-divider { border: none; border-top: 1px solid #ddd; margin: 0.5rem 0; }
+  .sidebar-review { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; border: none; background: none; cursor: pointer; border-bottom: 1px solid #eee; font-size: 0.9rem; color: var(--water); font-weight: 500; }
+  .sidebar-review:hover { background: #e8f4f8; }
+  .sidebar-review.active { background: #e3f0e8; border-left: 3px solid var(--water); }
+
   /* Session debug */
   #session-debug {
     font-size: 0.75rem; color: #aaa; padding: 0.5rem 1rem;

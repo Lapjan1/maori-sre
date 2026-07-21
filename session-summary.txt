@@ -1,0 +1,28 @@
+# Session: 21 July 2026
+
+## Key Insight
+The learner model must be separate from the course content.
+"Your wife is the first learner, not the only learner."
+
+## Decisions Made
+- Course content is reusable; learner goals are personal
+- Curriculum graph is generated per learner from their goal choices
+- Onboarding asks "what do you want to do?" not "what language?"
+- Three learner modes per concept: Learn / Recognize / Say
+- Pronunciation feedback = 3 scores: recognition, similarity, human review
+- System must clearly label machine feedback vs native-speaker feedback
+- First target: wife learns 20-25 genuinely useful expressions, not all 59
+
+## Course YAML Refactor Needed
+- Strip `learner_priority` out of course spec
+- Add learner profile as separate config
+- Generate curriculum graph by matching learner goals to semantic intents
+
+## Where the Pass 1 Review Fits
+The Pass 1 form (now integrated into River World app) lets the wife choose
+S/R/X for each phrase. This IS the first run of the learner model:
+- S = Say (produce)
+- R = Recognize  
+- X = Learn (skip active practice but keep in semantic map)
+
+Same architecture, different label.

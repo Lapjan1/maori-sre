@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Te Haerenga ki Aotearoa — Pass 1 Review</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; color: #222; padding: 12px; line-height: 1.5; }
+h1 { font-size: 1.3rem; margin-bottom: 4px; }
+h2 { font-size: 1.1rem; margin: 20px 0 8px; color: #1a6b3c; border-bottom: 2px solid #1a6b3c; padding-bottom: 4px; }
+p.sub { color: #555; font-size: 0.9rem; margin-bottom: 16px; }
+.exp { background: #fff; border-radius: 10px; padding: 14px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+.exp h3 { font-size: 1rem; margin-bottom: 6px; color: #1a6b3c; }
+.exp .scenario { font-size: 0.85rem; color: #666; margin-bottom: 10px; }
+table { width: 100%; border-collapse: collapse; }
+td { padding: 6px 4px; border-bottom: 1px solid #eee; font-size: 0.9rem; vertical-align: middle; }
+td:first-child { width: 20%; white-space: nowrap; }
+td:nth-child(2) { width: 38%; }
+td:nth-child(3) { width: 42%; }
+.radio-group { display: flex; gap: 2px; justify-content: center; }
+.radio-group label { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; border: 2px solid #ccc; cursor: pointer; font-size: 0.8rem; font-weight: 600; background: #fff; transition: all .15s; }
+.radio-group input { display: none; }
+.radio-group input:checked + label { border-width: 2px; }
+.radio-group input:checked + label[data-v="S"] { border-color: #1a6b3c; background: #1a6b3c; color: #fff; }
+.radio-group input:checked + label[data-v="R"] { border-color: #2b7a9e; background: #2b7a9e; color: #fff; }
+.radio-group input:checked + label[data-v="X"] { border-color: #a0a0a0; background: #a0a0a0; color: #fff; }
+.rehearsal { background: #f0f7f4; border-radius: 8px; padding: 10px; margin-top: 10px; font-size: 0.85rem; border-left: 3px solid #1a6b3c; }
+.rehearsal p { margin-bottom: 6px; }
+.rehearsal .q { font-weight: 600; }
+.rehearsal .yesno { display: flex; gap: 12px; margin-top: 6px; }
+.rehearsal .yesno label { display: inline-flex; align-items: center; gap: 4px; font-size: 0.9rem; cursor: pointer; }
+.final { background: #fff; border-radius: 10px; padding: 14px; margin-bottom: 14px; box-shadow: 0 1px 3px rgba(0,0,0,.1); }
+.final h2 { border: none; margin-top: 0; }
+.final textarea { width: 100%; border: 1px solid #ccc; border-radius: 6px; padding: 8px; font-family: inherit; font-size: 0.9rem; resize: vertical; margin-top: 4px; }
+.final .radio-row { display: flex; gap: 12px; margin: 8px 0; flex-wrap: wrap; }
+.final .radio-row label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.toolbar { position: sticky; top: 0; background: #1a6b3c; color: #fff; padding: 10px 14px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; z-index: 10; font-size: 0.85rem; }
+.toolbar button { background: #fff; color: #1a6b3c; border: none; border-radius: 6px; padding: 6px 14px; font-weight: 600; font-size: 0.85rem; cursor: pointer; }
+.toolbar button:active { opacity: 0.8; }
+.toolbar .progress { font-size: 0.8rem; }
+#exportData { display: none; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #333; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 0.85rem; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 100; }
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<div class="toolbar">
+  <span id="saveStatus">&#10003; Saved</span>
+  <span class="progress" id="progress">0 / 59</span>
+  <button onclick="resetAll()">Reset</button>
+  <button onclick="exportJSON()">Export</button>
+</div>
+
+<h1>Te Haerenga ki Aotearoa</h1>
+<p class="sub">Pass 1 Review — Mark each phrase: <b>S</b> (want to say) · <b>R</b> (recognise) · <b>X</b> (explore/understand)</p>
+
+<div id="app"></div>
+
+<div class="final" id="finalSection">
+  <h2>Final Check</h2>
+  <p>If you had to navigate a visit using only the phrases you marked <b>S</b>, would you feel ready?</p>
+  <div class="radio-row">
+    <label><input type="radio" name="finalReady" value="yes"> Yes, mostly</label>
+    <label><input type="radio" name="finalReady" value="partial"> Partially</label>
+    <label><input type="radio" name="finalReady" value="no"> No, I need more</label>
+  </div>
+  <p style="margin-top:12px"><b>What is the ONE thing you most want to say that isn't on this list?</b></p>
+  <textarea id="missingPhrase" rows="2" placeholder="Type here..."></textarea>
+  <p style="margin-top:12px"><b>Any other notes:</b></p>
+  <textarea id="otherNotes" rows="3" placeholder="Type here..."></textarea>
+</div>
+
+<div id="toast" class="toast"></div>
+<pre id="exportData"></pre>
+
+<script>
+const STORAGE_KEY = 'pass1_review';
+
+const DATA = {
+  "Before the Journey": {
+    scenario: "At home in South Africa, packing. Thinking about the trip ahead.",
+    phrases: [
+      ["Kei te haere au ki Aotearoa", "I am going to New Zealand"],
+      ["He taonga tēnei mō te whānau", "This is a gift for the family"],
+      ["Kei te koa au", "I am excited"]
+    ]
+  },
+  "Arrival": {
+    scenario: "Arriving at the airport. Being greeted by family.",
+    phrases: [
+      ["Kia ora", "Hello / greetings"],
+      ["Kei te pēhea koe?", "How are you?"],
+      ["Kei te pai", "I am well"],
+      ["Haere mai", "Welcome / come here"]
+    ],
+    rehearsal: "Family says \"Kia ora! Haere mai!\" then asks \"Kei te pēhea koe?\""
+  },
+  "Meeting the Family": {
+    scenario: "Being introduced to family members at the house.",
+    phrases: [
+      ["Ko [name] tōku ingoa", "My name is [name]"],
+      ["Nō hea koe?", "Where are you from?"],
+      ["Nō Āwherika ki te Tonga ahau", "I am from South Africa"],
+      ["Ko wai tēnei?", "Who is this?"],
+      ["Tēnā koutou", "Greetings to you all"]
+    ],
+    rehearsal: "Someone asks \"Nō hea koe?\" and you introduce yourself."
+  },
+  "At the House": {
+    scenario: "Being shown around the family home.",
+    phrases: [
+      ["Kei hea te wharepaku?", "Where is the bathroom?"],
+      ["He whare ātaahua", "A beautiful house"],
+      ["Noho mai", "Please sit / stay"],
+      ["Kei te hiamoe au", "I am sleepy"]
+    ],
+    rehearsal: "You need the bathroom. Your host is showing you around."
+  },
+  "Food and Drink": {
+    scenario: "Family meal. Being offered food and drink.",
+    phrases: [
+      ["Kei te hiakai au", "I am hungry"],
+      ["Kei te matewai au", "I am thirsty"],
+      ["He wai, koa", "Some water, please"],
+      ["Kia ora mō te kai", "Thank you for the food"],
+      ["He kai, koa", "Some food, please"],
+      ["Tēnā kōrua", "Please help yourselves"]
+    ],
+    rehearsal: "Someone offers you food. You are thirsty."
+  },
+  "The Weather": {
+    scenario: "Looking outside. Commenting on the weather.",
+    phrases: [
+      ["Kei te ua", "It is raining"],
+      ["He rā paki", "A fine day"],
+      ["Kei te wera", "It is hot"],
+      ["Kei te mātao", "It is cold"],
+      ["Pēhea te huarere?", "How is the weather?"]
+    ],
+    rehearsal: "Someone says \"Pēhea te huarere?\" It is raining."
+  },
+  "Going Out": {
+    scenario: "Going to the local shops or marae.",
+    phrases: [
+      ["Haere tāua", "Let's go (you and me)"],
+      ["Kei hea te toa?", "Where is the shop?"],
+      ["Hoko kai", "Buy food"],
+      ["Haere ki te marae", "Go to the marae"]
+    ],
+    rehearsal: "Someone invites you to go to the shop."
+  },
+  "Beach and Sea": {
+    scenario: "A day trip to the beach.",
+    phrases: [
+      ["Kei te haere tāua ki te one", "We are going to the beach"],
+      ["He ātaahua te moana", "The sea is beautiful"],
+      ["Kauhoe tāua", "Let's swim"],
+      ["Auē, he makariri te wai!", "Oh, the water is cold!"]
+    ],
+    rehearsal: "You arrive at the beach and see the ocean."
+  },
+  "Family Gathering": {
+    scenario: "A larger family gathering with extended whānau.",
+    phrases: [
+      ["Huihui tātou", "Let us gather"],
+      ["Kōrero mai", "Speak to me / tell me"],
+      ["Waiata tātou", "Let's sing"],
+      ["He nui te whānau", "The family is big"],
+      ["Aroha nui", "Much love"]
+    ],
+    rehearsal: "You are at a gathering with extended family."
+  },
+  "Social Conversation": {
+    scenario: "Sitting around the table, having casual conversation.",
+    phrases: [
+      ["Kei te pēhea tō haerenga?", "How is your trip?"],
+      ["He reka", "It is delicious"],
+      ["Nō hea koe?", "Where are you from?"],
+      ["E hia ō tau?", "How old are you?"],
+      ["He pai te kai", "The food is good"]
+    ],
+    rehearsal: "At the table, someone asks about your trip."
+  },
+  "Thanking": {
+    scenario: "The end of a visit. Expressing gratitude.",
+    phrases: [
+      ["Kia ora mō tō manaaki", "Thank you for your hospitality"],
+      ["Kia ora mō te kai", "Thank you for the food"],
+      ["He whare ātaahua", "Beautiful home"],
+      ["He whānau atawhai", "Kind family"]
+    ],
+    rehearsal: "Before leaving, you want to thank your hosts properly."
+  },
+  "Goodbye": {
+    scenario: "Leaving. Saying goodbye to family.",
+    phrases: [
+      ["Haere rā", "Goodbye (to those staying)"],
+      ["E noho rā", "Goodbye (to those leaving)"],
+      ["Ka hoki mai au", "I will return"],
+      ["Ka tangī au", "I will miss you / I will cry"],
+      ["Aroha nui", "Much love"],
+      ["Kia kaha", "Be strong"]
+    ],
+    rehearsal: "You are leaving. Your family says \"Haere rā.\""
+  }
+};
+
+function uid(expTitle, phraseIdx) {
+  return expTitle.replace(/[^a-z]/gi,'_') + '_' + phraseIdx;
+}
+
+function loadState() {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+  } catch(e) { return {}; }
+}
+
+function saveState(state) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  document.getElementById('saveStatus').textContent = '\u2713 Saved';
+}
+
+function updateProgress(state) {
+  const total = Object.values(DATA).reduce((s, e) => s + e.phrases.length, 0);
+  const done = Object.values(state).filter(v => v === 'S' || v === 'R' || v === 'X').length;
+  document.getElementById('progress').textContent = done + ' / ' + total;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function render() {
+  const app = document.getElementById('app');
+  const state = loadState();
+  let html = '';
+  let idx = 0;
+  for (const [title, exp] of Object.entries(DATA)) {
+    html += '<div class="exp">';
+    html += `<h3>${title}</h3>`;
+    html += `<p class="scenario">${exp.scenario}</p>`;
+    html += '<table>';
+    exp.phrases.forEach((p, i) => {
+      const id = uid(title, i);
+      const val = state[id] || '';
+      html += `<tr><td><div class="radio-group">`;
+      ['S','R','X'].forEach(v => {
+        const checked = val === v ? ' checked' : '';
+        html += `<input type="radio" name="${id}" id="${id}_${v}" value="${v}"${checked} onchange="setVal('${id}','${v}')">`;
+        html += `<label data-v="${v}" for="${id}_${v}">${v}</label>`;
+      });
+      html += `</div></td><td><b>${p[0]}</b></td><td>${p[1]}</td></tr>`;
+      idx++;
+    });
+    html += '</table>';
+    if (exp.rehearsal) {
+      const rTitle = title.replace(/[^a-z]/gi,'_') + '_rehearsal';
+      const rVal = state[rTitle] || '';
+      html += `<div class="rehearsal"><p class="q">${exp.rehearsal}</p>`;
+      html += `<p style="font-weight:600;margin-top:6px">Could you handle this?</p>`;
+      html += `<div class="yesno">`;
+      ['Yes','Not sure'].forEach(v => {
+        const checked = rVal === v ? ' checked' : '';
+        html += `<label><input type="radio" name="${rTitle}" value="${v}"${checked} onchange="setVal('${rTitle}','${v}')"> ${v}</label>`;
+      });
+      html += `</div></div>`;
+    }
+    html += '</div>';
+  }
+  app.innerHTML = html;
+
+  // restore final section
+  const finalReady = state['_finalReady'] || '';
+  if (finalReady) {
+    const el = document.querySelector('input[name="finalReady"][value="' + finalReady + '"]');
+    if (el) el.checked = true;
+  }
+  document.getElementById('missingPhrase').value = state['_missingPhrase'] || '';
+  document.getElementById('otherNotes').value = state['_otherNotes'] || '';
+
+  updateProgress(state);
+}
+
+function setVal(id, v) {
+  const state = loadState();
+  state[id] = v;
+  saveState(state);
+  updateProgress(state);
+}
+
+function saveFinal() {
+  const state = loadState();
+  const r = document.querySelector('input[name="finalReady"]:checked');
+  if (r) state['_finalReady'] = r.value;
+  state['_missingPhrase'] = document.getElementById('missingPhrase').value;
+  state['_otherNotes'] = document.getElementById('otherNotes').value;
+  saveState(state);
+}
+
+document.addEventListener('change', saveFinal);
+
+function exportJSON() {
+  saveFinal();
+  const state = loadState();
+  const result = {
+    exportedAt: new Date().toISOString(),
+    learner: "",
+    responses: {},
+    rehearsalChecks: {},
+    finalReady: state['_finalReady'] || "",
+    missingPhrase: state['_missingPhrase'] || "",
+    otherNotes: state['_otherNotes'] || ""
+  };
+
+  let idx = 0;
+  for (const [title, exp] of Object.entries(DATA)) {
+    exp.phrases.forEach((p, i) => {
+      const id = uid(title, i);
+      const val = state[id] || null;
+      result.responses[id] = {
+        phrase: p[0],
+        english: p[1],
+        experience: title,
+        choice: val
+      };
+      idx++;
+    });
+    if (exp.rehearsal) {
+      const rTitle = title.replace(/[^a-z]/gi,'_') + '_rehearsal';
+      result.rehearsalChecks[rTitle] = {
+        experience: title,
+        check: exp.rehearsal,
+        answer: state[rTitle] || null
+      };
+    }
+  }
+
+  const blob = new Blob([JSON.stringify(result, null, 2)], {type: 'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'pass1-results.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  showToast('Exported! Share the JSON file with me.');
+}
+
+function resetAll() {
+  if (!confirm('Reset all your answers?')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  render();
+  document.querySelectorAll('input[name="finalReady"]').forEach(el => el.checked = false);
+  document.getElementById('missingPhrase').value = '';
+  document.getElementById('otherNotes').value = '';
+  showToast('Reset complete');
+}
+
+render();
+
+// auto-save final section on input
+document.getElementById('missingPhrase').addEventListener('input', saveFinal);
+document.getElementById('otherNotes').addEventListener('input', saveFinal);
+</script>
+</body>
+</html>

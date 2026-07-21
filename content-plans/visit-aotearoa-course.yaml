@@ -1,0 +1,912 @@
+# Te Haerenga ki Aotearoa — Course Specification
+# Status: DRAFT — learner review (Pass 1) pending
+# All Māori surface forms UNVERIFIED unless marked otherwise
+
+course:
+  id: visit_aotearoa_alpha
+  title: "Te Haerenga ki Aotearoa — First Visit to New Zealand"
+  description: "A 12-experience beginner course for an Afrikaans-speaking adult visiting Māori family in Aotearoa"
+  learner_profile: "Afrikaans-speaking adult, first visit to New Zealand, visiting Māori partner's family"
+  language: mi
+  bridge_language: af
+  experiences:
+    - id: VISIT_001
+      title: "Te whakareri — Before the Journey"
+      scenario: "At home in South Africa, packing. Thinking about the trip ahead."
+      level: 1
+      entities:
+        - id: TRAVELLER
+          category: PERSON
+        - id: AOTEAROA
+          category: PLACE
+          label:
+            en: "New Zealand"
+            mi: "Aotearoa"
+        - id: TAONGA
+          category: THING
+          label:
+            en: "gift"
+            mi: "taonga"
+        - id: HAERE
+          category: ACTION
+          label:
+            en: "go/travel"
+            mi: "haere"
+        - id: EXCITED
+          category: STATE
+          label:
+            en: "excited"
+            mi: "koa"
+      phrases:
+        - id: VISIT_GO_NZ
+          semantic_intent: "announce intention to travel to New Zealand"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kei te haere au ki Aotearoa"
+            en: "I am going to New Zealand"
+            af: "Ek gaan na Nieu-Seeland"
+        - id: VISIT_GIFT_FAMILY
+          semantic_intent: "explain that a gift is for the family"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He taonga tēnei mō te whānau"
+            en: "This is a gift for the family"
+            af: "Dit is 'n geskenk vir die familie"
+        - id: VISIT_EXCITED
+          semantic_intent: "express excitement about the trip"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kei te koa au"
+            en: "I am excited"
+            af: "Ek is opgewonde"
+      interactions:
+        - situation: "traveller prepares for the journey"
+          learner_action: "pack a gift and talk about the trip"
+          expected_intent: "express anticipation"
+      content:
+        mi: "Kei te haere au ki Aotearoa. He taonga tēnei mō te whānau. Kei te koa au ki te kite i a rātou."
+        en: "I am going to New Zealand. This is a gift for the family. I am excited to see them."
+        af: "Ek gaan na Nieu-Seeland. Dit is 'n geskenk vir die familie. Ek is opgewonde om hulle te sien."
+      rehearsal:
+        - role: narrator
+          text: "You are packing for your trip. You have a gift for the family."
+        - role: learner
+          text: "Kei te haere au ki Aotearoa. He taonga tēnei mō te whānau."
+        - role: learner
+          text: "Kei te koa au."
+
+    - id: VISIT_002
+      title: "Te taenga — Arrival"
+      scenario: "Arriving at the airport. Being greeted by family."
+      level: 1
+      entities:
+        - id: TRAVELLER
+        - id: FAMILY_MEMBER
+          category: PERSON
+          label:
+            en: "family member"
+            mi: "whānau"
+        - id: GREETING
+          category: ACTION
+          label:
+            en: "greet"
+            mi: "ōha"
+      phrases:
+        - id: VISIT_KIA_ORA
+          semantic_intent: "greet someone upon meeting"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kia ora"
+            en: "Hello"
+            af: "Hallo"
+        - id: VISIT_HOW_ARE_YOU
+          semantic_intent: "ask how someone is"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kei te pēhea koe?"
+            en: "How are you?"
+            af: "Hoe gaan dit?"
+        - id: VISIT_I_AM_WELL
+          semantic_intent: "respond that you are well"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kei te pai"
+            en: "I am well"
+            af: "Dit gaan goed"
+        - id: VISIT_WELCOME
+          semantic_intent: "welcome someone arriving"
+          learner_priority: RECOGNIZE
+          review_status: VERIFIED
+          surface_form:
+            mi: "Haere mai"
+            en: "Welcome / come here"
+            af: "Welkom / kom hier"
+      interactions:
+        - situation: "family member greets arriving visitor"
+          learner_action: "greet back and respond to 'how are you'"
+          expected_intent: "greet and exchange pleasantries"
+          candidate_responses:
+            - VISIT_KIA_ORA
+            - VISIT_I_AM_WELL
+      content:
+        mi: "Kia ora! Haere mai ki Aotearoa. Kei te pēhea koe? Kei te pai au, e koa ana au ki te kite i a koutou."
+        en: "Hello! Welcome to New Zealand. How are you? I am well, I am happy to see you all."
+        af: "Hallo! Welkom in Nieu-Seeland. Hoe gaan dit? Dit gaan goed, ek is bly om julle almal te sien."
+      rehearsal:
+        - role: family
+          text: "Kia ora! Haere mai!"
+        - role: family
+          text: "Kei te pēhea koe?"
+          expected: "respond with 'Kei te pai'"
+        - role: learner
+          text: "Kia ora. Kei te pai."
+
+    - id: VISIT_003
+      title: "Te whakataki whānau — Meeting the Family"
+      scenario: "Being introduced to family members at the house."
+      level: 1
+      entities:
+        - id: TRAVELLER
+        - id: MOTHER
+          category: PERSON
+          label:
+            en: "mother"
+            mi: "whaea"
+        - id: FATHER
+          category: PERSON
+          label:
+            en: "father"
+            mi: "matua"
+        - id: GRANDMOTHER
+          category: PERSON
+          label:
+            en: "grandmother"
+            mi: "kuia"
+        - id: GRANDFATHER
+          category: PERSON
+          label:
+            en: "grandfather"
+            mi: "koroua"
+        - id: CHILDREN
+          category: PERSON
+          label:
+            en: "children"
+            mi: "tamariki"
+      phrases:
+        - id: VISIT_MY_NAME
+          semantic_intent: "introduce yourself by name"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Ko [name] tōku ingoa"
+            en: "My name is [name]"
+            af: "My naam is [name]"
+        - id: VISIT_WHERE_FROM
+          semantic_intent: "ask where someone is from"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Nō hea koe?"
+            en: "Where are you from?"
+            af: "Waarvandaan kom jy?"
+        - id: VISIT_FROM_SA
+          semantic_intent: "say you are from South Africa"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Nō Āwherika ki te Tonga ahau"
+            en: "I am from South Africa"
+            af: "Ek is van Suid-Afrika"
+        - id: VISIT_WHO_THIS
+          semantic_intent: "ask who someone is"
+          learner_priority: RECOGNIZE
+          review_status: VERIFIED
+          surface_form:
+            mi: "Ko wai tēnei?"
+            en: "Who is this?"
+            af: "Wie is dit?"
+        - id: VISIT_GREET_ALL
+          semantic_intent: "greet a group formally"
+          learner_priority: CULTURAL
+          review_status: VERIFIED
+          surface_form:
+            mi: "Tēnā koutou"
+            en: "Greetings to you all"
+            af: "Groete aan julle almal"
+      interactions:
+        - situation: "family member introduces you to someone"
+          learner_action: "introduce yourself and say where you are from"
+          expected_intent: "self-introduction"
+          candidate_responses:
+            - VISIT_MY_NAME
+            - VISIT_FROM_SA
+      content:
+        mi: "Ko wai tēnei? Ko whaea Pita tēnei. Nō hea koe? Nō Āwherika ki te Tonga ahau. Tēnā koutou e te whānau."
+        en: "Who is this? This is Aunty Pita. Where are you from? I am from South Africa. Greetings to you all, family."
+        af: "Wie is dit? Dit is Antie Pita. Waarvandaan kom jy? Ek is van Suid-Afrika. Groete aan julle almal, familie."
+      rehearsal:
+        - role: family
+          text: "Ko wai tēnei? Ko whaea Pita tēnei."
+        - role: family
+          text: "Nō hea koe?"
+          expected: "say 'Nō Āwherika ki te Tonga ahau'"
+        - role: learner
+          text: "Nō Āwherika ki te Tonga ahau. Ko [name] tōku ingoa."
+
+    - id: VISIT_004
+      title: "Te whare — At the House"
+      scenario: "Being shown around the family home."
+      level: 1
+      entities:
+        - id: HOUSE
+          category: THING
+          label:
+            en: "house"
+            mi: "whare"
+        - id: BATHROOM
+          category: PLACE
+          label:
+            en: "bathroom"
+            mi: "wharepaku"
+        - id: KITCHEN
+          category: PLACE
+          label:
+            en: "kitchen"
+            mi: "kāuta"
+        - id: SLEEPY
+          category: STATE
+          label:
+            en: "sleepy"
+            mi: "hiamoe"
+      phrases:
+        - id: VISIT_WHERE_BATHROOM
+          semantic_intent: "ask for the location of the bathroom"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kei hea te wharepaku?"
+            en: "Where is the bathroom?"
+            af: "Waar is die badkamer?"
+        - id: VISIT_BEAUTIFUL_HOUSE
+          semantic_intent: "compliment the house"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He whare ātaahua"
+            en: "A beautiful house"
+            af: "'n Pragtige huis"
+        - id: VISIT_PLEASE_SIT
+          semantic_intent: "offer someone a seat"
+          learner_priority: RECOGNIZE
+          review_status: VERIFIED
+          surface_form:
+            mi: "Noho mai"
+            en: "Please sit / stay"
+            af: "Sit gerus / bly"
+        - id: VISIT_SLEEPY
+          semantic_intent: "say you are tired"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kei te hiamoe au"
+            en: "I am sleepy"
+            af: "Ek is lomerig"
+      interactions:
+        - situation: "being shown the house, need the bathroom"
+          learner_action: "ask where the bathroom is"
+          expected_intent: "request location of bathroom"
+          candidate_responses:
+            - VISIT_WHERE_BATHROOM
+      content:
+        mi: "Tēnā, haere mai ki roto. Ko te wharepaku kei kona. Noho mai. Kei te hiamoe koe? Kei te hiamoe au i te haerenga."
+        en: "Come in. The bathroom is there. Please sit. Are you sleepy? I am sleepy from the journey."
+        af: "Kom in. Die badkamer is daar. Sit gerus. Is jy lomerig? Ek is lomerig van die reis."
+      rehearsal:
+        - role: family
+          text: "Haere mai ki roto. Ko te wharepaku kei kona."
+        - role: family
+          text: "Noho mai."
+        - role: learner
+          text: "He whare ātaahua. Kei hea te wharepaku?"
+
+    - id: VISIT_005
+      title: "Te kai me te inu — Food and Drink"
+      scenario: "Family meal. Being offered food and drink."
+      level: 1
+      entities:
+        - id: FOOD
+          category: THING
+          label:
+            en: "food"
+            mi: "kai"
+        - id: WATER
+          category: THING
+          label:
+            en: "water"
+            mi: "wai"
+        - id: BREAD
+          category: THING
+          label:
+            en: "bread"
+            mi: "parāoa"
+        - id: MILK
+          category: THING
+          label:
+            en: "milk"
+            mi: "miraka"
+        - id: HUNGRY
+          category: STATE
+          label:
+            en: "hungry"
+            mi: "hiakai"
+        - id: THIRSTY
+          category: STATE
+          label:
+            en: "thirsty"
+            mi: "matewai"
+      phrases:
+        - id: VISIT_HUNGRY
+          semantic_intent: "express hunger"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kei te hiakai au"
+            en: "I am hungry"
+            af: "Ek is honger"
+        - id: VISIT_THIRSTY
+          semantic_intent: "express thirst"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kei te matewai au"
+            en: "I am thirsty"
+            af: "Ek is dors"
+        - id: VISIT_WATER_PLEASE
+          semantic_intent: "request water politely"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He wai, koa"
+            en: "Some water, please"
+            af: "Water, asseblief"
+        - id: VISIT_THANK_FOOD
+          semantic_intent: "thank someone for a meal"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kia ora mō te kai"
+            en: "Thank you for the food"
+            af: "Dankie vir die kos"
+        - id: VISIT_FOOD_PLEASE
+          semantic_intent: "request food politely"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He kai, koa"
+            en: "Some food, please"
+            af: "Kos, asseblief"
+        - id: VISIT_HELP_YOURSELVES
+          semantic_intent: "offer food to others"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Tēnā kōrua"
+            en: "Please help yourselves"
+            af: "Bedien julleself"
+      interactions:
+        - situation: "food is offered, you are thirsty"
+          learner_action: "request water and thank after eating"
+          expected_intent: "request drink and give thanks"
+          candidate_responses:
+            - VISIT_WATER_PLEASE
+            - VISIT_THANK_FOOD
+      content:
+        mi: "Kei te hiakai au. Kei te matewai au. He wai, koa. He parāoa hoki. Kia ora mō te kai. Ātaahua!"
+        en: "I am hungry. I am thirsty. Some water, please. Some bread too. Thank you for the food. Beautiful!"
+        af: "Ek is honger. Ek is dors. Water, asseblief. Brood ook. Dankie vir die kos. Pragtig!"
+      rehearsal:
+        - role: family
+          text: "Kai?"
+          expected: "respond with 'Kei te hiakai au' or 'Kei te pai'"
+        - role: learner
+          text: "Kei te matewai au. He wai, koa."
+        - role: family
+          text: "Tēnā kōrua, e kai."
+        - role: learner
+          text: "Kia ora mō te kai."
+
+    - id: VISIT_006
+      title: "Te huarere — The Weather"
+      scenario: "Looking outside. Commenting on the weather."
+      level: 1
+      entities:
+        - id: RAIN
+          category: THING
+          label:
+            en: "rain"
+            mi: "ua"
+        - id: SUN
+          category: THING
+          label:
+            en: "sun"
+            mi: "rā"
+        - id: HOT
+          category: STATE
+          label:
+            en: "hot"
+            mi: "wera"
+        - id: COLD
+          category: STATE
+          label:
+            en: "cold"
+            mi: "mātao"
+      phrases:
+        - id: VISIT_RAINING
+          semantic_intent: "comment that it is raining"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kei te ua"
+            en: "It is raining"
+            af: "Dit reën"
+        - id: VISIT_FINE_DAY
+          semantic_intent: "comment on fine weather"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He rā paki"
+            en: "A fine day"
+            af: "'n Mooi dag"
+        - id: VISIT_HOT
+          semantic_intent: "say it is hot"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kei te wera"
+            en: "It is hot"
+            af: "Dit is warm"
+        - id: VISIT_COLD
+          semantic_intent: "say it is cold"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kei te mātao"
+            en: "It is cold"
+            af: "Dit is koud"
+        - id: VISIT_HOW_WEATHER
+          semantic_intent: "ask about the weather"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Pēhea te huarere?"
+            en: "How is the weather?"
+            af: "Hoe is die weer?"
+      content:
+        mi: "Pēhea te huarere? Kei te ua, engari he ātaahua tonu. I Āwherika ki te Tonga, he wera. I konei, he mātao."
+        en: "How is the weather? It is raining, but still beautiful. In South Africa it is hot. Here it is cold."
+        af: "Hoe is die weer? Dit reën, maar steeds pragtig. In Suid-Afrika is dit warm. Hier is dit koud."
+      rehearsal:
+        - role: family
+          text: "Pēhea te huarere?"
+          expected: "respond 'Kei te ua' or 'He rā paki'"
+        - role: learner
+          text: "Kei te ua. He mātao."
+
+    - id: VISIT_007
+      title: "Te haere ki waho — Going Out"
+      scenario: "Going to the local shops or marae."
+      level: 2
+      entities:
+        - id: CAR
+          category: THING
+          label:
+            en: "car"
+            mi: "motokā"
+        - id: SHOP
+          category: PLACE
+          label:
+            en: "shop"
+            mi: "toa"
+        - id: MARAE
+          category: PLACE
+          label:
+            en: "community centre"
+            mi: "marae"
+      phrases:
+        - id: VISIT_LETS_GO
+          semantic_intent: "suggest going somewhere together"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Haere tāua"
+            en: "Let's go (you and me)"
+            af: "Kom ons gaan (ons twee)"
+        - id: VISIT_WHERE_SHOP
+          semantic_intent: "ask where the shop is"
+          learner_priority: RECOGNIZE
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kei hea te toa?"
+            en: "Where is the shop?"
+            af: "Waar is die winkel?"
+        - id: VISIT_BUY_FOOD
+          semantic_intent: "say you are buying food"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Hoko kai"
+            en: "Buy food"
+            af: "Kos koop"
+        - id: VISIT_GO_MARAE
+          semantic_intent: "say you are going to the marae"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Haere ki te marae"
+            en: "Go to the marae"
+            af: "Gaan na die marae"
+      content:
+        mi: "Haere tāua ki te toa. Hoko kai māua? Kei hea te marae? Kei kona."
+        en: "Let's go to the shop. Shall we buy food? Where is the marae? Over there."
+        af: "Kom ons gaan na die winkel. Sal ons kos koop? Waar is die marae? Daarso."
+      rehearsal:
+        - role: family
+          text: "Haere tāua ki te toa."
+          expected: "understand the invitation"
+        - role: learner
+          text: "Haere tāua."
+
+    - id: VISIT_008
+      title: "Te one me te moana — The Beach and Sea"
+      scenario: "A day trip to the beach."
+      level: 2
+      entities:
+        - id: BEACH
+          category: PLACE
+          label:
+            en: "beach"
+            mi: "one"
+        - id: SEA
+          category: PLACE
+          label:
+            en: "sea"
+            mi: "moana"
+      phrases:
+        - id: VISIT_GO_BEACH
+          semantic_intent: "announce a trip to the beach"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kei te haere tāua ki te one"
+            en: "We are going to the beach"
+            af: "Ons gaan na die strand"
+        - id: VISIT_BEAUTIFUL_SEA
+          semantic_intent: "admire the sea"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He ātaahua te moana"
+            en: "The sea is beautiful"
+            af: "Die see is pragtig"
+        - id: VISIT_LETS_SWIM
+          semantic_intent: "suggest swimming"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kauhoe tāua"
+            en: "Let's swim"
+            af: "Kom ons swem"
+        - id: VISIT_COLD_WATER
+          semantic_intent: "exclaim that the water is cold"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Auē, he makariri te wai!"
+            en: "Oh, the water is cold!"
+            af: "O, die water is koud!"
+      content:
+        mi: "Kei te haere tāua ki te one. He ātaahua te moana. Kauhoe tāua? Auē, he makariri te wai!"
+        en: "We are going to the beach. The sea is beautiful. Shall we swim? Oh, the water is cold!"
+        af: "Ons gaan na die strand. Die see is pragtig. Sal ons swem? O, die water is koud!"
+      rehearsal:
+        - role: learner
+          text: "Kei te haere tāua ki te one."
+        - role: narrator
+          text: "You arrive at the beach. The sea is beautiful."
+        - role: learner
+          text: "He ātaahua te moana."
+
+    - id: VISIT_009
+      title: "Te whānau — Family Gathering"
+      scenario: "A larger family gathering with extended whānau."
+      level: 2
+      entities:
+        - id: FAMILY
+          category: PERSON
+          label:
+            en: "family"
+            mi: "whānau"
+        - id: ELDER
+          category: PERSON
+          label:
+            en: "elder"
+            mi: "kaumātua"
+        - id: CHILDREN
+      phrases:
+        - id: VISIT_LETS_GATHER
+          semantic_intent: "suggest gathering together"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Huihui tātou"
+            en: "Let us gather"
+            af: "Kom ons kom bymekaar"
+        - id: VISIT_SPEAK_TO_ME
+          semantic_intent: "invite someone to speak"
+          learner_priority: RECOGNIZE
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kōrero mai"
+            en: "Speak to me / tell me"
+            af: "Praat met my"
+        - id: VISIT_LETS_SING_SONG
+          semantic_intent: "suggest singing"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Waiata tātou"
+            en: "Let's sing"
+            af: "Kom ons sing"
+        - id: VISIT_BIG_FAMILY
+          semantic_intent: "comment on the size of the family"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He nui te whānau"
+            en: "The family is big"
+            af: "Die familie is groot"
+        - id: VISIT_BIG_LOVE
+          semantic_intent: "express affection"
+          learner_priority: RECOGNIZE
+          review_status: VERIFIED
+          surface_form:
+            mi: "Aroha nui"
+            en: "Much love"
+            af: "Baie liefde"
+      content:
+        mi: "Huihui tātou e te whānau. Kōrero mai, kōrero atu. Waiata tātou. He nui te whānau, he nui te aroha."
+        en: "Let us gather, family. Speak and share. Let us sing. The family is big, the love is big."
+        af: "Kom ons kom bymekaar, familie. Praat en deel. Kom ons sing. Die familie is groot, die liefde is groot."
+      rehearsal:
+        - role: family
+          text: "Huihui tātou e te whānau."
+        - role: family
+          text: "Kōrero mai."
+          expected: "tell something about yourself"
+        - role: learner
+          text: "He nui te whānau, he nui te aroha."
+
+    - id: VISIT_010
+      title: "Te kōrerorero — Social Conversation"
+      scenario: "Sitting around the table, having casual conversation."
+      level: 2
+      entities:
+        - id: TALK
+          category: ACTION
+          label:
+            en: "talk"
+            mi: "kōrero"
+        - id: ASK
+          category: ACTION
+          label:
+            en: "ask"
+            mi: "pātai"
+      phrases:
+        - id: VISIT_HOW_TRIP
+          semantic_intent: "ask how someone's trip is going"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kei te pēhea tō haerenga?"
+            en: "How is your trip?"
+            af: "Hoe gaan jou reis?"
+        - id: VISIT_DELICIOUS
+          semantic_intent: "say the food is delicious"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "He reka"
+            en: "It is delicious"
+            af: "Dit is heerlik"
+        - id: VISIT_HOW_OLD
+          semantic_intent: "ask someone's age"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "E hia ō tau?"
+            en: "How old are you?"
+            af: "Hoe oud is jy?"
+        - id: VISIT_GOOD_FOOD
+          semantic_intent: "say the food is good"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He pai te kai"
+            en: "The food is good"
+            af: "Die kos is goed"
+      content:
+        mi: "Kei te pēhea tō haerenga? He pai. Nō hea koe? Nō Āwherika ki te Tonga. He reka te kai. Kia ora!"
+        en: "How is your trip? It is good. Where are you from? I am from South Africa. The food is delicious. Thank you!"
+        af: "Hoe gaan jou reis? Dit is goed. Waarvandaan kom jy? Ek is van Suid-Afrika. Die kos is heerlik. Dankie!"
+      rehearsal:
+        - role: family
+          text: "Kei te pēhea tō haerenga?"
+          expected: "respond 'Kei te pai'"
+        - role: learner
+          text: "Kei te pai. He reka te kai."
+
+    - id: VISIT_011
+      title: "Te whakawhetai — Thanking and Responding"
+      scenario: "The end of a visit. Expressing gratitude."
+      level: 2
+      entities:
+        - id: THANK
+          category: ACTION
+          label:
+            en: "thank"
+            mi: "whakawhetai"
+        - id: HOSPITALITY
+          category: ACTION
+          label:
+            en: "care for / host"
+            mi: "manaaki"
+      phrases:
+        - id: VISIT_THANK_HOST
+          semantic_intent: "thank someone for their hospitality"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Kia ora mō tō manaaki"
+            en: "Thank you for your hospitality"
+            af: "Dankie vir jou gasvryheid"
+        - id: VISIT_KIND_FAMILY
+          semantic_intent: "say the family is kind"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "He whānau atawhai"
+            en: "Kind family"
+            af: "Vriendelike familie"
+        - id: VISIT_FAREWELL_FORMAL
+          semantic_intent: "formal closing thanks"
+          learner_priority: CULTURAL
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Nō reira, tēnā koutou"
+            en: "Therefore, greetings to you all (formal closing)"
+            af: "Daarom, groete aan julle almal"
+      content:
+        mi: "Kia ora mō tō manaaki. Kia ora mō te kai. He whare ātaahua. He whānau atawhai. Nō reira, tēnā koutou katoa."
+        en: "Thank you for your hospitality. Thank you for the food. A beautiful home. A kind family. Therefore, greetings to you all."
+        af: "Dankie vir jou gasvryheid. Dankie vir die kos. 'n Pragtige huis. 'n Vriendelike familie. Daarom, groete aan julle almal."
+      rehearsal:
+        - role: learner
+          text: "Kia ora mō tō manaaki. Kia ora mō te kai."
+        - role: learner
+          text: "He whare ātaahua. He whānau atawhai."
+
+    - id: VISIT_012
+      title: "Te poroporoaki — Goodbye"
+      scenario: "Leaving. Saying goodbye to family."
+      level: 2
+      entities:
+        - id: RETURN
+          category: ACTION
+          label:
+            en: "return"
+            mi: "hoki mai"
+        - id: MISS
+          category: STATE
+          label:
+            en: "miss / cry"
+            mi: "tangī"
+        - id: SAD
+          category: STATE
+          label:
+            en: "sad"
+            mi: "pōuri"
+      phrases:
+        - id: VISIT_GOODBYE_STAY
+          semantic_intent: "say goodbye to those staying"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Haere rā"
+            en: "Goodbye (to those staying)"
+            af: "Totsiens (vir dié wat bly)"
+        - id: VISIT_WILL_RETURN
+          semantic_intent: "promise to return"
+          learner_priority: MUST_SAY
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Ka hoki mai au"
+            en: "I will return"
+            af: "Ek sal terugkom"
+        - id: VISIT_BIG_LOVE_2
+          semantic_intent: "express love in farewell"
+          learner_priority: MUST_SAY
+          review_status: VERIFIED
+          surface_form:
+            mi: "Aroha nui"
+            en: "Much love"
+            af: "Baie liefde"
+        - id: VISIT_GOODBYE_LEAVE
+          semantic_intent: "say goodbye to those leaving"
+          learner_priority: RECOGNIZE
+          review_status: VERIFIED
+          surface_form:
+            mi: "E noho rā"
+            en: "Goodbye (to those leaving)"
+            af: "Totsiens (vir dié wat vertrek)"
+        - id: VISIT_WILL_MISS
+          semantic_intent: "say you will miss someone"
+          learner_priority: RECOGNIZE
+          review_status: UNVERIFIED
+          surface_form:
+            mi: "Ka tangī au"
+            en: "I will miss you / I will cry"
+            af: "Ek sal jou mis"
+        - id: VISIT_BE_STRONG
+          semantic_intent: "give encouragement"
+          learner_priority: CULTURAL
+          review_status: VERIFIED
+          surface_form:
+            mi: "Kia kaha"
+            en: "Be strong"
+            af: "Wees sterk"
+      content:
+        mi: "Kua tae te wā. Me haere au ināianei. Ka tangī au ki a koutou. Ka hoki mai au. Haere rā, e te whānau. E noho rā. Aroha nui ki a koutou katoa."
+        en: "The time has come. I must go now. I will miss you. I will return. Goodbye, family. Goodbye. Much love to you all."
+        af: "Die tyd het aangebreek. Ek moet nou gaan. Ek sal julle mis. Ek sal terugkom. Totsiens, familie. Totsiens. Baie liefde vir julle almal."
+      rehearsal:
+        - role: learner
+          text: "Me haere au ināianei. Ka hoki mai au."
+        - role: family
+          text: "Haere rā."
+          expected: "respond with 'E noho rā'"
+        - role: learner
+          text: "E noho rā. Aroha nui."
+
+  # Summary for compiler
+  metadata:
+    total_experiences: 12
+    total_phrases: 59
+    must_say: 24
+    recognize: 28
+    cultural: 7
+    verified: 16
+    unverified: 43
+    entities_unique: 30
+    entities_reused_from_river_world:
+      - WATER   (wai)
+      - FOOD    (kai)
+      - THIRSTY (matewai)
+      - HUNGRY  (hiakai)
+      - RAIN    (ua)
+      - FAMILY  (whānau)
+      - CAR     (motokā)
+      - TALK    (kōrero)
+      - MOTHER  (whaea)
+      - CHILDREN (tamariki)
+      - THANK   (whakawhetai)
+    levels:
+      - level: 1
+        experiences: [VISIT_001, VISIT_002, VISIT_003, VISIT_004, VISIT_005, VISIT_006]
+      - level: 2
+        experiences: [VISIT_007, VISIT_008, VISIT_009, VISIT_010, VISIT_011, VISIT_012]

@@ -1,0 +1,963 @@
+Semantic Representation Before Language:
+An Open Compiler Architecture for Language Learning and Preservation
+
+Version 2.0 - July 2026
+
+
+ABSTRACT
+
+Most language technologies model language directly: they map words to
+words, record phrases, or learn statistical patterns from text. This
+paper argues for reversing that order. We present the Semantic
+Representation Engine (SRE), an open compiler architecture that begins
+with a language-independent representation of entities, affordances,
+and interactions, then projects these through language-specific surface
+forms, pronunciations, audio, and narrative experiences. A deterministic
+compiler validates, infers, and bundles the result into a flat runtime
+graph consumable by offline applications.
+
+The system is motivated by a specific problem: most of the world's ~7,000
+languages are endangered, and existing documentation and learning tools
+treat vocabulary, grammar, audio, and stories as disconnected artefacts.
+The SRE unifies them within a single semantic graph. It does not require
+large corpora or machine learning - it requires one knowledgeable speaker
+and a structured way to encode what they know.
+
+We describe the formal semantics, compiler pipeline, inference rules,
+provenance model, layered licensing framework, and a working prototype
+(the River World PWA) that demonstrates the approach with Maori,
+English, and Afrikaans across 10 connected learning experiences.
+
+
+1. INTRODUCTION
+
+1.1 The problem
+
+Of the roughly 7,000 living languages in the world, approximately 3,000
+are endangered [1]. A language disappears every few weeks as the last
+fluent speakers pass away [2]. Revitalisation efforts face a common
+bottleneck: they must document what remains before it is lost, then
+transform that documentation into usable learning materials.
+
+Existing tools fall into two camps. Documentation tools (dictionaries,
+recorders, field notebooks) capture raw linguistic data but do not
+produce learning experiences. Learning platforms (flashcard apps,
+courseware) deliver vocabulary drills but do not incorporate the semantic
+and narrative context that makes language learnable. The data rarely
+flows between them.
+
+1.2 Why semantics first?
+
+Existing language technologies model language directly. Dictionaries map
+words to definitions; phrasebooks map sentences to translations; speech
+recognisers map acoustic signals to text; language models map text to
+predictions. These approaches share a common assumption: that modelling
+the surface forms of a language is the natural starting point.
+
+We argue that for language documentation, teaching, and preservation,
+this assumption should be reversed. The SRE begins not with words but
+with the semantic world those words describe. We offer five reasons.
+
+Ambiguity. Lexical approaches treat words as atomic units. But words
+are not atomic - they are ambiguous within a language (bank can mean a
+river bank, a financial institution, or a tilting manoeuvre) and
+incommensurate across languages (the Maori word wairua has no exact
+English equivalent; it overlaps with spirit, soul, mood, and
+disposition). A semantic model resolves ambiguity by grounding words in
+entities: wairua is a single entity with a defined category and
+properties, and its surface forms in each language are projections of
+that entity, not mappings between ambiguous strings.
+
+Translation failure. Word-to-word translation is known to fail
+systematically [3]. Languages carve semantic space differently. Maori
+distinguishes tuakana (older sibling of same gender) and teina (younger
+sibling of same gender) where English uses sibling for both. A
+semantic model captures the underlying relationship (relative age,
+shared gender) and lets each language project it appropriately. The
+English surface form sibling covers the entity; the Maori surface forms
+discriminate it. Neither is more correct - they are different projections
+of the same semantics.
+
+Polysemy and context. A single entity may surface in multiple forms
+depending on grammatical context, register, or pragmatics. In Japanese,
+the entity "I" has dozens of surface forms (watashi, boku, ore, atashi,
+washi...) determined by speaker gender, formality, and social
+relationship. Modelling the entity first and its surface forms as a
+language-specific projection captures this naturally. Modelling words
+first and trying to unify them into a semantic representation is the
+same problem in reverse.
+
+The endangered-language case. Many endangered languages lack the
+lexical and corpus resources that lexical approaches depend on. They
+may have a dictionary of a few thousand words, partial recordings, and
+a handful of fluent speakers. A semantic model asks these speakers a
+different question: not "what words does your language have?" but "what
+exists in the world you describe, what can happen, and what are the
+stories?" This is a fundamentally easier question to answer, because it
+draws on lived experience rather than metalinguistic analysis. The
+resulting model can be incomplete (not every entity needs every
+language mapped) but remains internally coherent.
+
+Language-independent reasoning. Once entities and affordances are
+modelled, the system can reason about the world independently of any
+particular language. Inference rules (Section 3) derive new facts from
+existing ones. Lesson planners sequence content by semantic complexity
+rather than vocabulary difficulty. Learners can switch languages
+without restarting - they learn about rivers, then learn to say "river"
+in whatever language they are studying. This is not possible when the
+model is built from vocabulary up.
+
+These five arguments motivate the central architectural decision of the
+SRE: represent the world first, then project it into language.
+
+Figure 1 contrasts this with the traditional approach:
+
+  Traditional (lexical-first):
+
+    Words --[combine]--> Grammar --[generate]--> Sentences --[interpret]--> Meaning
+
+  SRE (semantics-first):
+
+    Reality --[model]--> Semantics (entities, affordances, interactions)
+        |
+        +--[Project]--> Language A surface forms
+        |
+        +--[Project]--> Language B surface forms
+        |
+        +--[Project]--> Language C surface forms
+
+Where the traditional pipeline derives meaning from words, SRE starts
+with meaning and derives words from it.
+
+1.3 Design goals
+
+1. Speaker-minimal input - A single fluent speaker should be able to
+   create a usable language package.
+2. Language independence - The core engine has no language-specific
+   code. All language knowledge is data.
+3. Offline-first - Resulting applications must work without internet
+   access, appropriate for communities with limited connectivity.
+4. Provenance tracking - Every fact in the system traces to its source,
+   with license and attribution metadata.
+5. Community ownership - Language data retains community-controlled
+    licensing; only the engine is open source.
+
+1.4 Contributions
+
+This paper makes the following contributions:
+
+1. A language-independent semantic representation model grounded in
+   entities, affordances, and interactions rather than vocabulary.
+2. A deterministic compiler that validates source corpora, infers
+   implicit facts, and bundles the result into a flat runtime graph.
+3. A provenance-preserving architecture that traces every compiled
+   fact to its source file, line number, compiler version, and
+   content hash.
+4. A modular language and voice package system where surface forms,
+   pronunciations, audio recordings, and licensing terms are
+   independently versioned and composable.
+5. A working demonstration (the River World PWA) across three
+   languages (Maori, English, Afrikaans) with measurable corpus
+   metrics including inference yield and semantic density.
+
+1.5 Non-goals
+
+SRE is not designed to compete with or replace several related
+technologies. It is explicitly not:
+
+1. A large language model. SRE does not generate text, translate
+   between languages, or complete partial utterances. It compiles
+   authored content into an interactive form.
+2. A machine translation system. Language mappings are authored by
+   human contributors, not learned from parallel corpora.
+3. A speech recognition or synthesis engine. SRE consumes audio
+   recordings and TTS output but does not produce them.
+4. A replacement for linguistic fieldwork. SRE assumes documented
+   entities and surface forms as input; it does not discover them
+   from raw recordings or texts.
+5. A large-scale knowledge graph. The curated entity graph is
+   intentionally small (tens to low hundreds of entities per corpus)
+   and trades coverage for provenance and pedagogical coherence.
+
+These boundaries prevent misunderstanding: SRE is infrastructure for
+organising and deploying language data, not a general AI or NLP system.
+
+
+2. FORMAL MODEL
+
+2.1 Universe of discourse
+
+Let:
+  E = set of entities
+  C = set of ontology categories
+  A = set of action types
+  R = set of relationship types
+  L = set of language codes
+  S = set of surface forms (strings)
+  P = set of provenance records
+
+2.2 Entity
+
+An entity is the fundamental unit of semantic representation:
+
+  e in E
+  e = (id, cat, label, def, props)
+
+where:
+  id   - unique identifier, format [CAT]_NNN
+  cat  - exactly one ontology category (THING, PERSON, ACTION, STATE, PLACE,...)
+  label - non-empty set of labels with a distinguished 'default'
+  def  - optional prose definition
+  props - optional key-value properties
+
+Invariant: Entity IDs are permanent. Once assigned, never reassigned.
+
+2.3 Affordance
+
+An affordance represents what an entity can do or what can be done to it:
+
+  a = (e_id, act, desc, actors, outcome, equip, cultural)
+
+Affordances are grounded in ecological psychology [3]: they describe
+possibilities for action, not static properties. A river affords
+drinking from, swimming in, and flowing through. These are not facts
+about the river's substance but about its relationship to actors.
+
+2.4 Language Mapping
+
+A language mapping is a function projecting entities into surface forms:
+
+  lambda: L -> (E -> S x Pron x Gram x Usage)
+
+Each language is an equally valid projection over the same semantic
+space. No language is privileged.
+
+2.5 Surface Form and Pronunciation
+
+A surface form is a word or phrase in a specific language representing
+an entity. Each surface form carries a Pronunciation:
+
+  pron in Pron
+  pron = (ipa, syllables, stress, audio_refs)
+
+where audio_refs links to voice package files with provenance:
+
+  audio_ref in AudioRef
+  audio_ref = (ref, package, speaker, dialect, quality,
+               source_url, retrieved, source_license)
+
+2.6 Relationship
+
+Relationships connect entities:
+
+  rel = (src, type, tgt, strength, meta)
+
+Relationship types include is_a (taxonomic), part_of (meronymic),
+located_in (spatial), requires (dependency), similar_to (analogy).
+
+Constraint: No cycles in is_a or part_of chains.
+
+2.7 Interaction
+
+An interaction records a specific event:
+
+  i = (i_id, parts, act, time, loc, outcomes)
+
+Interactions are immutable once recorded. If erroneous, they are marked
+superseded, never deleted or modified.
+
+2.8 Experience
+
+An experience is the smallest complete learning unit - a story, dialogue,
+observation, procedure, or game. Each experience embeds entities,
+affordances, and interactions within a narrative context. Experiences
+are scored for semantic density and entity reuse to ensure graph cohesion.
+
+2.9 Confidence
+
+Every fact carries a confidence score derived from its source:
+
+  Source type                Default confidence
+  Direct observation (manual)   1.0
+  Imported dictionary           0.95
+  Wikipedia-sourced             0.90
+  LLM-generated                 0.65
+  User guess                    0.40
+  Derived (inferred)            product of source confidences
+
+Confidence is multiplicative for derived facts:
+
+  confidence(derived) = PI(confidence(sources))
+
+2.10 Compiler and Projection Functions
+
+The compiler is modelled as a typed function over two representations:
+
+  Canonical = P(Entity) x P(Affordance) x P(Relationship) x P(Interaction) x P(Experience)
+  Runtime = (V, E, ProvenanceMap, Index)
+
+where V is the set of graph nodes (derived from entities and affordances),
+E is the set of edges (derived from relationships and interactions),
+ProvenanceMap attaches metadata to each node and edge, and Index
+provides lookup structures.
+
+The compilation function:
+
+  Compile : Canonical -> Runtime
+
+is deterministic and composed of stage functions:
+
+  Load : Path -> Canonical
+  Validate : Canonical -> Canonical | Error
+  Infer : Canonical -> Canonical
+  BuildGraph : Canonical -> (V, E)
+  AttachProvenance : (V, E) -> (V, E, ProvenanceMap)
+  Index : (V, E, ProvenanceMap) -> Runtime
+  Write : Runtime -> ArtifactSet
+
+Pipeline composition:
+
+  Write(Index(AttachProvenance(BuildGraph(Infer(Validate(Load(src)))))))
+
+Each stage is pure: same input always produces the same output.
+
+Projection is the language-mapping function from entities to surface
+forms and pronunciations:
+
+  Project : E x L -> S x Pron
+
+This function is not computed — it is specified by the language
+contributor for each entity-language pair. The compiler validates that
+Project is total over the declared language set (each entity must have
+at least one surface form per language) but does not infer projections.
+
+The hash function anchors provenance:
+
+  Hash : Node -> SHA256(node_content)
+
+Applied to every node and edge before writing. The hash is included in
+the provenance record so that any downstream consumer can verify that a
+given fact is exactly what the compiler produced.
+
+Provenance attaches to every compiled element:
+
+  Provenance : Node -> (source_file, source_line, compiler_version,
+                        timestamp, hash)
+
+This is not optional. The compiler halts if provenance metadata cannot
+be resolved for any element.
+
+The compiler transforms validated source documents into a runtime graph
+through eleven stages, applied deterministically:
+
+Stage 1: Load
+  Discover and parse source files (YAML, JSON, Markdown). Group by
+  document type. No validation is performed at this stage.
+
+Stage 2: Validate
+  Apply JSON Schema validation and domain-specific contract checks:
+  entity ID format, reference resolution, cycle detection, cardinality
+  constraints. All validation rules (V001-V083) are defined in the formal
+  specification and checked automatically.
+
+Stage 3: Diagnose
+  Produce structured diagnostics with error codes, file:line precision,
+  and suggested fixes. Errors halt the pipeline; warnings do not.
+
+Stage 4: Infer
+  Apply inference rules (INF001-INF010) to derive implicit facts.
+
+Stage 5: Build Graph
+  Create graph nodes for entities and edges for relationships,
+  affordances, and interactions. Attach representations and language
+  mappings as node properties.
+
+Stage 6: Attach Provenance
+  Trace every node and edge to its source file, line, compiler version,
+  timestamp, and content hash.
+
+Stage 7: Index
+  Build full-text, frequency, and relationship indexes for fast runtime
+  lookup.
+
+Stages 8-10 (Plugin)
+  Optionally build lessons, grammar projections, and vector embeddings
+  through swappable plugins. Plugin output is deterministic given the
+  same input.
+
+Stage 11: Write
+  Serialize the runtime graph atomically. Either all artifacts are
+  written, or none are.
+
+Pipeline guarantees:
+  1. Stages 1-3 are deterministic and language-agnostic.
+  2. Stages 4-7 are deterministic. Same source -> same graph.
+  3. Stages 8-10 accept plugins without changing core output.
+  4. Stage 11 writes atomically.
+
+
+3. INFERENCE RULES
+
+Inference rules derive new facts from existing ones during compilation.
+Each inference records its rule, source facts, and computed confidence.
+
+INF001 - Affordance Inheritance
+
+  IF entity_a is_a entity_b AND entity_b affords action X
+  THEN INFER entity_a affords action X
+  WITH confidence = confidence(b -> X) x 0.9
+
+Subtypes inherit affordances from their parents. A dog is an animal;
+an animal can drink; therefore a dog can drink.
+
+INF002 - Compositional Affordance
+
+  IF tool affords action on patient
+  AND person uses tool to act on patient
+  THEN INFER tool affords action on patient
+  WITH confidence = confidence(uses) x 0.85
+
+If a net is used for catching fish, the net affords catching fish.
+
+INF003 - Chain Affordance
+
+  IF entity_a affords action_X AND action_X results_in state_Y
+  THEN INFER entity_a indirectly affords state_Y
+
+If water affords drinking and drinking results in hydration, then water
+indirectly affords hydration.
+
+INF004 - Reverse Affordance (Need Transitivity)
+
+  IF person requires entity_a AND entity_a requires entity_b
+  THEN INFER person requires entity_b
+
+INF005 - Template Applicability
+  Suggest grammatical templates given entity categories.
+
+INF006 - Linguistic Disambiguation
+  Flag when one entity maps to multiple surface forms in the same
+  language without explanation.
+
+INF007 - Semantic Similarity
+
+  IF entity_a and entity_b share >= 3 affordances
+  THEN INFER entity_a similar_to entity_b
+
+INF008 - Lesson Ordering
+  Concrete entities should precede abstract ones in lesson progression.
+
+INF009 - Concept Prerequisite
+  Required concepts must be learned before templates that use them.
+
+INF010 - Cultural Context
+  Flag cultural affordances without direct language mapping for special
+  pedagogical treatment.
+
+
+4. PROVENANCE
+
+Provenance is not optional in the SRE. Every node and edge in the
+runtime graph carries:
+
+  provenance:
+    source_file: "languages/mi/surface_forms.yaml"
+    source_line: 142
+    compiler_version: "0.1.0"
+    timestamp: "2026-07-20T12:00:00Z"
+    hash: "sha256:a1b2c3..."
+
+Audio references carry additional provenance:
+
+  audio_ref:
+    ref: "wai.mp3"
+    package: "mi_teaka_v1"
+    source_url: "https://maoridictionary.co.nz/word/9019"
+    retrieved: "2026-07-20"
+    source_license: "Copyright John C Moorfield - educational use"
+
+This enables:
+  - Auditability: Every fact can be traced to its source.
+  - License compliance: Applications can enforce per-asset licensing.
+  - Community attribution: Contributors receive credit for their data.
+  - Error correction: Erroneous facts can be traced and corrected.
+
+
+5. LAYERED LICENSING
+
+The SRE uses a layered licensing model to respect both software freedom
+and community data sovereignty:
+
+  Layer                       License
+  Engine (core, scripts,      Apache 2.0
+    compiler)
+  Language packages           Community chooses
+  Voice packages              Contributor chooses
+  Media assets                Original license retained
+
+The engine is fully open source (Apache 2.0) - anyone can use it,
+modify it, build commercial products on it, without asking permission.
+
+Language data remains under community control. A Maori community may
+choose CC BY-SA 4.0, a traditional knowledge license, or any other
+terms they consider appropriate. The compiler preserves license
+metadata through compilation, so the runtime graph can enforce
+per-asset restrictions if needed.
+
+This is a deliberate design decision: the infrastructure is shared,
+but the knowledge belongs to its creators.
+
+
+6. IMPLEMENTATION: RIVER WORLD
+
+The first application is an offline Progressive Web App (PWA) called
+River World - a Maori-English-Afrikaans learning experience.
+
+Table 1 summarises the River World corpus metrics.
+
+  Table 1: Corpus metrics
+  +-------------------------------+------+
+  | Metric                        | Value|
+  +-------------------------------+------+
+  | Entities                      |   33 |
+  | Categories                    |    8 |
+  | Languages                     |    3 |
+  | Surface forms                 |   99 |
+  | Experiences                   |   10 |
+  | Graph edges (total)           |   48 |
+  | Edges written manually        |   30 |
+  | Edges inferred                |   18 |
+  | Inference yield               |  38% |
+  | Entity reuse ratio            | 0.60 |
+  | Semantic density              | 0.70 |
+  | Runtime size (JS bundles)     | 65 KB|
+  | Surface forms bundle          | 31 KB|
+  | Experiences bundle            | 17 KB|
+  | Application code              | 15 KB|
+  | Voice package metadata        |  2 KB|
+  +-------------------------------+------+
+
+Entity categories break down as follows:
+
+  Table 2: Entity distribution by category
+  +----------+----+
+  | Category |    |
+  +----------+----+
+  | THING    |  8 |
+  | ANIMAL   |  3 |
+  | PERSON   |  4 |
+  | ACTION   |  6 |
+  | STATE    |  4 |
+  | PLACE    |  3 |
+  | EMOTION  |  2 |
+  | QUALITY  |  3 |
+  +----------+----+
+
+Inference yield of 38% means that over a third of the graph's
+semantic connections were derived automatically rather than written
+manually, validating the inference rule set (Section 3) on real data.
+Entity reuse ratio of 0.60 indicates that each entity appears in 60%
+of experiences on average, above the 0.6 target for intermediate
+content. Semantic density of 0.7 entities per sentence indicates
+efficient packing of meaning into narrative text.
+
+Voice packages:
+  - mi_teaka_v1: 30 native speaker recordings from Te Aka Maori
+    Dictionary, covering 32 of 33 Maori surface forms
+  - en_placeholder_v1: English TTS fallback
+  - af_placeholder_v1: Afrikaans TTS fallback
+
+Architecture:
+  The app runs entirely in the browser:
+  1. Data layer - Compiled JS bundles (experiences, surface forms,
+     voice packages)
+  2. Audio layer - Fallback chain: native recording -> other package
+     recording -> Web Speech API TTS
+  3. Application layer - Experience renderer, language selector,
+     voice package selector, entity chip system for inline audio
+  4. Offline layer - Service worker caches all assets; no backend
+
+Semantic density:
+  The River World corpus achieves a semantic density of approximately
+  0.7 entities per sentence (target: 0.5+ for beginner content) and an
+  entity reuse ratio of approximately 0.6 (target: 0.6+ for intermediate
+  content), indicating strong graph cohesion.
+
+
+7. RELATED WORK
+
+Language documentation:
+  The dominant tools in linguistic fieldwork are annotation and lexicon
+  management systems. ELAN [4] provides time-aligned transcription and
+  annotation of audio and video, widely used for documentary linguistics
+  and language archiving. FieldWorks Language Explorer (FLEx) [5] is a
+  lexicon and text analysis tool that supports morphological parsing,
+  interlinear glossing, and dictionary production. SayMore [6] focuses
+  on workflow management for language documentation, handling media
+  files, session metadata, and transcription workflow.
+
+  These tools are mature and effective at what they do. They capture
+  linguistic data at a level of granularity appropriate for analysis and
+  archiving. None of them produces a deployable learning application.
+  A fieldworker who completes documentation in ELAN and FLEx must still
+  manually create learning materials - flashcards, storybooks, exercises -
+  from the resulting data, a process that is labour-intensive and
+  error-prone. The gap between documentation and teaching materials is
+  well recognised in the revitalisation literature [11].
+
+  The SRE is designed as a consumer of documentation output. It does not
+  replace ELAN or FLEx. It accepts structured data (entity definitions,
+  surface forms, pronunciations, narratives) in documented formats and
+  produces a compiled runtime graph that can drive interactive learning
+  applications directly. This bridges the documentation-to-teaching gap
+  without requiring fieldworkers to become software developers.
+
+  A secondary challenge in language documentation is the fragmentation
+  of tool-specific formats. Data locked in proprietary or tool-specific
+  formats is difficult to migrate, archive, or reuse [12]. The SRE's
+  source format (YAML/JSON with JSON Schema validation) is intentionally
+  simple, documented, and tool-agnostic, designed to be generated by
+  script from any existing format or authored directly in a text editor.
+
+Language learning platforms:
+  Duolingo, Memrise, and Anki are effective for vocabulary acquisition
+  but model word pairs rather than semantic relationships. They do not
+  preserve community provenance or support offline deployment for
+  underserved communities.
+
+Language revitalisation:
+  The SRE is situated within a broader revitalisation literature that
+  has shaped its design priorities. Hinton [21] documents strategies
+  for language revitalisation in practice, emphasising the importance
+  of creating speakers rather than simply documenting languages - a
+  goal that requires usable learning materials, not just archives. The
+  SRE's compiler pipeline addresses this directly by transforming
+  documentation into a deployable teaching application.
+
+  Hale [22] and Fishman [23] established the theoretical foundations
+  of language revitalisation, including the distinction between
+  language maintenance (preserving an existing speaker base) and
+  revitalisation (reversing language shift). Fishman's Graded
+  Intergenerational Disruption Scale (GIDS) classifies languages by
+  their stage of endangerment. The SRE is designed for Stage 7-8
+  languages (the most endangered), where few fluent speakers remain
+  and the goal is to document what exists and create learning materials
+  for the next generation.
+
+  A recurring theme in the revitalisation literature is the importance
+  of community control over language data [24]. Communities are
+  increasingly reluctant to contribute their knowledge to platforms
+  that claim ownership or impose restrictive licensing. The SRE's
+  layered licensing model (Section 5) is a direct response to this
+  concern: the engine is open source, but language data remains under
+  community-chosen terms.
+
+Educational theory:
+  The SRE's experience model is informed by second-language acquisition
+  theory, though it does not prescribe any particular pedagogical
+  approach. Krashen's Input Hypothesis [25] argues that language is
+  acquired through comprehensible input - messages that learners can
+  understand despite not knowing every word. The SRE's semantic density
+  metric (entities per sentence) provides a quantitative proxy for
+  comprehensibility: lower density implies more comprehensible input
+  for beginners. The entity reuse ratio targets Swain's [26] emphasis
+  on pushed output - learners must repeatedly encounter and produce
+  the same entities across different contexts, not just once.
+
+  Nation's four strands framework [27] identifies meaning-focused input,
+  meaning-focused output, language-focused learning, and fluency
+  development as the four necessary components of a balanced language
+  course. The SRE's experience types map to these strands: stories
+  provide meaning-focused input, dialogues require output, vocabulary
+  lists support language-focused learning, and repeated experiences
+  build fluency. This mapping is not automated - it is a guide for
+  experience authors - but the compiler's indexing and ordering rules
+  (INF008, INF009) support it.
+
+Semantic networks and ontologies:
+  The best-known lexical-semantic resource is WordNet [7], which organises
+  English words into synonym sets (synsets) connected by lexical relations
+  such as hypernymy, hyponymy, and meronymy. WordNet has been extended to
+  many languages through the Global WordNet initiative, but each language's
+  WordNet is constructed independently, making cross-lingual alignment
+  a separate research problem. The SRE avoids this by aligning all languages
+  to a shared entity graph rather than aligning wordnets to each other.
+
+  FrameNet [8] is closer to the SRE's approach. It models frames -
+  schematic representations of situations and their participants - and
+  maps lexical units to frames. A river would be part of a NaturalFeatures
+  frame; drinking would be part of an Ingestion frame. FrameNet's frames
+  are semantic structures, and its cross-lingual extensions (e.g.,
+  Spanish FrameNet, Japanese FrameNet) demonstrate that frame-based
+  semantic modelling can work across languages. The SRE's affordance
+  model is functionally similar to frame semantics but simpler: an
+  affordance is a single action possibility attached to an entity, rather
+  than a complex frame with multiple roles and relations.
+
+  ConceptNet [9] builds a large-scale semantic graph from crowd-sourced
+  and expert-contributed knowledge. With millions of edges, it is orders
+  of magnitude larger than the SRE's curated entity graphs. ConceptNet
+  sacrifices provenance for scale: edges have confidence scores but not
+  traceable attribution to specific sources or licenses. The SRE takes
+  the opposite trade-off: smaller graphs, but every edge traces to a
+  source file, line number, and content hash.
+
+  Top-level ontologies such as Cyc [13], SUMO [14], and DOLCE [15] model
+  the fundamental categories of reality at a level of philosophical rigour
+  far beyond the SRE's needs. Cyc contains millions of hand-authored
+  logical assertions about the world; SUMO provides a formal foundation
+  for WordNet; DOLCE distinguishes enduring from perduring entities,
+  physical from abstract, and so on. The SRE's category system (THING,
+  PERSON, ACTION, STATE, PLACE, ANIMAL, EMOTION, QUALITY) is deliberately
+  minimal and flat, designed to be immediately usable by a language
+  contributor without ontological training. This is a pragmatic choice:
+  the goal is not to model the universe but to support language learning
+  across a limited domain.
+
+Cognitive linguistics:
+  The SRE's semantic model has deep affinity with cognitive linguistics,
+  a tradition that treats language as grounded in embodied experience
+  rather than as an autonomous formal system. We briefly note the major
+  points of alignment.
+
+  Fillmore's frame semantics [16] holds that word meanings are
+  understood only against a background frame of structured experience.
+  The word river evokes a frame containing water, banks, flow, and
+  human activities (fishing, crossing, drinking). The SRE's affordance
+  model formalises this: each entity carries the action possibilities
+  that constitute its frame. A river entity with affordances flows,
+  drinking, and crossing is, in Fillmore's terms, a frame structured
+  by its participants and actions.
+
+  Lakoff's cognitive semantics [17] argues that categories are not
+  defined by necessary and sufficient conditions but by prototypes,
+  radial structures, and experiential grounding. The SRE's entity model
+  is prototype-compatible: entities have a distinguished default label
+  (the prototypical name) but allow multiple surface forms that capture
+  category variation. The is_a hierarchy supports inheritance without
+  requiring classical definitional boundaries.
+
+  Langacker's cognitive grammar [18] treats linguistic structure as
+  inherently symbolic, consisting of form-meaning pairings at multiple
+  levels of schematicity. The SRE's distinction between semantic
+  representation (entities, affordances) and surface forms (words,
+  phrases) mirrors Langacker's separation of conceptual content from
+  its symbolic encoding. The compiler's projection function
+  (Section 2.10) is a formalisation of this symbolic relationship.
+
+  Talmy's force dynamics [19] analyses how language encodes causal
+  interactions between entities: what exerts force, what resists, what
+  changes state. The SRE's affordance model is implicitly force-dynamic.
+  An entity that affords pushing exerts force on a patient entity that
+  affords being pushed. A river that affords flowing has an intrinsic
+  force tendency; a dam that affords blocking exerts opposing force.
+  Talmy's framework could provide a more principled basis for the
+  affordance type system in future work.
+
+  Tomasello's usage-based theory of language acquisition [20] argues
+  that children learn language through intention-reading and pattern-
+  finding in communicative interactions. The SRE's experience model
+  supports this: experiences are narrative contexts in which entities
+  interact, providing the intentional and usage-based grounding that
+  drives language learning. Experiences are scored for entity reuse
+  (how often each entity appears across experiences), reflecting the
+  usage-based principle that frequency drives entrenchment.
+
+  We do not claim that the SRE implements cognitive linguistics. The
+  overlaps are structural: both traditions start from meaning rather
+  than form, both ground language in embodied interaction, and both
+  treat categories as flexible rather than definitional. These
+  alignments suggest that the SRE's design is consistent with a
+  substantial body of theoretical linguistics, even though the SRE
+  was developed from engineering rather than linguistic first principles.
+
+Multilingual semantic models:
+  BabelNet [10] and other multilingual ontologies project meaning across
+  languages automatically. The SRE does not attempt automatic projection -
+  it requires human-authored mappings - but it does provide the
+  structural framework for those mappings to be composed, validated,
+  and deployed.
+
+Speech technology and voice:
+  The SRE's audio layer is not a speech technology system - it is an
+  orchestration layer that selects among available audio sources.
+  Text-to-speech engines such as eSpeak [28], Festival [29], and modern
+  neural TTS systems (e.g., Tacotron, WaveNet) provide the actual
+  speech synthesis. The SRE preference is always for human recordings
+  over synthesis, with TTS as fallback.
+
+  For languages with existing audio resources, forced-alignment tools
+  such as the Montreal Forced Aligner (MFA) [30] can generate
+  time-aligned phoneme transcriptions from recordings, which could
+  feed into the SRE's pronunciation model. This is not yet implemented
+  but is a natural integration point.
+
+  The critical design consideration in the SRE's audio model is
+  provenance and consent. Voice data is personally identifying and
+  culturally sensitive. A speaker's recording of a word or phrase is
+  their voice, not a generic asset. The SRE's audio reference model
+  (Section 2.5) carries speaker attribution, source URL, retrieval
+  date, and license terms for every recording. This is more metadata
+  than most speech systems track, but it is necessary for community-
+  controlled language work where speakers must retain agency over
+  how their voice is used.
+
+
+8. LIMITATIONS AND FUTURE WORK
+
+Limitations:
+  1. Scale - The SRE is designed for curated rather than corpus-driven
+     language models. It is appropriate for endangered languages with
+     limited documentation but would not replace statistical or neural
+     approaches for large languages with abundant data.
+  2. Grammar - The current implementation handles surface forms and
+     pronunciations but does not model inflectional morphology or syntax
+     beyond sentence templates. Full grammatical modelling is future work.
+  3. Speaker requirement - The system requires a speaker who can model
+     entities, write surface forms, and compose experiences. For languages
+     with no living speakers, the SRE can serve as a repository for
+     historical documentation but cannot generate new content.
+  4. Audio quality - Current voice packages rely on existing recordings
+     (Te Aka Maori Dictionary) whose license terms may not permit
+     redistribution. Community-recorded replacements are needed for
+     production use.
+
+Future work:
+   1. Workshop submission - Submission of this work to a computational
+      linguistics or language technology venue.
+  2. Corpus expansion - Scaling River World from 10 to 50+ experiences
+     to validate graph cohesion at larger sizes.
+  3. Additional languages - Adding languages from different families
+     (Polynesian, Germanic, Bantu, etc.) to stress-test the language-
+     independent core.
+  4. Grammar modelling - Adding morphological paradigm support and
+     syntactic template composition.
+  5. Community pilot - Deploying with an endangered-language community
+     to test real-world usability and iterating on the workflow.
+  6. Import tools - Building converters from existing dictionary formats
+     (XML, JSON, CSV) to reduce the cost of creating a new language
+     package.
+
+
+9. CONCLUSION
+
+The Semantic Representation Engine proposes that language documentation
+and teaching can be unified within a single semantic graph - that
+vocabulary, pronunciation, audio, grammar, narrative, and learning
+progression are not separate artefacts but projections of a shared
+underlying model.
+
+The architecture is deliberately minimal: entities represent what exists,
+affordances represent what can happen, surface forms represent how
+languages express these, and experiences place them in human context.
+The compiler ensures consistency; provenance ensures accountability;
+layered licensing ensures community control.
+
+For the ~3,000 endangered languages where every fluent speaker counts,
+this approach offers a path from raw documentation to deployable learning
+application without requiring large datasets, cloud infrastructure, or
+proprietary software.
+
+
+REFERENCES
+
+[1]  Moseley, C. (ed.). (2010). Atlas of the World's Languages in
+     Danger, 3rd ed. UNESCO Publishing.
+
+[2]  Krauss, M. (1992). "The world's languages in crisis." Language,
+     68(1), 4-10.
+
+[3]  Gibson, J. J. (1979). The Ecological Approach to Visual
+     Perception. Houghton Mifflin.
+
+[4]  Wittenburg, P., Brugman, H., Russel, A., Klassmann, A., &
+     Slootjes, H. (2006). "ELAN: a Professional Framework for
+     Multimodality Research." Proceedings of LREC 2006.
+
+[5]  SIL International. FieldWorks Language Explorer (FLEx).
+     https://software.sil.org/fieldworks/
+
+[6]  SIL International. SayMore. https://software.sil.org/saymore/
+
+[7]  Miller, G. A. (1995). "WordNet: A Lexical Database for English."
+     Communications of the ACM, 38(11), 39-41.
+
+[8]  Baker, C. F., Fillmore, C. J., & Lowe, J. B. (1998). "The
+     Berkeley FrameNet Project." Proceedings of COLING-ACL 1998.
+
+[9]  Speer, R., Chin, J., & Havasi, C. (2017). "ConceptNet 5.5: An
+     Open Multilingual Graph of General Knowledge." Proceedings of
+     AAAI 2017.
+
+[10] Navigli, R., & Ponzetto, S. P. (2012). "BabelNet: The Automatic
+     Construction, Evaluation and Application of a Wide-Coverage
+     Multilingual Semantic Network." Artificial Intelligence, 193,
+     217-250.
+
+[11] Austin, P. K., & Sallabank, J. (eds.). (2011). The Cambridge
+     Handbook of Endangered Languages. Cambridge University Press.
+
+[12] Bird, S., & Simons, G. (2003). "Seven Dimensions of Portability
+     for Language Documentation and Description." Language, 79(3),
+     557-582.
+
+[13] Lenat, D. B. (1995). "Cyc: A Large-Scale Investment in Knowledge
+     Infrastructure." Communications of the ACM, 38(11), 33-38.
+
+[14] Niles, I., & Pease, A. (2001). "Towards a Standard Upper
+     Ontology." Proceedings of FOIS 2001.
+
+[15] Gangemi, A., Guarino, N., Masolo, C., Oltramari, A., &
+     Schneider, L. (2002). "Sweetening Ontologies with DOLCE."
+     Proceedings of EKAW 2002.
+
+[16] Fillmore, C. J. (1982). "Frame Semantics." In Linguistics in the
+     Morning Calm, 111-137. Hanshin Publishing.
+
+[17] Lakoff, G. (1987). Women, Fire, and Dangerous Things: What
+     Categories Reveal about the Mind. University of Chicago Press.
+
+[18] Langacker, R. W. (1987). Foundations of Cognitive Grammar,
+     Vol. 1: Theoretical Prerequisites. Stanford University Press.
+
+[19] Talmy, L. (2000). Toward a Cognitive Semantics, Vol. 1: Concept
+     Structuring Systems. MIT Press.
+
+[20] Tomasello, M. (2003). Constructing a Language: A Usage-Based
+     Theory of Language Acquisition. Harvard University Press.
+
+[21] Hinton, L. (2001). "Language Revitalisation: An Overview." In
+     Hinton, L., & Hale, K. (eds.), The Green Book of Language
+     Revitalisation in Practice, 3-18. Academic Press.
+
+[22] Hale, K. (1992). "Language Endangerment and the Human Value of
+     Linguistic Diversity." Language, 68(1), 35-42.
+
+[23] Fishman, J. A. (1991). Reversing Language Shift: Theoretical and
+     Empirical Foundations of Assistance to Threatened Languages.
+     Multilingual Matters.
+
+[24] Holton, G. (2011). "The Role of Information Technology in
+     Supporting Minority and Endangered Languages." In Austin, P. K.,
+     & Sallabank, J. (eds.), The Cambridge Handbook of Endangered
+     Languages, 371-399. Cambridge University Press.
+
+[25] Krashen, S. D. (1985). The Input Hypothesis: Issues and
+     Implications. Longman.
+
+[26] Swain, M. (2005). "The Output Hypothesis: Theory and Research."
+     In Hinkel, E. (ed.), Handbook of Research in Second Language
+     Teaching and Learning, 471-483. Routledge.
+
+[27] Nation, I. S. P. (2007). "The Four Strands." Innovation in
+     Language Learning and Teaching, 1(1), 2-13.
+
+[28] Duddington, J. (2012). eSpeak Text-to-Speech.
+     https://espeak.sourceforge.net/
+
+[29] Black, A. W., & Taylor, P. (1997). "The Festival Speech
+     Synthesis System." Proceedings of Eurospeech 1997.
+
+[30] McAuliffe, M., Socolof, M., Mihuc, S., Wagner, M., & Sonderegger,
+     M. (2017). "Montreal Forced Aligner: Trainable Text-Speech
+     Alignment Using Kaldi." Proceedings of Interspeech 2017.
