@@ -142,7 +142,7 @@ const App = (() => {
       </div>
       <h1 class="exp-title">${_escape(title)}</h1>
       ${exp.situation
-        ? `<div class="exp-situation">${_escape(exp.situation)}</div>`
+        ? `<div class="exp-situation">${_escape(exp.situation[_currentLang] || exp.situation.en || exp.situation)}</div>`
         : ""}
       <div class="exp-content">
         ${sentences
