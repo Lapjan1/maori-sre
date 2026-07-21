@@ -1,0 +1,119 @@
+# Learner Profile — Pass 1 Results
+# Generated 2026-07-21 from wife's Pass 1 questionnaire responses
+
+learner:
+  id: wife_nz_visit_001
+  name: "Wife (first learner)"
+  course: visit_to_aotearoa
+  source: pass1-results.json
+  exported_at: "2026-07-21T09:27:53.828Z"
+
+  goals:
+    say:
+      count: 54
+      phrase_ids:
+        # VISIT_001 — Before the Journey
+        - VISIT_GO_NZ
+        # VISIT_002 — Arrival
+        - VISIT_KIA_ORA
+        - VISIT_HOW_ARE_YOU
+        - VISIT_I_AM_WELL
+        - VISIT_WELCOME
+        # VISIT_003 — Meeting the Family
+        - VISIT_MY_NAME
+        - VISIT_WHERE_FROM
+        - VISIT_FROM_SA
+        - VISIT_WHO_THIS
+        - VISIT_GREET_ALL
+        # VISIT_004 — At the House
+        - VISIT_WHERE_BATHROOM
+        - VISIT_BEAUTIFUL_HOUSE
+        - VISIT_PLEASE_SIT
+        - VISIT_SLEEPY
+        # VISIT_005 — Food and Drink
+        - VISIT_HUNGRY
+        - VISIT_THIRSTY
+        - VISIT_WATER_PLEASE
+        - VISIT_THANK_FOOD
+        - VISIT_FOOD_PLEASE
+        - VISIT_HELP_YOURSELVES
+        # VISIT_006 — The Weather
+        - VISIT_RAINING
+        - VISIT_FINE_DAY
+        - VISIT_HOT
+        - VISIT_COLD
+        - VISIT_HOW_WEATHER
+        # VISIT_007 — Going Out
+        - VISIT_LETS_GO
+        - VISIT_WHERE_SHOP
+        - VISIT_BUY_FOOD
+        # VISIT_008 — Beach and Sea
+        - VISIT_GO_BEACH
+        - VISIT_BEAUTIFUL_SEA
+        - VISIT_LETS_SWIM
+        # VISIT_009 — Family Gathering
+        - VISIT_LETS_GATHER
+        - VISIT_SPEAK_TO_ME
+        - VISIT_LETS_SING_SONG
+        - VISIT_BIG_FAMILY
+        # VISIT_010 — Social Conversation
+        - VISIT_HOW_TRIP
+        - VISIT_DELICIOUS
+        - VISIT_WHERE_FROM
+        - VISIT_HOW_OLD
+        - VISIT_GOOD_FOOD
+        # VISIT_011 — Thanking
+        - VISIT_THANK_HOST
+        - VISIT_THANK_FOOD
+        - VISIT_BEAUTIFUL_HOUSE
+        - VISIT_KIND_FAMILY
+        # VISIT_012 — Goodbye
+        - VISIT_GOODBYE_STAY
+        - VISIT_GOODBYE_LEAVE
+        - VISIT_WILL_RETURN
+        - VISIT_WILL_MISS
+        - VISIT_BIG_LOVE_FAREWELL
+        - VISIT_BE_STRONG
+
+    recognize:
+      count: 1
+      phrase_ids:
+        - VISIT_GIFT_FAMILY   # "He taonga tēnei mō te whānau"
+
+    explore:
+      count: 4
+      phrase_ids:
+        - VISIT_EXCITED      # "Kei te koa au"
+        - VISIT_GO_MARAE     # "Haere ki te marae"
+        - VISIT_COLD_WATER   # "Auē, he makariri te wai!"
+        - VISIT_BIG_LOVE     # "Aroha nui" (gathering context — though same form in goodbye is marked S)
+
+  missing_concepts:
+    - id: COMPLIMENT_KINDNESS
+      source: "learner wrote 'You are kind' as missing phrase"
+      candidate_surface: "He atawhai koe"
+
+  rehearsal_confidence:
+    status: needs_scaffolding
+    summary: "All interaction rehearsals marked 'Not sure' or unanswered"
+    answered_yes: []
+    answered_not_sure:
+      - VISIT_002  # Arrival — greeting exchange
+      - VISIT_004  # At the House — bathroom scenario
+      - VISIT_005  # Food and Drink — offer scenario
+      - VISIT_006  # The Weather — weather question
+      - VISIT_007  # Going Out — invitation scenario
+      - VISIT_008  # Beach and Sea — arrived at beach
+      - VISIT_009  # Family Gathering — extended family situation
+      - VISIT_010  # Social Conversation — table conversation
+      - VISIT_011  # Thanking — thanking hosts
+      - VISIT_012  # Goodbye — leaving scenario
+    unanswered:
+      - VISIT_003  # Meeting the Family — introduction
+    recommendation: >
+      Replace open-ended "what would you say?" with staged prompts:
+      situation → understand → choose intent → speak.
+
+  final_check:
+    readiness: yes   # "If you had to navigate a visit using only S phrases, would you feel ready?"
+    notes: "Maybe later"

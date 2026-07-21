@@ -1,0 +1,245 @@
+# Curriculum Graph — Generated from Learner Profile + Reusable Course
+# Generated 2026-07-21
+#
+# Takes the wife's 54 Say targets and orders them into a progressive
+# learning sequence using: prerequisites → semantic reuse → difficulty → context
+
+curriculum:
+  learner_id: wife_nz_visit_001
+  course_id: visit_to_aotearoa
+  total_say_targets: 54
+
+  tiers:
+    core:
+      description: "Essential for the trip — learn these first"
+      count: 20
+      rationale: "Cover every basic interaction: greet, introduce, ask, thank, goodbye"
+      sequence:
+        # Arrival — the very first interaction
+        - order: 1
+          phrase: VISIT_KIA_ORA
+          context: "greet anyone, anytime"
+        - order: 2
+          phrase: VISIT_HOW_ARE_YOU
+          context: "initiate conversation"
+        - order: 3
+          phrase: VISIT_I_AM_WELL
+          context: "respond to greeting"
+        - order: 4
+          phrase: VISIT_WELCOME
+          context: "welcome / acknowledge arrival"
+
+        # Introductions
+        - order: 5
+          phrase: VISIT_MY_NAME
+          context: "introduce yourself"
+        - order: 6
+          phrase: VISIT_WHERE_FROM
+          context: "ask where someone is from"
+        - order: 7
+          phrase: VISIT_FROM_SA
+          context: "say where you are from"
+        - order: 8
+          phrase: VISIT_GREET_ALL
+          context: "greet a group formally"
+
+        # Basic needs
+        - order: 9
+          phrase: VISIT_WHERE_BATHROOM
+          context: "essential location question"
+        - order: 10
+          phrase: VISIT_PLEASE_SIT
+          context: "respond to host offering seat"
+        - order: 11
+          phrase: VISIT_HUNGRY
+          context: "express need at meal time"
+        - order: 12
+          phrase: VISIT_THIRSTY
+          context: "express need at meal time"
+        - order: 13
+          phrase: VISIT_WATER_PLEASE
+          context: "polite request"
+        - order: 14
+          phrase: VISIT_THANK_FOOD
+          context: "essential gratitude before/after meals"
+
+        # Goodbye
+        - order: 15
+          phrase: VISIT_GOODBYE_STAY
+          context: "say goodbye to those staying"
+        - order: 16
+          phrase: VISIT_GOODBYE_LEAVE
+          context: "say goodbye as one leaving"
+        - order: 17
+          phrase: VISIT_WILL_RETURN
+          context: "promise to return — important for family"
+        - order: 18
+          phrase: VISIT_BE_STRONG
+          context: "give encouragement on departure"
+
+        # Social essentials
+        - order: 19
+          phrase: VISIT_DELICIOUS
+          context: "compliment food"
+        - order: 20
+          phrase: VISIT_BEAUTIFUL_HOUSE
+          context: "compliment the home"
+
+    active:
+      description: "Wants to say these — expand conversational range"
+      count: 24
+      rationale: "Builds on core with richer expressions across all scenarios"
+      sequence:
+        # Food and drink (extended)
+        - order: 21
+          phrase: VISIT_FOOD_PLEASE
+          context: "polite food request"
+        - order: 22
+          phrase: VISIT_HELP_YOURSELVES
+          context: "offer food to others at table"
+
+        # Weather (small talk)
+        - order: 23
+          phrase: VISIT_RAINING
+          context: "comment on weather"
+        - order: 24
+          phrase: VISIT_FINE_DAY
+          context: "comment on good weather"
+        - order: 25
+          phrase: VISIT_HOT
+          context: "say it is hot"
+        - order: 26
+          phrase: VISIT_COLD
+          context: "say it is cold"
+        - order: 27
+          phrase: VISIT_HOW_WEATHER
+          context: "ask about weather"
+
+        # Going out
+        - order: 28
+          phrase: VISIT_LETS_GO
+          context: "suggest going somewhere"
+        - order: 29
+          phrase: VISIT_WHERE_SHOP
+          context: "ask for shop location"
+        - order: 30
+          phrase: VISIT_BUY_FOOD
+          context: "say you are buying food"
+
+        # Beach
+        - order: 31
+          phrase: VISIT_GO_BEACH
+          context: "announce beach trip"
+        - order: 32
+          phrase: VISIT_BEAUTIFUL_SEA
+          context: "admire the sea"
+        - order: 33
+          phrase: VISIT_LETS_SWIM
+          context: "suggest swimming"
+
+        # Family gathering
+        - order: 34
+          phrase: VISIT_LETS_GATHER
+          context: "suggest gathering"
+        - order: 35
+          phrase: VISIT_SPEAK_TO_ME
+          context: "invite someone to speak"
+        - order: 36
+          phrase: VISIT_LETS_SING_SONG
+          context: "suggest singing"
+        - order: 37
+          phrase: VISIT_BIG_FAMILY
+          context: "comment on family size"
+
+        # Social conversation
+        - order: 38
+          phrase: VISIT_HOW_TRIP
+          context: "ask about someone's trip"
+        - order: 39
+          phrase: VISIT_GOOD_FOOD
+          context: "say food is good"
+        - order: 40
+          phrase: VISIT_HOW_OLD
+          context: "ask someone's age"
+
+        # Thanking extended
+        - order: 41
+          phrase: VISIT_THANK_HOST
+          context: "thank for hospitality"
+        - order: 42
+          phrase: VISIT_KIND_FAMILY
+          context: "say family is kind"
+        - order: 43
+          phrase: VISIT_YOU_ARE_KIND
+          context: "direct compliment (learner-requested)"
+
+        # Goodbye extended
+        - order: 44
+          phrase: VISIT_WILL_MISS
+          context: "express you will miss them"
+
+    extended:
+      description: "Lower priority — useful but less critical"
+      count: 10
+      rationale: "Remaining Say targets and the Recognize items; can be learned later or passively"
+      sequence:
+        # Explore items (marked X — learner wants to encounter but not actively produce)
+        - order: 45
+          phrase: VISIT_EXCITED
+          context: "express excitement (X — explore only)"
+        - order: 46
+          phrase: VISIT_GO_MARAE
+          context: "going to marae (X — explore only)"
+        - order: 47
+          phrase: VISIT_COLD_WATER
+          context: "exclaim water is cold (X — explore only)"
+        - order: 48
+          phrase: VISIT_BIG_LOVE
+          context: "express love in gathering (X — explore only)"
+
+        # Recognize items
+        - order: 49
+          phrase: VISIT_GIFT_FAMILY
+          context: "gift for family (R — recognize only)"
+
+        # Remaining context items
+        - order: 50
+          phrase: VISIT_SLEEPY
+          context: "say you are sleepy"
+        - order: 51
+          phrase: VISIT_WHO_THIS
+          context: "ask who someone is"
+        - order: 52
+          phrase: VISIT_BIG_LOVE_FAREWELL
+          context: "express love in farewell"
+        - order: 53
+          phrase: VISIT_GO_NZ
+          context: "announce intention to travel (pre-departure)"
+        - order: 54
+          phrase: VISIT_BEAUTIFUL_HOUSE
+          context: "compliment house (duplicate — already in core as VISIT_BEAUTIFUL_HOUSE)"
+
+  scaffolding:
+    rehearsal_model:
+      current: "open-ended prompt"
+      recommended: "staged: situation → understand → choose intent → speak"
+      example:
+        situation: "Family member says 'Kia ora!'"
+        stage_1_understand:
+          prompt: "What did they say?"
+          options: ["Hello", "Goodbye", "I'm hungry"]
+        stage_2_choose:
+          prompt: "What do you want to do?"
+          options: ["Say hello back", "Ask how they are", "Walk away"]
+        stage_3_speak:
+          prompt: "Now say it in Māori"
+          target: "Kia ora"
+
+  metadata:
+    generated_from: "pass1-results.json + visit-aotearoa-course-v2.yaml"
+    say_with_duplicates_removed: 52  # VISIT_WHERE_FROM and VISIT_BEAUTIFUL_HOUSE appear twice in Say
+    recognize: 1
+    explore: 4
+    total_targets: 59
+    learner_requested_additions:
+      - "You are kind" → VISIT_YOU_ARE_KIND
