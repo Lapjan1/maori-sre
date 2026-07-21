@@ -98,6 +98,7 @@ var SURFACE_FORMS = {
   SF_EN_STATE_013: {"id": "SF_EN_STATE_013", "entity_id": "STATE_013", "lang": "en", "text": "together", "pronunciation": {"ipa": "/təˈɡɛðər/", "syllables": ["to", "geth", "er"], "stress": 2}},
   SF_MI_STATE_013: {"id": "SF_MI_STATE_013", "entity_id": "STATE_013", "lang": "mi", "text": "noho tahi", "pronunciation": {"syllables": ["no", "ho", "ta", "hi"], "audio_refs": [{"ref": "noho_tahi.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/39458", "retrieved": "2026-07-20", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use"}]}},
   SF_AF_STATE_013: {"id": "SF_AF_STATE_013", "entity_id": "STATE_013", "lang": "af", "text": "saam", "pronunciation": {"ipa": "/sɑːm/", "syllables": ["saam"]}},
+  SF_AF_PHRASE_001: {"id": "SF_AF_PHRASE_001", "entity_id": "PHRASE_001", "lang": "af", "text": "dankie", "pronunciation": {"ipa": "/ˈdɑːnki/", "syllables": ["dan", "kie"], "stress": 1}},
 };
 var SURFACE_FORM_INDEX = {
   "THING_001": {
