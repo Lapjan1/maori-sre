@@ -155,7 +155,7 @@ const App = (() => {
                 ? `<span class="sentence-en">${_escape(enSentences[i])}</span>`
                 : ""}
               ${hasAudio
-                ? `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${_currentLang}" title="Listen">\u25B6</button>`
+                ? `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${_currentLang}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6</button>`
                 : ""}
             </div>
           </div>`
@@ -510,9 +510,10 @@ const App = (() => {
     if (e.target.classList.contains("btn-audio")) {
       const text = e.target.dataset.text;
       const lang = e.target.dataset.lang;
+      const phraseId = e.target.dataset.phraseId;
       if (text) {
-        Audio.speak(text, lang);
-        Session.log("audio_played", { text, lang, experience_id: _experiences[_currentIndex]?.id });
+        Audio.speak(text, lang, null, phraseId);
+        Session.log("audio_played", { text, lang, phraseId, experience_id: _experiences[_currentIndex]?.id });
       }
       return;
     }

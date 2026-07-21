@@ -42,7 +42,7 @@ const Audio = (() => {
     return Object.values(VOICE_PACKAGES).filter((p) => p.language === lang);
   }
 
-  function speak(text, lang, entityId) {
+  function speak(text, lang, entityId, phraseId) {
     if (entityId) {
       const sfId = SURFACE_FORM_INDEX?.[entityId]?.[lang];
       if (sfId) {
@@ -54,7 +54,33 @@ const Audio = (() => {
         }
       }
     }
+    if (phraseId && typeof AF_PHRASES !== "undefined") {
+      const phrase = AF_PHRASES.find((p) => p.intent === phraseId || p.id === phraseId);
+      if (phrase?.audio_refs?.length) {
+        const ref = _bestRefFromList(phrase.audio_refs, lang);
+        if (ref) {
+          _playNative(ref, text, lang);
+          return;
+        }
+      }
+    }
     _tryTTS(text, lang);
+  }
+
+  function _bestRefFromList(refs, lang) {
+    if (!refs?.length) return null;
+    const currentPkg = getVoicePackage(lang);
+    const ranked = refs
+      .filter((r) => r.quality !== "tts")
+      .sort((a, b) => {
+        const aCurrent = a.package === currentPkg ? 0 : 10;
+        const bCurrent = b.package === currentPkg ? 0 : 10;
+        const order = { studio: 0, field: 1 };
+        const aRank = aCurrent + (order[a.quality] ?? 2);
+        const bRank = bCurrent + (order[b.quality] ?? 2);
+        return aRank - bRank;
+      });
+    return ranked[0] || null;
   }
 
   function _bestAudioRef(surfaceForm, lang) {
