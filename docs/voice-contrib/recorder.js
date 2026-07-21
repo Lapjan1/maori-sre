@@ -109,6 +109,12 @@ const Recorder = (() => {
       opt.textContent = "Wife's Core 20";
       sourceSel.appendChild(opt);
     }
+    if (typeof AF_PHRASES !== "undefined") {
+      const opt = document.createElement("option");
+      opt.value = "af_phrases";
+      opt.textContent = "Afrikaans Phrases";
+      sourceSel.appendChild(opt);
+    }
   }
 
   function _onLangChange() {
@@ -152,6 +158,10 @@ const Recorder = (() => {
       phrases = _extractPhrases(EXPERIENCES, lang, source);
     } else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
       phrases = _extractPhrases(CORE_20, lang, source);
+    } else if (source === "af_phrases" && typeof AF_PHRASES !== "undefined") {
+      phrases = AF_PHRASES.filter(function(p) { return p.lang === lang; }).map(function(p) {
+        return { id: p.id, text: p.text, translation: p.translation_en, source_experience: p.id, source_course: "af_phrases", semantic_intent: p.intent || "" };
+      });
     }
     if (!phrases.length) {
       _setStatus(`No ${_langNames[lang] || lang} phrases found for this course`, "info");
@@ -204,24 +214,42 @@ const Recorder = (() => {
       item = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS[id] : null;
     } else {
       const source = sourceSel.value;
-      const items = source === "wife_core_20" && typeof CORE_20 !== "undefined"
-        ? CORE_20 : (typeof EXPERIENCES !== "undefined" ? EXPERIENCES : []);
+      let items = [];
+      if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
+        items = CORE_20;
+      } else if (source === "af_phrases" && typeof AF_PHRASES !== "undefined") {
+        items = AF_PHRASES;
+      } else if (typeof EXPERIENCES !== "undefined") {
+        items = EXPERIENCES;
+      }
       const found = items.find((e) => (e.phrase_id || e.id) === id);
       if (found) {
-        const lang = langSel.value;
-        const content = found.content && (found.content[lang] || found.content["en"]);
-        const enContent = found.content && found.content["en"];
-        const lines = content ? content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
-        const enLines = enContent ? enContent.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
-        item = {
-          id: found.phrase_id || found.id,
-          text: lines[lines.length - 1] || content || "",
-          translation: enLines[enLines.length - 1] || enContent || "",
-          notes: found.situation || "",
-          source_course: source,
-          source_experience: found.id,
-          semantic_intent: found.phrase_id || "",
-        };
+        if (source === "af_phrases") {
+          item = {
+            id: found.id,
+            text: found.text,
+            translation: found.translation_en || "",
+            notes: found.situation || "",
+            source_course: "af_phrases",
+            source_experience: found.id,
+            semantic_intent: found.intent || "",
+          };
+        } else {
+          const lang = langSel.value;
+          const content = found.content && (found.content[lang] || found.content["en"]);
+          const enContent = found.content && found.content["en"];
+          const lines = content ? content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
+          const enLines = enContent ? enContent.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
+          item = {
+            id: found.phrase_id || found.id,
+            text: lines[lines.length - 1] || content || "",
+            translation: enLines[enLines.length - 1] || enContent || "",
+            notes: found.situation || "",
+            source_course: source,
+            source_experience: found.id,
+            semantic_intent: found.phrase_id || "",
+          };
+        }
       }
     }
     if (!item) return;
