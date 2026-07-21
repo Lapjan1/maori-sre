@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voice Contributor</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="topbar">
+    <h1>Voice Contributor</h1>
+    <select id="lang-selector">
+      <option value="">Select language</option>
+    </select>
+    <select id="phrase-selector">
+      <option value="">Select phrase</option>
+    </select>
+    <span class="counter" id="counter"></span>
+  </div>
+
+  <div id="app">
+    <div class="welcome" id="welcome">
+      <h2>Help improve the language</h2>
+      <p>Choose a language and phrase above, then record your pronunciation.</p>
+      <div class="steps">
+        <div class="step">1. Choose language</div>
+        <div class="step">2. Choose phrase</div>
+        <div class="step">3. Record</div>
+        <div class="step">4. Review</div>
+        <div class="step">5. Submit</div>
+      </div>
+    </div>
+
+    <div class="card-container" id="card-container" style="display:none">
+      <div class="phrase-card">
+        <div class="phrase-card-header">
+          <span class="phrase-lang" id="phrase-lang"></span>
+          <span class="phrase-id" id="phrase-id"></span>
+        </div>
+        <div class="phrase-text" id="phrase-text"></div>
+        <div class="phrase-translation" id="phrase-translation"></div>
+        <div class="phrase-notes" id="phrase-notes"></div>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <button class="btn btn-reference" id="btn-reference" title="Hear reference pronunciation">&#9654; Reference</button>
+          <button class="btn btn-record" id="btn-record" title="Record">&#9679; Record</button>
+          <button class="btn btn-stop" id="btn-stop" style="display:none" title="Stop recording">&#9612; Stop</button>
+          <button class="btn btn-play" id="btn-play" style="display:none" title="Play your recording">&#9654; Play</button>
+          <button class="btn btn-rerecord" id="btn-rerecord" style="display:none" title="Record again">&#8635; Re-record</button>
+        </div>
+        <div class="recording-timer" id="timer">0:00</div>
+      </div>
+
+      <div class="recording-status" id="status"></div>
+
+      <div class="metadata-section" id="metadata-section" style="display:none">
+        <h3>Speaker info <span class="optional">(optional)</span></h3>
+        <div class="metadata-grid">
+          <label>Name or pseudonym
+            <input type="text" id="speaker-name" placeholder="Anonymous">
+          </label>
+          <label>Native speaker
+            <select id="speaker-native">
+              <option value="">Prefer not to say</option>
+              <option value="true">Yes</option>
+              <option value="false">No</option>
+            </select>
+          </label>
+          <label>Region / dialect
+            <input type="text" id="speaker-region" placeholder="e.g. Waikato">
+          </label>
+          <label>Age range
+            <select id="speaker-age">
+              <option value="">Prefer not to say</option>
+              <option value="under18">Under 18</option>
+              <option value="18-30">18-30</option>
+              <option value="31-50">31-50</option>
+              <option value="51plus">51+</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="consent-section">
+          <h3>License</h3>
+          <label class="consent-label">
+            <input type="checkbox" id="consent-check">
+            I license this recording under
+            <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank">CC BY 4.0</a>.
+            I understand it may be used in language-learning materials.
+          </label>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn btn-download" id="btn-download" disabled>Download contribution</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="bundle-preview" id="bundle-preview" style="display:none">
+    <h3>Contribution bundle</h3>
+    <pre id="yaml-preview"></pre>
+  </div>
+
+  <script src="../packages/language-data/surface_forms.js"></script>
+  <script src="../packages/language-data/voice_packages.js"></script>
+  <script src="../packages/language-data/audio_index.js"></script>
+  <script src="recorder.js"></script>
+</body>
+</html>
