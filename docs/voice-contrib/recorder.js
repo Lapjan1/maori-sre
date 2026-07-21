@@ -13,6 +13,7 @@ const Recorder = (() => {
   let _timerInterval = null;
   let _contributionCount = 0;
   let _currentMode = "words";
+  let _currentItemMeta = null;
 
   const _CONTRIB_PREFIX = "VC";
   const _langNames = { mi: "M\u0101ori", en: "English", af: "Afrikaans" };
@@ -79,6 +80,7 @@ const Recorder = (() => {
   function _onModeChange() {
     _currentMode = modeSel.value;
     _resetRecording();
+    _currentItemMeta = null;
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
     welcome.style.display = "block";
     cardContainer.style.display = "none";
@@ -143,9 +145,9 @@ const Recorder = (() => {
     const source = sourceSel.value;
     let phrases = [];
     if (source === "river_world" && typeof EXPERIENCES !== "undefined") {
-      phrases = _extractPhrases(EXPERIENCES, lang);
+      phrases = _extractPhrases(EXPERIENCES, lang, source);
     } else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
-      phrases = _extractPhrases(CORE_20, lang);
+      phrases = _extractPhrases(CORE_20, lang, source);
     }
     if (!phrases.length) {
       _setStatus(`No ${_langNames[lang] || lang} phrases found for this course`, "info");
@@ -160,7 +162,7 @@ const Recorder = (() => {
     _setStatus(`${phrases.length} phrases available for ${_langNames[lang] || lang}`, "info");
   }
 
-  function _extractPhrases(experiences, lang) {
+  function _extractPhrases(experiences, lang, sourceId) {
     const result = [];
     experiences.forEach((exp) => {
       const content = exp.content && (exp.content[lang] || exp.content["en"]);
@@ -174,8 +176,9 @@ const Recorder = (() => {
         id: exp.phrase_id || exp.id,
         text: keyPhrase,
         translation: enPhrase,
-        source: exp.id,
-        course: exp.title ? (exp.title["en"] || exp.title) : exp.id,
+        source_experience: exp.id,
+        source_course: sourceId,
+        semantic_intent: exp.phrase_id || "",
       });
     });
     return result;
@@ -203,18 +206,22 @@ const Recorder = (() => {
       if (found) {
         const lang = langSel.value;
         const content = found.content && (found.content[lang] || found.content["en"]);
+        const enContent = found.content && found.content["en"];
         const lines = content ? content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
+        const enLines = enContent ? enContent.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
         item = {
           id: found.phrase_id || found.id,
           text: lines[lines.length - 1] || content || "",
-          translation: found.content && found.content["en"]
-            ? found.content["en"].split("\n").map((l) => l.trim()).filter((l) => l.length > 0).pop() || ""
-            : "",
+          translation: enLines[enLines.length - 1] || enContent || "",
           notes: found.situation || "",
+          source_course: source,
+          source_experience: found.id,
+          semantic_intent: found.phrase_id || "",
         };
       }
     }
     if (!item) return;
+    _currentItemMeta = item;
 
     phraseLang.textContent = _langNames[langSel.value] || langSel.value;
     phraseId.textContent = item.id;
@@ -391,13 +398,22 @@ const Recorder = (() => {
     const text = phraseText.textContent;
     const translation = phraseTranslation.textContent;
     const mode = _currentMode;
-    const source = _currentMode === "phrases" ? (sourceSel.value || "") : "";
+    const meta = _currentItemMeta;
+    const isPhrase = mode === "phrases";
+    let prov = "";
+    if (isPhrase && meta) {
+      prov = `  type: phrase
+  semantic_intent: ${meta.semantic_intent || ""}
+  source_course: ${meta.source_course || ""}
+  source_experience: ${meta.source_experience || ""}
+`;
+    }
     return `contribution:
   id: ${contribId}
-  mode: ${mode}
-  ${source ? "  course: " + source + "\n" : ""}  ref_id: ${itemId}
+  type: ${isPhrase ? "phrase" : "word"}
+  ref_id: ${itemId}
   language: ${lang}
-  text: ${text}
+${prov}  text: ${text}
   translation_en: ${translation}
   recording:
     filename: ${contribId}.${ext}
