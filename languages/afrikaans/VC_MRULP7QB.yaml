@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULP7QB
+  type: phrase
+  ref_id: AF_WATER_PLEASE
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULP7QB.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 32078
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

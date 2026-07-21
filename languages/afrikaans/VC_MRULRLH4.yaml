@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULRLH4
+  type: phrase
+  ref_id: AF_THANK_YOU
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULRLH4.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 22398
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

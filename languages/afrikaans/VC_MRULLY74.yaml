@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULLY74
+  type: phrase
+  ref_id: AF_MY_NAME
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULLY74.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 30631
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

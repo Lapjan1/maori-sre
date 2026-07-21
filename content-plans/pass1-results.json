@@ -1,0 +1,395 @@
+{
+  "exportedAt": "2026-07-21T09:27:53.828Z",
+  "responses": {
+    "VISIT_001_0": {
+      "phrase": "Kei te haere au ki Aotearoa",
+      "english": "I am going to New Zealand",
+      "experience": "Before the Journey",
+      "choice": "S"
+    },
+    "VISIT_001_1": {
+      "phrase": "He taonga tēnei mō te whānau",
+      "english": "This is a gift for the family",
+      "experience": "Before the Journey",
+      "choice": "R"
+    },
+    "VISIT_001_2": {
+      "phrase": "Kei te koa au",
+      "english": "I am excited",
+      "experience": "Before the Journey",
+      "choice": "X"
+    },
+    "VISIT_002_0": {
+      "phrase": "Kia ora",
+      "english": "Hello / greetings",
+      "experience": "Arrival",
+      "choice": "S"
+    },
+    "VISIT_002_1": {
+      "phrase": "Kei te pēhea koe?",
+      "english": "How are you?",
+      "experience": "Arrival",
+      "choice": "S"
+    },
+    "VISIT_002_2": {
+      "phrase": "Kei te pai",
+      "english": "I am well",
+      "experience": "Arrival",
+      "choice": "S"
+    },
+    "VISIT_002_3": {
+      "phrase": "Haere mai",
+      "english": "Welcome / come here",
+      "experience": "Arrival",
+      "choice": "S"
+    },
+    "VISIT_003_0": {
+      "phrase": "Ko [name] tōku ingoa",
+      "english": "My name is [name]",
+      "experience": "Meeting the Family",
+      "choice": "S"
+    },
+    "VISIT_003_1": {
+      "phrase": "Nō hea koe?",
+      "english": "Where are you from?",
+      "experience": "Meeting the Family",
+      "choice": "S"
+    },
+    "VISIT_003_2": {
+      "phrase": "Nō Āwherika ki te Tonga ahau",
+      "english": "I am from South Africa",
+      "experience": "Meeting the Family",
+      "choice": "S"
+    },
+    "VISIT_003_3": {
+      "phrase": "Ko wai tēnei?",
+      "english": "Who is this?",
+      "experience": "Meeting the Family",
+      "choice": "S"
+    },
+    "VISIT_003_4": {
+      "phrase": "Tēnā koutou",
+      "english": "Greetings to you all",
+      "experience": "Meeting the Family",
+      "choice": "S"
+    },
+    "VISIT_004_0": {
+      "phrase": "Kei hea te wharepaku?",
+      "english": "Where is the bathroom?",
+      "experience": "At the House",
+      "choice": "S"
+    },
+    "VISIT_004_1": {
+      "phrase": "He whare ātaahua",
+      "english": "A beautiful house",
+      "experience": "At the House",
+      "choice": "S"
+    },
+    "VISIT_004_2": {
+      "phrase": "Noho mai",
+      "english": "Please sit / stay",
+      "experience": "At the House",
+      "choice": "S"
+    },
+    "VISIT_004_3": {
+      "phrase": "Kei te hiamoe au",
+      "english": "I am sleepy",
+      "experience": "At the House",
+      "choice": "S"
+    },
+    "VISIT_005_0": {
+      "phrase": "Kei te hiakai au",
+      "english": "I am hungry",
+      "experience": "Food and Drink",
+      "choice": "S"
+    },
+    "VISIT_005_1": {
+      "phrase": "Kei te matewai au",
+      "english": "I am thirsty",
+      "experience": "Food and Drink",
+      "choice": "S"
+    },
+    "VISIT_005_2": {
+      "phrase": "He wai, koa",
+      "english": "Some water, please",
+      "experience": "Food and Drink",
+      "choice": "S"
+    },
+    "VISIT_005_3": {
+      "phrase": "Kia ora mō te kai",
+      "english": "Thank you for the food",
+      "experience": "Food and Drink",
+      "choice": "S"
+    },
+    "VISIT_005_4": {
+      "phrase": "He kai, koa",
+      "english": "Some food, please",
+      "experience": "Food and Drink",
+      "choice": "S"
+    },
+    "VISIT_005_5": {
+      "phrase": "Tēnā kōrua",
+      "english": "Please help yourselves",
+      "experience": "Food and Drink",
+      "choice": "S"
+    },
+    "VISIT_006_0": {
+      "phrase": "Kei te ua",
+      "english": "It is raining",
+      "experience": "The Weather",
+      "choice": "S"
+    },
+    "VISIT_006_1": {
+      "phrase": "He rā paki",
+      "english": "A fine day",
+      "experience": "The Weather",
+      "choice": "S"
+    },
+    "VISIT_006_2": {
+      "phrase": "Kei te wera",
+      "english": "It is hot",
+      "experience": "The Weather",
+      "choice": "S"
+    },
+    "VISIT_006_3": {
+      "phrase": "Kei te mātao",
+      "english": "It is cold",
+      "experience": "The Weather",
+      "choice": "S"
+    },
+    "VISIT_006_4": {
+      "phrase": "Pēhea te huarere?",
+      "english": "How is the weather?",
+      "experience": "The Weather",
+      "choice": "S"
+    },
+    "VISIT_007_0": {
+      "phrase": "Haere tāua",
+      "english": "Let's go (you and me)",
+      "experience": "Going Out",
+      "choice": "S"
+    },
+    "VISIT_007_1": {
+      "phrase": "Kei hea te toa?",
+      "english": "Where is the shop?",
+      "experience": "Going Out",
+      "choice": "S"
+    },
+    "VISIT_007_2": {
+      "phrase": "Hoko kai",
+      "english": "Buy food",
+      "experience": "Going Out",
+      "choice": "S"
+    },
+    "VISIT_007_3": {
+      "phrase": "Haere ki te marae",
+      "english": "Go to the marae",
+      "experience": "Going Out",
+      "choice": "X"
+    },
+    "VISIT_008_0": {
+      "phrase": "Kei te haere tāua ki te one",
+      "english": "We are going to the beach",
+      "experience": "Beach and Sea",
+      "choice": "S"
+    },
+    "VISIT_008_1": {
+      "phrase": "He ātaahua te moana",
+      "english": "The sea is beautiful",
+      "experience": "Beach and Sea",
+      "choice": "S"
+    },
+    "VISIT_008_2": {
+      "phrase": "Kauhoe tāua",
+      "english": "Let's swim",
+      "experience": "Beach and Sea",
+      "choice": "S"
+    },
+    "VISIT_008_3": {
+      "phrase": "Auē, he makariri te wai!",
+      "english": "Oh, the water is cold!",
+      "experience": "Beach and Sea",
+      "choice": "X"
+    },
+    "VISIT_009_0": {
+      "phrase": "Huihui tātou",
+      "english": "Let us gather",
+      "experience": "Family Gathering",
+      "choice": "S"
+    },
+    "VISIT_009_1": {
+      "phrase": "Kōrero mai",
+      "english": "Speak to me / tell me",
+      "experience": "Family Gathering",
+      "choice": "S"
+    },
+    "VISIT_009_2": {
+      "phrase": "Waiata tātou",
+      "english": "Let's sing",
+      "experience": "Family Gathering",
+      "choice": "S"
+    },
+    "VISIT_009_3": {
+      "phrase": "He nui te whānau",
+      "english": "The family is big",
+      "experience": "Family Gathering",
+      "choice": "S"
+    },
+    "VISIT_009_4": {
+      "phrase": "Aroha nui",
+      "english": "Much love",
+      "experience": "Family Gathering",
+      "choice": "X"
+    },
+    "VISIT_010_0": {
+      "phrase": "Kei te pēhea tō haerenga?",
+      "english": "How is your trip?",
+      "experience": "Social Conversation",
+      "choice": "S"
+    },
+    "VISIT_010_1": {
+      "phrase": "He reka",
+      "english": "It is delicious",
+      "experience": "Social Conversation",
+      "choice": "S"
+    },
+    "VISIT_010_2": {
+      "phrase": "Nō hea koe?",
+      "english": "Where are you from?",
+      "experience": "Social Conversation",
+      "choice": "S"
+    },
+    "VISIT_010_3": {
+      "phrase": "E hia ō tau?",
+      "english": "How old are you?",
+      "experience": "Social Conversation",
+      "choice": "S"
+    },
+    "VISIT_010_4": {
+      "phrase": "He pai te kai",
+      "english": "The food is good",
+      "experience": "Social Conversation",
+      "choice": "S"
+    },
+    "VISIT_011_0": {
+      "phrase": "Kia ora mō tō manaaki",
+      "english": "Thank you for your hospitality",
+      "experience": "Thanking",
+      "choice": "S"
+    },
+    "VISIT_011_1": {
+      "phrase": "Kia ora mō te kai",
+      "english": "Thank you for the food",
+      "experience": "Thanking",
+      "choice": "S"
+    },
+    "VISIT_011_2": {
+      "phrase": "He whare ātaahua",
+      "english": "Beautiful home",
+      "experience": "Thanking",
+      "choice": "S"
+    },
+    "VISIT_011_3": {
+      "phrase": "He whānau atawhai",
+      "english": "Kind family",
+      "experience": "Thanking",
+      "choice": "S"
+    },
+    "VISIT_012_0": {
+      "phrase": "Haere rā",
+      "english": "Goodbye (to those staying)",
+      "experience": "Goodbye",
+      "choice": "S"
+    },
+    "VISIT_012_1": {
+      "phrase": "E noho rā",
+      "english": "Goodbye (to those leaving)",
+      "experience": "Goodbye",
+      "choice": "S"
+    },
+    "VISIT_012_2": {
+      "phrase": "Ka hoki mai au",
+      "english": "I will return",
+      "experience": "Goodbye",
+      "choice": "S"
+    },
+    "VISIT_012_3": {
+      "phrase": "Ka tangī au",
+      "english": "I will miss you / I will cry",
+      "experience": "Goodbye",
+      "choice": "S"
+    },
+    "VISIT_012_4": {
+      "phrase": "Aroha nui",
+      "english": "Much love",
+      "experience": "Goodbye",
+      "choice": "S"
+    },
+    "VISIT_012_5": {
+      "phrase": "Kia kaha",
+      "english": "Be strong",
+      "experience": "Goodbye",
+      "choice": "S"
+    }
+  },
+  "rehearsalChecks": {
+    "VISIT_002_rehearsal": {
+      "experience": "Arrival",
+      "check": "Family says \"Kia ora! Haere mai!\" then asks \"Kei te pēhea koe?\"",
+      "answer": "Not sure"
+    },
+    "VISIT_003_rehearsal": {
+      "experience": "Meeting the Family",
+      "check": "Someone asks \"Nō hea koe?\" and you introduce yourself.",
+      "answer": null
+    },
+    "VISIT_004_rehearsal": {
+      "experience": "At the House",
+      "check": "You need the bathroom. Your host is showing you around.",
+      "answer": "Not sure"
+    },
+    "VISIT_005_rehearsal": {
+      "experience": "Food and Drink",
+      "check": "Someone offers you food. You are thirsty.",
+      "answer": "Not sure"
+    },
+    "VISIT_006_rehearsal": {
+      "experience": "The Weather",
+      "check": "Someone says \"Pēhea te huarere?\" It is raining.",
+      "answer": "Not sure"
+    },
+    "VISIT_007_rehearsal": {
+      "experience": "Going Out",
+      "check": "Someone invites you to go to the shop.",
+      "answer": "Not sure"
+    },
+    "VISIT_008_rehearsal": {
+      "experience": "Beach and Sea",
+      "check": "You arrive at the beach and see the ocean.",
+      "answer": "Not sure"
+    },
+    "VISIT_009_rehearsal": {
+      "experience": "Family Gathering",
+      "check": "You are at a gathering with extended family.",
+      "answer": "Not sure"
+    },
+    "VISIT_010_rehearsal": {
+      "experience": "Social Conversation",
+      "check": "At the table, someone asks about your trip.",
+      "answer": "Not sure"
+    },
+    "VISIT_011_rehearsal": {
+      "experience": "Thanking",
+      "check": "Before leaving, you want to thank your hosts properly.",
+      "answer": "Not sure"
+    },
+    "VISIT_012_rehearsal": {
+      "experience": "Goodbye",
+      "check": "You are leaving. Your family says \"Haere rā.\"",
+      "answer": "Not sure"
+    }
+  },
+  "finalReady": "yes",
+  "missingPhrase": "You are kind ",
+  "otherNotes": "Maybe later"
+}

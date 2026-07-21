@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULWG7U
+  type: phrase
+  ref_id: AF_I_AM_TIRED
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULWG7U.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 32648
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

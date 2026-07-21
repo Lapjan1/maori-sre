@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULULOI
+  type: phrase
+  ref_id: AF_YES
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULULOI.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 19659
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

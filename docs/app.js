@@ -6,8 +6,14 @@ const App = (() => {
   let _currentLang = "en";
   let _experiences = [];
   let _reviewMode = false;
+  let _activeCurriculum = "river_world";
 
   const REVIEW_KEY = "river_world_pass1";
+  const CURRICULUM_KEY = "river_world_curriculum";
+
+  function _getCurriculumName() {
+    return _activeCurriculum === "wife_core_20" ? "Wife's Course" : "River World";
+  }
 
   function init() {
     _experiences = window.EXPERIENCES || [];
@@ -18,10 +24,42 @@ const App = (() => {
     }
     Audio.init();
     _restoreLang();
+    _restoreCurriculum();
+    const header = document.querySelector(".sidebar-header");
+    if (header) header.textContent = _getCurriculumName();
     _populateVoicePackages();
     _renderExperienceList();
     _showExperience(0);
-    Session.log("app_started", { totalExperiences: _experiences.length });
+    Session.log("app_started", { totalExperiences: _experiences.length, curriculum: _activeCurriculum });
+  }
+
+  function _restoreCurriculum() {
+    try {
+      const saved = localStorage.getItem(CURRICULUM_KEY);
+      if (saved === "wife_core_20" && typeof CORE_20 !== "undefined") {
+        _activeCurriculum = "wife_core_20";
+        _experiences = CORE_20;
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  function _switchCurriculum(name) {
+    if (name === "wife_core_20" && typeof CORE_20 !== "undefined") {
+      _activeCurriculum = "wife_core_20";
+      _experiences = CORE_20;
+      _currentIndex = 0;
+    } else {
+      _activeCurriculum = "river_world";
+      _experiences = window.EXPERIENCES || [];
+      _currentIndex = 0;
+    }
+    try { localStorage.setItem(CURRICULUM_KEY, _activeCurriculum); } catch (e) { /* ignore */ }
+    _reviewMode = false;
+    const header = document.querySelector(".sidebar-header");
+    if (header) header.textContent = _getCurriculumName();
+    _renderExperienceList();
+    _showExperience(0);
+    Session.log("curriculum_changed", { curriculum: _activeCurriculum });
   }
 
   function _restoreLang() {
@@ -103,6 +141,9 @@ const App = (() => {
         <span class="exp-id">${exp.id}</span>
       </div>
       <h1 class="exp-title">${_escape(title)}</h1>
+      ${exp.situation
+        ? `<div class="exp-situation">${_escape(exp.situation)}</div>`
+        : ""}
       <div class="exp-content">
         ${sentences
           .map(
@@ -191,7 +232,15 @@ const App = (() => {
 
   function _renderExperienceList() {
     const container = document.getElementById("exp-list");
-    let html = _experiences
+    let html = `<div class="curriculum-switcher">`;
+    html += `<button class="curriculum-btn ${_activeCurriculum === "river_world" ? "active" : ""}" data-curriculum="river_world">River World</button>`;
+    html += `<button class="curriculum-btn ${_activeCurriculum === "wife_core_20" ? "active" : ""}" data-curriculum="wife_core_20">Wife's Core 20</button>`;
+    if (_activeCurriculum !== "river_world") {
+      html += `<div class="curriculum-label">${_escape(_getCurriculumName())} · ${_experiences.length} items</div>`;
+    }
+    html += `</div>`;
+    html += `<div class="exp-list-scroll">`;
+    html += _experiences
       .map(
         (exp, i) => `
       <button class="exp-list-item ${i === _currentIndex && !_reviewMode ? "active" : ""}"
@@ -201,8 +250,11 @@ const App = (() => {
       </button>`
       )
       .join("");
-    html += `<hr class="sidebar-divider">`;
-    html += `<button class="sidebar-review ${_reviewMode ? "active" : ""}" data-action="review">Pass 1 Review</button>`;
+    html += `</div>`;
+    if (_activeCurriculum === "river_world") {
+      html += `<hr class="sidebar-divider">`;
+      html += `<button class="sidebar-review ${_reviewMode ? "active" : ""}" data-action="review">Pass 1 Review</button>`;
+    }
     container.innerHTML = html;
   }
 
@@ -504,6 +556,12 @@ const App = (() => {
         _showExperience(_currentIndex - 1);
         _updateList();
       }
+      return;
+    }
+
+    // Curriculum switcher
+    if (e.target.classList.contains("curriculum-btn")) {
+      _switchCurriculum(e.target.dataset.curriculum);
       return;
     }
 

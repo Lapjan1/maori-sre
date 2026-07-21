@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULS1OS
+  type: phrase
+  ref_id: AF_SORRY
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULS1OS.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 20481
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

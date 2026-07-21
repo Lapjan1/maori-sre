@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULRT8Y
+  type: phrase
+  ref_id: AF_PLEASE
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULRT8Y.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 26007
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

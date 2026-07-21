@@ -246,6 +246,15 @@
   .sidebar-review:hover { background: #e8f4f8; }
   .sidebar-review.active { background: #e3f0e8; border-left: 3px solid var(--water); }
 
+  /* Curriculum switcher */
+  .curriculum-switcher { padding: 0.5rem; display: flex; flex-wrap: wrap; gap: 0.25rem; border-bottom: 1px solid #eee; }
+  .curriculum-btn { flex: 1; min-width: 80px; padding: 0.4rem 0.5rem; border: 1px solid #ddd; border-radius: 4px; background: #fff; cursor: pointer; font-size: 0.8rem; text-align: center; }
+  .curriculum-btn:hover { background: #f0ebe6; }
+  .curriculum-btn.active { background: var(--green); color: #fff; border-color: var(--green); }
+  .curriculum-label { width: 100%; font-size: 0.75rem; color: #888; text-align: center; padding: 0.25rem 0 0; }
+  .exp-list-scroll { flex: 1; overflow-y: auto; }
+  .exp-situation { font-style: italic; color: #666; font-size: 0.9rem; margin-bottom: 1rem; padding: 0.5rem 0.75rem; background: #f9f7f5; border-radius: 6px; border-left: 3px solid var(--water); }
+
   /* Session debug */
   #session-debug {
     font-size: 0.75rem; color: #aaa; padding: 0.5rem 1rem;
@@ -286,12 +295,13 @@
   </div>
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <script src="experiences.js"></script>
-  <script src="surface_forms.js"></script>
-  <script src="voice_packages.js"></script>
-  <script src="audio_index.js"></script>
-  <script src="session.js"></script>
-  <script src="audio.js"></script>
-  <script src="app.js"></script>
+  <script src="experiences.js?v=2"></script>
+  <script src="surface_forms.js?v=2"></script>
+  <script src="voice_packages.js?v=2"></script>
+  <script src="audio_index.js?v=2"></script>
+  <script src="session.js?v=2"></script>
+  <script src="curriculum-wife.js?v=2"></script>
+  <script src="audio.js?v=2"></script>
+  <script src="app.js?v=2"></script>
 </body>
 </html>

@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULOKTR
+  type: phrase
+  ref_id: AF_I_AM_THIRSTY
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULOKTR.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 31054
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

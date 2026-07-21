@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULJT0Y
+  type: phrase
+  ref_id: AF_GREET_AFTERNOON
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULJT0Y.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 35153
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

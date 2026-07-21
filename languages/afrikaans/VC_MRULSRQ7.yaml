@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULSRQ7
+  type: phrase
+  ref_id: AF_I_DONT_UNDERSTAND
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULSRQ7.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 31297
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

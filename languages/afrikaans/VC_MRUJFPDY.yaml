@@ -1,0 +1,20 @@
+contribution:
+  id: VC_MRUJFPDY
+  surface_form_id: SF_AF_ACTION_022
+  language: af
+  text: bedank
+  translation_en: 
+  recording:
+    filename: VC_MRUJFPDY.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 24984
+  speaker:
+    name: Hannes
+    native: unspecified
+    region: Afrikaans
+    age_range: 51plus
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRULEXCW
+  type: phrase
+  ref_id: AF_GREET_HELLO
+  language: af
+  text: 
+  translation_en: 
+  recording:
+    filename: VC_MRULEXCW.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 25807
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending
