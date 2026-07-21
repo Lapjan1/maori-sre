@@ -18,6 +18,10 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .topbar select { padding: 0.35rem 0.5rem; border-radius: 6px; border: none; font-size: 0.85rem; background: #fff; min-width: 120px; }
 .counter { font-size: 0.8rem; opacity: 0.8; }
 #mode-selector { font-weight: 600; }
+.btn-folder { background: #fff; color: var(--green); border: 1px solid var(--green); border-radius: 6px; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 0.8rem; white-space: nowrap; }
+.btn-folder:hover { background: #e8f0ec; }
+.btn-folder.active { background: var(--green); color: #fff; }
+.folder-path { font-size: 0.7rem; color: rgba(255,255,255,0.7); max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 #app { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 1rem; }
 

@@ -51,6 +51,10 @@ const Recorder = (() => {
   const correctionSection = $("correction-section");
   const correctionField = $("correction-field");
   const btnNext = $("btn-next");
+  const btnFolder = $("btn-folder");
+  const folderPath = $("folder-path");
+  let _dirHandle = null;
+  let _dirName = "";
 
   /* ---------- init ---------- */
   function init() {
@@ -66,6 +70,7 @@ const Recorder = (() => {
     btnReRecord.addEventListener("click", _resetRecording);
     btnDownload.addEventListener("click", _downloadBundle);
     btnNext.addEventListener("click", _nextCard);
+    btnFolder.addEventListener("click", _pickFolder);
     consentCheck.addEventListener("change", _updateDownloadState);
     _setStatus("Choose a mode and language to start", "info");
   }
@@ -478,7 +483,7 @@ ${prov}${extra}  text: ${text}
     btnDownload.disabled = !(_recordedBlob && consentCheck.checked);
   }
 
-  function _downloadBundle() {
+  async function _downloadBundle() {
     if (!_recordedBlob) return;
     const itemId = phraseSel.value;
     if (!itemId) return;
@@ -489,21 +494,66 @@ ${prov}${extra}  text: ${text}
     yamlPreview.textContent = yaml;
     bundlePreview.style.display = "block";
 
-    const audioLink = document.createElement("a");
-    audioLink.href = _recordedUrl;
-    audioLink.download = `${contribId}.${ext}`;
-    audioLink.click();
+    const audioFilename = `${contribId}.${ext}`;
+    const yamlFilename = `${contribId}.yaml`;
 
+    const audioBlob = _recordedBlob;
     const yamlBlob = new Blob([yaml], { type: "text/yaml;charset=utf-8" });
-    const yamlUrl = URL.createObjectURL(yamlBlob);
-    const yamlLink = document.createElement("a");
-    yamlLink.href = yamlUrl;
-    yamlLink.download = `${contribId}.yaml`;
-    yamlLink.click();
-    URL.revokeObjectURL(yamlUrl);
 
+    const audioSaved = await _saveFile(audioFilename, audioBlob);
+    const yamlSaved = await _saveFile(yamlFilename, yamlBlob);
+
+    if (audioSaved && yamlSaved) {
+      _setStatus(`Saved to ${_dirName || "folder"}: ${audioFilename} + ${yamlFilename}`, "success");
+    } else {
+      _triggerDownload(audioFilename, audioBlob);
+      _triggerDownload(yamlFilename, yamlBlob);
+      _setStatus(`Contribution ${contribId} downloaded to Downloads folder.`, "success");
+    }
     btnNext.style.display = "inline-block";
-    _setStatus(`Contribution ${contribId} downloaded.`, "success");
+  }
+
+  /* ---------- folder picker ---------- */
+  async function _pickFolder() {
+    if (!window.showDirectoryPicker) {
+      return _setStatus("This browser doesn't support folder selection. Files will download normally.", "error");
+    }
+    try {
+      _dirHandle = await window.showDirectoryPicker();
+      _dirName = _dirHandle.name;
+      folderPath.textContent = _dirName;
+      btnFolder.classList.add("active");
+      _setStatus("Saving to: " + _dirName, "success");
+    } catch (err) {
+      if (err.name !== "AbortError") {
+        _setStatus("Folder selection cancelled or failed", "error");
+      }
+    }
+  }
+
+  async function _saveFile(filename, blob) {
+    if (_dirHandle) {
+      try {
+        const fileHandle = await _dirHandle.getFileHandle(filename, { create: true });
+        const writable = await fileHandle.createWritable();
+        await writable.write(blob);
+        await writable.close();
+        return true;
+      } catch (err) {
+        _setStatus("Failed to save to folder: " + err.message, "error");
+        return false;
+      }
+    }
+    return false;
+  }
+
+  function _triggerDownload(filename, blob) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
   }
 
   function _nextCard() {
