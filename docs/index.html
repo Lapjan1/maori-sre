@@ -62,6 +62,20 @@
     font-size: 0.7rem; cursor: pointer; max-width: 120px;
   }
   .voice-select option { color: var(--text); background: #fff; }
+  .lang-controls { display: flex; align-items: center; gap: 0.4rem; }
+  .lang-group { display: flex; flex-direction: column; gap: 0.15rem; }
+  .btn-swap { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color: #fff; border-radius: 6px; padding: 0.3rem 0.4rem; cursor: pointer; font-size: 1.1rem; line-height: 1; }
+  .btn-swap:hover { background: rgba(255,255,255,0.25); }
+  .dual-panel { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .panel { flex: 1; min-width: 0; background: var(--card); border-radius: var(--radius); padding: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,.06); }
+  .panel-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
+  .panel-lang { font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .panel-content .sentence { font-size: 0.95rem; line-height: 1.5; margin-bottom: 0.4rem; }
+  .panel-situation { font-style: italic; color: #666; font-size: 0.8rem; padding: 0.4rem 0.5rem; background: #f9f7f5; border-radius: 4px; border-left: 2px solid var(--water); margin-top: 0.5rem; }
+  .panel-entities { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid #eee; }
+  .entity-chip { display: inline-flex; align-items: center; gap: 0.25rem; background: #f5f5f5; border-radius: 4px; padding: 0.2rem 0.4rem; font-size: 0.75rem; }
+  .entity-chip .entity-label { font-weight: 500; }
+  .entity-chip .entity-cat { font-size: 0.6rem; color: var(--muted); }
 
   /* Sidebar */
   .sidebar-overlay {
@@ -261,10 +275,15 @@
     text-align: center; cursor: pointer;
   }
 
+  @media (max-width: 640px) {
+    .dual-panel { flex-direction: column; }
+    .lang-controls { gap: 0.25rem; }
+    .lang-select { font-size: 0.75rem; padding: 0.2rem 0.3rem; }
+    .btn-swap { font-size: 0.9rem; padding: 0.2rem 0.3rem; }
+  }
   @media (max-width: 480px) {
     html { font-size: 15px; }
     #app { padding: 1rem 0.75rem; }
-    .entity-grid { grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); }
   }
 </style>
 </head>
@@ -273,14 +292,29 @@
   <div class="topbar">
     <button class="btn-menu" id="menu-toggle">&#9776;</button>
     <h1>River World</h1>
-    <select class="lang-select" id="lang-selector">
-      <option value="mi">M&#257;ori</option>
-      <option value="en" selected>English</option>
-      <option value="af">Afrikaans</option>
-    </select>
-    <select class="voice-select" id="voice-selector" title="Voice package">
-      <option value="">Voice</option>
-    </select>
+    <div class="lang-controls">
+      <div class="lang-group">
+        <select class="lang-select" id="lang-selector-a">
+          <option value="mi">M&#257;ori</option>
+          <option value="en" selected>English</option>
+          <option value="af">Afrikaans</option>
+        </select>
+        <select class="voice-select" id="voice-selector-a" title="Voice package">
+          <option value="">Voice</option>
+        </select>
+      </div>
+      <button class="btn-swap" id="swap-langs" title="Swap languages">&#8646;</button>
+      <div class="lang-group">
+        <select class="lang-select" id="lang-selector-b">
+          <option value="mi">M&#257;ori</option>
+          <option value="en">English</option>
+          <option value="af" selected>Afrikaans</option>
+        </select>
+        <select class="voice-select" id="voice-selector-b" title="Voice package">
+          <option value="">Voice</option>
+        </select>
+      </div>
+    </div>
   </div>
 
   <div id="app">
@@ -302,7 +336,7 @@
   <script src="session.js?v=2"></script>
   <script src="curriculum-wife.js?v=3"></script>
   <script src="curriculum-river.js?v=1"></script>
-  <script src="audio.js?v=2"></script>
-  <script src="app.js?v=2"></script>
+  <script src="audio.js?v=3"></script>
+  <script src="app.js?v=3"></script>
 </body>
 </html>

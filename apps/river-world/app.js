@@ -3,7 +3,8 @@
  */
 const App = (() => {
   let _currentIndex = 0;
-  let _currentLang = "en";
+  let _panelALang = "en";
+  let _panelBLang = "af";
   let _experiences = [];
   let _reviewMode = false;
   let _activeCurriculum = "river_world";
@@ -74,40 +75,68 @@ const App = (() => {
   function _restoreLang() {
     try {
       const saved = localStorage.getItem("river_world_lang");
-      if (saved) _currentLang = saved;
+      if (saved) _panelALang = saved;
+      const savedB = localStorage.getItem("river_world_lang_b");
+      if (savedB) _panelBLang = savedB;
     } catch (e) { /* ignore */ }
   }
 
   function _saveLang() {
-    try { localStorage.setItem("river_world_lang", _currentLang); } catch (e) { /* ignore */ }
+    try { localStorage.setItem("river_world_lang", _panelALang); } catch (e) { /* ignore */ }
+    try { localStorage.setItem("river_world_lang_b", _panelBLang); } catch (e) { /* ignore */ }
   }
 
-  function setLang(lang) {
-    _currentLang = lang;
+  function setPanelALang(lang) {
+    _panelALang = lang;
     _saveLang();
-    document.getElementById("lang-selector").value = lang;
-    _populateVoicePackages();
+    const sel = document.getElementById("lang-selector-a");
+    if (sel) sel.value = lang;
     _showExperience(_currentIndex);
-    Session.log("language_changed", { lang });
+    Session.log("panel_a_lang_changed", { lang });
+  }
+
+  function setPanelBLang(lang) {
+    _panelBLang = lang;
+    _saveLang();
+    const sel = document.getElementById("lang-selector-b");
+    if (sel) sel.value = lang;
+    _showExperience(_currentIndex);
+    Session.log("panel_b_lang_changed", { lang });
+  }
+
+  function swapLangs() {
+    const tmp = _panelALang;
+    _panelALang = _panelBLang;
+    _panelBLang = tmp;
+    _saveLang();
+    const selA = document.getElementById("lang-selector-a");
+    const selB = document.getElementById("lang-selector-b");
+    if (selA) selA.value = _panelALang;
+    if (selB) selB.value = _panelBLang;
+    _showExperience(_currentIndex);
+    Session.log("langs_swapped", { panelA: _panelALang, panelB: _panelBLang });
   }
 
   function _populateVoicePackages() {
-    const sel = document.getElementById("voice-selector");
-    if (!sel) return;
-    sel.innerHTML = "";
-    const pkgs = Audio.getAvailablePackages(_currentLang);
-    if (pkgs.length <= 1) {
-      sel.style.display = "none";
-      return;
-    }
-    sel.style.display = "";
-    const current = Audio.getVoicePackage(_currentLang);
-    pkgs.forEach((p) => {
-      const opt = document.createElement("option");
-      opt.value = p.id;
-      opt.textContent = p.name;
-      if (p.id === current) opt.selected = true;
-      sel.appendChild(opt);
+    ["a", "b"].forEach((side) => {
+      const sel = document.getElementById("voice-selector-" + side);
+      if (!sel) return;
+      const lang = side === "a" ? _panelALang : _panelBLang;
+      sel.innerHTML = "";
+      const pkgs = Audio.getAvailablePackages(lang);
+      if (pkgs.length <= 1) {
+        sel.style.display = "none";
+        return;
+      }
+      sel.style.display = "";
+      const current = Audio.getVoicePackage(lang);
+      pkgs.forEach((p) => {
+        const opt = document.createElement("option");
+        opt.value = p.id;
+        opt.textContent = p.name;
+        if (p.id === current) opt.selected = true;
+        sel.appendChild(opt);
+      });
     });
   }
 
@@ -122,86 +151,64 @@ const App = (() => {
       experience_id: exp.id,
       type: exp.type,
       level: exp.level,
-      lang: _currentLang,
+      langA: _panelALang,
+      langB: _panelBLang,
     });
   }
 
-  function _renderExperience(exp) {
-    const title = exp.title[_currentLang] || exp.title["en"] || exp.id;
-    const content = exp.content[_currentLang] || exp.content["en"] || "";
-    const enContent = exp.content["en"] || "";
-    const typeLabel = exp.type.charAt(0).toUpperCase() + exp.type.slice(1);
-
-    const sentences = content
-      .split("\n")
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0);
-
-    const enSentences = enContent
-      .split("\n")
-      .map((s) => s.trim())
-      .filter((s) => s.length > 0);
-
+  function _renderPanel(exp, lang, side) {
+    const title = exp.title[lang] || exp.title["en"] || exp.id;
+    const content = exp.content[lang] || exp.content["en"] || "";
+    const sentences = content.split("\n").map((s) => s.trim()).filter((s) => s.length > 0);
     const hasAudio = "speechSynthesis" in window;
+    const langName = { en: "English", mi: "Māori", af: "Afrikaans" }[lang] || lang;
 
+    return `
+      <div class="panel panel-${side}">
+        <div class="panel-header">
+          <span class="panel-lang">${langName}</span>
+          ${hasAudio
+            ? sentences.map((s, i) =>
+                `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${_escape(exp.phrase_id || "")}" data-panel="${side}" title="Listen">\u25B6</button>`
+              ).join("")
+            : ""}
+        </div>
+        <div class="panel-content">
+          ${sentences.map((s, i) =>
+            `<p class="sentence">${_renderSentenceChips(s, exp.entities, lang)}</p>`
+          ).join("")}
+        </div>
+        ${exp.situation
+          ? `<div class="panel-situation">${_escape(exp.situation[lang] || exp.situation.en || "")}</div>`
+          : ""}
+        <div class="panel-entities">
+          ${exp.entities.map((e) => {
+            const sf = _lookupSurfaceForm(e.entity_id || e.id, lang);
+            const pron = sf?.pronunciation;
+            return `
+            <div class="entity-chip">
+              <span class="entity-label">${_escape(_entityLabel(e, lang))}</span>
+              <span class="entity-cat">${e.category}</span>
+              ${pron?.audio_refs?.length
+                ? `<button class="btn-audio-sm" data-entity="${_escape(e.entity_id || e.id)}" data-lang="${lang}" data-panel="${side}" title="Listen">\u25B6</button>`
+                : ""}
+            </div>`;
+          }).join("")}
+        </div>
+      </div>`;
+  }
+
+  function _renderExperience(exp) {
+    const typeLabel = exp.type.charAt(0).toUpperCase() + exp.type.slice(1);
     return `
       <div class="exp-header">
         <span class="exp-type">${typeLabel} · Level ${exp.level}</span>
         <span class="exp-id">${exp.id}</span>
       </div>
-      <h1 class="exp-title">${_escape(title)}</h1>
-      ${exp.situation
-        ? `<div class="exp-situation">${_escape(exp.situation[_currentLang] || exp.situation.en || exp.situation)}</div>`
-        : ""}
-      <div class="exp-content">
-        ${sentences
-          .map(
-            (s, i) => `
-          <div class="sentence-row">
-            <p class="sentence">${_renderSentenceChips(s, exp.entities, _currentLang)}</p>
-            <div class="sentence-meta">
-              ${enSentences[i] && _currentLang !== "en"
-                ? `<span class="sentence-en">${_escape(enSentences[i])}</span>`
-                : ""}
-              ${hasAudio
-                ? `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${_currentLang}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6</button>`
-                : ""}
-            </div>
-          </div>`
-          )
-          .join("")}
-      </div>
-      <div class="exp-entities">
-        <h3>Words in this experience</h3>
-        <div class="entity-grid">
-          ${exp.entities
-            .map(
-              (e) => {
-                const sf = _lookupSurfaceForm(e.entity_id || e.id, _currentLang);
-                const pron = sf?.pronunciation;
-                return `
-            <div class="entity-card">
-              <span class="entity-label">${_escape(_entityLabel(e, _currentLang))}</span>
-              <span class="entity-cat">${e.category}</span>
-              ${_currentLang !== "en"
-                ? `<span class="entity-en">${_escape(_entityLabel(e, "en"))}</span>`
-                : ""}
-              ${_currentLang === "en" && e.label["mi"]
-                ? `<span class="entity-native">mi: ${_escape(e.label["mi"])}</span>`
-                : ""}
-              ${_currentLang === "en" && e.label["af"]
-                ? `<span class="entity-native">af: ${_escape(e.label["af"])}</span>`
-                : ""}
-              ${pron?.ipa ? `<span class="entity-ipa">${_escape(pron.ipa)}</span>` : ""}
-              ${pron?.syllables?.length ? `<span class="entity-syllables">${_escape(pron.syllables.join(" · "))}</span>` : ""}
-              ${pron?.audio_refs?.length
-                ? `<button class="btn-audio-sm" data-entity="${_escape(e.entity_id || e.id)}" data-lang="${_currentLang}" title="Listen">\u25B6</button>`
-                : ""}
-            </div>`;
-              }
-            )
-            .join("")}
-        </div>
+      <h1 class="exp-title">${_escape(exp.title["en"] || exp.id)}</h1>
+      <div class="dual-panel">
+        ${_renderPanel(exp, _panelALang, "a")}
+        ${_renderPanel(exp, _panelBLang, "b")}
       </div>
       <div class="exp-nav">
         <button class="btn btn-secondary" id="btn-prev" ${_currentIndex === 0 ? "disabled" : ""}>
@@ -570,6 +577,12 @@ const App = (() => {
       return;
     }
 
+    // Swap languages
+    if (e.target.id === "swap-langs") {
+      swapLangs();
+      return;
+    }
+
     // Curriculum switcher
     if (e.target.classList.contains("curriculum-btn")) {
       _switchCurriculum(e.target.dataset.curriculum);
@@ -629,12 +642,19 @@ const App = (() => {
   });
 
   document.addEventListener("change", (e) => {
-    if (e.target.id === "lang-selector") {
-      setLang(e.target.value);
+    if (e.target.id === "lang-selector-a") {
+      setPanelALang(e.target.value);
     }
-    if (e.target.id === "voice-selector") {
-      Audio.setVoicePackage(_currentLang, e.target.value);
-      Session.log("voice_package_changed", { lang: _currentLang, package: e.target.value });
+    if (e.target.id === "lang-selector-b") {
+      setPanelBLang(e.target.value);
+    }
+    if (e.target.id === "voice-selector-a") {
+      Audio.setVoicePackage(_panelALang, e.target.value);
+      Session.log("voice_package_changed", { lang: _panelALang, package: e.target.value });
+    }
+    if (e.target.id === "voice-selector-b") {
+      Audio.setVoicePackage(_panelBLang, e.target.value);
+      Session.log("voice_package_changed", { lang: _panelBLang, package: e.target.value });
     }
     // Review textareas
     if (e.target.id === "review-missing" || e.target.id === "review-notes") {
@@ -666,7 +686,7 @@ const App = (() => {
     }
   });
 
-  return { init, setLang };
+  return { init, setPanelALang, setPanelBLang, swapLangs };
 })();
 
 document.addEventListener("DOMContentLoaded", () => App.init());
