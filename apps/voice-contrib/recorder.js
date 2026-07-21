@@ -1,6 +1,7 @@
 /**
  * Voice Contributor — Recorder
  * Phase 1: local recording, playback, re-record, download bundle
+ * Supports: Words (surface forms) and Phrases (full sentences from courses)
  */
 const Recorder = (() => {
   /* ---------- state ---------- */
@@ -11,13 +12,16 @@ const Recorder = (() => {
   let _startTime = 0;
   let _timerInterval = null;
   let _contributionCount = 0;
+  let _currentMode = "words";
 
   const _CONTRIB_PREFIX = "VC";
   const _langNames = { mi: "M\u0101ori", en: "English", af: "Afrikaans" };
 
   /* ---------- DOM refs ---------- */
   const $ = (id) => document.getElementById(id);
+  const modeSel = $("mode-selector");
   const langSel = $("lang-selector");
+  const sourceSel = $("source-selector");
   const phraseSel = $("phrase-selector");
   const counter = $("counter");
   const welcome = $("welcome");
@@ -47,7 +51,9 @@ const Recorder = (() => {
   /* ---------- init ---------- */
   function init() {
     _populateLanguages();
+    modeSel.addEventListener("change", _onModeChange);
     langSel.addEventListener("change", _onLangChange);
+    sourceSel.addEventListener("change", _onSourceChange);
     phraseSel.addEventListener("change", _onPhraseChange);
     btnRef.addEventListener("click", _playReference);
     btnRecord.addEventListener("click", _startRecording);
@@ -56,10 +62,10 @@ const Recorder = (() => {
     btnReRecord.addEventListener("click", _resetRecording);
     btnDownload.addEventListener("click", _downloadBundle);
     consentCheck.addEventListener("change", _updateDownloadState);
-    _setStatus("Choose a language to start", "info");
+    _setStatus("Choose a mode and language to start", "info");
   }
 
-  /* ---------- language / phrase ---------- */
+  /* ---------- language / mode ---------- */
   function _populateLanguages() {
     if (typeof DEFAULT_VOICE_PACKAGES === "undefined") return;
     Object.keys(DEFAULT_VOICE_PACKAGES).forEach((code) => {
@@ -70,24 +76,112 @@ const Recorder = (() => {
     });
   }
 
+  function _onModeChange() {
+    _currentMode = modeSel.value;
+    _resetRecording();
+    phraseSel.innerHTML = '<option value="">Select phrase</option>';
+    welcome.style.display = "block";
+    cardContainer.style.display = "none";
+    sourceSel.style.display = _currentMode === "phrases" ? "inline-block" : "none";
+    if (_currentMode === "phrases") {
+      _populateSources();
+    }
+    _setStatus(`Switched to ${_currentMode} mode`, "info");
+  }
+
+  function _populateSources() {
+    sourceSel.innerHTML = '<option value="">Select course</option>';
+    if (typeof EXPERIENCES !== "undefined") {
+      const opt = document.createElement("option");
+      opt.value = "river_world";
+      opt.textContent = "River World";
+      sourceSel.appendChild(opt);
+    }
+    if (typeof CORE_20 !== "undefined") {
+      const opt = document.createElement("option");
+      opt.value = "wife_core_20";
+      opt.textContent = "Wife's Core 20";
+      sourceSel.appendChild(opt);
+    }
+  }
+
   function _onLangChange() {
     const lang = langSel.value;
     if (!lang) return;
     _resetRecording();
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
+    if (_currentMode === "words") {
+      _loadWords(lang);
+    } else {
+      _loadPhrases(lang);
+    }
+  }
+
+  function _onSourceChange() {
+    const lang = langSel.value;
+    if (!lang) return;
+    _loadPhrases(lang);
+  }
+
+  /* ---------- load words (surface forms) ---------- */
+  function _loadWords(lang) {
     const sfs = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS : {};
     const matches = Object.values(sfs).filter((sf) => sf.lang === lang);
     matches.sort((a, b) => (a.text || "").localeCompare(b.text || ""));
     matches.forEach((sf) => {
-      const en = sf.translations && sf.translations.en ? " — " + sf.translations.en : "";
+      const en = sf.translations && sf.translations.en ? " \u2014 " + sf.translations.en : "";
       const opt = document.createElement("option");
       opt.value = sf.id;
       opt.textContent = (sf.text || sf.id) + en;
       phraseSel.appendChild(opt);
     });
-    _setStatus(`${matches.length} phrases available for ${_langNames[lang] || lang}`, "info");
+    _setStatus(`${matches.length} words available for ${_langNames[lang] || lang}`, "info");
   }
 
+  /* ---------- load phrases (from courses) ---------- */
+  function _loadPhrases(lang) {
+    const source = sourceSel.value;
+    let phrases = [];
+    if (source === "river_world" && typeof EXPERIENCES !== "undefined") {
+      phrases = _extractPhrases(EXPERIENCES, lang);
+    } else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
+      phrases = _extractPhrases(CORE_20, lang);
+    }
+    if (!phrases.length) {
+      _setStatus(`No ${_langNames[lang] || lang} phrases found for this course`, "info");
+      return;
+    }
+    phrases.forEach((p) => {
+      const opt = document.createElement("option");
+      opt.value = p.id;
+      opt.textContent = p.text + (p.translation ? " \u2014 " + p.translation : "");
+      phraseSel.appendChild(opt);
+    });
+    _setStatus(`${phrases.length} phrases available for ${_langNames[lang] || lang}`, "info");
+  }
+
+  function _extractPhrases(experiences, lang) {
+    const result = [];
+    experiences.forEach((exp) => {
+      const content = exp.content && (exp.content[lang] || exp.content["en"]);
+      const enContent = exp.content && exp.content["en"];
+      if (!content) return;
+      const lines = content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
+      const enLines = enContent ? enContent.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
+      const keyPhrase = lines[lines.length - 1] || content;
+      const enPhrase = enLines[enLines.length - 1] || enContent || "";
+      result.push({
+        id: exp.phrase_id || exp.id,
+        text: keyPhrase,
+        translation: enPhrase,
+        source: exp.id,
+        course: exp.title ? (exp.title["en"] || exp.title) : exp.id,
+      });
+    });
+    return result;
+  }
+
+  /* ---------- show selected item ---------- */
   function _onPhraseChange() {
     const id = phraseSel.value;
     if (!id) {
@@ -97,29 +191,59 @@ const Recorder = (() => {
     }
     welcome.style.display = "none";
     cardContainer.style.display = "block";
-    const sf = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS[id] : null;
-    if (!sf) return;
+
+    let item = null;
+    if (_currentMode === "words") {
+      item = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS[id] : null;
+    } else {
+      const source = sourceSel.value;
+      const items = source === "wife_core_20" && typeof CORE_20 !== "undefined"
+        ? CORE_20 : (typeof EXPERIENCES !== "undefined" ? EXPERIENCES : []);
+      const found = items.find((e) => (e.phrase_id || e.id) === id);
+      if (found) {
+        const lang = langSel.value;
+        const content = found.content && (found.content[lang] || found.content["en"]);
+        const lines = content ? content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
+        item = {
+          id: found.phrase_id || found.id,
+          text: lines[lines.length - 1] || content || "",
+          translation: found.content && found.content["en"]
+            ? found.content["en"].split("\n").map((l) => l.trim()).filter((l) => l.length > 0).pop() || ""
+            : "",
+          notes: found.situation || "",
+        };
+      }
+    }
+    if (!item) return;
+
     phraseLang.textContent = _langNames[langSel.value] || langSel.value;
-    phraseId.textContent = sf.id;
-    phraseText.textContent = sf.text || sf.id;
-    phraseTranslation.textContent = sf.translations ? (sf.translations.en || "") : "";
-    phraseNotes.textContent = sf.notes || sf.context || "";
+    phraseId.textContent = item.id;
+    phraseText.textContent = item.text || item.id;
+    phraseTranslation.textContent = _currentMode === "words"
+      ? (item.translations ? item.translations.en || "" : "")
+      : (item.translation || "");
+    phraseNotes.textContent = _currentMode === "words"
+      ? (item.notes || item.context || "")
+      : (item.notes || "");
     _resetRecording();
     _setStatus("Click Record when ready", "info");
   }
 
   /* ---------- reference audio ---------- */
   function _playReference() {
-    const sf = _getSelectedSurfaceForm();
-    if (!sf) return;
-    const text = sf.text || sf.id;
-    const refs = sf.pronunciation && sf.pronunciation.audio_refs ? sf.pronunciation.audio_refs : [];
-    const bestRef = refs.find((r) => r.quality !== "tts") || refs[0];
-    if (bestRef) {
-      _playNative(bestRef, text);
-    } else {
-      _tryTts(text, langSel.value);
+    const text = phraseText.textContent;
+    if (!text) return;
+    if (_currentMode === "words") {
+      const sfId = phraseSel.value;
+      const sf = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS[sfId] : null;
+      const refs = sf && sf.pronunciation && sf.pronunciation.audio_refs ? sf.pronunciation.audio_refs : [];
+      const bestRef = refs.find((r) => r.quality !== "tts") || refs[0];
+      if (bestRef) {
+        _playNative(bestRef, text);
+        return;
+      }
     }
+    _tryTts(text, langSel.value);
   }
 
   function _playNative(ref, fallbackText) {
@@ -255,26 +379,26 @@ const Recorder = (() => {
   }
 
   /* ---------- download ---------- */
-  function _getSelectedSurfaceForm() {
-    const id = phraseSel.value;
-    return typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS[id] : null;
-  }
-
   function _generateId() {
     _contributionCount++;
     const ts = Date.now().toString(36).toUpperCase();
     return `${_CONTRIB_PREFIX}_${ts}`;
   }
 
-  function _buildYaml(contribId, sf) {
+  function _buildYaml(contribId, itemId) {
     const lang = langSel.value;
     const ext = _recordedBlob.type.includes("webm") ? "webm" : "wav";
+    const text = phraseText.textContent;
+    const translation = phraseTranslation.textContent;
+    const mode = _currentMode;
+    const source = _currentMode === "phrases" ? (sourceSel.value || "") : "";
     return `contribution:
   id: ${contribId}
-  surface_form_id: ${sf.id}
+  mode: ${mode}
+  ${source ? "  course: " + source + "\n" : ""}  ref_id: ${itemId}
   language: ${lang}
-  text: ${sf.text || sf.id}
-  translation_en: ${(sf.translations && sf.translations.en) || ""}
+  text: ${text}
+  translation_en: ${translation}
   recording:
     filename: ${contribId}.${ext}
     format: ${_recordedBlob.type}
@@ -298,11 +422,11 @@ const Recorder = (() => {
 
   function _downloadBundle() {
     if (!_recordedBlob) return;
-    const sf = _getSelectedSurfaceForm();
-    if (!sf) return;
+    const itemId = phraseSel.value;
+    if (!itemId) return;
     const contribId = _generateId();
     const ext = _recordedBlob.type.includes("webm") ? "webm" : "wav";
-    const yaml = _buildYaml(contribId, sf);
+    const yaml = _buildYaml(contribId, itemId);
 
     yamlPreview.textContent = yaml;
     bundlePreview.style.display = "block";
@@ -320,12 +444,12 @@ const Recorder = (() => {
     yamlLink.click();
     URL.revokeObjectURL(yamlUrl);
 
-    _setStatus(`Contribution ${contribId} downloaded. Add these files to the review queue.`, "success");
+    _setStatus(`Contribution ${contribId} downloaded. Add to review queue.`, "success");
   }
 
   /* ---------- helpers ---------- */
-  function _setStatus(msg, type) {
-    statusEl.textContent = msg;
+  function _setStatus(text, type) {
+    statusEl.textContent = text;
     statusEl.className = "recording-status" + (type ? " " + type : "");
   }
 

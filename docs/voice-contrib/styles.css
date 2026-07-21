@@ -17,6 +17,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .topbar h1 { font-size: 1.1rem; margin-right: auto; }
 .topbar select { padding: 0.35rem 0.5rem; border-radius: 6px; border: none; font-size: 0.85rem; background: #fff; min-width: 120px; }
 .counter { font-size: 0.8rem; opacity: 0.8; }
+#mode-selector { font-weight: 600; }
 
 #app { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 1.5rem 1rem; }
 

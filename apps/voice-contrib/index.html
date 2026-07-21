@@ -9,8 +9,15 @@
 <body>
   <div class="topbar">
     <h1>Voice Contributor</h1>
+    <select id="mode-selector">
+      <option value="words">Words</option>
+      <option value="phrases">Phrases</option>
+    </select>
     <select id="lang-selector">
       <option value="">Select language</option>
+    </select>
+    <select id="source-selector" style="display:none">
+      <option value="">Select course</option>
     </select>
     <select id="phrase-selector">
       <option value="">Select phrase</option>
@@ -107,6 +114,8 @@
   <script src="../../packages/language-data/surface_forms.js"></script>
   <script src="../../packages/language-data/voice_packages.js"></script>
   <script src="../../packages/language-data/audio_index.js"></script>
+  <script src="../../packages/language-data/experiences.js"></script>
+  <script src="../../packages/language-data/curriculum-wife.js"></script>
   <script src="recorder.js"></script>
 </body>
 </html>
