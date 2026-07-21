@@ -12,7 +12,9 @@ const App = (() => {
   const CURRICULUM_KEY = "river_world_curriculum";
 
   function _getCurriculumName() {
-    return _activeCurriculum === "wife_core_20" ? "Wife's Course" : "River World";
+    if (_activeCurriculum === "wife_core_20") return "Wife's Course";
+    if (_activeCurriculum === "river_course") return "River Course";
+    return "River World";
   }
 
   function init() {
@@ -39,6 +41,9 @@ const App = (() => {
       if (saved === "wife_core_20" && typeof CORE_20 !== "undefined") {
         _activeCurriculum = "wife_core_20";
         _experiences = CORE_20;
+      } else if (saved === "river_course" && typeof RIVER_COURSE !== "undefined") {
+        _activeCurriculum = "river_course";
+        _experiences = RIVER_COURSE;
       }
     } catch (e) { /* ignore */ }
   }
@@ -47,6 +52,10 @@ const App = (() => {
     if (name === "wife_core_20" && typeof CORE_20 !== "undefined") {
       _activeCurriculum = "wife_core_20";
       _experiences = CORE_20;
+      _currentIndex = 0;
+    } else if (name === "river_course" && typeof RIVER_COURSE !== "undefined") {
+      _activeCurriculum = "river_course";
+      _experiences = RIVER_COURSE;
       _currentIndex = 0;
     } else {
       _activeCurriculum = "river_world";
@@ -235,6 +244,7 @@ const App = (() => {
     let html = `<div class="curriculum-switcher">`;
     html += `<button class="curriculum-btn ${_activeCurriculum === "river_world" ? "active" : ""}" data-curriculum="river_world">River World</button>`;
     html += `<button class="curriculum-btn ${_activeCurriculum === "wife_core_20" ? "active" : ""}" data-curriculum="wife_core_20">Wife's Core 20</button>`;
+    html += `<button class="curriculum-btn ${_activeCurriculum === "river_course" ? "active" : ""}" data-curriculum="river_course">River Course</button>`;
     if (_activeCurriculum !== "river_world") {
       html += `<div class="curriculum-label">${_escape(_getCurriculumName())} · ${_experiences.length} items</div>`;
     }

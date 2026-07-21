@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQIXYI
+  type: phrase
+  ref_id: RIVER_006
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_006
+  text: Visse woon in die rivier. Die water is hul tuiste. Hulle swem in die water.
+  translation_en: Fish live in the river. The water is their home. They swim in the water.
+  recording:
+    filename: VC_MRUQIXYI.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 101131
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

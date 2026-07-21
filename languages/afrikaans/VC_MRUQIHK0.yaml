@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQIHK0
+  type: phrase
+  ref_id: RIVER_005
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_005
+  text: 'n Groot boom groei langs die rivier. Sy wortels strek na die water. Die boom drink uit die rivier. Die boom groei lank en sterk.
+  translation_en: A tall tree grows beside the river. Its roots reach into the water. The tree drinks from the river. The tree grows tall and strong.
+  recording:
+    filename: VC_MRUQIHK0.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 171863
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

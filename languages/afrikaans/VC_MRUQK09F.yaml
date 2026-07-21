@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQK09F
+  type: phrase
+  ref_id: RIVER_008
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_008
+  text: Die familie maak 'n vuur. Hulle maak die vis skoon. Hulle kook die vis oor die vuur. Die vis ruik lekker.
+  translation_en: The family makes a fire. They clean the fish. They cook the fish over the fire. The fish smells good.
+  recording:
+    filename: VC_MRUQK09F.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 136987
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQGPMC
+  type: phrase
+  ref_id: RIVER_003
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_003
+  text: 'n Hond loop na die rivier. Die hond is dors. Die hond drink water uit die rivier. Die hond is nie meer dors nie.
+  translation_en: A dog walks to the river. The dog is thirsty. The dog drinks water from the river. The dog is no longer thirsty.
+  recording:
+    filename: VC_MRUQGPMC.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 143591
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQ3941
+  type: phrase
+  ref_id: AF_WHERE_FROM
+  language: af
+  type: phrase
+  semantic_intent: VISIT_WHERE_FROM
+  source_course: af_phrases
+  source_experience: AF_WHERE_FROM
+  text: Van waar af kom jy?
+  translation_en: Where are you from?
+  recording:
+    filename: VC_MRUQ3941.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 34615
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

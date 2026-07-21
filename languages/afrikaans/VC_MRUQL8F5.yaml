@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQL8F5
+  type: phrase
+  ref_id: RIVER_010
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_010
+  text: Die kind is versadig. Die kind kyk na die ma. "Dankie, Ma, vir die kos," sê die kind. Die ma glimlag. "Jy is welkom, my kind," sê sy. Die familie is saam.
+  translation_en: The child is full. The child looks at the mother. "Thank you, Mother, for the food," says the child. The mother smiles. "You are welcome, my child," she says. The family is together.
+  recording:
+    filename: VC_MRUQL8F5.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 207217
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQHAS1
+  type: phrase
+  ref_id: RIVER_004
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_004
+  text: Die lug is donker. Reën val uit die lug. Die reën vul die rivier. Die rivier styg. Die water vloei.
+  translation_en: The sky is dark. Rain falls from the sky. The rain fills the river. The river rises. The water flows.
+  recording:
+    filename: VC_MRUQHAS1.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 134954
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

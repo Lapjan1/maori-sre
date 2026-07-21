@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQFJ7T
+  type: phrase
+  ref_id: RIVER_001
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_001
+  text: 'n Kind loop na die rivier. Die kind is dors. Die kind drink water uit die rivier. Nou is die kind nie dors nie.
+  translation_en: A child walks to the river. The child is thirsty. The child drinks water from the river. Now the child is not thirsty.
+  recording:
+    filename: VC_MRUQFJ7T.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 147817
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

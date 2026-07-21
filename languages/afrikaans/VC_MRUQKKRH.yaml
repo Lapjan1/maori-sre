@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQKKRH
+  type: phrase
+  ref_id: RIVER_009
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_009
+  text: Die kos is gereed. Die ma roep die familie. "Kom en eet," sê sy. Almal sit saam. Die ma deel die vis. Die kind eet. "Dit is heerlik," sê die kind. Die familie is bly.
+  translation_en: The food is ready. The mother calls the family. "Come and eat," she says. Everyone sits together. The mother shares the fish. The child eats. "This is delicious," says the child. The family is happy.
+  recording:
+    filename: VC_MRUQKKRH.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 218028
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

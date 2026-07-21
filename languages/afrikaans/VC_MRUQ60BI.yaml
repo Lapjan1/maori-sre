@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQ60BI
+  type: phrase
+  ref_id: AF_BE_STRONG
+  language: af
+  type: phrase
+  semantic_intent: VISIT_BE_STRONG
+  source_course: af_phrases
+  source_experience: AF_BE_STRONG
+  text: Hou moed
+  translation_en: Be strong
+  recording:
+    filename: VC_MRUQ60BI.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 22054
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

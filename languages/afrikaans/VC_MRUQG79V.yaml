@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQG79V
+  type: phrase
+  ref_id: RIVER_002
+  language: af
+  type: phrase
+  semantic_intent: 
+  source_course: river_world
+  source_experience: RIVER_002
+  text: Die ma sien die kind is dors. Sy vat 'n koppie. Sy vul die koppie met water uit die rivier. Sy gee die koppie aan die kind. Die kind drink. Die kind is bly.
+  translation_en: The mother sees the child is thirsty. She takes a cup. She fills the cup with water from the river. She gives the cup to the child. The child drinks. The child is happy.
+  recording:
+    filename: VC_MRUQG79V.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 198966
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

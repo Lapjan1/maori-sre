@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQ6R43
+  type: phrase
+  ref_id: AF_I_NEED_HELP
+  language: af
+  type: phrase
+  semantic_intent: VISIT_NEED_HELP
+  source_course: af_phrases
+  source_experience: AF_I_NEED_HELP
+  text: Ek het hulp nodig
+  translation_en: I need help
+  recording:
+    filename: VC_MRUQ6R43.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 38692
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

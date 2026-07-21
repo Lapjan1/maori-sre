@@ -1,0 +1,25 @@
+contribution:
+  id: VC_MRUQ5NFO
+  type: phrase
+  ref_id: AF_WILL_RETURN
+  language: af
+  type: phrase
+  semantic_intent: VISIT_WILL_RETURN
+  source_course: af_phrases
+  source_experience: AF_WILL_RETURN
+  text: Ek sal weer kom
+  translation_en: I will come back
+  recording:
+    filename: VC_MRUQ5NFO.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 30992
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending
