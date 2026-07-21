@@ -1,0 +1,351 @@
+=== AFRIKAANS CONTENT — MODERATION REVIEW ===
+
+--- AFRIKAANS PHRASES (83 entries) ---
+
+1. AF_GREET_HELLO
+   Afrikaans: Hallo
+   English:   Hello
+   Intent:    VISIT_KIA_ORA
+
+2. AF_GREET_MORNING
+   Afrikaans: Goeie more
+   English:   Good morning
+   Intent:    VISIT_KIA_ORA
+
+3. AF_GREET_AFTERNOON
+   Afrikaans: Goeie middag
+   English:   Good afternoon
+   Intent:    VISIT_KIA_ORA
+
+4. AF_GREET_EVENING
+   Afrikaans: Goeie naand
+   English:   Good evening
+   Intent:    VISIT_KIA_ORA
+
+5. AF_HOW_ARE_YOU
+   Afrikaans: Hoe gaan dit?
+   English:   How are you?
+   Intent:    VISIT_HOW_ARE_YOU
+
+6. AF_I_AM_WELL
+   Afrikaans: Dit gaan goed, dankie
+   English:   I am well, thank you
+   Intent:    VISIT_I_AM_WELL
+
+7. AF_WELCOME
+   Afrikaans: Welkom
+   English:   Welcome
+   Intent:    VISIT_WELCOME
+
+8. AF_MY_NAME
+   Afrikaans: My naam is [name]
+   English:   My name is [name]
+   Intent:    VISIT_MY_NAME
+
+9. AF_PLEASED_TO_MEET
+   Afrikaans: Aangename kennis
+   English:   Pleased to meet you
+   Intent:    VISIT_MY_NAME
+
+10. AF_WHERE_FROM
+   Afrikaans: Waar kom jy vandaan?
+   English:   Where are you from?
+   Intent:    VISIT_WHERE_FROM
+
+11. AF_FROM_SA
+   Afrikaans: Ek kom van Suid-Afrika
+   English:   I am from South Africa
+   Intent:    VISIT_FROM_SA
+
+12. AF_GREET_GROUP
+   Afrikaans: Hallo almal
+   English:   Hello everyone
+   Intent:    VISIT_GREET_ALL
+
+13. AF_WHERE_BATHROOM
+   Afrikaans: Waar is die badkamer?
+   English:   Where is the bathroom?
+   Intent:    VISIT_WHERE_BATHROOM
+
+14. AF_PLEASE_SIT
+   Afrikaans: Gaan sit gerus
+   English:   Please have a seat
+   Intent:    VISIT_PLEASE_SIT
+
+15. AF_I_AM_HUNGRY
+   Afrikaans: Ek is honger
+   English:   I am hungry
+   Intent:    VISIT_HUNGRY
+
+16. AF_I_AM_THIRSTY
+   Afrikaans: Ek is dors
+   English:   I am thirsty
+   Intent:    VISIT_THIRSTY
+
+17. AF_WATER_PLEASE
+   Afrikaans: Water, asseblief
+   English:   Water, please
+   Intent:    VISIT_WATER_PLEASE
+
+18. AF_THANK_FOOD
+   Afrikaans: Dankie vir die kos
+   English:   Thank you for the food
+   Intent:    VISIT_THANK_FOOD
+
+19. AF_GOODBYE
+   Afrikaans: Totsiens
+   English:   Goodbye
+   Intent:    VISIT_GOODBYE_STAY
+
+20. AF_SEE_YOU_LATER
+   Afrikaans: Sien jou later
+   English:   See you later
+   Intent:    VISIT_GOODBYE_LEAVE
+
+21. AF_WILL_RETURN
+   Afrikaans: Ek sal terugkom
+   English:   I will come back
+   Intent:    VISIT_WILL_RETURN
+
+22. AF_BE_STRONG
+   Afrikaans: Wees sterk
+   English:   Be strong
+   Intent:    VISIT_BE_STRONG
+
+23. AF_DELICIOUS
+   Afrikaans: Dit is heerlik
+   English:   It is delicious
+   Intent:    VISIT_DELICIOUS
+
+24. AF_BEAUTIFUL_HOUSE
+   Afrikaans: Wat 'n pragtige huis
+   English:   What a beautiful house
+   Intent:    VISIT_BEAUTIFUL_HOUSE
+
+25. AF_THANK_YOU
+   Afrikaans: Dankie
+   English:   Thank you
+   Intent:    VISIT_THANK
+
+26. AF_PLEASE
+   Afrikaans: Asseblief
+   English:   Please
+   Intent:    VISIT_PLEASE
+
+27. AF_SORRY
+   Afrikaans: Jammer
+   English:   Sorry
+   Intent:    VISIT_SORRY
+
+28. AF_EXCUSE_ME
+   Afrikaans: Ekskuus
+   English:   Excuse me
+   Intent:    VISIT_EXCUSE
+
+29. AF_I_DONT_UNDERSTAND
+   Afrikaans: Ek verstaan nie
+   English:   I don't understand
+   Intent:    VISIT_DONT_UNDERSTAND
+
+30. AF_SPEAK_SLOWLY
+   Afrikaans: Praat stadig asseblief
+   English:   Please speak slowly
+   Intent:    VISIT_SPEAK_SLOWLY
+
+31. AF_I_NEED_HELP
+   Afrikaans: Ek het hulp nodig
+   English:   I need help
+   Intent:    VISIT_NEED_HELP
+
+32. AF_YES
+   Afrikaans: Ja
+   English:   Yes
+   Intent:    VISIT_YES
+
+33. AF_NO
+   Afrikaans: Nee
+   English:   No
+   Intent:    VISIT_NO
+
+34. AF_I_LOVE_YOU
+   Afrikaans: Ek is lief vir jou
+   English:   I love you
+   Intent:    VISIT_LOVE
+
+35. AF_HOW_MUCH
+   Afrikaans: Hoeveel kos dit?
+   English:   How much does it cost?
+   Intent:    VISIT_HOW_MUCH
+
+36. AF_WHERE_IS
+   Afrikaans: Waar is...?
+   English:   Where is...?
+   Intent:    VISIT_WHERE_IS
+
+37. AF_I_AM_TIRED
+   Afrikaans: Ek is moeg
+   English:   I am tired
+   Intent:    VISIT_TIRED
+
+38. AF_I_AM_COLD
+   Afrikaans: Ek kry koud
+   English:   I am cold (experiencing cold)
+   Intent:    VISIT_COLD
+
+39. AF_I_AM_HOT
+   Afrikaans: Ek is warm
+   English:   I am hot
+   Intent:    VISIT_HOT
+
+40. AF_IT_IS_RAINING
+   Afrikaans: Dit reën
+   English:   It is raining
+   Intent:    VISIT_RAINING
+
+41. AF_WHAT_TIME
+   Afrikaans: Hoe laat is dit?
+   English:   What time is it?
+   Intent:    VISIT_WHAT_TIME
+
+========================================
+--- CORE 20 CURRICULUM — AFRIKAANS FIELDS ---
+
+WIFE_001
+   Title:     Groet enigiemand
+   Content:   Groet enigiemand
+   Situation: "Jou familie groet jou by die lughawe. Hulle glimlag en sê 'Kia ora!'
+
+WIFE_002
+   Title:     Vra hoe gaan dit
+   Content:   Vra hoe gaan dit
+   Situation: "Jou maat se ma omhels jou en vra 'Kei te pēhea koe?'
+
+WIFE_003
+   Title:     Sê dit gaan goed
+   Content:   Sê dit gaan goed
+   Situation: "Jou familie vra hoe dit gaan na die lang vlug.
+
+WIFE_004
+   Title:     Verwelkom
+   Content:   Verwelkom
+   Situation: "Jy kom by die familiehuis aan. Almal sê 'Haere mai!'
+
+WIFE_005
+   Title:     Stel jouself voor
+   Content:   Stel jouself voor
+   Situation: "Jou maat stel jou aan hul ouma voor. Sy kyk verwagtend na jou.
+
+WIFE_006
+   Title:     Vra waar vandaan
+   Content:   Vra waar vandaan
+   Situation: "By die familie-ete vra iemand 'Nō hea koe?'
+
+WIFE_007
+   Title:     Sê jy is van Suid-Afrika
+   Content:   Sê jy is van Suid-Afrika
+   Situation: "Wanneer jy sê jy is van Suid-Afrika, sal mense belangstel.
+
+WIFE_008
+   Title:     Groet 'n groep
+   Content:   Groet 'n groep
+   Situation: "Jy loop 'n kamer vol familie binne. Almal se oë draai na jou.
+
+WIFE_009
+   Title:     Waar is die badkamer?
+   Content:   Waar is die badkamer?
+   Situation: "Jy het pas by die huis aangekom na 'n lang reis. Jy moet badkamer toe.
+
+WIFE_010
+   Title:     Sit asseblief
+   Content:   Sit asseblief
+   Situation: "Jou gasheer wys jou na die sitkamer en wys na die bank.
+
+WIFE_011
+   Title:     Ek is honger
+   Content:   Ek is honger
+   Situation: "Die familie berei kos voor. Die kombuis ruik wonderlik.
+
+WIFE_012
+   Title:     Ek is dors
+   Content:   Ek is dors
+   Situation: "Dit was 'n lang dag van reis. Jy is dors.
+
+WIFE_013
+   Title:     Water, asseblief
+   Content:   Water, asseblief
+   Situation: "Jy sit by die tafel. Daar is kos, maar jy wil graag 'n drankie hê.
+
+WIFE_014
+   Title:     Dankie vir die kos
+   Content:   Dankie vir die kos
+   Situation: "'n Pragtige maaltyd word bedien. Die familie kyk na jou voordat hulle begin eet.
+
+WIFE_015
+   Title:     Totsiens (vir dié wat bly)
+   Content:   Totsiens (vir dié wat bly)
+   Situation: "Jy klim in die kar om te vertrek. Jou familie staan by die deur en wuiwe.
+
+WIFE_016
+   Title:     Totsiens (as die een wat vertrek)
+   Content:   Totsiens (as die een wat vertrek)
+   Situation: "Jou familie sê 'Haere rā' terwyl jy wegry. Jy wil antwoord.
+
+WIFE_017
+   Title:     Ek sal terugkom
+   Content:   Ek sal terugkom
+   Situation: "Jy sê totsiens en wil hê hulle moet weet jy sal weer kom kuier.
+
+WIFE_018
+   Title:     Wees sterk
+   Content:   Wees sterk
+   Situation: "Jou familie omhels jou totsiens. Jou skoonma sê 'Kia kaha'.
+
+WIFE_019
+   Title:     Dit is heerlik
+   Content:   Dit is heerlik
+   Situation: "Jy neem jou eerste hap van die maaltyd. Dit smaak wonderlik en die kok kyk.
+
+WIFE_020
+   Title:     Pragtige huis
+   Content:   Pragtige huis
+   Situation: "Jou gashere wys jou rondom hul huis. Dit is warm en verwelkomend.
+
+========================================
+--- SURFACE FORMS (Afrikaans) ---
+
+SF_AF_THING_001 → water
+SF_AF_PLACE_005 → rivier
+SF_AF_STATE_001 → dors
+SF_AF_STATE_002 → nie dors nie
+SF_AF_ACTION_001 → drink
+SF_AF_ACTION_002 → loop
+SF_AF_PERSON_003 → kind
+SF_AF_PERSON_010 → ma
+SF_AF_PERSON_011 → familie
+SF_AF_ACTION_010 → gee
+SF_AF_ACTION_012 → vul
+SF_AF_STATE_010 → bly
+SF_AF_THING_101 → hond
+SF_AF_THING_106 → reën
+SF_AF_ACTION_013 → val
+SF_AF_ACTION_014 → vloei
+SF_AF_THING_100 → boom
+SF_AF_ACTION_015 → groei
+SF_AF_THING_102 → vis
+SF_AF_ACTION_016 → woon
+SF_AF_ACTION_017 → swem
+SF_AF_THING_107 → net
+SF_AF_ACTION_018 → vang
+SF_AF_THING_103 → koppie
+SF_AF_THING_104 → vuur
+SF_AF_THING_105 → kos
+SF_AF_ACTION_019 → kook
+SF_AF_ACTION_020 → deel
+SF_AF_ACTION_021 → eet
+SF_AF_STATE_011 → versadig
+SF_AF_ACTION_022 → bedank
+SF_AF_STATE_012 → dankbaar
+SF_AF_STATE_013 → saam
+SF_AF_PHRASE_001 → dankie
+
+Total phrases: 41

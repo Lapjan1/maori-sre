@@ -92,7 +92,7 @@ var CORE_20 = [
     "id": "WIFE_006",
     "type": "practice",
     "level": 1,
-    "title": {"en": "Ask Where From", "mi": "Nō hea koe?", "af": "Vra waar vandaan"},
+    "title": {"en": "Ask Where From", "mi": "Nō hea koe?", "af": "Van waar af kom jy?"},
     "content": {
       "en": "Ask someone where they are from. A common conversation starter.\n\nNō hea koe?",
       "mi": "Pātai atu ki te tangata nō hea ia. He kōrero whakataki tēnei.\n\nNō hea koe?",
@@ -272,11 +272,11 @@ var CORE_20 = [
     "id": "WIFE_017",
     "type": "practice",
     "level": 1,
-    "title": {"en": "I Will Return", "mi": "Ka hoki mai au", "af": "Ek sal terugkom"},
+    "title": {"en": "I Will Return", "mi": "Ka hoki mai au", "af": "Ek sal weer kom"},
     "content": {
       "en": "Promise your family you will come back. This is meaningful in Māori culture.\n\nKa hoki mai au.",
       "mi": "Oati atu ki tō whānau ka hoki mai koe. He mea nui tēnei i roto i te ahurea Māori.\n\nKa hoki mai au.",
-      "af": "Belowe jou familie jy sal terugkom. Dit is betekenisvol in Māori-kultuur.\n\nKa hoki mai au."
+      "af": "Belowe jou familie jy sal weer kom. Dit is betekenisvol in Māori-kultuur.\n\nKa hoki mai au."
     },
     "entities": [
       {"id": "PHRASE_WILL_RETURN", "category": "PHRASE", "label": {"default": "hoki mai", "mi": "hoki mai", "en": "return", "af": "terugkom"}},
@@ -289,11 +289,11 @@ var CORE_20 = [
     "id": "WIFE_018",
     "type": "practice",
     "level": 1,
-    "title": {"en": "Be Strong", "mi": "Kia kaha", "af": "Wees sterk"},
+    "title": {"en": "Be Strong", "mi": "Kia kaha", "af": "Hou moed"},
     "content": {
       "en": "A powerful Māori saying meaning 'be strong', 'stay well', 'keep going'. Use it when parting.\n\nKia kaha.",
       "mi": "He kīanga Māori kaha: kia kaha, kia noho pai, kia haere tonu. Whakamahia ina wehe.\n\nKia kaha.",
-      "af": "'n Kragtige Māori-uitspraak wat beteken 'wees sterk', 'bly wel', 'hou aan'. Gebruik dit wanneer julle afskeid neem.\n\nKia kaha."
+      "af": "'n Kragtige Māori-uitspraak wat beteken 'hou moed', 'bly wel', 'hou aan'. Gebruik dit wanneer julle afskeid neem.\n\nKia kaha."
     },
     "entities": [
       {"id": "PHRASE_BE_STRONG", "category": "PHRASE", "label": {"default": "kia kaha", "mi": "Kia kaha", "en": "Be strong", "af": "Wees sterk"}},
@@ -334,6 +334,6 @@ var CORE_20 = [
       {"id": "STATE_ATAHUA", "category": "STATE", "label": {"default": "beautiful", "mi": "ātaahua", "en": "beautiful", "af": "pragtig"}}
     ],
     "phrase_id": "VISIT_BEAUTIFUL_HOUSE",
-    "situation": {"en": "Your hosts show you around their home. It is warm and welcoming.", "af": "Jou gashere wys jou rondom hul huis. Dit is warm en verwelkomend."}
+    "situation": {"en": "Your hosts show you around their home. It is warm and welcoming.", "af": "Jou gashere wys jou rond in hulle huis."}
   }
 ];
