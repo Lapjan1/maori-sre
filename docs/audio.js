@@ -55,6 +55,24 @@ const Audio = (() => {
       }
     }
     if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
+      // Multi-word label: "hallo / dankie" → find each part by text
+      if (text && text.includes(" / ")) {
+        const parts = text.split(/\s*\/\s*/).map((s) => s.trim()).filter(Boolean);
+        const refs = [];
+        parts.forEach((part) => {
+          const entry = AF_PHRASES.find(
+            (p) => p.text && p.text.toLowerCase() === part.toLowerCase() && p.audio_refs?.length
+          );
+          if (entry) {
+            const ref = _bestRefFromList(entry.audio_refs, lang);
+            if (ref) refs.push(ref);
+          }
+        });
+        if (refs.length) {
+          _playSequence(refs, text, lang, 0);
+          return;
+        }
+      }
       // Prefer a passage recording if one exists
       const passage = AF_PHRASES.find(
         (p) => (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs?.length
