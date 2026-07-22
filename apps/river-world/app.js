@@ -167,8 +167,8 @@ const App = (() => {
         <div class="panel-header">
           <span class="panel-lang">${langName}</span>
           <div class="panel-audio-bar">
-            ${hasAudio ? sentences.map((s) =>
-              `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 Listen</button>`
+            ${hasAudio ? sentences.map((s, i) =>
+              `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${i === sentences.length - 1 ? _escape(exp.phrase_id || "") : ""}" title="Listen">\u25B6 Listen</button>`
             ).join("") : ""}
           </div>
         </div>
@@ -235,8 +235,12 @@ const App = (() => {
     const hasAudio = "speechSynthesis" in window;
     const langNameA = { en: "English", mi: "Māori", af: "Afrikaans" }[langA] || langA;
     const langNameB = { en: "English", mi: "Māori", af: "Afrikaans" }[langB] || langB;
-    const textA = contentA.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
-    const textB = contentB.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+    const linesA = contentA.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
+    const linesB = contentB.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
+    const keyTextA = linesA[linesA.length - 1] || contentA;
+    const keyTextB = linesB[linesB.length - 1] || contentB;
+    const displayTextA = contentA.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+    const displayTextB = contentB.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
 
     return `
       <div class="panel panel-bottom">
@@ -244,24 +248,24 @@ const App = (() => {
           <span class="panel-lang">${langNameA} &middot; ${langNameB}</span>
           <div class="panel-audio-bar">
             ${hasAudio
-              ? `<button class="btn-audio" data-text="${_escape(textA)}" data-lang="${langA}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameA}</button>`
+              ? `<button class="btn-audio" data-text="${_escape(keyTextA)}" data-lang="${langA}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameA}</button>`
               : ""}
             ${hasAudio
-              ? `<button class="btn-audio" data-text="${_escape(textB)}" data-lang="${langB}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameB}</button>`
+              ? `<button class="btn-audio" data-text="${_escape(keyTextB)}" data-lang="${langB}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameB}</button>`
               : ""}
             ${hasAudio
-              ? `<button class="btn-audio-seq" data-langa="${langA}" data-langb="${langB}" data-texta="${_escape(textA)}" data-textb="${_escape(textB)}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen to both">\u25B6 Both</button>`
+              ? `<button class="btn-audio-seq" data-langa="${langA}" data-langb="${langB}" data-texta="${_escape(keyTextA)}" data-textb="${_escape(keyTextB)}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen to both">\u25B6 Both</button>`
               : ""}
           </div>
         </div>
         <div class="parallel-content">
           <div class="parallel-block">
             <span class="parallel-lang-label">${langNameA}</span>
-            <div class="parallel-text">${_escape(textA)}</div>
+            <div class="parallel-text">${_escape(displayTextA)}</div>
           </div>
           <div class="parallel-block">
             <span class="parallel-lang-label">${langNameB}</span>
-            <div class="parallel-text">${_escape(textB)}</div>
+            <div class="parallel-text">${_escape(displayTextB)}</div>
           </div>
         </div>
       </div>`;
