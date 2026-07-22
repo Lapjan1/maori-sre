@@ -248,7 +248,18 @@ const Recorder = (() => {
 
     let item = null;
     if (_currentMode === "words") {
-      item = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS[id] : null;
+      const sf = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS[id] : null;
+      if (sf) {
+        item = {
+          id: sf.id,
+          entity_id: sf.entity_id || "",
+          text: sf.text || "",
+          translation: sf.translations ? sf.translations.en || "" : "",
+          notes: sf.context || "",
+          source_course: sourceSel.value || "river_world",
+          semantic_intent: "",
+        };
+      }
     } else {
       const source = sourceSel.value;
       let items = [];
@@ -329,7 +340,7 @@ const Recorder = (() => {
     const pkgId = ref.package;
     const pkg = typeof VOICE_PACKAGES !== "undefined" ? VOICE_PACKAGES[pkgId] : null;
     const basePath = pkg ? pkg.base_path : "audio/";
-    const fullPath = "../../apps/river-world/" + basePath + ref.ref;
+    const fullPath = "../" + basePath + ref.ref;
     fetch(fullPath)
       .then((r) => {
         if (!r.ok) throw new Error("HTTP " + r.status);
@@ -474,12 +485,16 @@ const Recorder = (() => {
     const isPhrase = mode === "phrases";
     const correction = correctionField.value.trim();
     let prov = "";
-    if (isPhrase && meta) {
-      prov = `  type: phrase
-  semantic_intent: ${meta.semantic_intent || ""}
+    if (meta) {
+      prov = `  entity_id: ${meta.entity_id || ""}
   source_course: ${meta.source_course || ""}
+`;
+      if (isPhrase) {
+        prov += `  type: phrase
+  semantic_intent: ${meta.semantic_intent || ""}
   source_experience: ${meta.source_experience || ""}
 `;
+      }
     }
     let extra = "";
     if (correction) {
