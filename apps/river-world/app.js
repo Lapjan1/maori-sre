@@ -187,7 +187,7 @@ const App = (() => {
     const chips = [];
     let pos = 0;
     const sorted = entities
-      .map((e) => ({ id: e.entity_id || e.id, label: _entityLabel(e, "default"), e }))
+      .map((e) => ({ id: e.entity_id || e.id, label: _entityLabel(e, langA), e }))
       .filter((p) => p.label.length > 1)
       .sort((a, b) => b.label.length - a.label.length);
 
