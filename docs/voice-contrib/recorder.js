@@ -94,15 +94,13 @@ const Recorder = (() => {
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
     welcome.style.display = "block";
     cardContainer.style.display = "none";
-    sourceSel.style.display = _currentMode === "phrases" ? "inline-block" : "none";
-    if (_currentMode === "phrases") {
-      _populateSources();
-    }
-    _setStatus(`Switched to ${_currentMode} mode`, "info");
+    sourceSel.style.display = "inline-block";
+    _populateSources();
+    _setStatus("Switched to " + _currentMode + " mode", "info");
   }
 
   function _populateSources() {
-    sourceSel.innerHTML = '<option value="">Select course</option>';
+    sourceSel.innerHTML = '<option value="">All items</option>';
     if (typeof EXPERIENCES !== "undefined") {
       const opt = document.createElement("option");
       opt.value = "river_world";
@@ -113,6 +111,12 @@ const Recorder = (() => {
       const opt = document.createElement("option");
       opt.value = "wife_core_20";
       opt.textContent = "Wife's Core 20";
+      sourceSel.appendChild(opt);
+    }
+    if (typeof RIVER_COURSE !== "undefined") {
+      const opt = document.createElement("option");
+      opt.value = "river_course";
+      opt.textContent = "River Course";
       sourceSel.appendChild(opt);
     }
     if (typeof AF_PHRASES !== "undefined") {
@@ -138,22 +142,47 @@ const Recorder = (() => {
   function _onSourceChange() {
     const lang = langSel.value;
     if (!lang) return;
-    _loadPhrases(lang);
+    phraseSel.innerHTML = '<option value="">Select phrase</option>';
+    if (_currentMode === "words") {
+      _loadWords(lang);
+    } else {
+      _loadPhrases(lang);
+    }
+  }
+
+  /* return entity IDs used by a given source (course) */
+  function _entityIdsForSource(source) {
+    var exps = [];
+    if (source === "river_world" && typeof EXPERIENCES !== "undefined") exps = EXPERIENCES;
+    else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") exps = CORE_20;
+    else if (source === "river_course" && typeof RIVER_COURSE !== "undefined") exps = RIVER_COURSE;
+    var ids = {};
+    exps.forEach(function(e) {
+      (e.entities || []).forEach(function(en) {
+        ids[en.entity_id || en.id] = true;
+      });
+    });
+    return Object.keys(ids);
   }
 
   /* ---------- load words (surface forms) ---------- */
   function _loadWords(lang) {
-    const sfs = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS : {};
-    const matches = Object.values(sfs).filter((sf) => sf.lang === lang);
-    matches.sort((a, b) => (a.text || "").localeCompare(b.text || ""));
-    matches.forEach((sf) => {
-      const en = sf.translations && sf.translations.en ? " \u2014 " + sf.translations.en : "";
-      const opt = document.createElement("option");
+    var sfs = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS : {};
+    var matches = Object.values(sfs).filter(function(sf) { return sf.lang === lang; });
+    var source = sourceSel.value;
+    if (source) {
+      var entityIds = _entityIdsForSource(source);
+      matches = matches.filter(function(sf) { return entityIds.indexOf(sf.entity_id) !== -1; });
+    }
+    matches.sort(function(a, b) { return (a.text || "").localeCompare(b.text || ""); });
+    matches.forEach(function(sf) {
+      var en = sf.translations && sf.translations.en ? " \u2014 " + sf.translations.en : "";
+      var opt = document.createElement("option");
       opt.value = sf.id;
       opt.textContent = (sf.text || sf.id) + en;
       phraseSel.appendChild(opt);
     });
-    _setStatus(`${matches.length} words available for ${_langNames[lang] || lang}`, "info");
+    _setStatus(matches.length + " words available for " + (_langNames[lang] || lang), "info");
   }
 
   /* ---------- load phrases (from courses) ---------- */
@@ -164,6 +193,8 @@ const Recorder = (() => {
       phrases = _extractPhrases(EXPERIENCES, lang, source);
     } else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
       phrases = _extractPhrases(CORE_20, lang, source);
+    } else if (source === "river_course" && typeof RIVER_COURSE !== "undefined") {
+      phrases = _extractPhrases(RIVER_COURSE, lang, source);
     } else if (source === "af_phrases" && typeof AF_PHRASES !== "undefined") {
       phrases = AF_PHRASES.filter(function(p) { return p.lang === lang; }).map(function(p) {
         return { id: p.id, text: p.text, translation: p.translation_en, source_experience: p.id, source_course: "af_phrases", semantic_intent: p.intent || "" };
