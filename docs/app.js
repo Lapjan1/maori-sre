@@ -1,5 +1,5 @@
 /**
- * River World — Main Application
+ * Co-Sense — Main Application
  */
 const App = (() => {
   let _currentIndex = 0;
@@ -13,7 +13,7 @@ const App = (() => {
   const CURRICULUM_KEY = "river_world_curriculum";
 
   function _getCurriculumName() {
-    if (_activeCurriculum === "wife_core_20") return "Wife's Course";
+    if (_activeCurriculum === "wife_core_20") return "Wife's Core 20";
     return "River World";
   }
 
@@ -391,9 +391,7 @@ const App = (() => {
     let html = `<div class="curriculum-switcher">`;
     html += `<button class="curriculum-btn ${_activeCurriculum === "river_world" ? "active" : ""}" data-curriculum="river_world">River World</button>`;
     html += `<button class="curriculum-btn ${_activeCurriculum === "wife_core_20" ? "active" : ""}" data-curriculum="wife_core_20">Wife's Core 20</button>`;
-    if (_activeCurriculum !== "river_world") {
-      html += `<div class="curriculum-label">${_escape(_getCurriculumName())} · ${_experiences.length} items</div>`;
-    }
+    html += `<div class="curriculum-label">${_escape(_getCurriculumName())} · ${_experiences.length} items</div>`;
     html += `</div>`;
     html += `<div class="exp-list-scroll">`;
     html += _experiences
@@ -407,10 +405,8 @@ const App = (() => {
       )
       .join("");
     html += `</div>`;
-    if (_activeCurriculum === "river_world") {
-      html += `<hr class="sidebar-divider">`;
-      html += `<button class="sidebar-review ${_reviewMode ? "active" : ""}" data-action="review">Pass 1 Review</button>`;
-    }
+    html += `<hr class="sidebar-divider">`;
+    html += `<button class="sidebar-review ${_reviewMode ? "active" : ""}" data-action="review">Pass 1 Review</button>`;
     container.innerHTML = html;
   }
 
