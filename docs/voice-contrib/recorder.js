@@ -116,12 +116,6 @@ const Recorder = (() => {
       opt.textContent = "Wife's Core 20";
       sourceSel.appendChild(opt);
     }
-    if (typeof RIVER_COURSE !== "undefined") {
-      const opt = document.createElement("option");
-      opt.value = "river_course";
-      opt.textContent = "River Course";
-      sourceSel.appendChild(opt);
-    }
     if (typeof AF_PHRASES !== "undefined") {
       const opt = document.createElement("option");
       opt.value = "af_phrases";
@@ -162,7 +156,6 @@ const Recorder = (() => {
     var exps = [];
     if (source === "river_world" && typeof EXPERIENCES !== "undefined") exps = EXPERIENCES;
     else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") exps = CORE_20;
-    else if (source === "river_course" && typeof RIVER_COURSE !== "undefined") exps = RIVER_COURSE;
     var ids = {};
     exps.forEach(function(e) {
       (e.entities || []).forEach(function(en) {
@@ -200,8 +193,6 @@ const Recorder = (() => {
       phrases = _extractPhrases(EXPERIENCES, lang, source);
     } else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
       phrases = _extractPhrases(CORE_20, lang, source);
-    } else if (source === "river_course" && typeof RIVER_COURSE !== "undefined") {
-      phrases = _extractPhrases(RIVER_COURSE, lang, source);
     } else if (source === "af_phrases" && typeof AF_PHRASES !== "undefined") {
       phrases = AF_PHRASES.filter(function(p) { return p.lang === lang; }).map(function(p) {
         return { id: p.id, text: p.text, translation: p.translation_en, source_experience: p.id, source_course: "af_phrases", semantic_intent: p.intent || "" };
@@ -249,7 +240,6 @@ const Recorder = (() => {
     let exps = [];
     if (source === "river_world" && typeof EXPERIENCES !== "undefined") exps = EXPERIENCES;
     else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") exps = CORE_20;
-    else if (source === "river_course" && typeof RIVER_COURSE !== "undefined") exps = RIVER_COURSE;
     if (!exps.length) {
       _setStatus("No " + (_langNames[lang] || lang) + " readings found for this course", "info");
       return;
