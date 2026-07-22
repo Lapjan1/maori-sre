@@ -55,16 +55,23 @@ const Audio = (() => {
       }
     }
     if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
-      const phrase = AF_PHRASES.find((p) => p.intent === phraseId || p.id === phraseId);
-      if (phrase?.audio_refs?.length) {
-        const ref = _bestRefFromList(phrase.audio_refs, lang);
-        if (ref) {
-          _playNative(ref, text, lang);
+      const phrases = AF_PHRASES.filter((p) => p.intent === phraseId || p.id === phraseId);
+      if (phrases.length) {
+        const refs = phrases.map((p) => _bestRefFromList(p.audio_refs || [], lang)).filter(Boolean);
+        if (refs.length) {
+          _playSequence(refs, text, lang, 0);
           return;
         }
       }
     }
     _tryTTS(text, lang);
+  }
+
+  function _playSequence(refs, fallbackText, lang, idx) {
+    if (idx >= refs.length) return;
+    _playNativeWithCallback(refs[idx], fallbackText, lang, () => {
+      setTimeout(() => _playSequence(refs, fallbackText, lang, idx + 1), 400);
+    });
   }
 
   function _bestRefFromList(refs, lang) {
@@ -102,6 +109,10 @@ const Audio = (() => {
   }
 
   function _playNative(audioRef, fallbackText, lang) {
+    _playNativeWithCallback(audioRef, fallbackText, lang, null);
+  }
+
+  function _playNativeWithCallback(audioRef, fallbackText, lang, onDone) {
     const pkg = VOICE_PACKAGES?.[audioRef.package];
     const basePath = pkg?.base_path || "audio/";
     const fullPath = basePath + audioRef.ref;
@@ -118,11 +129,13 @@ const Audio = (() => {
         const src = ctx.createBufferSource();
         src.buffer = decoded;
         src.connect(ctx.destination);
+        src.onended = () => { if (onDone) onDone(); };
         src.start(0);
       })
       .catch(() => {
         console.warn("Audio: native failed:", fullPath, "falling back to TTS");
         _tryTTS(fallbackText, lang);
+        if (onDone) onDone();
       });
   }
 
