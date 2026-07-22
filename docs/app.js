@@ -156,46 +156,190 @@ const App = (() => {
     });
   }
 
-  function _renderPanel(exp, lang, side) {
-    const title = exp.title[lang] || exp.title["en"] || exp.id;
+  function _renderTopPanel(exp, lang) {
     const content = exp.content[lang] || exp.content["en"] || "";
     const sentences = content.split("\n").map((s) => s.trim()).filter((s) => s.length > 0);
     const hasAudio = "speechSynthesis" in window;
     const langName = { en: "English", mi: "Māori", af: "Afrikaans" }[lang] || lang;
 
     return `
-      <div class="panel panel-${side}">
+      <div class="panel panel-top">
         <div class="panel-header">
           <span class="panel-lang">${langName}</span>
-          ${hasAudio
-            ? sentences.map((s, i) =>
-                `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${_escape(exp.phrase_id || "")}" data-panel="${side}" title="Listen">\u25B6</button>`
-              ).join("")
-            : ""}
+          <div class="panel-audio-bar">
+            ${hasAudio ? sentences.map((s) =>
+              `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 Listen</button>`
+            ).join("") : ""}
+          </div>
         </div>
         <div class="panel-content">
-          ${sentences.map((s, i) =>
-            `<p class="sentence">${_renderSentenceChips(s, exp.entities, lang)}</p>`
+          ${sentences.map((s) =>
+            `<p class="sentence">${_escape(s)}</p>`
           ).join("")}
+        </div>
+        <div class="panel-word-breakdown">
+          ${_renderWordChips(sentences.join(" "), exp.entities, lang)}
+        </div>
+        <div id="word-detail" class="word-detail hidden">
+          <div class="word-detail-inner"></div>
         </div>
         ${exp.situation
           ? `<div class="panel-situation">${_escape(exp.situation[lang] || exp.situation.en || "")}</div>`
           : ""}
-        <div class="panel-entities">
-          ${exp.entities.map((e) => {
-            const sf = _lookupSurfaceForm(e.entity_id || e.id, lang);
-            const pron = sf?.pronunciation;
-            return `
-            <div class="entity-chip">
-              <span class="entity-label">${_escape(_entityLabel(e, lang))}</span>
-              <span class="entity-cat">${e.category}</span>
-              ${pron?.audio_refs?.length
-                ? `<button class="btn-audio-sm" data-entity="${_escape(e.entity_id || e.id)}" data-lang="${lang}" data-panel="${side}" title="Listen">\u25B6</button>`
-                : ""}
-            </div>`;
-          }).join("")}
+      </div>`;
+  }
+
+  function _renderWordChips(text, entities, lang) {
+    if (!entities || !entities.length) return "";
+    text = text.replace(/\n/g, " ");
+    const chips = [];
+    let pos = 0;
+    const sorted = entities
+      .map((e) => ({ id: e.entity_id || e.id, label: _entityLabel(e, lang), e }))
+      .filter((p) => p.label.length > 1)
+      .sort((a, b) => b.label.length - a.label.length);
+
+    while (pos < text.length) {
+      let found = null;
+      for (const p of sorted) {
+        if (pos + p.label.length > text.length) continue;
+        const slice = text.slice(pos, pos + p.label.length);
+        if (slice.toLowerCase() === p.label.toLowerCase()) {
+          const next = text[pos + p.label.length] || " ";
+          const prev = text[pos - 1] || " ";
+          const wl = /[a-zāēīōū]/i;
+          if (!wl.test(prev) && !wl.test(next)) { found = p; break; }
+        }
+      }
+      if (found) {
+        chips.push(found.id);
+        pos += found.label.length;
+      } else {
+        pos++;
+      }
+    }
+
+    const seen = new Set();
+    return `<div class="word-chips">${chips.map((id) => {
+      if (seen.has(id)) return "";
+      seen.add(id);
+      const e = entities.find((x) => (x.entity_id || x.id) === id);
+      if (!e) return "";
+      return `<button class="word-chip" data-entity="${_escape(id)}" data-lang="${_escape(lang)}">${_escape(_entityLabel(e, lang))}</button>`;
+    }).filter(Boolean).join("")}</div>`;
+  }
+
+  function _renderParallelPanel(exp, langA, langB) {
+    const contentA = exp.content[langA] || exp.content["en"] || "";
+    const contentB = exp.content[langB] || exp.content["en"] || "";
+    const hasAudio = "speechSynthesis" in window;
+    const langNameA = { en: "English", mi: "Māori", af: "Afrikaans" }[langA] || langA;
+    const langNameB = { en: "English", mi: "Māori", af: "Afrikaans" }[langB] || langB;
+    const textA = contentA.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+    const textB = contentB.replace(/\n/g, " ").replace(/\s+/g, " ").trim();
+
+    return `
+      <div class="panel panel-bottom">
+        <div class="panel-header">
+          <span class="panel-lang">${langNameA} &middot; ${langNameB}</span>
+          <div class="panel-audio-bar">
+            ${hasAudio
+              ? `<button class="btn-audio" data-text="${_escape(textA)}" data-lang="${langA}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameA}</button>`
+              : ""}
+            ${hasAudio
+              ? `<button class="btn-audio" data-text="${_escape(textB)}" data-lang="${langB}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameB}</button>`
+              : ""}
+            ${hasAudio
+              ? `<button class="btn-audio-seq" data-langa="${langA}" data-langb="${langB}" data-texta="${_escape(textA)}" data-textb="${_escape(textB)}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen to both">\u25B6 Both</button>`
+              : ""}
+          </div>
+        </div>
+        <div class="parallel-content">
+          <div class="parallel-block">
+            <span class="parallel-lang-label">${langNameA}</span>
+            <div class="parallel-text">${_escape(textA)}</div>
+          </div>
+          <div class="parallel-block">
+            <span class="parallel-lang-label">${langNameB}</span>
+            <div class="parallel-text">${_escape(textB)}</div>
+          </div>
         </div>
       </div>`;
+  }
+
+  function _highlightEntities(text, entities, lang) {
+    if (!entities || !entities.length || !text) return _escape(text);
+    text = text.replace(/\n/g, " ");
+    const patterns = entities
+      .map((e, idx) => {
+        const label = _entityLabel(e, lang);
+        return { label, id: e.entity_id || e.id, idx: idx % 10 };
+      })
+      .filter((p) => p.label.length > 1)
+      .sort((a, b) => b.label.length - a.label.length);
+
+    let result = "";
+    let pos = 0;
+    while (pos < text.length) {
+      let best = null;
+      for (const p of patterns) {
+        const pl = p.label.length;
+        if (pos + pl > text.length) continue;
+        const slice = text.slice(pos, pos + pl);
+        if (slice.toLowerCase() === p.label.toLowerCase()) {
+          const next = text[pos + pl] || " ";
+          const prev = text[pos - 1] || " ";
+          const wordLike = /[a-zāēīōū]/i;
+          if (!wordLike.test(prev) && !wordLike.test(next)) {
+            best = p;
+            break;
+          }
+        }
+      }
+      if (best) {
+        result += `<span class="hl hl-${best.idx}" data-entity="${_escape(best.id)}">${_escape(text.slice(pos, pos + best.label.length))}</span>`;
+        pos += best.label.length;
+      } else {
+        result += _escape(text[pos]);
+        pos++;
+      }
+    }
+    return result;
+  }
+
+  function _renderWordDetail(entityId, lang) {
+    const exp = _experiences[_currentIndex];
+    if (!exp) return "";
+    const e = exp.entities.find((x) => (x.entity_id || x.id) === entityId);
+    if (!e) return "";
+
+    const sf = _lookupSurfaceForm(entityId, lang);
+    const pron = sf?.pronunciation;
+    const word = _entityLabel(e, lang);
+    const meaning = _entityLabel(e, "en");
+    const category = e.category;
+    const catLabel = {
+      PERSON: "Person / being", ACTION: "Action / movement", THING: "Object / thing",
+      STATE: "State / feeling", PHRASE: "Phrase / expression", CONCEPT: "Concept / idea"
+    }[category] || category;
+
+    const otherLang = lang === "en" ? null : (_panelBLang === lang ? _panelALang : _panelBLang);
+    const otherWord = otherLang ? _entityLabel(e, otherLang) : null;
+    const otherLangName = otherLang ? ({ en: "English", mi: "Māori", af: "Afrikaans" }[otherLang] || otherLang) : null;
+
+    return `
+      <div class="wd-word">${_escape(word)}</div>
+      <div class="wd-row"><span class="wd-label">Meaning</span><span class="wd-value">${_escape(meaning)}</span></div>
+      <div class="wd-row"><span class="wd-label">Type</span><span class="wd-value">${catLabel}</span></div>
+      ${pron?.ipa ? `<div class="wd-row"><span class="wd-label">Pronunciation</span><span class="wd-value">${_escape(pron.ipa)}</span></div>` : ""}
+      ${pron?.syllables?.length ? `<div class="wd-row"><span class="wd-label">Syllables</span><span class="wd-value">${_escape(pron.syllables.join(" · "))}</span></div>` : ""}
+      ${otherWord ? `<div class="wd-row"><span class="wd-label">${otherLangName}</span><span class="wd-value">${_escape(otherWord)}</span></div>` : ""}
+      <button class="btn-audio wd-audio" data-text="${_escape(word)}" data-lang="${lang}" title="Listen">\u25B6 Listen</button>
+    `;
+  }
+
+  function _escapeRegExp(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   }
 
   function _renderExperience(exp) {
@@ -207,8 +351,8 @@ const App = (() => {
       </div>
       <h1 class="exp-title">${_escape(exp.title["en"] || exp.id)}</h1>
       <div class="dual-panel">
-        ${_renderPanel(exp, _panelALang, "a")}
-        ${_renderPanel(exp, _panelBLang, "b")}
+        ${_renderTopPanel(exp, _panelALang)}
+        ${_renderParallelPanel(exp, _panelALang, _panelBLang)}
       </div>
       <div class="exp-nav">
         <button class="btn btn-secondary" id="btn-prev" ${_currentIndex === 0 ? "disabled" : ""}>
@@ -548,15 +692,38 @@ const App = (() => {
       return;
     }
 
-    // Inline word chips — same as entity audio
+    // Word chips — show detail and play audio
     if (e.target.classList.contains("word-chip")) {
       const entityId = e.target.dataset.entity;
       const lang = e.target.dataset.lang;
       if (entityId) {
+        const detail = document.getElementById("word-detail");
+        if (detail) {
+          detail.classList.remove("hidden");
+          const inner = detail.querySelector(".word-detail-inner");
+          if (inner) inner.innerHTML = _renderWordDetail(entityId, lang);
+        }
         const sf = _lookupSurfaceForm(entityId, lang);
         const text = sf?.text || entityId;
         Audio.speak(text, lang, entityId);
         Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
+      }
+      return;
+    }
+
+    // Play both sequence
+    if (e.target.classList.contains("btn-audio-seq")) {
+      const langA = e.target.dataset.langa;
+      const langB = e.target.dataset.langb;
+      const textA = e.target.dataset.texta;
+      const textB = e.target.dataset.textb;
+      const phraseId = e.target.dataset.phraseId;
+      if (textA && textB) {
+        Audio.speak(textA, langA, null, phraseId);
+        setTimeout(() => {
+          Audio.speak(textB, langB, null, phraseId);
+        }, 800);
+        Session.log("audio_played", { text: textA + " | " + textB, lang: langA + "/" + langB, phraseId, experience_id: _experiences[_currentIndex]?.id });
       }
       return;
     }
