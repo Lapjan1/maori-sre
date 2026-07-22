@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR4ERK
+  type: passage
+  ref_id: VISIT_MY_NAME
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_MY_NAME
+  source_experience: WIFE_005
+  text: Sê jou naam wanneer jy nuwe familielede ontmoet. Vervang '[name]' met jou naam.
+Ko [name] tōku ingoa.
+  translation_en: Say your name when meeting new family members. Replace '[name]' with your name.
+Ko [name] tōku ingoa.
+  recording:
+    filename: VC_MRVR4ERK.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 120335
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

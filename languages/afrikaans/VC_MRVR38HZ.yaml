@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR38HZ
+  type: passage
+  ref_id: VISIT_WELCOME
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_WELCOME
+  source_experience: WIFE_004
+  text: Gebruik dit om iemand te verwelkom. Jy sal dit gereeld by die deur hoor.
+Haere mai.
+  translation_en: Use this to welcome someone arriving. You will hear this often at the door.
+Haere mai.
+  recording:
+    filename: VC_MRVR38HZ.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 102981
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

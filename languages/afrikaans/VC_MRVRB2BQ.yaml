@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVRB2BQ
+  type: passage
+  ref_id: VISIT_DELICIOUS
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_DELICIOUS
+  source_experience: WIFE_019
+  text: Komplimenteer die kos. Dit sal jou gashere baie bly maak.
+He reka.
+  translation_en: Compliment the food. This will make your hosts very happy.
+He reka.
+  recording:
+    filename: VC_MRVRB2BQ.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 86584
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR75I0
+  type: passage
+  ref_id: VISIT_HUNGRY
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_HUNGRY
+  source_experience: WIFE_011
+  text: Laat jou familie weet jy is honger. Maaltye is belangrike familie-oomblikke.
+Kei te hiakai au.
+  translation_en: Let your family know you are hungry. Meal times are important family moments.
+Kei te hiakai au.
+  recording:
+    filename: VC_MRVR75I0.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 108904
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

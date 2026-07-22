@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVRBD49
+  type: passage
+  ref_id: VISIT_BEAUTIFUL_HOUSE
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_BEAUTIFUL_HOUSE
+  source_experience: WIFE_020
+  text: Komplimenteer die huis. Dit is 'n vriendelike gebaar.
+He whare ātaahua.
+  translation_en: Compliment the home. This is a kind and appreciated gesture.
+He whare ātaahua.
+  recording:
+    filename: VC_MRVRBD49.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 65537
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

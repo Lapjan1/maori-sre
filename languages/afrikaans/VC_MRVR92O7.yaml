@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR92O7
+  type: passage
+  ref_id: VISIT_GOODBYE_STAY
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_GOODBYE_STAY
+  source_experience: WIFE_015
+  text: Gebruik dit wanneer jy vertrek en ander bly. Dit beteken 'gaan goed'.
+Haere rā.
+  translation_en: Use this when you are leaving and others are staying. It means 'go well'.
+Haere rā.
+  recording:
+    filename: VC_MRVR92O7.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 100647
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

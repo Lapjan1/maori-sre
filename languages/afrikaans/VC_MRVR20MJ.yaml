@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR20MJ
+  type: passage
+  ref_id: VISIT_HOW_ARE_YOU
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_HOW_ARE_YOU
+  source_experience: WIFE_002
+  text: Ná die groet, vra hoe dit gaan. Dit wys jy gee om.
+Kei te pēhea koe?
+  translation_en: After greeting, ask how someone is. This shows you care about them.
+Kei te pēhea koe?
+  recording:
+    filename: VC_MRVR20MJ.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 77489
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

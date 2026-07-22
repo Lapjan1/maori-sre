@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR569B
+  type: passage
+  ref_id: VISIT_FROM_SA
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_FROM_SA
+  source_experience: WIFE_007
+  text: Vertel mense waar jy vandaan kom. Almal sal nuuskierig wees oor Suid-Afrika.
+Nō Āwherika ki te Tonga ahau.
+  translation_en: Tell people where you are from. Everyone will be curious about South Africa.
+Nō Āwherika ki te Tonga ahau.
+  recording:
+    filename: VC_MRVR569B.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 104735
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

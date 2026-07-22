@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR6S8J
+  type: passage
+  ref_id: VISIT_PLEASE_SIT
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_PLEASE_SIT
+  source_experience: WIFE_010
+  text: Jou gasheer sal dit sê om jou uit te nooi om te sit. Jy kan dit ook gebruik om 'n sitplek aan te bied.
+Noho mai.
+  translation_en: Your host will say this to invite you to sit. You can also use it to offer a seat to others.
+Noho mai.
+  recording:
+    filename: VC_MRVR6S8J.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 138441
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

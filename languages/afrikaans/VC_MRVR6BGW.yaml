@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR6BGW
+  type: passage
+  ref_id: VISIT_WHERE_BATHROOM
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_WHERE_BATHROOM
+  source_experience: WIFE_009
+  text: 'n Noodsaaklike vraag vir enige nuwe huis. Jy sal dit op jou eerste dag gebruik.
+Kei hea te wharepaku?
+  translation_en: An essential question for any new house. You will use this on your first day.
+Kei hea te wharepaku?
+  recording:
+    filename: VC_MRVR6BGW.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 100377
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

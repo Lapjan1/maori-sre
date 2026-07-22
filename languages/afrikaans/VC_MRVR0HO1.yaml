@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR0HO1
+  type: passage
+  ref_id: VISIT_KIA_ORA
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_KIA_ORA
+  source_experience: WIFE_001
+  text: Die belangrikste Māori-woord. Sê dit wanneer jy aankom, iemand ontmoet, of iemand bedank. Dit beteken hallo, dankie en goeie wense.
+Kia ora.
+  translation_en: The most important Māori word. Say it when you arrive, when you meet someone, when you thank someone. It means hello, thank you, and good wishes.
+Kia ora.
+  recording:
+    filename: VC_MRVR0HO1.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 227161
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

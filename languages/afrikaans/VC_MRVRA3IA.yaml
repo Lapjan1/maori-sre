@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVRA3IA
+  type: passage
+  ref_id: VISIT_WILL_RETURN
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_WILL_RETURN
+  source_experience: WIFE_017
+  text: Belowe jou familie jy sal terugkom. Dit is betekenisvol in Māori-kultuur.
+Ka hoki mai au.
+  translation_en: Promise your family you will come back. This is meaningful in Māori culture.
+Ka hoki mai au.
+  recording:
+    filename: VC_MRVRA3IA.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 115660
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

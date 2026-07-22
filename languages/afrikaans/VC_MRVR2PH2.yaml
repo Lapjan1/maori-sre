@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR2PH2
+  type: passage
+  ref_id: VISIT_I_AM_WELL
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_I_AM_WELL
+  source_experience: WIFE_003
+  text: Antwoord wanneer iemand vra hoe dit gaan. Die standaard positiewe antwoord.
+Kei te pai.
+  translation_en: Reply when someone asks how you are. This is the standard positive response.
+Kei te pai.
+  recording:
+    filename: VC_MRVR2PH2.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 106551
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

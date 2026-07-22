@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVRAOUC
+  type: passage
+  ref_id: VISIT_BE_STRONG
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_BE_STRONG
+  source_experience: WIFE_018
+  text: 'n Kragtige Māori-uitspraak wat beteken 'wees sterk', 'bly wel', 'hou aan'. Gebruik dit wanneer julle afskeid neem.
+Kia kaha.
+  translation_en: A powerful Māori saying meaning 'be strong', 'stay well', 'keep going'. Use it when parting.
+Kia kaha.
+  recording:
+    filename: VC_MRVRAOUC.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 166617
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

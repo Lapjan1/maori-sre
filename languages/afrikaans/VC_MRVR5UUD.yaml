@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR5UUD
+  type: passage
+  ref_id: VISIT_GREET_ALL
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_GREET_ALL
+  source_experience: WIFE_008
+  text: Gebruik dit om drie of meer mense gelyk te groet. Dit is respekvol en warm.
+Tēnā koutou.
+  translation_en: Use this to greet three or more people at once. It is respectful and warm.
+Tēnā koutou.
+  recording:
+    filename: VC_MRVR5UUD.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 112210
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR7R4D
+  type: passage
+  ref_id: VISIT_THIRSTY
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_THIRSTY
+  source_experience: WIFE_012
+  text: Sê vir iemand jy is dors. Handig na reis of op 'n warm dag.
+Kei te matewai au.
+  translation_en: Tell someone you are thirsty. Useful after travel or on a warm day.
+Kei te matewai au.
+  recording:
+    filename: VC_MRVR7R4D.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 101603
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR9KLH
+  type: passage
+  ref_id: VISIT_GOODBYE_LEAVE
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_GOODBYE_LEAVE
+  source_experience: WIFE_016
+  text: Gebruik dit wanneer ander bly en jy vertrek. Antwoord wanneer iemand 'Haere rā' vir jou sê.
+E noho rā.
+  translation_en: Use this when others are staying and you are leaving. Reply when someone says 'Haere rā' to you.
+E noho rā.
+  recording:
+    filename: VC_MRVR9KLH.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 106926
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

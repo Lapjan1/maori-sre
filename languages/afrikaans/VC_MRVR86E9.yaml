@@ -1,0 +1,28 @@
+contribution:
+  id: VC_MRVR86E9
+  type: passage
+  ref_id: VISIT_WATER_PLEASE
+  language: af
+  entity_id: 
+  source_course: wife_core_20
+  type: passage
+  semantic_intent: VISIT_WATER_PLEASE
+  source_experience: WIFE_013
+  text: 'n Beleefde manier om water te vra. Eenvoudig en respekvol.
+He wai, koa.
+  translation_en: A polite way to ask for water. Simple and respectful.
+He wai, koa.
+  recording:
+    filename: VC_MRVR86E9.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 97699
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending
