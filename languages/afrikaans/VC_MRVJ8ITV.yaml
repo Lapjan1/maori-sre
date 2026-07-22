@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRVJ8ITV
+  type: word
+  ref_id: SF_AF_PERSON_003
+  language: af
+  text: kind
+  translation_en: 
+  recording:
+    filename: VC_MRVJ8ITV.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 20025
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

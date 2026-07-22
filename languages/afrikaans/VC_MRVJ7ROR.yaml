@@ -1,0 +1,21 @@
+contribution:
+  id: VC_MRVJ7ROR
+  type: word
+  ref_id: SF_AF_STATE_001
+  language: af
+  text: dors
+  translation_en: 
+  recording:
+    filename: VC_MRVJ7ROR.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 20612
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

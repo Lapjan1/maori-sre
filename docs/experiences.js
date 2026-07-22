@@ -3,6 +3,7 @@ var EXPERIENCES = [
     "id": "RIVER_001",
     "type": "story",
     "level": 1,
+    "phrase_id": "RIVER_001",
     "title": {
       "en": "The Child Drinks Water",
       "mi": "Ka Inu te Tamaiti i te Wai",
@@ -100,6 +101,7 @@ var EXPERIENCES = [
     "id": "RIVER_002",
     "type": "story",
     "level": 1,
+    "phrase_id": "RIVER_002",
     "title": {
       "en": "Mother Gives Water to the Child",
       "mi": "Ka Hoatu te Whaea i te Wai ki te Tamaiti",
@@ -184,6 +186,7 @@ var EXPERIENCES = [
     "id": "RIVER_003",
     "type": "observation",
     "level": 1,
+    "phrase_id": "RIVER_003",
     "title": {
       "en": "Dog Drinks from the River",
       "mi": "Ka Inu te Kurī i te Awa",
@@ -222,6 +225,7 @@ var EXPERIENCES = [
     "id": "RIVER_004",
     "type": "observation",
     "level": 2,
+    "phrase_id": "RIVER_004",
     "title": {
       "en": "Rain Fills the River",
       "mi": "Ka Whakaki te Ua i te Awa",
@@ -283,6 +287,7 @@ var EXPERIENCES = [
     "id": "RIVER_005",
     "type": "observation",
     "level": 2,
+    "phrase_id": "RIVER_005",
     "title": {
       "en": "Tree Grows Beside the River",
       "mi": "Ka Tipu te Rākau i te Taha o te Awa",
@@ -330,6 +335,7 @@ var EXPERIENCES = [
     "id": "RIVER_006",
     "type": "observation",
     "level": 1,
+    "phrase_id": "RIVER_006",
     "title": {
       "en": "Fish Live in the River",
       "mi": "Ka Noho te Ika ki te Awa",
@@ -386,6 +392,7 @@ var EXPERIENCES = [
     "id": "RIVER_007",
     "type": "procedure",
     "level": 2,
+    "phrase_id": "RIVER_007",
     "title": {
       "en": "Family Catches a Fish",
       "mi": "Ka Hopu te Whānau i te Ika",
@@ -442,6 +449,7 @@ var EXPERIENCES = [
     "id": "RIVER_008",
     "type": "procedure",
     "level": 2,
+    "phrase_id": "RIVER_008",
     "title": {
       "en": "Family Cooks the Fish",
       "mi": "Ka Tunu te Whānau i te Ika",
@@ -498,6 +506,7 @@ var EXPERIENCES = [
     "id": "RIVER_009",
     "type": "dialogue",
     "level": 2,
+    "phrase_id": "RIVER_009",
     "title": {
       "en": "Family Shares Food",
       "mi": "Ka Tohatoha te Whānau i te Kai",
@@ -506,7 +515,7 @@ var EXPERIENCES = [
     "content": {
       "en": "The food is ready. The mother calls the family. \"Come and eat,\" she says. Everyone sits together. The mother shares the fish. The child eats. \"This is delicious,\" says the child. The family is happy.\n",
       "mi": "Kua māoa te kai. Ka karanga te whaea ki te whānau. \"Haere mai ki te kai,\" tāna. Ka noho tahi te katoa. Ka tohatoha te whaea i te ika. Ka kai te tamaiti. \"He reka tēnei,\" e kī ana te tamaiti. Kei te koa te whānau.\n",
-      "af": "Die kos is gereed. Die ma roep die familie. \"Kom en eet,\" sê sy. Almal sit saam. Die ma deel die vis. Die kind eet. \"Dit is heerlik,\" sê die kind. Die familie is bly.\n"
+      "af": "Die kos is gereed. Die ma roep die familie. 'Kom en eet,' sê sy. Almal sit saam. Die ma deel die vis. Die kind eet. 'Dit is heerlik,' sê die kind. Die familie is bly.\n"
     },
     "entities": [
       {
@@ -569,6 +578,7 @@ var EXPERIENCES = [
     "id": "RIVER_010",
     "type": "story",
     "level": 1,
+    "phrase_id": "RIVER_010",
     "title": {
       "en": "The Child Thanks the Mother",
       "mi": "Ka Whakawhetai te Tamaiti ki te Whaea",
@@ -577,7 +587,7 @@ var EXPERIENCES = [
     "content": {
       "en": "The child is full. The child looks at the mother. \"Thank you, Mother, for the food,\" says the child. The mother smiles. \"You are welcome, my child,\" she says. The family is together.\n",
       "mi": "Kua mākona te tamaiti. Ka titiro te tamaiti ki te whaea. \"Ngā mihi e te whaea mō te kai,\" e kī ana te tamaiti. Ka kata te whaea. \"Ko tēnei te whakautu, e taku tamaiti,\" tāna. Kei te noho tahi te whānau.\n",
-      "af": "Die kind is versadig. Die kind kyk na die ma. \"Dankie, Ma, vir die kos,\" sê die kind. Die ma glimlag. \"Jy is welkom, my kind,\" sê sy. Die familie is saam.\n"
+      "af": "Die kind is versadig. Die kind kyk na die ma. 'Dankie, Ma, vir die kos,' sê die kind. Die ma glimlag. 'Jy is welkom, my kind,' sê sy. Die familie is saam.\n"
     },
     "entities": [
       {
