@@ -168,13 +168,13 @@ const App = (() => {
           <span class="panel-lang">${langName}</span>
           <div class="panel-audio-bar">
             ${hasAudio ? sentences.map((s, i) =>
-              `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${i === sentences.length - 1 ? _escape(exp.phrase_id || "") : ""}" title="Listen">\u25B6 Listen</button>`
+              `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${i === sentences.length - 1 ? _escape(exp.phrase_id || "") : ""}" data-paragraph-id="${_escape(exp.id || exp.phrase_id || "")}" title="Listen">\u25B6 ${i === sentences.length - 1 ? "Native" : "Listen"}</button>`
             ).join("") : ""}
           </div>
         </div>
         <div class="panel-content">
-          ${sentences.map((s) =>
-            `<p class="sentence">${_escape(s)}</p>`
+          ${sentences.map((s, i) =>
+            `<p class="sentence${i === sentences.length - 1 ? " sentence-key" : ""}">${_escape(s)}</p>`
           ).join("")}
         </div>
         <div class="panel-word-breakdown">
