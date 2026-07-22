@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRO0ZP
+  type: word
+  ref_id: SF_AF_PERSON_003
+  language: af
+  entity_id: PERSON_003
+  source_course: river_world
+  text: kind
+  translation_en: 
+  recording:
+    filename: VC_MRVRO0ZP.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 17859
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

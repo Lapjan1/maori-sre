@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRPQ4W
+  type: word
+  ref_id: SF_AF_THING_106
+  language: af
+  entity_id: THING_106
+  source_course: river_world
+  text: reën
+  translation_en: 
+  recording:
+    filename: VC_MRVRPQ4W.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 26873
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

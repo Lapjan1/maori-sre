@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRNO4G
+  type: word
+  ref_id: SF_AF_ACTION_015
+  language: af
+  entity_id: ACTION_015
+  source_course: river_world
+  text: groei
+  translation_en: 
+  recording:
+    filename: VC_MRVRNO4G.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 17693
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

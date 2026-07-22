@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVROGC0
+  type: word
+  ref_id: SF_AF_THING_103
+  language: af
+  entity_id: THING_103
+  source_course: river_world
+  text: koppie
+  translation_en: 
+  recording:
+    filename: VC_MRVROGC0.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 22176
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

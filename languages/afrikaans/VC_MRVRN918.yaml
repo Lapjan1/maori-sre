@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRN918
+  type: word
+  ref_id: SF_AF_PERSON_011
+  language: af
+  entity_id: PERSON_011
+  source_course: river_world
+  text: familie
+  translation_en: 
+  recording:
+    filename: VC_MRVRN918.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 22236
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

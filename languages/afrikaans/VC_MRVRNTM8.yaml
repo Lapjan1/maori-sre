@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRNTM8
+  type: word
+  ref_id: SF_AF_THING_101
+  language: af
+  entity_id: THING_101
+  source_course: river_world
+  text: hond
+  translation_en: 
+  recording:
+    filename: VC_MRVRNTM8.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 18729
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

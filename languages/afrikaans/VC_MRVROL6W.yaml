@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVROL6W
+  type: word
+  ref_id: SF_AF_THING_105
+  language: af
+  entity_id: THING_105
+  source_course: river_world
+  text: kos
+  translation_en: 
+  recording:
+    filename: VC_MRVROL6W.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 17188
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

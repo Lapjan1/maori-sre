@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRN3LF
+  type: word
+  ref_id: SF_AF_ACTION_021
+  language: af
+  entity_id: ACTION_021
+  source_course: river_world
+  text: eet
+  translation_en: 
+  recording:
+    filename: VC_MRVRN3LF.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 16246
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

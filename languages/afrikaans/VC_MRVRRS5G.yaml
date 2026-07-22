@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRRS5G
+  type: word
+  ref_id: SF_AF_THING_104
+  language: af
+  entity_id: THING_104
+  source_course: river_world
+  text: vuur
+  translation_en: 
+  recording:
+    filename: VC_MRVRRS5G.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 21641
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

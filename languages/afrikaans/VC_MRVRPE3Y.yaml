@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRPE3Y
+  type: word
+  ref_id: SF_AF_THING_107
+  language: af
+  entity_id: THING_107
+  source_course: river_world
+  text: net
+  translation_en: 
+  recording:
+    filename: VC_MRVRPE3Y.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 22005
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

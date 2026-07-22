@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRREBG
+  type: word
+  ref_id: SF_AF_ACTION_014
+  language: af
+  entity_id: ACTION_014
+  source_course: river_world
+  text: vloei
+  translation_en: 
+  recording:
+    filename: VC_MRVRREBG.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 18778
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVROAKC
+  type: word
+  ref_id: SF_AF_ACTION_019
+  language: af
+  entity_id: ACTION_019
+  source_course: river_world
+  text: kook
+  translation_en: 
+  recording:
+    filename: VC_MRVROAKC.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 17237
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

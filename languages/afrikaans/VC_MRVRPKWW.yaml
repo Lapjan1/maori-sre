@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRPKWW
+  type: word
+  ref_id: SF_AF_STATE_002
+  language: af
+  entity_id: STATE_002
+  source_course: river_world
+  text: nie dors nie
+  translation_en: 
+  recording:
+    filename: VC_MRVRPKWW.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 34483
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

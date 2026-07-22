@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRNEO7
+  type: word
+  ref_id: SF_AF_ACTION_010
+  language: af
+  entity_id: ACTION_010
+  source_course: river_world
+  text: gee
+  translation_en: 
+  recording:
+    filename: VC_MRVRNEO7.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 19462
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

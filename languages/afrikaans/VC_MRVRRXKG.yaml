@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRRXKG
+  type: word
+  ref_id: SF_AF_THING_001
+  language: af
+  entity_id: THING_001
+  source_course: river_world
+  text: water
+  translation_en: 
+  recording:
+    filename: VC_MRVRRXKG.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 23643
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

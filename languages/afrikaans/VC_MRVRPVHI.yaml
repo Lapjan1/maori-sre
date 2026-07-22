@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRPVHI
+  type: word
+  ref_id: SF_AF_PLACE_005
+  language: af
+  entity_id: PLACE_005
+  source_course: river_world
+  text: rivier
+  translation_en: 
+  recording:
+    filename: VC_MRVRPVHI.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 23951
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

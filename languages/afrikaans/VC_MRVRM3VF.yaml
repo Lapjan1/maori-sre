@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRM3VF
+  type: word
+  ref_id: SF_AF_STATE_010
+  language: af
+  entity_id: STATE_010
+  source_course: river_world
+  text: bly
+  translation_en: 
+  recording:
+    filename: VC_MRVRM3VF.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 25023
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

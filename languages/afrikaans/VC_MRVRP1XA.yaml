@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRP1XA
+  type: word
+  ref_id: SF_AF_ACTION_002
+  language: af
+  entity_id: ACTION_002
+  source_course: river_world
+  text: loop
+  translation_en: 
+  recording:
+    filename: VC_MRVRP1XA.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 20541
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

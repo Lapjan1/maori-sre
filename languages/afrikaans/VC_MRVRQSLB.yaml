@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRQSLB
+  type: word
+  ref_id: SF_AF_ACTION_018
+  language: af
+  entity_id: ACTION_018
+  source_course: river_world
+  text: vang
+  translation_en: 
+  recording:
+    filename: VC_MRVRQSLB.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 21527
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

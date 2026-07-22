@@ -1,0 +1,23 @@
+contribution:
+  id: VC_MRVRM9XB
+  type: word
+  ref_id: SF_AF_THING_100
+  language: af
+  entity_id: THING_100
+  source_course: river_world
+  text: boom
+  translation_en: 
+  recording:
+    filename: VC_MRVRM9XB.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 20194
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending
