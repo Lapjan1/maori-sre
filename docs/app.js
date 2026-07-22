@@ -183,48 +183,26 @@ const App = (() => {
 
   function _renderWordChips(text, entities, langA, langB) {
     if (!entities || !entities.length) return "";
-    text = text.replace(/\n/g, " ");
     const chips = [];
-    let pos = 0;
-    const sorted = entities
-      .map((e) => ({ id: e.entity_id || e.id, label: _entityLabel(e, langA), e }))
-      .filter((p) => p.label.length > 1)
-      .sort((a, b) => b.label.length - a.label.length);
-
-    while (pos < text.length) {
-      let found = null;
-      for (const p of sorted) {
-        if (pos + p.label.length > text.length) continue;
-        const slice = text.slice(pos, pos + p.label.length);
-        if (slice.toLowerCase() === p.label.toLowerCase()) {
-          const next = text[pos + p.label.length] || " ";
-          const prev = text[pos - 1] || " ";
-          const wl = /[a-zāēīōū]/i;
-          if (!wl.test(prev) && !wl.test(next)) { found = p; break; }
-        }
-      }
-      if (found) {
-        chips.push(found.id);
-        pos += found.label.length;
-      } else {
-        pos++;
-      }
-    }
-
     const seen = new Set();
+    entities.forEach((e) => {
+      const id = e.entity_id || e.id;
+      if (!seen.has(id)) {
+        seen.add(id);
+        chips.push(id);
+      }
+    });
     const langCode = { en: "EN", mi: "MI", af: "AF" };
     const renderOne = (id, lang) => {
       const e = entities.find((x) => (x.entity_id || x.id) === id);
       if (!e) return "";
       const label = _entityLabel(e, lang);
       if (!label) return "";
-      return `<button class="word-chip lang-${_escape(lang)}" data-entity="${_escape(id)}" data-lang="${_escape(lang)}"><span class="chip-lang">${langCode[lang] || lang}</span> ${_escape(label)}</button>`;
+      return `<button class="word-chip lang-${_escape(lang)}" data-entity="${_escape(id)}" data-lang="${_escape(lang)}" data-text="${_escape(label)}"><span class="chip-lang">${langCode[lang] || lang}</span> ${_escape(label)}</button>`;
     };
 
     const tags = [];
     chips.forEach((id) => {
-      if (seen.has(id)) return;
-      seen.add(id);
       tags.push(renderOne(id, langA));
       if (langB && langB !== langA) {
         tags.push(renderOne(id, langB));
