@@ -55,6 +55,20 @@ const Audio = (() => {
       }
     }
     if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
+      // Bottom panel (no entityId): prefer a passage recording
+      if (!entityId) {
+        const passage = AF_PHRASES.find(
+          (p) => (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs?.length
+        );
+        if (passage) {
+          const ref = _bestRefFromList(passage.audio_refs, lang);
+          if (ref) {
+            _playNative(ref, text, lang);
+            return;
+          }
+        }
+      }
+      // Word chips or no passage: play matching phrase entries
       const phrases = AF_PHRASES.filter((p) => p.intent === phraseId || p.id === phraseId);
       if (phrases.length) {
         const refs = phrases.map((p) => _bestRefFromList(p.audio_refs || [], lang)).filter(Boolean);
