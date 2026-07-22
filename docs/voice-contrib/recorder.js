@@ -96,6 +96,9 @@ const Recorder = (() => {
     cardContainer.style.display = "none";
     sourceSel.style.display = "inline-block";
     _populateSources();
+    if (_currentMode === "readings") {
+      _loadReadings(langSel.value);
+    }
     _setStatus("Switched to " + _currentMode + " mode", "info");
   }
 
@@ -134,6 +137,8 @@ const Recorder = (() => {
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
     if (_currentMode === "words") {
       _loadWords(lang);
+    } else if (_currentMode === "readings") {
+      _loadReadings(lang);
     } else {
       _loadPhrases(lang);
     }
@@ -145,6 +150,8 @@ const Recorder = (() => {
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
     if (_currentMode === "words") {
       _loadWords(lang);
+    } else if (_currentMode === "readings") {
+      _loadReadings(lang);
     } else {
       _loadPhrases(lang);
     }
@@ -236,6 +243,28 @@ const Recorder = (() => {
   }
 
   /* ---------- show selected item ---------- */
+  /* ---------- load readings (full passages from courses) ---------- */
+  function _loadReadings(lang) {
+    const source = sourceSel.value;
+    let exps = [];
+    if (source === "river_world" && typeof EXPERIENCES !== "undefined") exps = EXPERIENCES;
+    else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") exps = CORE_20;
+    else if (source === "river_course" && typeof RIVER_COURSE !== "undefined") exps = RIVER_COURSE;
+    if (!exps.length) {
+      _setStatus("No " + (_langNames[lang] || lang) + " readings found for this course", "info");
+      return;
+    }
+    exps.forEach(function(exp) {
+      var content = exp.content && (exp.content[lang] || exp.content["en"]);
+      if (!content) return;
+      var opt = document.createElement("option");
+      opt.value = exp.phrase_id || exp.id;
+      opt.textContent = (exp.title && exp.title[lang]) || (exp.title && exp.title["en"]) || exp.id;
+      phraseSel.appendChild(opt);
+    });
+    _setStatus(exps.length + " readings available for " + (_langNames[lang] || lang), "info");
+  }
+
   function _onPhraseChange() {
     const id = phraseSel.value;
     if (!id) {
@@ -288,15 +317,28 @@ const Recorder = (() => {
           const enContent = found.content && found.content["en"];
           const lines = content ? content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
           const enLines = enContent ? enContent.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
-          item = {
-            id: found.phrase_id || found.id,
-            text: lines[lines.length - 1] || content || "",
-            translation: enLines[enLines.length - 1] || enContent || "",
-            notes: found.situation || "",
-            source_course: source,
-            source_experience: found.id,
-            semantic_intent: found.phrase_id || "",
-          };
+          if (_currentMode === "readings") {
+            item = {
+              id: found.phrase_id || found.id,
+              text: lines.join("\n") || content || "",
+              translation: enLines.join("\n") || enContent || "",
+              notes: found.situation || "",
+              source_course: source,
+              source_experience: found.id,
+              semantic_intent: found.phrase_id || "",
+              type: "passage",
+            };
+          } else {
+            item = {
+              id: found.phrase_id || found.id,
+              text: lines[lines.length - 1] || content || "",
+              translation: enLines[enLines.length - 1] || enContent || "",
+              notes: found.situation || "",
+              source_course: source,
+              source_experience: found.id,
+              semantic_intent: found.phrase_id || "",
+            };
+          }
         }
       }
     }
@@ -483,14 +525,16 @@ const Recorder = (() => {
     const mode = _currentMode;
     const meta = _currentItemMeta;
     const isPhrase = mode === "phrases";
+    const isReading = mode === "readings";
+    const yamlType = isReading ? "passage" : isPhrase ? "phrase" : "word";
     const correction = correctionField.value.trim();
     let prov = "";
     if (meta) {
       prov = `  entity_id: ${meta.entity_id || ""}
   source_course: ${meta.source_course || ""}
 `;
-      if (isPhrase) {
-        prov += `  type: phrase
+      if (isPhrase || isReading) {
+        prov += `  type: ${yamlType}
   semantic_intent: ${meta.semantic_intent || ""}
   source_experience: ${meta.source_experience || ""}
 `;
@@ -503,7 +547,7 @@ const Recorder = (() => {
     }
     return `contribution:
   id: ${contribId}
-  type: ${isPhrase ? "phrase" : "word"}
+  type: ${yamlType}
   ref_id: ${itemId}
   language: ${lang}
 ${prov}${extra}  text: ${text}
