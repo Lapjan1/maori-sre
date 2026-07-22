@@ -247,63 +247,8 @@ interface between the shared world and each language.
 
 ---
 
-## Co-Sense Design Principles
+## Design Principles
 
-### 1. The user controls the depth of engagement
-
-```
-SIMPLE USER         → Read → Listen → Continue
-CURIOUS USER        → Read → Click words → Explore
-ADVANCED USER       → Compare → Analyze → Review → Track → Revisit
-```
-
-Same application. Same content. Same architecture. Different depth of use.
-
-### 2. Complexity is available, never imposed
-
-The app does not require the user to understand spaced repetition, semantic
-representations, language alignment, learning theory, or curriculum design.
-A beginner reads → listens → moves on. An advanced user can go as deep
-as they want. Both paths work without changing a setting.
-
-### 3. Stable interaction grammar
-
-```
-Curriculum → Experience → Read → Explore → Listen → Compare → Continue
-```
-
-This flow is invariant regardless of:
-- Which curriculum is selected (River World, Wife's Core 20, or future)
-- Which languages are shown (English, Māori, Afrikaans, or future)
-- How many items exist (10, 20, or 100)
-
-The content changes. The interaction does not.
-
-### 4. Growth without UX churn
-
-Features can be added underneath without changing the surface experience.
-The same state model can evolve over time:
-
-```
-EXPERIENCE STATE:  viewed → listened → explored → marked → reviewed → mastered
-```
-
-Initially only a subset of states are used. Later features (spaced
-reintroduction, audio-only review, comprehension checks) can build on
-the same data without requiring a new UI flow.
-
-### 5. Architecture invariant
-
-```
-Curriculum → Experience data → Same rendering pipeline → Top panel + Bottom panel
-```
-
-Not:
-
-```
-River World → special UI
-Core 20     → different UI
-```
-
-This separation of content from presentation is the foundation that
-makes principles 1–4 possible.
+See [`DESIGN.md`](./DESIGN.md) for the Co-Sense product design principles
+(Progressive Depth, Content/Interaction Separation, and Complexity
+Beneath the Interface).
