@@ -1,4 +1,4 @@
-const CACHE = "river-world-v18";
+const CACHE = "river-world-v19";
 const URLS = [
   "index.html",
   "app.js",
