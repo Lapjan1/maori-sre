@@ -54,7 +54,7 @@ const Audio = (() => {
         }
       }
     }
-    if (phraseId && typeof AF_PHRASES !== "undefined") {
+    if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
       const phrase = AF_PHRASES.find((p) => p.intent === phraseId || p.id === phraseId);
       if (phrase?.audio_refs?.length) {
         const ref = _bestRefFromList(phrase.audio_refs, lang);
