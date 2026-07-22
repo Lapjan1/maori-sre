@@ -170,7 +170,7 @@ const App = (() => {
           ).join("")}
         </div>
         <div class="panel-word-breakdown">
-          ${_renderWordChips(sentences.join(" "), exp.entities, lang, _panelBLang)}
+          ${_renderWordChips(sentences.join(" "), exp.entities, lang)}
         </div>
         <div id="word-detail" class="word-detail hidden">
           <div class="word-detail-inner"></div>
@@ -181,13 +181,13 @@ const App = (() => {
       </div>`;
   }
 
-  function _renderWordChips(text, entities, langA, langB) {
+  function _renderWordChips(text, entities, lang) {
     if (!entities || !entities.length) return "";
     text = text.replace(/\n/g, " ");
     const chips = [];
     let pos = 0;
     const sorted = entities
-      .map((e) => ({ id: e.entity_id || e.id, label: _entityLabel(e, "default"), e }))
+      .map((e) => ({ id: e.entity_id || e.id, label: _entityLabel(e, lang), e }))
       .filter((p) => p.label.length > 1)
       .sort((a, b) => b.label.length - a.label.length);
 
@@ -212,25 +212,13 @@ const App = (() => {
     }
 
     const seen = new Set();
-    const langCode = { en: "EN", mi: "MI", af: "AF" };
-    const renderOne = (id, lang) => {
+    return `<div class="word-chips">${chips.map((id) => {
+      if (seen.has(id)) return "";
+      seen.add(id);
       const e = entities.find((x) => (x.entity_id || x.id) === id);
       if (!e) return "";
-      const label = _entityLabel(e, lang);
-      if (!label) return "";
-      return `<button class="word-chip lang-${_escape(lang)}" data-entity="${_escape(id)}" data-lang="${_escape(lang)}" data-text="${_escape(label)}"><span class="chip-lang">${langCode[lang] || lang}</span> ${_escape(label)}</button>`;
-    };
-
-    const tags = [];
-    chips.forEach((id) => {
-      if (seen.has(id)) return;
-      seen.add(id);
-      tags.push(renderOne(id, langA));
-      if (langB && langB !== langA) {
-        tags.push(renderOne(id, langB));
-      }
-    });
-    return `<div class="word-chips">${tags.filter(Boolean).join(" ")}</div>`;
+      return `<button class="word-chip" data-entity="${_escape(id)}" data-lang="${_escape(lang)}">${_escape(_entityLabel(e, lang))}</button>`;
+    }).filter(Boolean).join("")}</div>`;
   }
 
   function _renderParallelPanel(exp, langA, langB) {
@@ -699,7 +687,6 @@ const App = (() => {
     if (e.target.classList.contains("word-chip")) {
       const entityId = e.target.dataset.entity;
       const lang = e.target.dataset.lang;
-      const labelText = e.target.dataset.text;
       if (entityId) {
         const detail = document.getElementById("word-detail");
         if (detail) {
@@ -707,10 +694,10 @@ const App = (() => {
           const inner = detail.querySelector(".word-detail-inner");
           if (inner) inner.innerHTML = _renderWordDetail(entityId, lang);
         }
-        const exp = _experiences[_currentIndex];
-        const phraseId = exp?.phrase_id;
-        Audio.speak(labelText || entityId, lang, entityId, phraseId);
-        Session.log("audio_played", { text: labelText || entityId, lang, entityId, phraseId, experience_id: exp?.id });
+        const sf = _lookupSurfaceForm(entityId, lang);
+        const text = sf?.text || entityId;
+        Audio.speak(text, lang, entityId);
+        Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
       }
       return;
     }
