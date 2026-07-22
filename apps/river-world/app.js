@@ -252,13 +252,13 @@ const App = (() => {
           <span class="panel-lang">${langNameA} &middot; ${langNameB}</span>
           <div class="panel-audio-bar">
             ${hasAudio
-              ? `<button class="btn-audio" data-text="${_escape(keyTextA)}" data-lang="${langA}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameA}</button>`
+              ? `<button class="btn-audio" data-text="${_escape(displayTextA)}" data-lang="${langA}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameA}</button>`
               : ""}
             ${hasAudio
-              ? `<button class="btn-audio" data-text="${_escape(keyTextB)}" data-lang="${langB}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameB}</button>`
+              ? `<button class="btn-audio" data-text="${_escape(displayTextB)}" data-lang="${langB}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameB}</button>`
               : ""}
             ${hasAudio
-              ? `<button class="btn-audio-seq" data-langa="${langA}" data-langb="${langB}" data-texta="${_escape(keyTextA)}" data-textb="${_escape(keyTextB)}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen to both">\u25B6 Both</button>`
+              ? `<button class="btn-audio-seq" data-langa="${langA}" data-langb="${langB}" data-texta="${_escape(displayTextA)}" data-textb="${_escape(displayTextB)}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen to both">\u25B6 Both</button>`
               : ""}
           </div>
         </div>
