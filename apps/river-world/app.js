@@ -320,7 +320,7 @@ const App = (() => {
       ${pron?.ipa ? `<div class="wd-row"><span class="wd-label">Pronunciation</span><span class="wd-value">${_escape(pron.ipa)}</span></div>` : ""}
       ${pron?.syllables?.length ? `<div class="wd-row"><span class="wd-label">Syllables</span><span class="wd-value">${_escape(pron.syllables.join(" · "))}</span></div>` : ""}
       ${otherWord ? `<div class="wd-row"><span class="wd-label">${otherLangName}</span><span class="wd-value">${_escape(otherWord)}</span></div>` : ""}
-      <button class="btn-audio wd-audio" data-text="${_escape(word)}" data-lang="${lang}" title="Listen">\u25B6 Listen</button>
+      <button class="btn-audio wd-audio" data-text="${_escape(word)}" data-lang="${lang}" data-entity-id="${_escape(entityId)}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 Listen</button>
     `;
   }
 
@@ -653,9 +653,10 @@ const App = (() => {
       const text = e.target.dataset.text;
       const lang = e.target.dataset.lang;
       const phraseId = e.target.dataset.phraseId;
+      const entityId = e.target.dataset.entityId || null;
       if (text) {
-        Audio.speak(text, lang, null, phraseId);
-        Session.log("audio_played", { text, lang, phraseId, experience_id: _experiences[_currentIndex]?.id });
+        Audio.speak(text, lang, entityId, phraseId);
+        Session.log("audio_played", { text, lang, entityId, phraseId, experience_id: _experiences[_currentIndex]?.id });
       }
       return;
     }
