@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Co-Sense Demo</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #1a1a2e; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  .demo-container { width: 1200px; max-width: 96vw; background: #0f0f23; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .step-indicator { display: flex; background: #16213e; padding: 0; }
+  .step-dot { flex: 1; padding: 10px 4px; text-align: center; font-size: 11px; color: #4a4a6a; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.2s; }
+  .step-dot.active { color: #7ec8e3; border-bottom-color: #7ec8e3; background: #1a1a3e; font-weight: 600; }
+  .step-dot.done { color: #6a9a7a; }
+  .main-area { display: flex; min-height: 500px; }
+  .app-panel { position: relative; flex: 1; padding: 20px; background: #16162a; min-height: 500px; }
+  .app-panel.left { border-right: 1px solid #2a2a4a; }
+  .app-panel .panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+  .app-panel .panel-header .lang-label { background: #2a2a4a; padding: 4px 12px; border-radius: 4px; font-size: 12px; color: #8a8aaa; }
+  .app-panel .story-title { font-size: 18px; font-weight: 600; color: #d0d0e0; margin-bottom: 12px; }
+  .app-panel .story-text { font-size: 15px; line-height: 1.8; color: #b0b0c8; margin-bottom: 16px; }
+  .app-panel .story-text .hl { display: inline-block; padding: 0 4px; border-radius: 3px; cursor: pointer; transition: background 0.2s; }
+  .app-panel .story-text .hl:hover { background: #3a3a6a; }
+  .app-panel .story-text .hl.active { background: #4a6a8a; color: #fff; }
+  .word-chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+  .word-chip { background: #2a2a4a; padding: 6px 14px; border-radius: 6px; font-size: 13px; color: #b0b0c8; cursor: pointer; transition: all 0.2s; }
+  .word-chip:hover { background: #3a3a5a; }
+  .word-chip.active { background: #4a6a8a; color: #fff; }
+  .word-chip.playing { background: #5a8a6a; animation: pulse 0.6s ease-in-out 3; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  .detail-panel { background: #1e1e3a; border-radius: 8px; padding: 16px; margin-top: 16px; border: 1px solid #2a2a4a; }
+  .detail-panel .field { display: flex; margin-bottom: 6px; font-size: 13px; }
+  .detail-panel .field .label { color: #6a6a8a; width: 100px; flex-shrink: 0; }
+  .detail-panel .field .value { color: #c0c0d8; }
+  .detail-panel .field .value.audio-indicator { color: #5aaa7a; }
+  .detail-panel .audio-bar { height: 4px; background: #2a2a4a; border-radius: 2px; margin-top: 8px; overflow: hidden; }
+  .detail-panel .audio-bar .fill { height: 100%; width: 0%; background: linear-gradient(90deg, #5aaa7a, #7ec8e3); border-radius: 2px; transition: width 2s ease-in; }
+
+  .side-panel { width: 320px; background: #12122a; padding: 20px; border-left: 1px solid #2a2a4a; }
+  .side-panel h3 { font-size: 14px; color: #6a6a8a; margin-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .side-panel .narrator { font-size: 13px; color: #8a8aaa; line-height: 1.6; margin-bottom: 16px; }
+  .side-panel .narrator em { color: #aac8e0; font-style: normal; }
+  .side-panel .next-btn { display: block; width: 100%; padding: 12px; background: #2a5a8a; color: #fff; border: none; border-radius: 6px; font-size: 14px; cursor: pointer; transition: background 0.2s; text-align: center; }
+  .side-panel .next-btn:hover { background: #3a6a9a; }
+  .side-panel .next-btn:disabled { background: #3a3a4a; color: #6a6a7a; cursor: default; }
+  .side-panel .step-count { text-align: center; color: #4a4a6a; font-size: 12px; margin-top: 8px; }
+
+  .terminal-overlay { display: none; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: #0a0a1a; padding: 20px; font-family: 'Courier New', monospace; font-size: 13px; color: #7ec8e3; overflow: auto; z-index: 10; }
+  .terminal-overlay.show { display: block; }
+  .terminal-overlay .line { margin-bottom: 4px; white-space: pre; }
+  .terminal-overlay .prompt { color: #5aaa7a; }
+  .terminal-overlay .output { color: #b0b0c8; }
+  .terminal-overlay .highlight { color: #e8c87a; }
+  .terminal-overlay .dim { color: #4a4a6a; }
+
+  .controls { display: flex; justify-content: center; gap: 12px; padding: 12px 20px; background: #0a0a1a; }
+  .controls button { padding: 8px 20px; background: #2a2a4a; color: #8a8aaa; border: 1px solid #3a3a5a; border-radius: 4px; cursor: pointer; font-size: 13px; }
+  .controls button:hover { background: #3a3a5a; color: #c0c0d8; }
+  .controls button.primary { background: #2a5a8a; color: #fff; border-color: #3a6a9a; }
+
+  .audio-icon { display: inline-block; margin-left: 6px; font-size: 12px; }
+  .fade-in { animation: fadeIn 0.4s ease-in; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body>
+
+<div class="demo-container">
+  <div class="step-indicator" id="stepDots"></div>
+  <div class="main-area">
+    <div class="app-panel left" id="leftPanel"></div>
+    <div class="app-panel right" id="rightPanel"></div>
+    <div class="side-panel" id="narrationPanel"></div>
+  </div>
+  <div class="controls">
+    <button id="btnPrev">◀ Back</button>
+    <button id="btnReset">⟲ Reset</button>
+    <button id="btnAuto" class="primary">▶ Auto-Play</button>
+    <button id="btnNext">Next ▶</button>
+  </div>
+</div>
+
+<script>
+// ── Demo Steps ──────────────────────────────────────────────
+const STEPS = [
+  { // 0
+    leftLang: "English", rightLang: "Maori",
+    title: "The Child Drinks Water",
+    leftText: "A child walks to the river. The child is thirsty. The child drinks water from the river. Now the child is not thirsty.",
+    rightText: "Ka hīkoi te tamaiti ki te awa. Kei te matewai te tamaiti. Ka inu te tamaiti i te wai mai i te awa. Kāore te tamaiti i te matewai ināianei.",
+    entities: ["tamaiti","wai","awa","inu","hīkoi","matewai"],
+    activeEntity: null,
+    narration: "This is Co-Sense, a prototype language-learning app. The left panel shows English, the right panel shows Māori. Both render the same underlying story from a shared semantic representation.",
+    stepLabel: "Two panels, one story"
+  },
+  { // 1
+    leftLang: "English", rightLang: "Maori",
+    title: "The Child Drinks Water",
+    leftText: "A child walks to the river. The child is thirsty. The child drinks water from the river. Now the child is not thirsty.",
+    rightText: "Ka hīkoi te tamaiti ki te awa. Kei te matewai te tamaiti. Ka inu te tamaiti i te wai mai i te awa. Kāore te tamaiti i te matewai ināianei.",
+    entities: ["tamaiti","wai","awa","inu","hīkoi","matewai"],
+    activeEntity: "tamaiti",
+    narration: "Click <em>tamaiti</em> — the Māori word for 'child'. The entity panel shows its semantic type (PERSON), pronunciation, syllables, and plays audio from Te Aka Māori Dictionary.",
+    stepLabel: "Click 'tamaiti' — hear it"
+  },
+  { // 2
+    leftLang: "English", rightLang: "Maori",
+    title: "The Child Drinks Water",
+    leftText: "A child walks to the river. The child is thirsty. The child drinks water from the river. Now the child is not thirsty.",
+    rightText: "Ka hīkoi te tamaiti ki te awa. Kei te matewai te tamaiti. Ka inu te tamaiti i te wai mai i te awa. Kāore te tamaiti i te matewai ināianei.",
+    entities: ["tamaiti","wai","awa","inu","hīkoi","matewai"],
+    activeEntity: "wai",
+    narration: "Click <em>wai</em> — 'water'. Entity THING_001. Every word links to a semantic entity shared across all three languages (English/Māori/Afrikaans).",
+    stepLabel: "Click 'wai'"
+  },
+  { // 3
+    leftLang: "English", rightLang: "Afrikaans",
+    title: "The Child Drinks Water",
+    leftText: "A child walks to the river. The child is thirsty. The child drinks water from the river. Now the child is not thirsty.",
+    rightText: "'n Kind loop na die rivier. Die kind is dors. Die kind drink water uit die rivier. Nou is die kind nie dors nie.",
+    entities: ["kind","water","rivier","drink","loop","dors"],
+    activeEntity: "kind",
+    narration: "Now the right panel is switched to Afrikaans. The same entity model renders different words. Click <em>kind</em> — you hear Hannes' recorded voice, not TTS.",
+    stepLabel: "Switch to Afrikaans — hear Hannes"
+  },
+  { // 4
+    leftLang: "English", rightLang: "Afrikaans",
+    title: "The Child Drinks Water",
+    leftText: "A child walks to the river. The child is thirsty. The child drinks water from the river. Now the child is not thirsty.",
+    rightText: "'n Kind loop na die rivier. Die kind is dors. Die kind drink water uit die rivier. Nou is die kind nie dors nie.",
+    entities: ["kind","water","rivier","drink","loop","dors"],
+    activeEntity: null,
+    narration: "Under the hood, the system knows exactly which sentences are fully covered by audio and which words are missing. The acquisition planner (shown here in terminal view) identifies the next most valuable word to acquire.",
+    stepLabel: "Behind the scenes — the planner",
+    showTerminal: true
+  },
+  { // 5
+    leftLang: "English", rightLang: "Maori",
+    title: "The Child Drinks Water",
+    leftText: "A child walks to the river. The child is thirsty. The child drinks water from the river. Now the child is not thirsty.",
+    rightText: "Ka hīkoi te tamaiti ki te awa. Kei te matewai te tamaiti. Ka inu te tamaiti i te wai mai i te awa. Kāore te tamaiti i te matewai ināianei.",
+    entities: ["tamaiti","wai","awa","inu","hīkoi","matewai"],
+    activeEntity: null,
+    narration: "That's the current state. I'd love Māori language expertise to review the 10 River World stories — the Māori text accuracy, entity classifications, and whether the pedagogy makes sense from a Māori perspective. <br><br><em>Would you be open to a short review?</em>",
+    stepLabel: "The ask"
+  }
+];
+
+// ── Entity Details ──────────────────────────────────────────
+const ENTITY_DETAILS = {
+  "tamaiti": {
+    entity_id: "PERSON_003", type: "PERSON", lang: "mi", text: "tamaiti",
+    en: "child", af: "kind",
+    pronunciation: "ta·ma·i·ti",
+    audio_ref: "tamaiti.mp3 (Te Aka Māori Dictionary)"
+  },
+  "wai": {
+    entity_id: "THING_001", type: "THING", lang: "mi", text: "wai",
+    en: "water", af: "water",
+    pronunciation: "wai",
+    audio_ref: "wai.mp3 (Te Aka Māori Dictionary)"
+  },
+  "awa": {
+    entity_id: "PLACE_005", type: "PLACE", lang: "mi", text: "awa",
+    en: "river", af: "rivier",
+    pronunciation: "a·wa",
+    audio_ref: "awa.mp3 (Te Aka Māori Dictionary)"
+  },
+  "inu": {
+    entity_id: "ACTION_001", type: "ACTION", lang: "mi", text: "inu",
+    en: "drink", af: "drink",
+    pronunciation: "i·nu",
+    audio_ref: "inu.mp3 (Te Aka Māori Dictionary)"
+  },
+  "hīkoi": {
+    entity_id: "ACTION_002", type: "ACTION", lang: "mi", text: "hīkoi",
+    en: "walk", af: "loop",
+    pronunciation: "hī·koi",
+    audio_ref: "hīkoi.mp3 (Te Aka Māori Dictionary)"
+  },
+  "matewai": {
+    entity_id: "STATE_001", type: "STATE", lang: "mi", text: "matewai",
+    en: "thirsty", af: "dors",
+    pronunciation: "ma·te·wai",
+    audio_ref: "matewai.mp3 (Te Aka Māori Dictionary)"
+  },
+  "kind": {
+    entity_id: "PERSON_003", type: "PERSON", lang: "af", text: "kind",
+    en: "child", mi: "tamaiti",
+    pronunciation: "kind",
+    audio_ref: "VC_MRVJ8ITV.webm (Hannes — af_v1)"
+  },
+  "water": {
+    entity_id: "THING_001", type: "THING", lang: "af", text: "water",
+    en: "water", mi: "wai",
+    pronunciation: "va·ter",
+    audio_ref: "VC_MRVJ8W1Q.webm (Hannes — af_v1)"
+  },
+  "rivier": {
+    entity_id: "PLACE_005", type: "PLACE", lang: "af", text: "rivier",
+    en: "river", mi: "awa",
+    pronunciation: "re·fier",
+    audio_ref: "VC_MRVRPVHI.webm (Hannes — af_v1)"
+  },
+  "drink": {
+    entity_id: "ACTION_001", type: "ACTION", lang: "af", text: "drink",
+    en: "drink", mi: "inu",
+    pronunciation: "drink",
+    audio_ref: "VC_MRVJ82RX.webm (Hannes — af_v1)"
+  },
+  "loop": {
+    entity_id: "ACTION_002", type: "ACTION", lang: "af", text: "loop",
+    en: "walk", mi: "hīkoi",
+    pronunciation: "loop",
+    audio_ref: "VC_MRVRP1XA.webm (Hannes — af_v1)"
+  },
+  "dors": {
+    entity_id: "STATE_001", type: "STATE", lang: "af", text: "dors",
+    en: "thirsty", mi: "matewai",
+    pronunciation: "dors",
+    audio_ref: "VC_MRVJ7ROR.webm (Hannes — af_v1)"
+  }
+};
+
+// ── State ───────────────────────────────────────────────────
+let currentStep = 0;
+let autoTimer = null;
+let isAutoPlaying = false;
+
+// ── Render ──────────────────────────────────────────────────
+function render() {
+  const step = STEPS[currentStep];
+  renderPanel("leftPanel", step, true);
+  renderPanel("rightPanel", step, false);
+  renderNarration(step);
+  renderDots();
+  document.getElementById("btnPrev").disabled = currentStep === 0;
+  document.getElementById("btnNext").textContent = currentStep === STEPS.length - 1 ? "Finish" : "Next ▶";
+}
+
+function renderPanel(elId, step, isLeft) {
+  const el = document.getElementById(elId);
+  const lang = isLeft ? step.leftLang : step.rightLang;
+  const text = isLeft ? step.leftText : step.rightText;
+  const title = step.title;
+
+  let html = `<div class="panel-header"><span class="lang-label">${lang}</span><span style="color:#4a4a6a;font-size:12px">${isLeft ? "▼" : "▼"}</span></div>`;
+  html += `<div class="story-title">${title}</div>`;
+
+  // Highlight active entity in text
+  if (step.activeEntity && step.rightLang === "Maori" && !isLeft) {
+    const re = new RegExp(`(${step.activeEntity})`, 'gi');
+    html += `<div class="story-text">${text.replace(re, '<span class="hl active">$1</span>')}</div>`;
+  } else if (step.activeEntity && step.rightLang === "Afrikaans" && !isLeft) {
+    const re = new RegExp(`(${step.activeEntity})`, 'gi');
+    html += `<div class="story-text">${text.replace(re, '<span class="hl active">$1</span>')}</div>`;
+  } else {
+    html += `<div class="story-text">${text}</div>`;
+  }
+
+  // Word chips
+  html += `<div class="word-chips">`;
+  step.entities.forEach(e => {
+    const active = e === step.activeEntity ? " active" : "";
+    html += `<span class="word-chip${active}" data-word="${e}">${e}</span>`;
+  });
+  html += `</div>`;
+
+  // Detail panel
+  if (step.activeEntity) {
+    const det = ENTITY_DETAILS[step.activeEntity];
+    if (det) {
+      html += `<div class="detail-panel fade-in">`;
+      html += `<div class="field"><span class="label">Entity</span><span class="value">${det.entity_id}</span></div>`;
+      html += `<div class="field"><span class="label">Type</span><span class="value">${det.type}</span></div>`;
+      html += `<div class="field"><span class="label">Text</span><span class="value">${det.text}</span></div>`;
+      if (det.en) html += `<div class="field"><span class="label">English</span><span class="value">${det.en}</span></div>`;
+      if (det.af || det.mi) html += `<div class="field"><span class="label">${det.af ? 'Afrikaans' : 'Māori'}</span><span class="value">${det.af || det.mi}</span></div>`;
+      html += `<div class="field"><span class="label">Pronunciation</span><span class="value">${det.pronunciation} 🔊</span></div>`;
+      html += `<div class="field"><span class="label">Audio</span><span class="value audio-indicator">▶ Playing... ${det.audio_ref}</span></div>`;
+      html += `<div class="audio-bar"><div class="fill" style="width:100%"></div></div>`;
+      html += `</div>`;
+    }
+  }
+
+  // Terminal overlay
+  if (step.showTerminal && !isLeft) {
+    html += `<div class="terminal-overlay show fade-in">`;
+    html += `<div class="line prompt">$ node scripts/acquisition-planner.js ledger</div>`;
+    html += `<div class="line dim">╔══════════════════════════════════════════╗</div>`;
+    html += `<div class="line dim">║  PREDICTION LEDGER                     ║</div>`;
+    html += `<div class="line dim">╚══════════════════════════════════════════╝</div>`;
+    html += `<div class="line"></div>`;
+    html += `<div class="line output">Word          Pred  Actual  Outcome</div>`;
+    html += `<div class="line dim">────────────────────────────────────────</div>`;
+    html += `<div class="line output">tupu          1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">tahu          1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">horoi         1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">kakara        1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">maoa          1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">karanga       1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">katoa         1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">titiro        1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">kata          1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">pakiaka       1    1       <span class="highlight">accurate</span></div>`;
+    html += `<div class="line dim">...</div>`;
+    html += `<div class="line"></div>`;
+    html += `<div class="line output">Total: 17/17 <span class="highlight">accurate</span></div>`;
+    html += `<div class="line output">Coverage: <span class="highlight">49/49 (100%)</span></div>`;
+    html += `<div class="line"></div>`;
+    html += `<div class="line output">3 planners: Structural → Horizon → Probabilistic</div>`;
+    html += `<div class="line prompt">$</div>`;
+    html += `</div>`;
+  }
+
+  el.innerHTML = html;
+
+  // Click handlers for word chips
+  el.querySelectorAll('.word-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      if (autoTimer) { clearInterval(autoTimer); autoTimer = null; isAutoPlaying = false; document.getElementById("btnAuto").textContent = "▶ Auto-Play"; }
+    });
+  });
+}
+
+function renderNarration(step) {
+  const el = document.getElementById("narrationPanel");
+  let html = `<h3>Step ${currentStep + 1} of ${STEPS.length}</h3>`;
+  html += `<div class="narrator">${step.narration}</div>`;
+  html += `<div class="step-count">${step.stepLabel}</div>`;
+  el.innerHTML = html;
+}
+
+function renderDots() {
+  const el = document.getElementById("stepDots");
+  let html = "";
+  STEPS.forEach((s, i) => {
+    const cls = i === currentStep ? "active" : i < currentStep ? "done" : "";
+    html += `<div class="step-dot ${cls}" data-idx="${i}">${i + 1}. ${s.stepLabel}</div>`;
+  });
+  el.innerHTML = html;
+  el.querySelectorAll('.step-dot').forEach(dot => {
+    dot.addEventListener('click', () => { goTo(parseInt(dot.dataset.idx)); });
+  });
+}
+
+// ── Navigation ──────────────────────────────────────────────
+function goTo(idx) {
+  if (idx < 0) idx = 0;
+  if (idx >= STEPS.length) idx = STEPS.length - 1;
+  currentStep = idx;
+  render();
+}
+
+function next() {
+  if (currentStep < STEPS.length - 1) {
+    goTo(currentStep + 1);
+  }
+}
+
+function prev() {
+  if (currentStep > 0) goTo(currentStep - 1);
+}
+
+function reset() {
+  if (autoTimer) { clearInterval(autoTimer); autoTimer = null; isAutoPlaying = false; }
+  document.getElementById("btnAuto").textContent = "▶ Auto-Play";
+  goTo(0);
+}
+
+function toggleAuto() {
+  const btn = document.getElementById("btnAuto");
+  if (isAutoPlaying) {
+    clearInterval(autoTimer);
+    autoTimer = null;
+    isAutoPlaying = false;
+    btn.textContent = "▶ Auto-Play";
+  } else {
+    isAutoPlaying = true;
+    btn.textContent = "⏹ Stop";
+    autoTimer = setInterval(() => {
+      if (currentStep < STEPS.length - 1) {
+        next();
+      } else {
+        clearInterval(autoTimer);
+        autoTimer = null;
+        isAutoPlaying = false;
+        btn.textContent = "▶ Auto-Play";
+      }
+    }, 4500);
+  }
+}
+
+// ── Keyboard ────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+  if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+  if (e.key === 'r') reset();
+});
+
+// ── Init ────────────────────────────────────────────────────
+document.getElementById("btnNext").addEventListener('click', next);
+document.getElementById("btnPrev").addEventListener('click', prev);
+document.getElementById("btnReset").addEventListener('click', reset);
+document.getElementById("btnAuto").addEventListener('click', toggleAuto);
+
+render();
+</script>
+</body>
+</html>
