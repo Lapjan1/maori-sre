@@ -78,14 +78,16 @@ const Audio = (() => {
         var components = PhraseComposer.resolve(entityId, lang);
         if (components.length) {
           var allRefs = [];
+          var allTexts = [];
           components.forEach(function(c) {
             var playableRefs = (c.audio_refs || []).filter(_isPlayable);
             if (playableRefs.length) {
               allRefs.push(playableRefs[0]);
+              allTexts.push(c.text);
             }
           });
           if (allRefs.length) {
-            _playSequence(allRefs, text, lang, 0);
+            _playSequence(allRefs, allTexts, lang, 0);
             return;
           }
         }
@@ -96,16 +98,18 @@ const Audio = (() => {
       var resolved = StoryAudioResolver.resolveSentence(text, lang);
       if (resolved.missing.length === 0 && resolved.sequence.length > 0) {
         var allRefs = [];
+        var allTexts = [];
         var allHaveAudio = true;
         resolved.sequence.forEach(function(item) {
           if (item.audio_ref) {
             allRefs.push(item.audio_ref);
+            allTexts.push(item.text);
           } else {
             allHaveAudio = false;
           }
         });
         if (allHaveAudio && allRefs.length > 0) {
-          _playSequence(allRefs, text, lang, 0, 180);
+          _playSequence(allRefs, allTexts, lang, 0, 180);
           return;
         }
       }
@@ -124,9 +128,11 @@ const Audio = (() => {
       }
       const phrases = AF_PHRASES.filter((p) => p.intent === phraseId || p.id === phraseId);
       if (phrases.length) {
-        const refs = phrases.map((p) => _bestRefFromList(p.audio_refs || [], lang)).filter(Boolean);
-        if (refs.length) {
-          _playSequence(refs, text, lang, 0);
+        const phraseData = phrases.map(function(p) { return { ref: _bestRefFromList(p.audio_refs || [], lang), text: p.text }; }).filter(function(p) { return p.ref; });
+        if (phraseData.length) {
+          const refs = phraseData.map(function(p) { return p.ref; });
+          const texts = phraseData.map(function(p) { return p.text; });
+          _playSequence(refs, texts, lang, 0);
           return;
         }
       }
@@ -138,7 +144,8 @@ const Audio = (() => {
   function _playSequence(refs, fallbackText, lang, idx, gapMs) {
     if (idx >= refs.length) return;
     var gap = gapMs != null ? gapMs : (refs.length > 3 ? 250 : 400);
-    _playNativeWithCallback(refs[idx], fallbackText, lang, function() {
+    var perTokenText = Array.isArray(fallbackText) ? fallbackText[idx] : fallbackText;
+    _playNativeWithCallback(refs[idx], perTokenText, lang, function() {
       setTimeout(function() { _playSequence(refs, fallbackText, lang, idx + 1, gap); }, gap);
     });
   }
