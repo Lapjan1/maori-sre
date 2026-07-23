@@ -98,6 +98,21 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .bundle-preview h3 { font-size: 0.9rem; color: var(--green); margin-bottom: 0.5rem; }
 .bundle-preview pre { background: #2c2c2c; color: #e0e0e0; padding: 1rem; border-radius: 8px; font-size: 0.8rem; overflow-x: auto; white-space: pre-wrap; max-height: 300px; overflow-y: auto; }
 
+.coverage-panel { width: 100%; max-width: 520px; margin-top: 1rem; background: var(--card); border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+.coverage-header { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1rem; background: var(--green); color: #fff; border-radius: var(--radius) var(--radius) 0 0; }
+.coverage-title { font-weight: 600; font-size: 0.9rem; }
+.coverage-stats { font-size: 0.8rem; opacity: 0.9; }
+.coverage-list { padding: 0.75rem 1rem; max-height: 300px; overflow-y: auto; }
+.coverage-list h4 { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+.coverage-empty { color: var(--green); font-size: 0.9rem; padding: 0.5rem 0; }
+.coverage-more { font-size: 0.75rem; color: var(--muted); text-align: center; margin-top: 0.25rem; }
+.queue-list { list-style: none; }
+.queue-list li { padding: 0.35rem 0.5rem; font-size: 0.85rem; cursor: pointer; border-radius: 4px; border-bottom: 1px solid #f0f0f0; }
+.queue-list li:hover { background: #e8f0ec; color: var(--green); }
+
+.jump-queue { background: var(--water); color: #fff; border: none; border-radius: 6px; padding: 0.3rem 0.6rem; cursor: pointer; font-size: 0.8rem; white-space: nowrap; }
+.jump-queue:hover { background: #3d7a94; }
+
 @media (max-width: 480px) {
   .topbar { flex-direction: column; align-items: stretch; }
   .topbar h1 { margin-right: 0; text-align: center; }

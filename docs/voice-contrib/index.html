@@ -17,6 +17,9 @@
     <select id="lang-selector">
       <option value="">Select language</option>
     </select>
+    <select id="voice-selector">
+      <option value="">All voices</option>
+    </select>
     <select id="source-selector" style="display:none">
       <option value="">Select course</option>
     </select>
@@ -25,6 +28,7 @@
     </select>
     <span class="counter" id="counter"></span>
     <button class="btn-folder" id="btn-folder" title="Choose where to save recordings">&#128193; Folder</button>
+    <span class="jump-queue" id="btn-jump-queue" title="Jump to next missing recording">&#9654; Queue</span>
     <span class="folder-path" id="folder-path"></span>
   </div>
 
@@ -122,12 +126,21 @@
     <pre id="yaml-preview"></pre>
   </div>
 
-  <script src="../packages/language-data/surface_forms.js"></script>
-  <script src="../packages/language-data/voice_packages.js"></script>
-  <script src="../packages/language-data/audio_index.js"></script>
-  <script src="../packages/language-data/experiences.js"></script>
-  <script src="../packages/language-data/curriculum-wife.js"></script>
-  <script src="../packages/language-data/afrikaans-phrases.js"></script>
+  <div class="coverage-panel" id="coverage-panel" style="display:none">
+    <div class="coverage-header">
+      <span class="coverage-title">Recording Queue</span>
+      <span class="coverage-stats" id="coverage-stats"></span>
+    </div>
+    <div class="coverage-list" id="coverage-list"></div>
+  </div>
+
+  <script src="../../packages/language-data/audio-coverage.js"></script>
+  <script src="../../packages/language-data/surface_forms.js"></script>
+  <script src="../../packages/language-data/voice_packages.js"></script>
+  <script src="../../packages/language-data/audio_index.js"></script>
+  <script src="../../packages/language-data/experiences.js"></script>
+  <script src="../../packages/language-data/curriculum-wife.js"></script>
+  <script src="../../packages/language-data/afrikaans-phrases.js"></script>
   <script src="recorder.js"></script>
 </body>
 </html>

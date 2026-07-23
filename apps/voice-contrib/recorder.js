@@ -14,6 +14,8 @@ const Recorder = (() => {
   let _contributionCount = 0;
   let _currentMode = "words";
   let _currentItemMeta = null;
+  let _queueItems = [];
+  let _queueIndex = -1;
 
   const _CONTRIB_PREFIX = "VC";
   const _langNames = { mi: "M\u0101ori", en: "English", af: "Afrikaans" };
@@ -59,6 +61,7 @@ const Recorder = (() => {
   /* ---------- init ---------- */
   function init() {
     _populateLanguages();
+    _populateVoiceTypes();
     modeSel.addEventListener("change", _onModeChange);
     langSel.addEventListener("change", _onLangChange);
     sourceSel.addEventListener("change", _onSourceChange);
@@ -71,8 +74,23 @@ const Recorder = (() => {
     btnDownload.addEventListener("click", _downloadBundle);
     btnNext.addEventListener("click", _nextCard);
     btnFolder.addEventListener("click", _pickFolder);
+    $("btn-jump-queue").addEventListener("click", _jumpToQueue);
     consentCheck.addEventListener("change", _updateDownloadState);
     _setStatus("Choose a mode and language to start", "info");
+  }
+
+  /* ---------- voice types ---------- */
+  function _populateVoiceTypes() {
+    const vt = typeof AudioCoverage !== "undefined" ? AudioCoverage.VOICE_TYPES : [];
+    const labels = typeof AudioCoverage !== "undefined" ? AudioCoverage.VOICE_LABELS : {};
+    const sel = $("voice-selector");
+    sel.innerHTML = '<option value="">All voices</option>';
+    vt.forEach((v) => {
+      const opt = document.createElement("option");
+      opt.value = v;
+      opt.textContent = labels[v] || v;
+      sel.appendChild(opt);
+    });
   }
 
   /* ---------- language / mode ---------- */
@@ -129,12 +147,75 @@ const Recorder = (() => {
     if (!lang) return;
     _resetRecording();
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
+    $("coverage-panel").style.display = "none";
+    _refreshCoverage();
     if (_currentMode === "words") {
       _loadWords(lang);
     } else if (_currentMode === "readings") {
       _loadReadings(lang);
     } else {
       _loadPhrases(lang);
+    }
+  }
+
+  function _refreshCoverage() {
+    const lang = langSel.value;
+    if (!lang || typeof AudioCoverage === "undefined") return;
+    const voiceType = $("voice-selector").value || null;
+    const queue = AudioCoverage.recordingQueue(lang, voiceType || "male_adult");
+    _queueItems = queue;
+    _queueIndex = -1;
+
+    const panel = $("coverage-panel");
+    const list = $("coverage-list");
+    const stats = $("coverage-stats");
+    const c = AudioCoverage.coverage(lang);
+    stats.textContent = c.withAudio + "/" + c.total + " (" + c.pct + "%)";
+    if (!queue.length) {
+      list.innerHTML = '<div class="coverage-empty">✓ All items recorded for this voice</div>';
+      panel.style.display = "block";
+      return;
+    }
+    const voiceLabel = voiceType ? (AudioCoverage.VOICE_LABELS[voiceType] || voiceType) : "any voice";
+    list.innerHTML = "<h4>Missing for " + voiceLabel + " (" + queue.length + ")</h4>";
+    const ul = document.createElement("ul");
+    ul.className = "queue-list";
+    queue.slice(0, 50).forEach(function(item) {
+      const li = document.createElement("li");
+      li.textContent = item.text;
+      li.dataset.entityId = item.entityId;
+      li.dataset.sfId = item.surfaceFormId;
+      li.addEventListener("click", function() {
+        _selectQueueItem(item);
+      });
+      ul.appendChild(li);
+    });
+    list.appendChild(ul);
+    if (queue.length > 50) {
+      var more = document.createElement("p");
+      more.className = "coverage-more";
+      more.textContent = "+ " + (queue.length - 50) + " more";
+      list.appendChild(more);
+    }
+    panel.style.display = "block";
+  }
+
+  function _selectQueueItem(item) {
+    const sel = phraseSel;
+    for (var i = 0; i < sel.options.length; i++) {
+      if (sel.options[i].value === item.surfaceFormId || sel.options[i].textContent.indexOf(item.text) !== -1) {
+        sel.selectedIndex = i;
+        _onPhraseChange();
+        break;
+      }
+    }
+  }
+
+  function _jumpToQueue() {
+    _queueIndex++;
+    if (_queueIndex >= _queueItems.length) _queueIndex = 0;
+    if (_queueItems[_queueIndex]) {
+      _selectQueueItem(_queueItems[_queueIndex]);
     }
   }
 
@@ -530,6 +611,7 @@ const Recorder = (() => {
 `;
       }
     }
+    const voiceType = $("voice-selector").value || "";
     let extra = "";
     if (correction) {
       extra = `  correction_suggested: ${correction}
@@ -542,6 +624,7 @@ const Recorder = (() => {
   language: ${lang}
 ${prov}${extra}  text: ${text}
   translation_en: ${translation}
+  voice_type: ${voiceType}
   recording:
     filename: ${contribId}.${ext}
     format: ${_recordedBlob.type}
