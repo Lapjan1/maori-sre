@@ -339,6 +339,45 @@ which entities need reintroduction and at what interval.
 - GRAMMAR RULES: per-language rendering templates
 - SPACED REPETITION: schedule reintroductions from learner model
 
+## Future Possibility: Multimodal Media
+
+If Co-Sense grows beyond the current text+audio model, media can be
+added as a **language-independent visual layer** — not as per-language
+videos.
+
+The visual world is language-independent. The narration is
+language-dependent.
+
+```
+EXPERIENCE
+"A child walks to the river."
+
+        ┌──────────────┐
+        │ VISUAL CLIP  │
+        │ no language  │
+        └──────┬───────┘
+               │
+    ┌──────────┼──────────┐
+    ▼          ▼          ▼
+ English     Afrikaans   Māori
+ audio       audio       audio
+```
+
+One visual clip + N language audio tracks. The clip is evidence of the
+experience; the entity model remains the canonical structure:
+
+```
+Experience
+├── semantic representation
+├── entities
+├── language realizations (text + audio)
+└── optional: language-independent video or image
+```
+
+Visual primitives (child, walking, river) could even be composed
+across experiences. Not a priority now — kept here for when Co-Sense
+hits the big leagues.
+
 ---
 
 ## Design Principles
