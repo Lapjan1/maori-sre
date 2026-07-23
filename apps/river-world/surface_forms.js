@@ -202,6 +202,10 @@ var SURFACE_FORMS = {
   SF_MI_PERSON_KOE: {"id": "SF_MI_PERSON_KOE", "entity_id": "PERSON_KOE", "lang": "mi", "text": "koe", "pronunciation": {"syllables": ["ko", "e"], "audio_refs": [{"ref": "koe.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/2694", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KOE_001", "voice_type": null}]}},
   SF_EN_PERSON_IA: {"id": "SF_EN_PERSON_IA", "entity_id": "PERSON_IA", "lang": "en", "text": "he / she / him / her / it — third person singular pronoun"},
   SF_MI_PERSON_IA: {"id": "SF_MI_PERSON_IA", "entity_id": "PERSON_IA", "lang": "mi", "text": "ia", "pronunciation": {"syllables": ["i", "a"], "audio_refs": [{"ref": "ia.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/1641", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_IA_001", "voice_type": null}]}},
+  SF_EN_PERSON_AU: {"id": "SF_EN_PERSON_AU", "entity_id": "PERSON_AU", "lang": "en", "text": "I / me — first person singular pronoun"},
+  SF_MI_PERSON_AU: {"id": "SF_MI_PERSON_AU", "entity_id": "PERSON_AU", "lang": "mi", "text": "au", "pronunciation": {"syllables": ["au"], "audio_refs": [{"ref": "au.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/502", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_AU_001", "voice_type": null}]}},
+  SF_EN_PERSON_AHAU: {"id": "SF_EN_PERSON_AHAU", "entity_id": "PERSON_AHAU", "lang": "en", "text": "I / me — first person singular pronoun (variant of au)"},
+  SF_MI_PERSON_AHAU: {"id": "SF_MI_PERSON_AHAU", "entity_id": "PERSON_AHAU", "lang": "mi", "text": "ahau", "pronunciation": {"syllables": ["a", "hau"], "audio_refs": [{"ref": "ahau.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/63", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_AHAU_001", "voice_type": null}]}},
   SF_EN_STATE_PAI: {"id": "SF_EN_STATE_PAI", "entity_id": "STATE_PAI", "lang": "en", "text": "good / well"},
   SF_MI_STATE_PAI: {"id": "SF_MI_STATE_PAI", "entity_id": "STATE_PAI", "lang": "mi", "text": "pai", "pronunciation": {"syllables": ["pai"], "audio_refs": [{"ref": "pai.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/6103", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_PAI_001", "voice_type": null}]}},
   SF_EN_PARTICLE_NO: {"id": "SF_EN_PARTICLE_NO", "entity_id": "PARTICLE_NO", "lang": "en", "text": "from / belonging to (a-possessive preposition)"},
@@ -679,6 +683,14 @@ var SURFACE_FORM_INDEX = {
   "PERSON_IA": {
     "en": "SF_EN_PERSON_IA",
     "mi": "SF_MI_PERSON_IA",
+  },
+  "PERSON_AU": {
+    "en": "SF_EN_PERSON_AU",
+    "mi": "SF_MI_PERSON_AU",
+  },
+  "PERSON_AHAU": {
+    "en": "SF_EN_PERSON_AHAU",
+    "mi": "SF_MI_PERSON_AHAU",
   },
   "STATE_PAI": {
     "en": "SF_EN_STATE_PAI",

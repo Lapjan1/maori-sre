@@ -1204,6 +1204,94 @@ var CONTRIBUTIONS = (() => {
       updated: "2026-07-23"
     },
 
+    CONTRIB_MI_AHAU_001: {
+      contribution_id: "CONTRIB_MI_AHAU_001",
+
+      language: "mi",
+      surface_form: "ahau",
+
+      source: {
+        provider: "Te Aka Māori Dictionary",
+        word_id: "63",
+        asset: "ahau.mp3",
+        source_url: "https://maoridictionary.co.nz/word/63",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use"
+      },
+
+      speaker: {
+        gender: null,
+        age_group: null,
+        identity: null
+      },
+
+      proposed: {
+        entity_id: "PERSON_AHAU",
+        type: "PERSON",
+        gloss: "I, me — first person singular pronoun (variant of au)"
+      },
+
+      approved: {
+        entity_id: "PERSON_AHAU",
+        voice_type: null
+      },
+
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 11232 bytes from storage.googleapis.com CDN."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_AU_001: {
+      contribution_id: "CONTRIB_MI_AU_001",
+
+      language: "mi",
+      surface_form: "au",
+
+      source: {
+        provider: "Te Aka Māori Dictionary",
+        word_id: "502",
+        asset: "au.mp3",
+        source_url: "https://maoridictionary.co.nz/word/502",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use"
+      },
+
+      speaker: {
+        gender: null,
+        age_group: null,
+        identity: null
+      },
+
+      proposed: {
+        entity_id: "PERSON_AU",
+        type: "PERSON",
+        gloss: "I, me — first person singular pronoun"
+      },
+
+      approved: {
+        entity_id: "PERSON_AU",
+        voice_type: null
+      },
+
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 7393 bytes from storage.googleapis.com CDN."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
     CONTRIB_MI_IA_001: {
       contribution_id: "CONTRIB_MI_IA_001",
 

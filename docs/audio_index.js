@@ -1,16 +1,18 @@
 /**
  * Māori Audio Index — maps word text to Te Aka MP3 files
- * Generated 2026-07-21. 89 files from Te Aka Māori Dictionary.
+ * Generated 2026-07-21. 91 files from Te Aka Māori Dictionary.
  * 
  * Lookup: AUDIO_INDEX[normalizedWord] -> { filename, wordId, bytes }
  * Normalized = lowercase, macrons replaced with plain vowels.
  */
 var AUDIO_INDEX = {
+  "ahau": {"filename": "ahau.mp3", "word_id": "63", "bytes": 11232},
   "ahi": {"filename": "ahi.mp3", "word_id": "69", "bytes": 10464},
   "aotearoa": {"filename": "aotearoa.mp3", "word_id": "270", "bytes": 16225},
   "aroha": {"filename": "aroha.mp3", "word_id": "414", "bytes": 9697},
   "ataahua": {"filename": "ataahua.mp3", "word_id": "457", "bytes": 16233},
   "atawhai": {"filename": "atawhai.mp3", "word_id": "476", "bytes": 13921},
+  "au": {"filename": "au.mp3", "word_id": "502", "bytes": 7393},
   "awa": {"filename": "awa.mp3", "word_id": "563", "bytes": 8545},
   "haere": {"filename": "haere.mp3", "word_id": "715", "bytes": 12001},
   "haerenga": {"filename": "haerenga.mp3", "word_id": "718", "bytes": 15457},
