@@ -249,6 +249,84 @@ var SURFACE_FORMS = {
   SF_MI_DETERMINER_TETAHI: {"id": "SF_MI_DETERMINER_TETAHI", "entity_id": "DETERMINER_TETAHI", "lang": "mi", "text": "tētahi", "pronunciation": {"syllables": ["tē", "ta", "hi"], "audio_refs": [{"ref": "tetahi.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/7968", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TETAHI_001", "voice_type": null}]}},
   SF_EN_PARTICLE_KO: {"id": "SF_EN_PARTICLE_KO", "entity_id": "PARTICLE_KO", "lang": "en", "text": "particle used before proper names, pronouns, and common nouns with definitive"},
   SF_MI_PARTICLE_KO: {"id": "SF_MI_PARTICLE_KO", "entity_id": "PARTICLE_KO", "lang": "mi", "text": "ko", "pronunciation": {"syllables": ["ko"], "audio_refs": [{"ref": "ko.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/2743", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KO_001", "voice_type": null}]}},
+  SF_EN_PARTICLE_KUA: {"id": "SF_EN_PARTICLE_KUA", "entity_id": "PARTICLE_KUA", "lang": "en", "text": "perfect aspect particle — indicates change of state or completed action"},
+  SF_MI_PARTICLE_KUA: {"id": "SF_MI_PARTICLE_KUA", "entity_id": "PARTICLE_KUA", "lang": "mi", "text": "kua", "pronunciation": {"syllables": ["ku", "a"], "audio_refs": [{"ref": "kua.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/3198", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KUA_001", "voice_type": null}]}},
+  SF_EN_PARTICLE_TANA: {"id": "SF_EN_PARTICLE_TANA", "entity_id": "PARTICLE_TANA", "lang": "en", "text": "his/her (ā-category possessive); quotative marker — said he/she"},
+  SF_MI_PARTICLE_TANA: {"id": "SF_MI_PARTICLE_TANA", "entity_id": "PARTICLE_TANA", "lang": "mi", "text": "tāna", "pronunciation": {"syllables": ["tā", "na"], "audio_refs": [{"ref": "tana.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/7374", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TANA_001", "voice_type": null}]}},
+  SF_EN_STATE_TAHI: {"id": "SF_EN_STATE_TAHI", "entity_id": "STATE_TAHI", "lang": "en", "text": "one / together / united"},
+  SF_MI_STATE_TAHI: {"id": "SF_MI_STATE_TAHI", "entity_id": "STATE_TAHI", "lang": "mi", "text": "tahi", "pronunciation": {"syllables": ["ta", "hi"], "audio_refs": [{"ref": "tahi.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/tahi", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TAHI_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — rangi ── */
+  SF_EN_THING_RANGI: {"id": "SF_EN_THING_RANGI", "entity_id": "THING_RANGI", "lang": "en", "text": "day / sky / weather / heaven"},
+  SF_MI_THING_RANGI: {"id": "SF_MI_THING_RANGI", "entity_id": "THING_RANGI", "lang": "mi", "text": "rangi", "pronunciation": {"syllables": ["ra", "ngi"], "audio_refs": [{"ref": "rangi.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/6482", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_RANGI_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — teitei ── */
+  SF_EN_STATE_TEITEI: {"id": "SF_EN_STATE_TEITEI", "entity_id": "STATE_TEITEI", "lang": "en", "text": "high / tall / lofty / elevated"},
+  SF_MI_STATE_TEITEI: {"id": "SF_MI_STATE_TEITEI", "entity_id": "STATE_TEITEI", "lang": "mi", "text": "teitei", "pronunciation": {"syllables": ["tei", "tei"], "audio_refs": [{"ref": "teitei.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/7895", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TEITEI_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — mau ── */
+  SF_EN_ACTION_MAU: {"id": "SF_EN_ACTION_MAU", "entity_id": "ACTION_MAU", "lang": "en", "text": "take / seize / catch / carry / hold"},
+  SF_MI_ACTION_MAU: {"id": "SF_MI_ACTION_MAU", "entity_id": "ACTION_MAU", "lang": "mi", "text": "mau", "pronunciation": {"syllables": ["mau"], "audio_refs": [{"ref": "mau.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/3932", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_MAU_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — whakakiia (passive of whakaki) ── */
+  SF_EN_ACTION_WHAKAKIIA: {"id": "SF_EN_ACTION_WHAKAKIIA", "entity_id": "ACTION_WHAKAKIIA", "lang": "en", "text": "filled (by) / to fill (passive)"},
+  SF_MI_ACTION_WHAKAKIIA: {"id": "SF_MI_ACTION_WHAKAKIIA", "entity_id": "ACTION_WHAKAKIIA", "lang": "mi", "text": "whakakiia", "pronunciation": {"syllables": ["wha", "ka", "ki", "ia"], "audio_refs": [{"ref": "whakaki.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/9519", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_WHAKAKIIA_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — piki ── */
+  SF_EN_ACTION_PIKI: {"id": "SF_EN_ACTION_PIKI", "entity_id": "ACTION_PIKI", "lang": "en", "text": "rise / ascend / climb / increase"},
+  SF_MI_ACTION_PIKI: {"id": "SF_MI_ACTION_PIKI", "entity_id": "ACTION_PIKI", "lang": "mi", "text": "piki", "pronunciation": {"syllables": ["pi", "ki"], "audio_refs": [{"ref": "piki.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/46406", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_PIKI_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — toro ── */
+  SF_EN_ACTION_TORO: {"id": "SF_EN_ACTION_TORO", "entity_id": "ACTION_TORO", "lang": "en", "text": "reach / extend / stretch out / spread"},
+  SF_MI_ACTION_TORO: {"id": "SF_MI_ACTION_TORO", "entity_id": "ACTION_TORO", "lang": "mi", "text": "toro", "pronunciation": {"syllables": ["to", "ro"], "audio_refs": [{"ref": "toro.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/8476", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TORO_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — atu ── */
+  SF_EN_PARTICLE_ATU: {"id": "SF_EN_PARTICLE_ATU", "entity_id": "PARTICLE_ATU", "lang": "en", "text": "away / onwards (directional particle)"},
+  SF_MI_PARTICLE_ATU: {"id": "SF_MI_PARTICLE_ATU", "entity_id": "PARTICLE_ATU", "lang": "mi", "text": "atu", "pronunciation": {"syllables": ["a", "tu"], "audio_refs": [{"ref": "atu.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/493", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_ATU_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — tupu ── */
+  SF_EN_ACTION_TUPU: {"id": "SF_EN_ACTION_TUPU", "entity_id": "ACTION_TUPU", "lang": "en", "text": "grow / increase / spring up"},
+  SF_MI_ACTION_TUPU: {"id": "SF_MI_ACTION_TUPU", "entity_id": "ACTION_TUPU", "lang": "mi", "text": "tupu", "pronunciation": {"syllables": ["tu", "pu"], "audio_refs": [{"ref": "tupu.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/8754", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TUPU_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — tahu ── */
+  SF_EN_ACTION_TAHU: {"id": "SF_EN_ACTION_TAHU", "entity_id": "ACTION_TAHU", "lang": "en", "text": "light / set on fire / burn / kindle"},
+  SF_MI_ACTION_TAHU: {"id": "SF_MI_ACTION_TAHU", "entity_id": "ACTION_TAHU", "lang": "mi", "text": "tahu", "pronunciation": {"syllables": ["ta", "hu"], "audio_refs": [{"ref": "tahu.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/7072", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TAHU_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — horoi ── */
+  SF_EN_ACTION_HOROI: {"id": "SF_EN_ACTION_HOROI", "entity_id": "ACTION_HOROI", "lang": "en", "text": "wash / clean / wipe / cleanse"},
+  SF_MI_ACTION_HOROI: {"id": "SF_MI_ACTION_HOROI", "entity_id": "ACTION_HOROI", "lang": "mi", "text": "horoi", "pronunciation": {"syllables": ["ho", "ro", "i"], "audio_refs": [{"ref": "horoi.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/1438", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_HOROI_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — kakara ── */
+  SF_EN_STATE_KAKARA: {"id": "SF_EN_STATE_KAKARA", "entity_id": "STATE_KAKARA", "lang": "en", "text": "fragrant / aromatic / sweet-smelling / scented"},
+  SF_MI_STATE_KAKARA: {"id": "SF_MI_STATE_KAKARA", "entity_id": "STATE_KAKARA", "lang": "mi", "text": "kakara", "pronunciation": {"syllables": ["ka", "ka", "ra"], "audio_refs": [{"ref": "kakara.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/2100", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KAKARA_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — maoa ── */
+  SF_EN_STATE_MAOA: {"id": "SF_EN_STATE_MAOA", "entity_id": "STATE_MAOA", "lang": "en", "text": "cooked / ripe / done (of food)"},
+  SF_MI_STATE_MAOA: {"id": "SF_MI_STATE_MAOA", "entity_id": "STATE_MAOA", "lang": "mi", "text": "maoa", "pronunciation": {"syllables": ["ma", "o", "a"], "audio_refs": [{"ref": "maoa.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/3642", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_MAOA_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — karanga ── */
+  SF_EN_ACTION_KARANGA: {"id": "SF_EN_ACTION_KARANGA", "entity_id": "ACTION_KARANGA", "lang": "en", "text": "call / call out / shout / summon"},
+  SF_MI_ACTION_KARANGA: {"id": "SF_MI_ACTION_KARANGA", "entity_id": "ACTION_KARANGA", "lang": "mi", "text": "karanga", "pronunciation": {"syllables": ["ka", "ra", "nga"], "audio_refs": [{"ref": "karanga.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/2286", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KARANGA_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — katoa ── */
+  SF_EN_QUANTIFIER_KATOA: {"id": "SF_EN_QUANTIFIER_KATOA", "entity_id": "QUANTIFIER_KATOA", "lang": "en", "text": "all / every / whole / everyone"},
+  SF_MI_QUANTIFIER_KATOA: {"id": "SF_MI_QUANTIFIER_KATOA", "entity_id": "QUANTIFIER_KATOA", "lang": "mi", "text": "katoa", "pronunciation": {"syllables": ["ka", "to", "a"], "audio_refs": [{"ref": "katoa.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/46863", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KATOA_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — titiro ── */
+  SF_EN_ACTION_TITIRO: {"id": "SF_EN_ACTION_TITIRO", "entity_id": "ACTION_TITIRO", "lang": "en", "text": "look at / inspect / examine / observe / view"},
+  SF_MI_ACTION_TITIRO: {"id": "SF_MI_ACTION_TITIRO", "entity_id": "ACTION_TITIRO", "lang": "mi", "text": "titiro", "pronunciation": {"syllables": ["ti", "ti", "ro"], "audio_refs": [{"ref": "titiro.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/8226", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TITIRO_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — kata ── */
+  SF_EN_ACTION_KATA: {"id": "SF_EN_ACTION_KATA", "entity_id": "ACTION_KATA", "lang": "en", "text": "laugh / laugh at / smile"},
+  SF_MI_ACTION_KATA: {"id": "SF_MI_ACTION_KATA", "entity_id": "ACTION_KATA", "lang": "mi", "text": "kata", "pronunciation": {"syllables": ["ka", "ta"], "audio_refs": [{"ref": "kata.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/2370", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KATA_001", "voice_type": null}]}},
+  /* ── Gap word acquisition — ona ── */
+  SF_EN_PARTICLE_ONA: {"id": "SF_EN_PARTICLE_ONA", "entity_id": "PARTICLE_ONA", "lang": "en", "text": "his / her (plural, o-category possessive)"},
+  SF_MI_PARTICLE_ONA: {"id": "SF_MI_PARTICLE_ONA", "entity_id": "PARTICLE_ONA", "lang": "mi", "text": "ona", "pronunciation": {"syllables": ["o", "na"], "audio_refs": [{"ref": "ona.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/4756", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_ONA_001", "voice_type": null}]}},
+  /* Gap word acquisition - pakiaka */
+  SF_EN_THING_PAKIAKA: {"id": "SF_EN_THING_PAKIAKA", "entity_id": "THING_PAKIAKA", "lang": "en", "text": "root (of a tree)"},
+  SF_MI_THING_PAKIAKA: {"id": "SF_MI_THING_PAKIAKA", "entity_id": "THING_PAKIAKA", "lang": "mi", "text": "pakiaka", "pronunciation": {"syllables": ["pa", "ki", "a", "ka"], "audio_refs": [{"ref": "pakiaka.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/5012", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_PAKIAKA_001", "voice_type": null}]}},
+  /* Gap word acquisition - kainga */
+  SF_EN_THING_KAINGA: {"id": "SF_EN_THING_KAINGA", "entity_id": "THING_KAINGA", "lang": "en", "text": "home"},
+  SF_MI_THING_KAINGA: {"id": "SF_MI_THING_KAINGA", "entity_id": "THING_KAINGA", "lang": "mi", "text": "kainga", "pronunciation": {"syllables": ["ka", "i", "nga"], "audio_refs": [{"ref": "kainga.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/1972", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KAINGA_001", "voice_type": null}]}},
+  /* Gap word acquisition - to (determiner) */
+  SF_EN_DETERMINER_TO: {"id": "SF_EN_DETERMINER_TO", "entity_id": "DETERMINER_TO", "lang": "en", "text": "the ... of (neutral possessive determiner)"},
+  SF_MI_DETERMINER_TO: {"id": "SF_MI_DETERMINER_TO", "entity_id": "DETERMINER_TO", "lang": "mi", "text": "to", "pronunciation": {"syllables": ["to"], "audio_refs": [{"ref": "to.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/8275", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TO_001", "voice_type": null}]}},
+  /* Gap word acquisition - nga */
+  SF_EN_DETERMINER_NGA: {"id": "SF_EN_DETERMINER_NGA", "entity_id": "DETERMINER_NGA", "lang": "en", "text": "the (plural)"},
+  SF_MI_DETERMINER_NGA: {"id": "SF_MI_DETERMINER_NGA", "entity_id": "DETERMINER_NGA", "lang": "mi", "text": "nga", "pronunciation": {"syllables": ["nga"], "audio_refs": [{"ref": "nga.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/4505", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_NGA_001", "voice_type": null}]}},
+  /* Gap word acquisition - mihi */
+  SF_EN_PHRASE_MIHI: {"id": "SF_EN_PHRASE_MIHI", "entity_id": "PHRASE_MIHI", "lang": "en", "text": "acknowledgements, thanks, greeting"},
+  SF_MI_PHRASE_MIHI: {"id": "SF_MI_PHRASE_MIHI", "entity_id": "PHRASE_MIHI", "lang": "mi", "text": "mihi", "pronunciation": {"syllables": ["mi", "hi"], "audio_refs": [{"ref": "mihi.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/4059", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_MIHI_001", "voice_type": null}]}},
+  /* Gap word acquisition - taku */
+  SF_EN_POSSESSIVE_TAKU: {"id": "SF_EN_POSSESSIVE_TAKU", "entity_id": "POSSESSIVE_TAKU", "lang": "en", "text": "my (neutral possessive determiner)"},
+  SF_MI_POSSESSIVE_TAKU: {"id": "SF_MI_POSSESSIVE_TAKU", "entity_id": "POSSESSIVE_TAKU", "lang": "mi", "text": "taku", "pronunciation": {"syllables": ["ta", "ku"], "audio_refs": [{"ref": "taku.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/7310", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TAKU_001", "voice_type": null}]}},
+  /* Gap word acquisition - whakautu */
+  SF_EN_PHRASE_WHAKAUTU: {"id": "SF_EN_PHRASE_WHAKAUTU", "entity_id": "PHRASE_WHAKAUTU", "lang": "en", "text": "answer, reply, response"},
+  SF_MI_PHRASE_WHAKAUTU: {"id": "SF_MI_PHRASE_WHAKAUTU", "entity_id": "PHRASE_WHAKAUTU", "lang": "mi", "text": "whakautu", "pronunciation": {"syllables": ["wha", "ka", "u", "tu"], "audio_refs": [{"ref": "whakautu.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/9997", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_WHAKAUTU_001", "voice_type": null}]}},
 };
 var SURFACE_FORM_INDEX = {
   "THING_001": {
@@ -693,5 +771,113 @@ var SURFACE_FORM_INDEX = {
   "PARTICLE_KO": {
     "en": "SF_EN_PARTICLE_KO",
     "mi": "SF_MI_PARTICLE_KO",
+  },
+  "PARTICLE_KUA": {
+    "en": "SF_EN_PARTICLE_KUA",
+    "mi": "SF_MI_PARTICLE_KUA",
+  },
+  "PARTICLE_TANA": {
+    "en": "SF_EN_PARTICLE_TANA",
+    "mi": "SF_MI_PARTICLE_TANA",
+  },
+  "STATE_TAHI": {
+    "en": "SF_EN_STATE_TAHI",
+    "mi": "SF_MI_STATE_TAHI",
+  },
+  "THING_RANGI": {
+    "en": "SF_EN_THING_RANGI",
+    "mi": "SF_MI_THING_RANGI",
+  },
+  "STATE_TEITEI": {
+    "en": "SF_EN_STATE_TEITEI",
+    "mi": "SF_MI_STATE_TEITEI",
+  },
+  "ACTION_MAU": {
+    "en": "SF_EN_ACTION_MAU",
+    "mi": "SF_MI_ACTION_MAU",
+  },
+  "ACTION_WHAKAKIIA": {
+    "en": "SF_EN_ACTION_WHAKAKIIA",
+    "mi": "SF_MI_ACTION_WHAKAKIIA",
+  },
+  "ACTION_PIKI": {
+    "en": "SF_EN_ACTION_PIKI",
+    "mi": "SF_MI_ACTION_PIKI",
+  },
+  "ACTION_TORO": {
+    "en": "SF_EN_ACTION_TORO",
+    "mi": "SF_MI_ACTION_TORO",
+  },
+  "PARTICLE_ATU": {
+    "en": "SF_EN_PARTICLE_ATU",
+    "mi": "SF_MI_PARTICLE_ATU",
+  },
+  "ACTION_TUPU": {
+    "en": "SF_EN_ACTION_TUPU",
+    "mi": "SF_MI_ACTION_TUPU",
+  },
+  "ACTION_TAHU": {
+    "en": "SF_EN_ACTION_TAHU",
+    "mi": "SF_MI_ACTION_TAHU",
+  },
+  "ACTION_HOROI": {
+    "en": "SF_EN_ACTION_HOROI",
+    "mi": "SF_MI_ACTION_HOROI",
+  },
+  "STATE_KAKARA": {
+    "en": "SF_EN_STATE_KAKARA",
+    "mi": "SF_MI_STATE_KAKARA",
+  },
+  "STATE_MAOA": {
+    "en": "SF_EN_STATE_MAOA",
+    "mi": "SF_MI_STATE_MAOA",
+  },
+  "ACTION_KARANGA": {
+    "en": "SF_EN_ACTION_KARANGA",
+    "mi": "SF_MI_ACTION_KARANGA",
+  },
+  "QUANTIFIER_KATOA": {
+    "en": "SF_EN_QUANTIFIER_KATOA",
+    "mi": "SF_MI_QUANTIFIER_KATOA",
+  },
+  "ACTION_TITIRO": {
+    "en": "SF_EN_ACTION_TITIRO",
+    "mi": "SF_MI_ACTION_TITIRO",
+  },
+  "ACTION_KATA": {
+    "en": "SF_EN_ACTION_KATA",
+    "mi": "SF_MI_ACTION_KATA",
+  },
+  "PARTICLE_ONA": {
+    "en": "SF_EN_PARTICLE_ONA",
+    "mi": "SF_MI_PARTICLE_ONA",
+  },
+  "THING_PAKIAKA": {
+    "en": "SF_EN_THING_PAKIAKA",
+    "mi": "SF_MI_THING_PAKIAKA",
+  },
+  "THING_KAINGA": {
+    "en": "SF_EN_THING_KAINGA",
+    "mi": "SF_MI_THING_KAINGA",
+  },
+  "DETERMINER_TO": {
+    "en": "SF_EN_DETERMINER_TO",
+    "mi": "SF_MI_DETERMINER_TO",
+  },
+  "DETERMINER_NGA": {
+    "en": "SF_EN_DETERMINER_NGA",
+    "mi": "SF_MI_DETERMINER_NGA",
+  },
+  "PHRASE_MIHI": {
+    "en": "SF_EN_PHRASE_MIHI",
+    "mi": "SF_MI_PHRASE_MIHI",
+  },
+  "POSSESSIVE_TAKU": {
+    "en": "SF_EN_POSSESSIVE_TAKU",
+    "mi": "SF_MI_POSSESSIVE_TAKU",
+  },
+  "PHRASE_WHAKAUTU": {
+    "en": "SF_EN_PHRASE_WHAKAUTU",
+    "mi": "SF_MI_PHRASE_WHAKAUTU",
   },
 };
