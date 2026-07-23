@@ -120,6 +120,11 @@ var StoryAudioResolver = (() => {
           },
         });
       } else {
+        sequence.push({
+          entity_id: null,
+          text: tokens[i],
+          audio_ref: null,
+        });
         missing.push(tokens[i]);
       }
       i++;

@@ -96,19 +96,14 @@ const Audio = (() => {
     // 2b. No entity or composition — try atomic sequence from story text
     if (typeof StoryAudioResolver !== "undefined") {
       var resolved = StoryAudioResolver.resolveSentence(text, lang);
-      if (resolved.missing.length === 0 && resolved.sequence.length > 0) {
+      if (resolved.sequence.length > 0) {
         var allRefs = [];
         var allTexts = [];
-        var allHaveAudio = true;
         resolved.sequence.forEach(function(item) {
-          if (item.audio_ref) {
-            allRefs.push(item.audio_ref);
-            allTexts.push(item.text);
-          } else {
-            allHaveAudio = false;
-          }
+          allRefs.push(item.audio_ref);
+          allTexts.push(item.text);
         });
-        if (allHaveAudio && allRefs.length > 0) {
+        if (allRefs.length > 0) {
           _playSequence(allRefs, allTexts, lang, 0, 180);
           return;
         }
@@ -171,6 +166,11 @@ const Audio = (() => {
   }
 
   function _playNativeWithCallback(audioRef, fallbackText, lang, onDone) {
+    if (!audioRef) {
+      _tryTTS(fallbackText, lang);
+      if (onDone) onDone();
+      return;
+    }
     const pkg = VOICE_PACKAGES?.[audioRef.package];
     const basePath = pkg?.base_path || "audio/";
     const fullPath = basePath + audioRef.ref;
