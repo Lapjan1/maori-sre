@@ -7,18 +7,23 @@ language-to-language pathways.
 
 ```
                  ┌─────────────┐
-                 │   SCENE     │
-                 │  (shared)   │
+                 │  EXPERIENCE │
+                 │   ENTITY    │
                  └──────┬──────┘
-                        │
           ┌─────────────┼─────────────┐
           ▼             ▼             ▼
       ENGLISH       AFRIKAANS        MĀORI
 ```
 
-Adding a new language = new spoke. No pairwise translation paths.
+This means Co-Sense is **not** `Language A → Language B`. It is:
 
-Language selector is a **renderer/view selector**, not a translation database selector.
+> **Language A ↔ Shared entity model ↔ Language B**
+
+The learner is not memorising a one-way mapping between two strings. They observe how different languages express the same represented experience.
+
+Any language can pair with any other — English↔Māori, Afrikaans↔English, Māori↔Afrikaans — because no pair has a direct translation pathway. The language selector is a **renderer/view selector**, not a translation database selector.
+
+Adding a new language = adding a new spoke. The system becomes more powerful without changing its architecture.
 
 ---
 
@@ -209,6 +214,66 @@ Left sidebar selects which set of scenes populates both panels:
 
 ---
 
+## Learner Model (future)
+
+Co-Sense tracks the learner's relationship to each entity and phrase, not
+just their current position in a curriculum.
+
+The system holds three distinct models:
+
+```
+1. WORLD / EXPERIENCE MODEL  —  shared, stable
+2. LANGUAGE MODEL            —  per-language realizations
+3. LEARNER MODEL             —  per-learner, updated by interaction
+```
+
+The learner model records how a specific learner has engaged with each
+entity across languages:
+
+```
+ENTITY: tamaiti
+
+LEARNER STATE:
+  exposures: 5
+  audio_listens: 3
+  explorations: 2
+  successful_recalls: 1
+  last_seen: 2026-07-23
+  confidence: 0.42
+```
+
+This enables a feedback loop:
+
+```
+EXPERIENCE → PRESENTATION → INTERACTION → OBSERVATION
+                                               ↓
+                                        MODEL UPDATE
+                                               ↓
+                                   NEXT PRESENTATION
+```
+
+The learner model does not require retraining a neural network — it
+updates deterministically from interaction signals (listened, clicked,
+marked, recalled). Over time it can predict which entities need
+reintroduction, at what interval, and in which language context.
+
+```
+ENTITY MODEL (stable)          LEARNER MODEL (per-learner)
+──────────────────────         ──────────────────────────
+                               ┌─────────────────────────┐
+┌─────────────────────────┐    │ tamaiti: confidence 0.42 │
+│ tamaiti                  │    │ kind:   confidence 0.85 │
+│   ├── mi: "tamaiti"     │    │ loop:   confidence 0.31 │
+│   ├── en: "child"       │    │ rivier: confidence 0.68 │
+│   └── af: "kind"        │    └─────────────────────────┘
+└─────────────────────────┘
+```
+
+The learner model is the reason Co-Sense can improve through use. The
+experience model is stable; the learner's relationship to it changes.
+
+---
+
 ## Audio Architecture
 
 Each panel plays audio independently:
@@ -219,7 +284,7 @@ Each panel plays audio independently:
 
 ---
 
-## Roadmap (revised)
+## Roadmap
 
 ### Phase 1 — Trace scenes through all three languages
 Take one scene at a time. Discover the shared representation.
@@ -237,18 +302,28 @@ to its own surface form, applying its own grammar rules.
 Add more scenes. Add more languages. The renderer is the
 interface between the shared world and each language.
 
+### Phase 5 — Learner interaction signals
+Capture view, listen, click, explore, and recall events per
+entity per learner. Store as observation history.
+
+### Phase 6 — Learner model inference
+Derive confidence scores from observation history. Predict
+which entities need reintroduction and at what interval.
+
 ---
 
 ## Future Layers (not yet built)
 
+- LEARNER MODEL: per-entity state (exposure count, confidence)
 - COMPOSITION: combine known entities into novel scenes
 - EVENT STRUCTURE: formal who-does-what-to-whom model
 - GRAMMAR RULES: per-language rendering templates
+- SPACED REPETITION: schedule reintroductions from learner model
 
 ---
 
 ## Design Principles
 
 See [`DESIGN.md`](./DESIGN.md) for the Co-Sense product design principles
-(Progressive Depth, Content/Interaction Separation, and Complexity
-Beneath the Interface).
+(Progressive Depth, Content/Interaction Separation, Complexity
+Beneath the Interface, and The Interface Exposes the Data Model).
