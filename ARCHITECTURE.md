@@ -239,8 +239,27 @@ LEARNER STATE:
   explorations: 2
   successful_recalls: 1
   last_seen: 2026-07-23
-  confidence: 0.42
 ```
+
+The learner model is **not a single confidence score**. Learning is
+multi-dimensional — the same entity can be mastered in one direction
+and weak in another:
+
+```
+ENTITY: tamaiti
+
+                    English    Afrikaans    Māori
+visual recog        high       high         high
+audio recog         high       medium       low
+production          low        low          low
+cross-pair recall   EN→MI:med  AF→MI:low
+sentence comp.      —          —            low
+```
+
+This means the learner model stores **state estimates per entity per
+language per skill dimension**, not a scalar mastery value. The shared
+entity model is the natural reference point — each language's
+realization can be independently weak or strong.
 
 This enables a feedback loop:
 
