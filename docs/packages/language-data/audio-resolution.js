@@ -85,10 +85,85 @@ var AudioResolution = (function() {
     return counts;
   }
 
+  /**
+   * Gain analysis: for each missing atomic word, compute how acquiring it
+   * would move compositions through the resolution tiers.
+   *
+   * Metrics per word:
+   *   usedIn          — total compositions that reference this entity
+   *   createsPartial  — TTS→partial: compositions currently at TTS that
+   *                     would become partial (at least one component resolves)
+   *   becomesComplete — partial/tts→composed: compositions where this word
+   *                     is the only remaining missing component
+   *
+   * Priority order: becomesComplete > createsPartial > usedIn
+   *
+   * @param {string} lang
+   * @returns {Array<{entity_id:string, word:string, usedIn:number, createsPartial:number, becomesComplete:number}>}
+   */
+  function gainAnalysis(lang) {
+    if (typeof PhraseComposer === "undefined" || typeof SURFACE_FORMS === "undefined") {
+      return [];
+    }
+
+    var allCompositions = PhraseComposer.list();
+    var index = {};
+
+    allCompositions.forEach(function(phraseId) {
+      var comps = PhraseComposer.getComponents(phraseId);
+      var phraseStatus = status(phraseId, lang);
+      if (phraseStatus === "composed" || phraseStatus === "direct") return;
+
+      comps.forEach(function(compEntityId) {
+        var compStatus = status(compEntityId, lang);
+        if (compStatus !== "tts") return;
+
+        if (!index[compEntityId]) {
+          var sf = _getSurfaceForm(compEntityId, lang);
+          index[compEntityId] = {
+            entity_id: compEntityId,
+            word: sf ? sf.text : compEntityId,
+            usedIn: 0,
+            createsPartial: 0,
+            becomesComplete: 0,
+          };
+        }
+
+        index[compEntityId].usedIn++;
+
+        var otherMissing = comps.filter(function(e) {
+          return e !== compEntityId && status(e, lang) === "tts";
+        });
+
+        if (phraseStatus === "partial") {
+          if (otherMissing.length === 0) {
+            index[compEntityId].becomesComplete++;
+          }
+        } else {
+          // TTS → if we resolve this, at least we create a partial
+          index[compEntityId].createsPartial++;
+          if (otherMissing.length === 0) {
+            // Only component — moves directly to composed
+            index[compEntityId].becomesComplete++;
+          }
+        }
+      });
+    });
+
+    var arr = Object.keys(index).map(function(k) { return index[k]; });
+    arr.sort(function(a, b) {
+      return b.becomesComplete - a.becomesComplete
+          || b.createsPartial - a.createsPartial
+          || b.usedIn - a.usedIn;
+    });
+    return arr;
+  }
+
   return {
     status: status,
     playable: playable,
     coverage: coverage,
+    gainAnalysis: gainAnalysis,
   };
 })();
 

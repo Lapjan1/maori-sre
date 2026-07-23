@@ -20,16 +20,33 @@
  * matches against existing atomic recordings, and prioritizes by reuse.
  */
 var PhraseComposer = (() => {
+  function _isPlayable(audioRef) {
+    if (!audioRef || !audioRef.contribution_id) return true;
+    if (typeof CONTRIBUTIONS === "undefined") return true;
+    return CONTRIBUTIONS.isRefPlayable(audioRef);
+  }
+
   var COMPOSITIONS = {
     PHRASE_WATER_PLEASE: ["THING_WAI", "STATE_010"],
     PHRASE_THANK_FOOD: ["THING_KAI"],
     PHRASE_GOODBYE_LEAVE: ["ACTION_016"],
-    PHRASE_NOHO_MAI: ["ACTION_016"],
-    PHRASE_WELCOME: ["ACTION_HAERE"],
+    PHRASE_NOHO_MAI: ["ACTION_016", "PARTICLE_MAI"],
+    PHRASE_WELCOME: ["ACTION_HAERE", "PARTICLE_MAI"],
     PHRASE_GOODBYE_STAY: ["ACTION_HAERE"],
     PHRASE_BEAUTIFUL_HOUSE: ["THING_WHARE", "STATE_ATAHUA"],
     PHRASE_HUNGRY: ["STATE_HIAKAI"],
-    PHRASE_WILL_RETURN: ["ACTION_HOKI"],
+    PHRASE_WILL_RETURN: ["ACTION_HOKI", "PARTICLE_MAI"],
+    PHRASE_MY_NAME: ["POSSESSIVE_TOKU", "CONCEPT_INGOA"],
+    PHRASE_THIRSTY: ["STATE_MATEWAI"],
+    PHRASE_BE_STRONG: ["PARTICLE_KIA", "STATE_KAHA"],
+    PHRASE_KIA_ORA: ["PARTICLE_KIA", "STATE_ORA"],
+    PHRASE_HOW_ARE_YOU: ["PARTICLE_KEI", "PARTICLE_TE", "STATE_PEHEA", "PERSON_KOE"],
+    PHRASE_I_AM_WELL: ["PARTICLE_KEI", "PARTICLE_TE", "STATE_PAI"],
+    PHRASE_WHERE_FROM: ["PARTICLE_NO", "CONCEPT_HEA"],
+    PHRASE_FROM_SA: ["PLACE_AWHERIKA", "PARTICLE_KI", "PARTICLE_TE", "PLACE_TONGA"],
+    PHRASE_GREET_ALL: ["DETERMINER_TENA", "PERSON_KOUTOU"],
+    PHRASE_DELICIOUS: ["PARTICLE_HE", "STATE_REKA"],
+    STATE_002: ["NEGATION_KORE", "STATE_MATEWAI"],
   };
 
   function hasComposition(entityId) {
@@ -53,7 +70,7 @@ var PhraseComposer = (() => {
       var sf = SURFACE_FORMS[sfId];
       if (!sf) return;
       var refs = sf.pronunciation && sf.pronunciation.audio_refs ? sf.pronunciation.audio_refs : [];
-      var nonTts = refs.filter(function(r) { return r.quality !== "tts"; });
+      var nonTts = refs.filter(function(r) { return r.quality !== "tts" && _isPlayable(r); });
       if (nonTts.length === 0) return;
       result.push({
         entity_id: compEntityId,
@@ -81,7 +98,7 @@ var PhraseComposer = (() => {
       // Only single words (no spaces), no multi-word compounds
       if (text.indexOf(" ") !== -1) return;
       var refs = sf.pronunciation && sf.pronunciation.audio_refs ? sf.pronunciation.audio_refs : [];
-      var hasAudio = refs.some(function(r) { return r.quality !== "tts"; });
+      var hasAudio = refs.some(function(r) { return r.quality !== "tts" && _isPlayable(r); });
       if (!hasAudio) return;
       vocab[text.toLowerCase()] = {
         entity_id: sf.entity_id,
@@ -129,7 +146,7 @@ var PhraseComposer = (() => {
     Object.values(SURFACE_FORMS).forEach(function(sf) {
       if (sf.lang !== lang) return;
       var refs = sf.pronunciation && sf.pronunciation.audio_refs ? sf.pronunciation.audio_refs : [];
-      var hasAudio = refs.some(function(r) { return r.quality !== "tts"; });
+      var hasAudio = refs.some(function(r) { return r.quality !== "tts" && _isPlayable(r); });
       if (!hasAudio) {
         missingSfs.push(sf);
       }
@@ -187,7 +204,7 @@ var PhraseComposer = (() => {
     var total = missingSfs.length + (Object.values(SURFACE_FORMS).filter(function(sf) {
       if (sf.lang !== lang) return false;
       var refs = sf.pronunciation && sf.pronunciation.audio_refs ? sf.pronunciation.audio_refs : [];
-      return refs.some(function(r) { return r.quality !== "tts"; });
+      return refs.some(function(r) { return r.quality !== "tts" && _isPlayable(r); });
     }).length);
 
     // Count how many missing phrases can be at least partially composed
@@ -225,7 +242,7 @@ var PhraseComposer = (() => {
       if (sf.lang !== lang) return;
       total++;
       var refs = sf.pronunciation && sf.pronunciation.audio_refs ? sf.pronunciation.audio_refs : [];
-      var hasAudio = refs.some(function(r) { return r.quality !== "tts"; });
+      var hasAudio = refs.some(function(r) { return r.quality !== "tts" && _isPlayable(r); });
       if (hasAudio) {
         direct++;
       } else if (hasComposition(sf.entity_id)) {

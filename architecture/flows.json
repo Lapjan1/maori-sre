@@ -124,15 +124,26 @@
     {
       "id": "deployment",
       "name": "GitHub Pages Deployment",
-      "description": "How the app is deployed and served via GitHub Pages",
+      "description": "Automated deploy transform: copies source to docs/ and rewrites paths for the GitHub Pages environment",
+      "script": "deploy-river-world.ps1",
       "steps": [
-        { "order": 1, "action": "Push to main branch on GitHub", "component": "human" },
-        { "order": 2, "action": "GitHub Pages serves from docs/ directory", "component": "GitHub" },
-        { "order": 3, "action": "index.html loads runtime JS files from docs/ top-level", "component": "browser" },
-        { "order": 4, "action": "Additional package files loaded from docs/packages/language-data/", "component": "browser" },
-        { "order": 5, "action": "Audio files served from docs/voices/", "component": "browser" }
+        { "order": 1, "action": "Run deploy-river-world.ps1", "component": "deploy-script" },
+        { "order": 2, "action": "Copy app assets from apps/river-world/ to docs/", "component": "deploy-script" },
+        { "order": 3, "action": "Copy shared packages from packages/language-data/ to docs/packages/language-data/", "component": "deploy-script" },
+        { "order": 4, "action": "Copy voice-contrib from apps/voice-contrib/ to docs/voice-contrib/", "component": "deploy-script" },
+        { "order": 5, "action": "Rewrite dev-relative paths (../../packages/) to deployment paths", "component": "deploy-script" },
+        { "order": 6, "action": "Validate every referenced script asset exists on disk", "component": "deploy-script" },
+        { "order": 7, "action": "Fail if any ../../packages/ paths remain in deployed HTML", "component": "deploy-script" },
+        { "order": 8, "action": "GitHub Pages serves from docs/ directory", "component": "GitHub" },
+        { "order": 9, "action": "index.html loads runtime JS files from docs/ top-level", "component": "browser" },
+        { "order": 10, "action": "Additional package files loaded from docs/packages/language-data/", "component": "browser" },
+        { "order": 11, "action": "Audio files served from docs/voices/", "component": "browser" }
       ],
-      "note": "Script paths must be relative to GitHub Pages site root (/maori-sre/), not repo root"
+      "validation": {
+        "forbidden_pattern": "../../packages/",
+        "check": "Every <script src=\"...\"> resolves to an existing file in docs/"
+      },
+      "note": "SOURCE TREE ≠ DEPLOYMENT TREE. apps/river-world/ uses ../../packages/ (local dev). docs/ must use packages/ (site root relative). The deploy script enforces this transformation."
     }
   ]
 }

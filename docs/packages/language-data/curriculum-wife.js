@@ -21,7 +21,7 @@ var CORE_20 = [
       {"id": "PHRASE_KIA_ORA", "category": "PHRASE", "label": {"default": "kia ora", "mi": "kia ora", "en": "hello / thank you", "af": "hallo / dankie"}}
     ],
     "phrase_id": "VISIT_KIA_ORA",
-    "situation": "Your family greets you at the airport. They smile and say 'Kia ora!'"
+    "situation": {"en": "Your family greets you at the airport. They smile and say 'Kia ora!'", "af": "Jou familie groet jou by die lughawe. Hulle glimlag en sê 'Kia ora!'"}
   },
   {
     "id": "WIFE_002",
@@ -37,7 +37,7 @@ var CORE_20 = [
       {"id": "PHRASE_HOW_ARE_YOU", "category": "PHRASE", "label": {"default": "kei te pēhea koe", "mi": "Kei te pēhea koe?", "en": "How are you?", "af": "Hoe gaan dit?"}}
     ],
     "phrase_id": "VISIT_HOW_ARE_YOU",
-    "situation": "Your partner's mother hugs you and asks 'Kei te pēhea koe?'"
+    "situation": {"en": "Your partner's mother hugs you and asks 'Kei te pēhea koe?'", "af": "Jou maat se ma omhels jou en vra 'Kei te pēhea koe?'"}
   },
   {
     "id": "WIFE_003",
@@ -53,7 +53,7 @@ var CORE_20 = [
       {"id": "PHRASE_I_AM_WELL", "category": "PHRASE", "label": {"default": "kei te pai", "mi": "Kei te pai", "en": "I am well", "af": "Dit gaan goed"}}
     ],
     "phrase_id": "VISIT_I_AM_WELL",
-    "situation": "Your family asks how you are after the long flight."
+    "situation": {"en": "Your family asks how you are after the long flight.", "af": "Jou familie vra hoe dit gaan na die lang vlug."}
   },
   {
     "id": "WIFE_004",
@@ -69,7 +69,7 @@ var CORE_20 = [
       {"id": "PHRASE_WELCOME", "category": "PHRASE", "label": {"default": "haere mai", "mi": "Haere mai", "en": "Welcome / come here", "af": "Welkom / kom hier"}}
     ],
     "phrase_id": "VISIT_WELCOME",
-    "situation": "You arrive at the family home. Everyone says 'Haere mai!'"
+    "situation": {"en": "You arrive at the family home. Everyone says 'Haere mai!'", "af": "Jy kom by die familiehuis aan. Almal sê 'Haere mai!'"}
   },
   {
     "id": "WIFE_005",
@@ -86,13 +86,13 @@ var CORE_20 = [
       {"id": "CONCEPT_INGOA", "category": "CONCEPT", "label": {"default": "name", "mi": "ingoa", "en": "name", "af": "naam"}}
     ],
     "phrase_id": "VISIT_MY_NAME",
-    "situation": "Your partner introduces you to their grandmother. She looks at you expectantly."
+    "situation": {"en": "Your partner introduces you to their grandmother. She looks at you expectantly.", "af": "Jou maat stel jou aan hul ouma voor. Sy kyk verwagtend na jou."}
   },
   {
     "id": "WIFE_006",
     "type": "practice",
     "level": 1,
-    "title": {"en": "Ask Where From", "mi": "Nō hea koe?", "af": "Vra waar vandaan"},
+    "title": {"en": "Ask Where From", "mi": "Nō hea koe?", "af": "Van waar af kom jy?"},
     "content": {
       "en": "Ask someone where they are from. A common conversation starter.\n\nNō hea koe?",
       "mi": "Pātai atu ki te tangata nō hea ia. He kōrero whakataki tēnei.\n\nNō hea koe?",
@@ -102,7 +102,7 @@ var CORE_20 = [
       {"id": "PHRASE_WHERE_FROM", "category": "PHRASE", "label": {"default": "nō hea", "mi": "Nō hea", "en": "Where from?", "af": "Waarvandaan?"}}
     ],
     "phrase_id": "VISIT_WHERE_FROM",
-    "situation": "At the family dinner, someone asks 'Nō hea koe?'"
+    "situation": {"en": "At the family dinner, someone asks 'Nō hea koe?'", "af": "By die familie-ete vra iemand 'Nō hea koe?'"}
   },
   {
     "id": "WIFE_007",
@@ -118,7 +118,7 @@ var CORE_20 = [
       {"id": "PHRASE_FROM_SA", "category": "PHRASE", "label": {"default": "Āwherika ki te Tonga", "mi": "Āwherika ki te Tonga", "en": "South Africa", "af": "Suid-Afrika"}}
     ],
     "phrase_id": "VISIT_FROM_SA",
-    "situation": "When you say you are from South Africa, people will be interested."
+    "situation": {"en": "When you say you are from South Africa, people will be interested.", "af": "Wanneer jy sê jy is van Suid-Afrika, sal mense belangstel."}
   },
   {
     "id": "WIFE_008",
@@ -134,7 +134,7 @@ var CORE_20 = [
       {"id": "PHRASE_GREET_ALL", "category": "PHRASE", "label": {"default": "tēnā koutou", "mi": "Tēnā koutou", "en": "Greetings all", "af": "Groete aan almal"}}
     ],
     "phrase_id": "VISIT_GREET_ALL",
-    "situation": "You walk into a room full of extended family. All eyes turn to you."
+    "situation": {"en": "You walk into a room full of extended family. All eyes turn to you.", "af": "Jy loop 'n kamer vol familie binne. Almal se oë draai na jou."}
   },
   {
     "id": "WIFE_009",
@@ -150,7 +150,7 @@ var CORE_20 = [
       {"id": "PHRASE_WHERE_BATHROOM", "category": "PHRASE", "label": {"default": "wharepaku", "mi": "wharepaku", "en": "bathroom", "af": "badkamer"}}
     ],
     "phrase_id": "VISIT_WHERE_BATHROOM",
-    "situation": "You have just arrived at the house after a long journey. You need the bathroom."
+    "situation": {"en": "You have just arrived at the house after a long journey. You need the bathroom.", "af": "Jy het pas by die huis aangekom na 'n lang reis. Jy moet badkamer toe."}
   },
   {
     "id": "WIFE_010",
@@ -166,7 +166,7 @@ var CORE_20 = [
       {"id": "PHRASE_NOHO_MAI", "category": "PHRASE", "label": {"default": "noho mai", "mi": "Noho mai", "en": "Please sit / stay", "af": "Sit gerus / bly"}}
     ],
     "phrase_id": "VISIT_PLEASE_SIT",
-    "situation": "Your host shows you to the living room and gestures to the couch."
+    "situation": {"en": "Your host shows you to the living room and gestures to the couch.", "af": "Jou gasheer wys jou na die sitkamer en wys na die bank."}
   },
   {
     "id": "WIFE_011",
@@ -183,7 +183,7 @@ var CORE_20 = [
       {"id": "STATE_HIAKAI", "category": "STATE", "label": {"default": "hungry", "mi": "hiakai", "en": "hungry", "af": "honger"}}
     ],
     "phrase_id": "VISIT_HUNGRY",
-    "situation": "The family is preparing food. The kitchen smells amazing."
+    "situation": {"en": "The family is preparing food. The kitchen smells amazing.", "af": "Die familie berei kos voor. Die kombuis ruik wonderlik."}
   },
   {
     "id": "WIFE_012",
@@ -200,7 +200,7 @@ var CORE_20 = [
       {"id": "STATE_MATEWAI", "category": "STATE", "label": {"default": "thirsty", "mi": "matewai", "en": "thirsty", "af": "dors"}}
     ],
     "phrase_id": "VISIT_THIRSTY",
-    "situation": "It has been a long day of travel. You are thirsty."
+    "situation": {"en": "It has been a long day of travel. You are thirsty.", "af": "Dit was 'n lang dag van reis. Jy is dors."}
   },
   {
     "id": "WIFE_013",
@@ -217,7 +217,7 @@ var CORE_20 = [
       {"id": "THING_WAI", "category": "THING", "label": {"default": "water", "mi": "wai", "en": "water", "af": "water"}}
     ],
     "phrase_id": "VISIT_WATER_PLEASE",
-    "situation": "You sit down at the table. There is food but you would like a drink."
+    "situation": {"en": "You sit down at the table. There is food but you would like a drink.", "af": "Jy sit by die tafel. Daar is kos, maar jy wil graag 'n drankie hê."}
   },
   {
     "id": "WIFE_014",
@@ -234,7 +234,7 @@ var CORE_20 = [
       {"id": "THING_KAI", "category": "THING", "label": {"default": "food", "mi": "kai", "en": "food", "af": "kos"}}
     ],
     "phrase_id": "VISIT_THANK_FOOD",
-    "situation": "A beautiful meal is served. The family looks at you before they start eating."
+    "situation": {"en": "A beautiful meal is served. The family looks at you before they start eating.", "af": "'n Pragtige maaltyd word bedien. Die familie kyk na jou voordat hulle begin eet."}
   },
   {
     "id": "WIFE_015",
@@ -250,7 +250,7 @@ var CORE_20 = [
       {"id": "PHRASE_GOODBYE_STAY", "category": "PHRASE", "label": {"default": "haere rā", "mi": "Haere rā", "en": "Goodbye (to those staying)", "af": "Totsiens"}}
     ],
     "phrase_id": "VISIT_GOODBYE_STAY",
-    "situation": "You are getting in the car to leave. Your family stands at the door waving."
+    "situation": {"en": "You are getting in the car to leave. Your family stands at the door waving.", "af": "Jy klim in die kar om te vertrek. Jou familie staan by die deur en wuiwe."}
   },
   {
     "id": "WIFE_016",
@@ -266,41 +266,41 @@ var CORE_20 = [
       {"id": "PHRASE_GOODBYE_LEAVE", "category": "PHRASE", "label": {"default": "e noho rā", "mi": "E noho rā", "en": "Goodbye (to those leaving)", "af": "Totsiens"}}
     ],
     "phrase_id": "VISIT_GOODBYE_LEAVE",
-    "situation": "Your family says 'Haere rā' as you drive away. You want to respond."
+    "situation": {"en": "Your family says 'Haere rā' as you drive away. You want to respond.", "af": "Jou familie sê 'Haere rā' terwyl jy wegry. Jy wil antwoord."}
   },
   {
     "id": "WIFE_017",
     "type": "practice",
     "level": 1,
-    "title": {"en": "I Will Return", "mi": "Ka hoki mai au", "af": "Ek sal terugkom"},
+    "title": {"en": "I Will Return", "mi": "Ka hoki mai au", "af": "Ek sal weer kom"},
     "content": {
       "en": "Promise your family you will come back. This is meaningful in Māori culture.\n\nKa hoki mai au.",
       "mi": "Oati atu ki tō whānau ka hoki mai koe. He mea nui tēnei i roto i te ahurea Māori.\n\nKa hoki mai au.",
-      "af": "Belowe jou familie jy sal terugkom. Dit is betekenisvol in Māori-kultuur.\n\nKa hoki mai au."
+      "af": "Belowe jou familie jy sal weer kom. Dit is betekenisvol in Māori-kultuur.\n\nKa hoki mai au."
     },
     "entities": [
       {"id": "PHRASE_WILL_RETURN", "category": "PHRASE", "label": {"default": "hoki mai", "mi": "hoki mai", "en": "return", "af": "terugkom"}},
       {"id": "ACTION_HOKI", "category": "ACTION", "label": {"default": "return", "mi": "hoki mai", "en": "return", "af": "terugkom"}}
     ],
     "phrase_id": "VISIT_WILL_RETURN",
-    "situation": "You are saying goodbye and want them to know you will visit again."
+    "situation": {"en": "You are saying goodbye and want them to know you will visit again.", "af": "Jy sê totsiens en wil hê hulle moet weet jy sal weer kom kuier."}
   },
   {
     "id": "WIFE_018",
     "type": "practice",
     "level": 1,
-    "title": {"en": "Be Strong", "mi": "Kia kaha", "af": "Wees sterk"},
+    "title": {"en": "Be Strong", "mi": "Kia kaha", "af": "Hou moed"},
     "content": {
       "en": "A powerful Māori saying meaning 'be strong', 'stay well', 'keep going'. Use it when parting.\n\nKia kaha.",
       "mi": "He kīanga Māori kaha: kia kaha, kia noho pai, kia haere tonu. Whakamahia ina wehe.\n\nKia kaha.",
-      "af": "'n Kragtige Māori-uitspraak wat beteken 'wees sterk', 'bly wel', 'hou aan'. Gebruik dit wanneer julle afskeid neem.\n\nKia kaha."
+      "af": "'n Kragtige Māori-uitspraak wat beteken 'hou moed', 'bly wel', 'hou aan'. Gebruik dit wanneer julle afskeid neem.\n\nKia kaha."
     },
     "entities": [
       {"id": "PHRASE_BE_STRONG", "category": "PHRASE", "label": {"default": "kia kaha", "mi": "Kia kaha", "en": "Be strong", "af": "Wees sterk"}},
       {"id": "STATE_KAHA", "category": "STATE", "label": {"default": "strong", "mi": "kaha", "en": "strong", "af": "sterk"}}
     ],
     "phrase_id": "VISIT_BE_STRONG",
-    "situation": "Your family hugs you goodbye. Your mother-in-law says 'Kia kaha'."
+    "situation": {"en": "Your family hugs you goodbye. Your mother-in-law says 'Kia kaha'.", "af": "Jou familie omhels jou totsiens. Jou skoonma sê 'Kia kaha'."}
   },
   {
     "id": "WIFE_019",
@@ -316,7 +316,7 @@ var CORE_20 = [
       {"id": "PHRASE_DELICIOUS", "category": "PHRASE", "label": {"default": "he reka", "mi": "He reka", "en": "It is delicious", "af": "Dit is heerlik"}}
     ],
     "phrase_id": "VISIT_DELICIOUS",
-    "situation": "You take your first bite of the meal. It tastes amazing and the cook is watching."
+    "situation": {"en": "You take your first bite of the meal. It tastes amazing and the cook is watching.", "af": "Jy neem jou eerste hap van die maaltyd. Dit smaak wonderlik en die kok kyk."}
   },
   {
     "id": "WIFE_020",
@@ -334,6 +334,6 @@ var CORE_20 = [
       {"id": "STATE_ATAHUA", "category": "STATE", "label": {"default": "beautiful", "mi": "ātaahua", "en": "beautiful", "af": "pragtig"}}
     ],
     "phrase_id": "VISIT_BEAUTIFUL_HOUSE",
-    "situation": "Your hosts show you around their home. It is warm and welcoming."
+    "situation": {"en": "Your hosts show you around their home. It is warm and welcoming.", "af": "Jou gashere wys jou rond in hulle huis."}
   }
 ];

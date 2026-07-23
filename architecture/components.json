@@ -274,6 +274,26 @@
       "consumed_by": []
     },
     {
+      "id": "deploy-script",
+      "type": "script",
+      "file": "deploy-river-world.ps1",
+      "purpose": "Canonical deploy transform: copies source from apps/ to docs/ and rewrites paths for GitHub Pages environment",
+      "steps": [
+        "Copy app assets from apps/river-world/ to docs/",
+        "Copy shared packages from packages/language-data/ to docs/packages/language-data/",
+        "Copy voice-contrib from apps/voice-contrib/ to docs/voice-contrib/",
+        "Rewrite ../../packages/ to packages/ (or ../packages/ for voice-contrib)",
+        "Validate every <script src=\"...\"> resolves to an existing file",
+        "Fail if any ../../packages/ paths remain in deployed HTML"
+      ],
+      "validation": {
+        "forbidden_pattern": "../../packages/",
+        "check": "Every referenced script asset must exist on disk after transform"
+      },
+      "depends_on": ["app-river-world", "audio-runtime", "index-html-river-world", "index-html-voice-contrib"],
+      "consumed_by": []
+    },
+    {
       "id": "debug-prior-coverage",
       "type": "script",
       "file": "scripts/debug-prior-coverage.js",

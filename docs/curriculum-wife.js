@@ -83,6 +83,7 @@ var CORE_20 = [
     },
     "entities": [
       {"id": "PHRASE_MY_NAME", "category": "PHRASE", "label": {"default": "tōku ingoa", "mi": "tōku ingoa", "en": "my name", "af": "my naam"}},
+      {"id": "POSSESSIVE_TOKU", "category": "POSSESSIVE", "label": {"default": "tōku — my (dominant)", "mi": "tōku", "en": "my (dominant)", "af": "my (dominant)"}},
       {"id": "CONCEPT_INGOA", "category": "CONCEPT", "label": {"default": "name", "mi": "ingoa", "en": "name", "af": "naam"}}
     ],
     "phrase_id": "VISIT_MY_NAME",
@@ -280,7 +281,8 @@ var CORE_20 = [
     },
     "entities": [
       {"id": "PHRASE_WILL_RETURN", "category": "PHRASE", "label": {"default": "hoki mai", "mi": "hoki mai", "en": "return", "af": "terugkom"}},
-      {"id": "ACTION_HOKI", "category": "ACTION", "label": {"default": "return", "mi": "hoki mai", "en": "return", "af": "terugkom"}}
+      {"id": "ACTION_HOKI", "category": "ACTION", "label": {"default": "return", "mi": "hoki mai", "en": "return", "af": "terugkom"}},
+      {"id": "PARTICLE_MAI", "category": "PARTICLE", "label": {"default": "mai — towards / here", "mi": "mai", "en": "towards / here", "af": "heen / hier"}}
     ],
     "phrase_id": "VISIT_WILL_RETURN",
     "situation": {"en": "You are saying goodbye and want them to know you will visit again.", "af": "Jy sê totsiens en wil hê hulle moet weet jy sal weer kom kuier."}
@@ -297,6 +299,7 @@ var CORE_20 = [
     },
     "entities": [
       {"id": "PHRASE_BE_STRONG", "category": "PHRASE", "label": {"default": "kia kaha", "mi": "Kia kaha", "en": "Be strong", "af": "Wees sterk"}},
+      {"id": "PARTICLE_KIA", "category": "PARTICLE", "label": {"default": "kia — imperative", "mi": "kia", "en": "imperative particle", "af": "gebiedende wyse"}},
       {"id": "STATE_KAHA", "category": "STATE", "label": {"default": "strong", "mi": "kaha", "en": "strong", "af": "sterk"}}
     ],
     "phrase_id": "VISIT_BE_STRONG",

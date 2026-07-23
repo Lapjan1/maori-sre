@@ -68,6 +68,33 @@
     </div>
 
     <div class="vg-section">
+      <h2>Gain Analysis — Closing Partial Compositions</h2>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem;">
+        Each missing atomic word that belongs to a composition is ranked by:
+        <strong>becomes complete</strong> (directly completes a phrase),
+        <strong>creates partial</strong> (turns a TTS phrase into partial composition),
+        and <strong>used in</strong> (total compositions).
+        Words that <strong>become complete</strong> are the highest priority —
+        they are the only missing component in a partially-composed phrase.
+      </p>
+      <div class="vg-table-wrap">
+        <table class="vg-table">
+          <thead>
+            <tr>
+              <th>Word</th>
+              <th>Entity</th>
+              <th>Used In</th>
+              <th>Creates Partial</th>
+              <th>Becomes Complete</th>
+              <th>Priority</th>
+            </tr>
+          </thead>
+          <tbody id="gain-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="vg-section">
       <h2>Missing Phrases — Word-Level Breakdown</h2>
       <div class="vg-table-wrap">
         <table class="vg-table">
@@ -85,14 +112,16 @@
     </div>
   </div>
 
+  <script src="../packages/language-data/contributions.js"></script>
   <script src="../packages/language-data/phrase-composer.js"></script>
+  <script src="../packages/language-data/audio-resolution.js"></script>
   <script src="../packages/language-data/surface_forms.js"></script>
   <script src="../packages/language-data/experiences.js"></script>
   <script src="../packages/language-data/curriculum-wife.js"></script>
   <script>
     function render() {
       var analysis = PhraseComposer.vocabularyGap("mi");
-      var coverage = PhraseComposer.compositionCoverage("mi");
+      var coverage = AudioResolution.coverage("mi");
       var s = analysis.stats;
       var c = coverage;
 
@@ -127,6 +156,34 @@
         });
         html += '</ol>';
         priorityEl.innerHTML = html;
+      }
+
+      // Gain analysis
+      var gain = AudioResolution.gainAnalysis("mi");
+      var gainBody = document.getElementById("gain-table-body");
+      if (gain.length === 0) {
+        gainBody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;color:var(--muted);">Every composition is either fully composed or has no playable components at all — no partial transitions available.</td></tr>';
+      } else {
+        var gainHtml = "";
+        gain.forEach(function(g) {
+          var priorityIcon;
+          if (g.becomesComplete > 0) {
+            priorityIcon = '<span class="badge badge-avail">★ Complete</span>';
+          } else if (g.createsPartial > 0) {
+            priorityIcon = '<span class="badge badge-partial">⬆ Partial</span>';
+          } else {
+            priorityIcon = '<span class="badge badge-missing">TTS</span>';
+          }
+          gainHtml += "<tr>"
+            + "<td><strong>" + g.word + "</strong></td>"
+            + "<td><code>" + g.entity_id + "</code></td>"
+            + "<td>" + g.usedIn + "</td>"
+            + "<td>" + g.createsPartial + "</td>"
+            + "<td>" + (g.becomesComplete > 0 ? '<span class="tier-composed" style="font-weight:bold">+' + g.becomesComplete + '</span>' : "0") + "</td>"
+            + "<td>" + priorityIcon + "</td>"
+            + "</tr>";
+        });
+        gainBody.innerHTML = gainHtml;
       }
 
       // Gap table
