@@ -153,11 +153,6 @@ const App = (() => {
     const sentences = content.split("\n").map((s) => s.trim()).filter((s) => s.length > 0);
     const hasAudio = "speechSynthesis" in window;
     const langName = { en: "English", mi: "Māori", af: "Afrikaans" }[lang] || lang;
-    const phraseEntityId = (exp.entities || []).reduce(function(acc, e) {
-      if (acc) return acc;
-      var id = e.entity_id || e.id;
-      return (typeof PhraseComposer !== "undefined" && PhraseComposer.hasComposition(id)) ? id : null;
-    }, null);
 
     return `
       <div class="panel panel-top">
@@ -165,7 +160,7 @@ const App = (() => {
           <span class="panel-lang">${langName}</span>
           <div class="panel-audio-bar">
             ${hasAudio ? sentences.map((s, i) =>
-              `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-entity-id="${i === sentences.length - 1 && phraseEntityId ? _escape(phraseEntityId) : ""}" data-phrase-id="${i === sentences.length - 1 ? _escape(exp.phrase_id || "") : ""}" data-paragraph-id="${_escape(exp.id || exp.phrase_id || "")}" title="Listen">\u25B6 ${i === sentences.length - 1 ? "Native" : "Listen"}</button>`
+              `<button class="btn-audio" data-text="${_escape(s)}" data-lang="${lang}" data-phrase-id="${i === sentences.length - 1 ? _escape(exp.phrase_id || "") : ""}" data-paragraph-id="${_escape(exp.id || exp.phrase_id || "")}" title="Listen">\u25B6 ${i === sentences.length - 1 ? "Native" : "Listen"}</button>`
             ).join("") : ""}
           </div>
         </div>
@@ -225,11 +220,6 @@ const App = (() => {
     const hasAudio = "speechSynthesis" in window;
     const langNameA = { en: "English", mi: "Māori", af: "Afrikaans" }[langA] || langA;
     const langNameB = { en: "English", mi: "Māori", af: "Afrikaans" }[langB] || langB;
-    const phraseEntityId = (exp.entities || []).reduce(function(acc, e) {
-      if (acc) return acc;
-      var id = e.entity_id || e.id;
-      return (typeof PhraseComposer !== "undefined" && PhraseComposer.hasComposition(id)) ? id : null;
-    }, null);
     const linesA = contentA.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
     const linesB = contentB.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
     const keyTextA = linesA[linesA.length - 1] || contentA;
@@ -243,10 +233,10 @@ const App = (() => {
           <span class="panel-lang">${langNameA} &middot; ${langNameB}</span>
           <div class="panel-audio-bar">
             ${hasAudio
-              ? `<button class="btn-audio" data-text="${_escape(displayTextA)}" data-lang="${langA}" data-entity-id="${phraseEntityId ? _escape(phraseEntityId) : ""}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameA}</button>`
+              ? `<button class="btn-audio" data-text="${_escape(displayTextA)}" data-lang="${langA}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameA}</button>`
               : ""}
             ${hasAudio
-              ? `<button class="btn-audio" data-text="${_escape(displayTextB)}" data-lang="${langB}" data-entity-id="${phraseEntityId ? _escape(phraseEntityId) : ""}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameB}</button>`
+              ? `<button class="btn-audio" data-text="${_escape(displayTextB)}" data-lang="${langB}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen">\u25B6 ${langNameB}</button>`
               : ""}
             ${hasAudio
               ? `<button class="btn-audio-seq" data-langa="${langA}" data-langb="${langB}" data-texta="${_escape(displayTextA)}" data-textb="${_escape(displayTextB)}" data-phrase-id="${_escape(exp.phrase_id || "")}" title="Listen to both">\u25B6 Both</button>`
