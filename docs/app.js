@@ -400,6 +400,8 @@ const App = (() => {
     html += `</div>`;
     html += `<hr class="sidebar-divider">`;
     html += `<button class="sidebar-review ${_reviewMode ? "active" : ""}" data-action="review">Pass 1 Review</button>`;
+    html += `<button class="sidebar-help" data-action="help">Help</button>`;
+    html += `<button class="sidebar-about" data-action="about">About</button>`;
     container.innerHTML = html;
   }
 
@@ -648,6 +650,53 @@ const App = (() => {
     return sfId ? SURFACE_FORMS[sfId] : null;
   }
 
+  // --- Help / About ---
+
+  function _showHelp() {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("help-content").innerHTML = `
+      <h2>How to Use Co-Sense</h2>
+
+      <h3>Navigating Lessons</h3>
+      <p>Open the sidebar <button style="font-size:.7rem;padding:1px 6px;background:#eee;border:1px solid #ccc;border-radius:3px;">&#9776;</button> at top-left to browse all experiences. Use <b>Previous</b> and <b>Next</b> buttons at the bottom of each lesson. Switch between <b>River World</b> and <b>Wife's Core 20</b> curricula at the top of the sidebar.</p>
+
+      <h3>Languages</h3>
+      <p>Use the top bar to choose languages for the <b>top panel</b> (words with breakdowns) and <b>parallel panel</b> (side-by-side text). Click the swap button (&#8646;) to exchange them. Your selections are saved automatically.</p>
+
+      <h3>Audio</h3>
+      <p>Click <button style="font-size:.7rem;padding:1px 6px;background:var(--water);color:#fff;border:none;border-radius:3px;">&#9654; Listen</button> to hear any phrase spoken aloud. <b>Native</b> uses a pre-recorded native speaker when available. Click <b>Both</b> to hear the languages in sequence.</p>
+
+      <h3>Word Breakdown</h3>
+      <p>Tap a word chip (e.g. <span style="font-size:.75rem;display:inline-block;padding:1px 6px;background:#e3f0e8;border-radius:3px;">MI kai</span>) to see its meaning, pronunciation, and syllables. Some words link to native speaker recordings.</p>
+
+      <h3>Review Mode</h3>
+      <p>From the sidebar, open <b>Pass 1 Review</b> to mark phrases as S (want to say), R (recognise), or X (explore). Export your results as JSON when done.</p>
+    `;
+    document.getElementById("help-overlay").classList.add("open");
+  }
+
+  function _showAbout() {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("about-content").innerHTML = `
+      <h2>About Co-Sense</h2>
+
+      <p><b>Co-Sense</b> is a language-learning companion built around the metaphor of a river journey. It emphasises practical phrases, word-level breakdowns, and native-speaker audio to make a new language feel approachable and connected to everyday life.</p>
+
+      <h3>Why "Co-Sense"?</h3>
+      <p>The name blends <i>co</i> (together) and <i>sense</i> (meaning / feeling). Language is something we make sense of together — across cultures, families, and conversations.</p>
+
+      <h3>Content</h3>
+      <p>All Māori phrases have been reviewed against Te Hiku Media's resources. Afrikaans content was contributed by volunteers. Every sentence is categorised by type, level, and situation for progressive learning.</p>
+
+      <h3>Technical</h3>
+      <p class="about-links">Built as a static single-page app. Audio uses the Web Speech API with optional pre-recorded native voice packages. Offline-ready via service worker. <a href="#" onclick="event.preventDefault();window.open('https://github.com/anomalyco/maori');">View source</a></p>
+
+      <hr>
+      <p class="about-links" style="text-align:center;">Co-Sense &middot; River World curriculum &middot; 2025</p>
+    `;
+    document.getElementById("about-overlay").classList.add("open");
+  }
+
   // --- Event delegation ---
 
   document.addEventListener("click", (e) => {
@@ -681,6 +730,7 @@ const App = (() => {
     if (e.target.classList.contains("word-chip")) {
       const entityId = e.target.dataset.entity;
       const lang = e.target.dataset.lang;
+      const labelText = e.target.dataset.text;
       if (entityId) {
         const detail = document.getElementById("word-detail");
         if (detail) {
@@ -688,10 +738,10 @@ const App = (() => {
           const inner = detail.querySelector(".word-detail-inner");
           if (inner) inner.innerHTML = _renderWordDetail(entityId, lang);
         }
-        const sf = _lookupSurfaceForm(entityId, lang);
-        const text = sf?.text || entityId;
-        Audio.speak(text, lang, entityId);
-        Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
+        const exp = _experiences[_currentIndex];
+        const phraseId = exp?.phrase_id;
+        Audio.speak(labelText || entityId, lang, entityId, phraseId);
+        Session.log("audio_played", { text: labelText || entityId, lang, entityId, phraseId, experience_id: exp?.id });
       }
       return;
     }
@@ -738,6 +788,16 @@ const App = (() => {
     // Curriculum switcher
     if (e.target.classList.contains("curriculum-btn")) {
       _switchCurriculum(e.target.dataset.curriculum);
+      return;
+    }
+
+    // Help / About sidebar buttons
+    if (e.target.classList.contains("sidebar-help")) {
+      _showHelp();
+      return;
+    }
+    if (e.target.classList.contains("sidebar-about")) {
+      _showAbout();
       return;
     }
 
@@ -835,6 +895,16 @@ const App = (() => {
     }
     if (e.target.id === "sidebar-overlay") {
       document.getElementById("sidebar").classList.remove("open");
+    }
+    // Close modals
+    if (e.target.dataset.action === "close-help") {
+      document.getElementById("help-overlay").classList.remove("open");
+    }
+    if (e.target.dataset.action === "close-about") {
+      document.getElementById("about-overlay").classList.remove("open");
+    }
+    if (e.target.classList.contains("modal-overlay")) {
+      e.target.classList.remove("open");
     }
   });
 
