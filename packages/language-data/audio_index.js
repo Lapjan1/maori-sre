@@ -141,7 +141,14 @@ var AUDIO_INDEX = {
   "katoa": {"filename": "katoa.mp3", "word_id": "46863", "bytes": 35648},
   "titiro": {"filename": "titiro.mp3", "word_id": "8226", "bytes": 27272},
   "kata": {"filename": "kata.mp3", "word_id": "2370", "bytes": 8960},
-  "ona": {"filename": "ona.mp3", "word_id": "4756", "bytes": 25184}
+  "ona": {"filename": "ona.mp3", "word_id": "4756", "bytes": 25184},
+  "pakiaka": {"filename": "pakiaka.mp3", "word_id": "5012", "bytes": 15944},
+  "kainga": {"filename": "kainga.mp3", "word_id": "1972", "bytes": 10880},
+  "to": {"filename": "to.mp3", "word_id": "8275", "bytes": 13889},
+  "nga": {"filename": "nga.mp3", "word_id": "4505", "bytes": 38756},
+  "mihi": {"filename": "mihi.mp3", "word_id": "4059", "bytes": 10880},
+  "taku": {"filename": "taku.mp3", "word_id": "7310", "bytes": 11804},
+  "whakautu": {"filename": "whakautu.mp3", "word_id": "9997", "bytes": 40844}
 };
 
 /**

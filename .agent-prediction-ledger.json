@@ -118,5 +118,89 @@
     "outcome": "accurate",
     "error_class": "accurate",
     "timestamp": "2026-07-23T11:06:46.730Z"
+  },
+  {
+    "action": "pakiaka",
+    "predicted_gain": 1,
+    "actual_gain": 1,
+    "error": 0,
+    "abs_error": 0,
+    "gap_type": "JOINT_ACQUISITION",
+    "objective": "balanced",
+    "outcome": "accurate",
+    "error_class": "accurate",
+    "timestamp": "2026-07-23T11:27:36.614Z"
+  },
+  {
+    "action": "kainga",
+    "predicted_gain": 0,
+    "actual_gain": 0,
+    "error": 0,
+    "abs_error": 0,
+    "gap_type": "JOINT_ACQUISITION",
+    "objective": "balanced",
+    "outcome": "accurate",
+    "error_class": "accurate",
+    "timestamp": "2026-07-23T11:27:36.872Z"
+  },
+  {
+    "action": "to",
+    "predicted_gain": 0,
+    "actual_gain": 0,
+    "error": 0,
+    "abs_error": 0,
+    "gap_type": "JOINT_ACQUISITION",
+    "objective": "balanced",
+    "outcome": "accurate",
+    "error_class": "accurate",
+    "timestamp": "2026-07-23T11:27:37.146Z"
+  },
+  {
+    "action": "mihi",
+    "predicted_gain": 0,
+    "actual_gain": 0,
+    "error": 0,
+    "abs_error": 0,
+    "gap_type": "JOINT_ACQUISITION",
+    "objective": "balanced",
+    "outcome": "accurate",
+    "error_class": "accurate",
+    "timestamp": "2026-07-23T11:27:43.359Z"
+  },
+  {
+    "action": "nga",
+    "predicted_gain": 0,
+    "actual_gain": 0,
+    "error": 0,
+    "abs_error": 0,
+    "gap_type": "JOINT_ACQUISITION",
+    "objective": "balanced",
+    "outcome": "accurate",
+    "error_class": "accurate",
+    "timestamp": "2026-07-23T11:27:43.505Z"
+  },
+  {
+    "action": "taku",
+    "predicted_gain": 0,
+    "actual_gain": 0,
+    "error": 0,
+    "abs_error": 0,
+    "gap_type": "JOINT_ACQUISITION",
+    "objective": "balanced",
+    "outcome": "accurate",
+    "error_class": "accurate",
+    "timestamp": "2026-07-23T11:27:43.626Z"
+  },
+  {
+    "action": "whakautu",
+    "predicted_gain": 0,
+    "actual_gain": 0,
+    "error": 0,
+    "abs_error": 0,
+    "gap_type": "JOINT_ACQUISITION",
+    "objective": "balanced",
+    "outcome": "accurate",
+    "error_class": "accurate",
+    "timestamp": "2026-07-23T11:27:43.753Z"
   }
 ]

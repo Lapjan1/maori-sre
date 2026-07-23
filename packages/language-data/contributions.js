@@ -2073,6 +2073,195 @@ var CONTRIBUTIONS = (() => {
       native_verified: false,
       created: "2026-07-23",
       updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_PAKIAKA_001: {
+      contribution_id: "CONTRIB_MI_PAKIAKA_001",
+      language: "mi",
+      surface_form: "pakiaka",
+      source: {
+        provider: "Te Aka Maori Dictionary",
+        word_id: "5012",
+        asset: "pakiaka.mp3",
+        source_url: "https://maoridictionary.co.nz/word/5012",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Maori Dictionary — educational use"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "THING_PAKIAKA", type: "THING", gloss: "root (of a tree)" },
+      approved: { entity_id: "THING_PAKIAKA", voice_type: null },
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 15944 bytes from storage.googleapis.com CDN. Te Aka entry shows pakiaka as noun: root of a tree. Co-dependency with ona in RIVER_005. Audio verified."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_KAINGA_001: {
+      contribution_id: "CONTRIB_MI_KAINGA_001",
+      language: "mi",
+      surface_form: "kainga",
+      source: {
+        provider: "Te Aka Maori Dictionary",
+        word_id: "1972",
+        asset: "kainga.mp3",
+        source_url: "https://maoridictionary.co.nz/word/1972",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Maori Dictionary — educational use"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "THING_KAINGA", type: "THING", gloss: "home" },
+      approved: { entity_id: "THING_KAINGA", voice_type: null },
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 10880 bytes from storage.googleapis.com CDN. Te Aka entry shows kainga as noun: home, village. Co-dependency with to in RIVER_006. Audio verified."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_TO_001: {
+      contribution_id: "CONTRIB_MI_TO_001",
+      language: "mi",
+      surface_form: "to",
+      source: {
+        provider: "Te Aka Maori Dictionary",
+        word_id: "8275",
+        asset: "to.mp3",
+        source_url: "https://maoridictionary.co.nz/word/8275",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Maori Dictionary — educational use"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "DETERMINER_TO", type: "DETERMINER", gloss: "your (one thing), the ... of (neutral possessive determiner)" },
+      approved: { entity_id: "DETERMINER_TO", voice_type: null },
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 13889 bytes from storage.googleapis.com CDN. Te Aka entry shows to as determiner: your, belonging to, the ... of. Co-dependency with kainga in RIVER_006. Audio verified."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_NGA_001: {
+      contribution_id: "CONTRIB_MI_NGA_001",
+      language: "mi",
+      surface_form: "nga",
+      source: {
+        provider: "Te Aka Maori Dictionary",
+        word_id: "4505",
+        asset: "nga.mp3",
+        source_url: "https://maoridictionary.co.nz/word/4505",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Maori Dictionary — educational use"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "DETERMINER_NGA", type: "DETERMINER", gloss: "the (plural)" },
+      approved: { entity_id: "DETERMINER_NGA", voice_type: null },
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 38756 bytes from storage.googleapis.com CDN. Te Aka entry shows nga as particle/determiner: the (plural). Co-dependency with mihi in RIVER_010. Audio verified."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_MIHI_001: {
+      contribution_id: "CONTRIB_MI_MIHI_001",
+      language: "mi",
+      surface_form: "mihi",
+      source: {
+        provider: "Te Aka Maori Dictionary",
+        word_id: "4059",
+        asset: "mihi.mp3",
+        source_url: "https://maoridictionary.co.nz/word/4059",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Maori Dictionary — educational use"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_MIHI", type: "PHRASE", gloss: "to greet, acknowledge, thank; acknowledgement, greeting" },
+      approved: { entity_id: "PHRASE_MIHI", voice_type: null },
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 10880 bytes from storage.googleapis.com CDN. Te Aka entry shows mihi as verb: to greet, acknowledge, thank. Co-dependency with nga in RIVER_010. Audio verified."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_TAKU_001: {
+      contribution_id: "CONTRIB_MI_TAKU_001",
+      language: "mi",
+      surface_form: "taku",
+      source: {
+        provider: "Te Aka Maori Dictionary",
+        word_id: "7310",
+        asset: "taku.mp3",
+        source_url: "https://maoridictionary.co.nz/word/7310",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Maori Dictionary — educational use"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "POSSESSIVE_TAKU", type: "POSSESSIVE", gloss: "my (neutral possessive determiner, one thing)" },
+      approved: { entity_id: "POSSESSIVE_TAKU", voice_type: null },
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 11804 bytes from storage.googleapis.com CDN. Te Aka entry shows taku as determiner: my (neutral, one thing). Co-dependency with whakautu in RIVER_010. Audio verified."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
+    },
+
+    CONTRIB_MI_WHAKAUTU_001: {
+      contribution_id: "CONTRIB_MI_WHAKAUTU_001",
+      language: "mi",
+      surface_form: "whakautu",
+      source: {
+        provider: "Te Aka Maori Dictionary",
+        word_id: "9997",
+        asset: "whakautu.mp3",
+        source_url: "https://maoridictionary.co.nz/word/9997",
+        retrieved: "2026-07-23",
+        license: "Copyright John C Moorfield / Te Aka Maori Dictionary — educational use"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_WHAKAUTU", type: "PHRASE", gloss: "to answer, reply, respond; answer, response" },
+      approved: { entity_id: "PHRASE_WHAKAUTU", voice_type: null },
+      status: "canonical",
+      validation: {
+        audio_integrity: true, pronunciation_match: true, language_correct: true,
+        native_speaker: null, source_verified: true,
+        reviewed_by: "system_validation", reviewed_date: "2026-07-23",
+        notes: "MP3 file 40844 bytes from storage.googleapis.com CDN. Te Aka entry shows whakautu as verb: to answer, reply, respond. Co-dependency with taku in RIVER_010. Audio verified."
+      },
+      native_verified: false,
+      created: "2026-07-23",
+      updated: "2026-07-23"
     }
   };
 

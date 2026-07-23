@@ -306,6 +306,27 @@ var SURFACE_FORMS = {
   /* ── Gap word acquisition — ona ── */
   SF_EN_PARTICLE_ONA: {"id": "SF_EN_PARTICLE_ONA", "entity_id": "PARTICLE_ONA", "lang": "en", "text": "his / her (plural, o-category possessive)"},
   SF_MI_PARTICLE_ONA: {"id": "SF_MI_PARTICLE_ONA", "entity_id": "PARTICLE_ONA", "lang": "mi", "text": "ona", "pronunciation": {"syllables": ["o", "na"], "audio_refs": [{"ref": "ona.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/4756", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_ONA_001", "voice_type": null}]}},
+  /* Gap word acquisition - pakiaka */
+  SF_EN_THING_PAKIAKA: {"id": "SF_EN_THING_PAKIAKA", "entity_id": "THING_PAKIAKA", "lang": "en", "text": "root (of a tree)"},
+  SF_MI_THING_PAKIAKA: {"id": "SF_MI_THING_PAKIAKA", "entity_id": "THING_PAKIAKA", "lang": "mi", "text": "pakiaka", "pronunciation": {"syllables": ["pa", "ki", "a", "ka"], "audio_refs": [{"ref": "pakiaka.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/5012", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_PAKIAKA_001", "voice_type": null}]}},
+  /* Gap word acquisition - kainga */
+  SF_EN_THING_KAINGA: {"id": "SF_EN_THING_KAINGA", "entity_id": "THING_KAINGA", "lang": "en", "text": "home"},
+  SF_MI_THING_KAINGA: {"id": "SF_MI_THING_KAINGA", "entity_id": "THING_KAINGA", "lang": "mi", "text": "kainga", "pronunciation": {"syllables": ["ka", "i", "nga"], "audio_refs": [{"ref": "kainga.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/1972", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_KAINGA_001", "voice_type": null}]}},
+  /* Gap word acquisition - to (determiner) */
+  SF_EN_DETERMINER_TO: {"id": "SF_EN_DETERMINER_TO", "entity_id": "DETERMINER_TO", "lang": "en", "text": "the ... of (neutral possessive determiner)"},
+  SF_MI_DETERMINER_TO: {"id": "SF_MI_DETERMINER_TO", "entity_id": "DETERMINER_TO", "lang": "mi", "text": "to", "pronunciation": {"syllables": ["to"], "audio_refs": [{"ref": "to.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/8275", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TO_001", "voice_type": null}]}},
+  /* Gap word acquisition - nga */
+  SF_EN_DETERMINER_NGA: {"id": "SF_EN_DETERMINER_NGA", "entity_id": "DETERMINER_NGA", "lang": "en", "text": "the (plural)"},
+  SF_MI_DETERMINER_NGA: {"id": "SF_MI_DETERMINER_NGA", "entity_id": "DETERMINER_NGA", "lang": "mi", "text": "nga", "pronunciation": {"syllables": ["nga"], "audio_refs": [{"ref": "nga.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/4505", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_NGA_001", "voice_type": null}]}},
+  /* Gap word acquisition - mihi */
+  SF_EN_PHRASE_MIHI: {"id": "SF_EN_PHRASE_MIHI", "entity_id": "PHRASE_MIHI", "lang": "en", "text": "acknowledgements, thanks, greeting"},
+  SF_MI_PHRASE_MIHI: {"id": "SF_MI_PHRASE_MIHI", "entity_id": "PHRASE_MIHI", "lang": "mi", "text": "mihi", "pronunciation": {"syllables": ["mi", "hi"], "audio_refs": [{"ref": "mihi.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/4059", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_MIHI_001", "voice_type": null}]}},
+  /* Gap word acquisition - taku */
+  SF_EN_POSSESSIVE_TAKU: {"id": "SF_EN_POSSESSIVE_TAKU", "entity_id": "POSSESSIVE_TAKU", "lang": "en", "text": "my (neutral possessive determiner)"},
+  SF_MI_POSSESSIVE_TAKU: {"id": "SF_MI_POSSESSIVE_TAKU", "entity_id": "POSSESSIVE_TAKU", "lang": "mi", "text": "taku", "pronunciation": {"syllables": ["ta", "ku"], "audio_refs": [{"ref": "taku.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/7310", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_TAKU_001", "voice_type": null}]}},
+  /* Gap word acquisition - whakautu */
+  SF_EN_PHRASE_WHAKAUTU: {"id": "SF_EN_PHRASE_WHAKAUTU", "entity_id": "PHRASE_WHAKAUTU", "lang": "en", "text": "answer, reply, response"},
+  SF_MI_PHRASE_WHAKAUTU: {"id": "SF_MI_PHRASE_WHAKAUTU", "entity_id": "PHRASE_WHAKAUTU", "lang": "mi", "text": "whakautu", "pronunciation": {"syllables": ["wha", "ka", "u", "tu"], "audio_refs": [{"ref": "whakautu.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/9997", "retrieved": "2026-07-23", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use", "contribution_id": "CONTRIB_MI_WHAKAUTU_001", "voice_type": null}]}},
 };
 var SURFACE_FORM_INDEX = {
   "THING_001": {
@@ -830,5 +851,33 @@ var SURFACE_FORM_INDEX = {
   "PARTICLE_ONA": {
     "en": "SF_EN_PARTICLE_ONA",
     "mi": "SF_MI_PARTICLE_ONA",
+  },
+  "THING_PAKIAKA": {
+    "en": "SF_EN_THING_PAKIAKA",
+    "mi": "SF_MI_THING_PAKIAKA",
+  },
+  "THING_KAINGA": {
+    "en": "SF_EN_THING_KAINGA",
+    "mi": "SF_MI_THING_KAINGA",
+  },
+  "DETERMINER_TO": {
+    "en": "SF_EN_DETERMINER_TO",
+    "mi": "SF_MI_DETERMINER_TO",
+  },
+  "DETERMINER_NGA": {
+    "en": "SF_EN_DETERMINER_NGA",
+    "mi": "SF_MI_DETERMINER_NGA",
+  },
+  "PHRASE_MIHI": {
+    "en": "SF_EN_PHRASE_MIHI",
+    "mi": "SF_MI_PHRASE_MIHI",
+  },
+  "POSSESSIVE_TAKU": {
+    "en": "SF_EN_POSSESSIVE_TAKU",
+    "mi": "SF_MI_POSSESSIVE_TAKU",
+  },
+  "PHRASE_WHAKAUTU": {
+    "en": "SF_EN_PHRASE_WHAKAUTU",
+    "mi": "SF_MI_PHRASE_WHAKAUTU",
   },
 };
