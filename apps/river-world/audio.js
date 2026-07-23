@@ -96,16 +96,18 @@ const Audio = (() => {
       var resolved = StoryAudioResolver.resolveSentence(text, lang);
       if (resolved.missing.length === 0 && resolved.sequence.length > 0) {
         var allRefs = [];
+        var allTexts = [];
         var allHaveAudio = true;
         resolved.sequence.forEach(function(item) {
           if (item.audio_ref) {
             allRefs.push(item.audio_ref);
+            allTexts.push(item.text);
           } else {
             allHaveAudio = false;
           }
         });
         if (allHaveAudio && allRefs.length > 0) {
-          _playSequence(allRefs, text, lang, 0, 180);
+          _playSequence(allRefs, allTexts, lang, 0, 180);
           return;
         }
       }
@@ -138,7 +140,8 @@ const Audio = (() => {
   function _playSequence(refs, fallbackText, lang, idx, gapMs) {
     if (idx >= refs.length) return;
     var gap = gapMs != null ? gapMs : (refs.length > 3 ? 250 : 400);
-    _playNativeWithCallback(refs[idx], fallbackText, lang, function() {
+    var perTokenText = Array.isArray(fallbackText) ? fallbackText[idx] : fallbackText;
+    _playNativeWithCallback(refs[idx], perTokenText, lang, function() {
       setTimeout(function() { _playSequence(refs, fallbackText, lang, idx + 1, gap); }, gap);
     });
   }
