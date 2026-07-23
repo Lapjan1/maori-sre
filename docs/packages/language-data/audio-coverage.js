@@ -1,151 +1,125 @@
 /**
  * Audio Coverage Engine
  *
- * Calculates required vs existing audio assets across all languages
- * and voice profiles. Generates the recording queue automatically.
+ * Thin query layer over RequirementMatrix. Provides the same public API
+ * as before (coverage, recordingQueue, legacyQueue, summary) but derives
+ * all state from the canonical requirement matrix.
  *
- * Voice profiles per language:
- *   male_adult, female_adult, male_child, female_child
- *
- * Coverage = required surface forms − approved audio recordings
- * The queue shrinks as recordings are approved.
+ * Three coverage states per voice profile (defined in RequirementMatrix):
+ *   explicit — has audio_ref tagged with this voice_type
+ *   legacy   — has audio_refs but none tagged for this voice
+ *   missing  — no audio_refs at all
  */
 var AudioCoverage = (() => {
-  const VOICE_TYPES = ["male_adult", "female_adult", "male_child", "female_child"];
-  const VOICE_LABELS = {
-    male_adult: "Male adult",
-    female_adult: "Female adult",
-    male_child: "Male child",
-    female_child: "Female child",
-  };
-  const LANG_LABELS = { mi: "Māori", en: "English", af: "Afrikaans" };
-
   /**
-   * Get all surface forms for a language, optionally filtered by entity IDs.
-   */
-  function _formsForLang(lang, entityFilter) {
-    if (typeof SURFACE_FORMS === "undefined") return [];
-    let list = Object.values(SURFACE_FORMS).filter((sf) => sf.lang === lang);
-    if (entityFilter && entityFilter.size) {
-      list = list.filter((sf) => entityFilter.has(sf.entity_id));
-    }
-    return list;
-  }
-
-  /**
-   * Get entity IDs used by a specific curriculum source.
-   */
-  function _entityIdsForSource(source) {
-    const ids = new Set();
-    let exps = [];
-    if (source === "river_world" && typeof EXPERIENCES !== "undefined") exps = EXPERIENCES;
-    else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") exps = CORE_20;
-    else if (source === "all") {
-      if (typeof EXPERIENCES !== "undefined") exps = exps.concat(EXPERIENCES);
-      if (typeof CORE_20 !== "undefined") exps = exps.concat(CORE_20);
-    }
-    exps.forEach((e) => {
-      (e.entities || []).forEach((en) => ids.add(en.entity_id || en.id));
-    });
-    return ids;
-  }
-
-  /**
-   * Calculate coverage for a language:
-   *   total forms, forms with audio, forms per voice type, missing list.
+   * Calculate coverage for a language.
+   * Returns explicit, legacy, and missing counts per voice profile.
    */
   function coverage(lang, source) {
-    const entityFilter = source ? _entityIdsForSource(source) : null;
-    const forms = _formsForLang(lang, entityFilter);
-    const total = forms.length;
-    const withAudio = forms.filter((sf) => {
-      const refs = sf?.pronunciation?.audio_refs || [];
-      return refs.some((r) => r.quality !== "tts");
+    if (typeof RequirementMatrix === "undefined") {
+      return { lang, langLabel: lang, total: 0, uniqueEntities: 0, withAudio: 0, noAudio: 0, uniqueWithAudio: 0, pct: 0, byVoice: {} };
+    }
+    var matrixRows = RequirementMatrix.generate({ lang: lang, source: source });
+    var byEntity = {};
+    matrixRows.forEach(function(r) {
+      if (!byEntity[r.entity_id]) {
+        byEntity[r.entity_id] = {
+          entity_id: r.entity_id,
+          text: r.text,
+          lang: r.lang,
+          anyAudio: false,
+        };
+      }
+      if (r.coverage_status === "explicit" || r.coverage_status === "legacy") {
+        byEntity[r.entity_id].anyAudio = true;
+      }
     });
-    const byVoice = {};
-    const missing = {};
-    VOICE_TYPES.forEach((vt) => {
-      byVoice[vt] = forms.filter((sf) => {
-        const refs = sf?.pronunciation?.audio_refs || [];
-        return refs.some((r) => r.quality !== "tts" && (!r.voice_type || r.voice_type === vt));
-      });
-      missing[vt] = forms.filter((sf) => {
-        const refs = sf?.pronunciation?.audio_refs || [];
-        return !refs.some((r) => r.quality !== "tts" && (!r.voice_type || r.voice_type === vt));
-      });
+    var entities = Object.values(byEntity);
+    var total = entities.length;
+    var withAudio = entities.filter(function(e) { return e.anyAudio; });
+    var uniqueTotal = entities.length;
+    var uniqueWithAudio = withAudio.length;
+
+    // Per-voice breakdown from matrix
+    var byVoice = {};
+    RequirementMatrix.VOICE_TYPES.forEach(function(vt) {
+      var vRows = matrixRows.filter(function(r) { return r.voice_type === vt; });
+      var expl = vRows.filter(function(r) { return r.coverage_status === "explicit"; }).length;
+      var leg = vRows.filter(function(r) { return r.coverage_status === "legacy"; }).length;
+      var miss = vRows.filter(function(r) { return r.coverage_status === "missing"; }).length;
+      byVoice[vt] = {
+        label: RequirementMatrix.VOICE_LABELS[vt],
+        total: vRows.length,
+        recorded: expl + leg,
+        explicit: expl,
+        legacy: leg,
+        missing: miss,
+        pct: vRows.length ? Math.round(((expl + leg) / vRows.length) * 100) : 0,
+        explicitPct: vRows.length ? Math.round((expl / vRows.length) * 100) : 0,
+      };
     });
-    const uniqueWithAudio = new Set(withAudio.map((sf) => sf.entity_id)).size;
-    const uniqueTotal = new Set(forms.map((sf) => sf.entity_id)).size;
 
     return {
-      lang,
-      langLabel: LANG_LABELS[lang] || lang,
-      total,
+      lang: lang,
+      langLabel: RequirementMatrix.LANG_LABELS[lang] || lang,
+      total: total,
       uniqueEntities: uniqueTotal,
       withAudio: withAudio.length,
-      uniqueWithAudio,
+      noAudio: total - withAudio.length,
+      uniqueWithAudio: uniqueWithAudio,
       pct: total ? Math.round((withAudio.length / total) * 100) : 0,
-      byVoice: Object.fromEntries(
-        VOICE_TYPES.map((vt) => [
-          vt,
-          {
-            label: VOICE_LABELS[vt],
-            total,
-            recorded: byVoice[vt].length,
-            pct: total ? Math.round((byVoice[vt].length / total) * 100) : 0,
-          },
-        ])
-      ),
+      byVoice: byVoice,
     };
   }
 
   /**
-   * Generate full recording queue for a language and voice type.
-   * Returns array of { entityId, text, source } sorted by need.
+   * Generate recording queue for a language and voice type.
+   * Returns entries with NO audio at all (genuinely missing).
    */
   function recordingQueue(lang, voiceType, source) {
-    const entityFilter = source ? _entityIdsForSource(source) : null;
-    const forms = _formsForLang(lang, entityFilter);
-    const needed = forms.filter((sf) => {
-      const refs = sf?.pronunciation?.audio_refs || [];
-      return !refs.some((r) => r.quality !== "tts" && (!r.voice_type || r.voice_type === voiceType));
+    if (typeof RequirementMatrix === "undefined") return [];
+    return RequirementMatrix.missing({ lang: lang, voiceType: voiceType, source: source }).map(function(r) {
+      return { entityId: r.entity_id, text: r.text, surfaceFormId: r.surface_form_id, lang: r.lang };
     });
-    const seen = new Set();
-    const result = [];
-    needed.forEach((sf) => {
-      const key = sf.entity_id + ":" + sf.text;
-      if (seen.has(key)) return;
-      seen.add(key);
-      result.push({
-        entityId: sf.entity_id,
-        text: sf.text,
-        surfaceFormId: sf.id,
-        lang,
-      });
-    });
-    return result;
   }
 
   /**
-   * Generate summary across all languages.
+   * Legacy-only queue: entries that have audio but not tagged for the specified voice_type.
    */
-  function summary(source) {
-    const langs = Object.keys(LANG_LABELS);
-    const data = {};
-    langs.forEach((lang) => {
-      data[lang] = coverage(lang, source);
+  function legacyQueue(lang, voiceType, source) {
+    if (typeof RequirementMatrix === "undefined") return [];
+    return RequirementMatrix.legacy({ lang: lang, voiceType: voiceType, source: source }).map(function(r) {
+      return { entityId: r.entity_id, text: r.text, surfaceFormId: r.surface_form_id, lang: r.lang };
     });
-    const totalForms = Object.values(data).reduce((s, d) => s + d.total, 0);
-    const totalRecorded = Object.values(data).reduce((s, d) => s + d.withAudio, 0);
+  }
+
+  function summary(source) {
+    if (typeof RequirementMatrix === "undefined") {
+      return { langs: {}, totalForms: 0, totalRecorded: 0, overallPct: 0 };
+    }
+    var s = RequirementMatrix.summary({ source: source });
+    var langs = {};
+    Object.keys(s.byLang).forEach(function(l) {
+      langs[l] = coverage(l, source);
+    });
+    var totalForms = Object.values(langs).reduce(function(acc, d) { return acc + d.total; }, 0);
+    var totalRecorded = Object.values(langs).reduce(function(acc, d) { return acc + d.withAudio; }, 0);
     return {
-      langs: data,
-      totalForms,
-      totalRecorded,
+      langs: langs,
+      totalForms: totalForms,
+      totalRecorded: totalRecorded,
       overallPct: totalForms ? Math.round((totalRecorded / totalForms) * 100) : 0,
     };
   }
 
-  return { coverage, recordingQueue, summary, VOICE_TYPES, VOICE_LABELS };
+  return {
+    coverage: coverage,
+    recordingQueue: recordingQueue,
+    legacyQueue: legacyQueue,
+    summary: summary,
+    VOICE_TYPES: RequirementMatrix ? RequirementMatrix.VOICE_TYPES : ["male_adult", "female_adult", "male_child", "female_child"],
+    VOICE_LABELS: RequirementMatrix ? RequirementMatrix.VOICE_LABELS : {},
+  };
 })();
 
 if (typeof module !== "undefined" && module.exports) {

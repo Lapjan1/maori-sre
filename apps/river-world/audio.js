@@ -20,6 +20,12 @@ const Audio = (() => {
     return _ctx;
   }
 
+  function _isPlayable(audioRef) {
+    if (!audioRef || !audioRef.contribution_id) return true;
+    if (typeof CONTRIBUTIONS === "undefined") return true;
+    return CONTRIBUTIONS.isRefPlayable(audioRef);
+  }
+
   function init() {
     if (typeof VOICE_PACKAGES !== "undefined" && typeof DEFAULT_VOICE_PACKAGES !== "undefined") {
       _selectedPackages = { ...DEFAULT_VOICE_PACKAGES };
@@ -48,7 +54,7 @@ const Audio = (() => {
       const sfId = SURFACE_FORM_INDEX?.[entityId]?.[lang];
       if (sfId) {
         const sf = SURFACE_FORMS[sfId];
-        const refs = sf?.pronunciation?.audio_refs?.filter((r) => r.quality !== "tts") || [];
+        const refs = sf?.pronunciation?.audio_refs?.filter((r) => r.quality !== "tts" && _isPlayable(r)) || [];
         if (refs.length) {
           const currentPkg = getVoicePackage(lang);
           const sorted = [...refs].sort((a, b) => {
@@ -67,8 +73,44 @@ const Audio = (() => {
           return;
         }
       }
+      // 1b. No direct recording — try composed audio from component entities
+      if (typeof PhraseComposer !== "undefined" && PhraseComposer.hasComposition(entityId)) {
+        var components = PhraseComposer.resolve(entityId, lang);
+        if (components.length) {
+          var allRefs = [];
+          components.forEach(function(c) {
+            var playableRefs = (c.audio_refs || []).filter(_isPlayable);
+            if (playableRefs.length) {
+              allRefs.push(playableRefs[0]);
+            }
+          });
+          if (allRefs.length) {
+            _playSequence(allRefs, text, lang, 0);
+            return;
+          }
+        }
+      }
     }
-    // 2. AF_PHRASES: passage recording or phrase filter (backup)
+    // 2b. No entity or composition — try atomic sequence from story text
+    if (typeof StoryAudioResolver !== "undefined") {
+      var resolved = StoryAudioResolver.resolveSentence(text, lang);
+      if (resolved.missing.length === 0 && resolved.sequence.length > 0) {
+        var allRefs = [];
+        var allHaveAudio = true;
+        resolved.sequence.forEach(function(item) {
+          if (item.audio_ref) {
+            allRefs.push(item.audio_ref);
+          } else {
+            allHaveAudio = false;
+          }
+        });
+        if (allHaveAudio && allRefs.length > 0) {
+          _playSequence(allRefs, text, lang, 0, 180);
+          return;
+        }
+      }
+    }
+    // 3. AF_PHRASES: passage recording or phrase filter (backup)
     if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
       const passage = AF_PHRASES.find(
         (p) => (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs?.length
@@ -93,10 +135,11 @@ const Audio = (() => {
     _tryTTS(text, lang);
   }
 
-  function _playSequence(refs, fallbackText, lang, idx) {
+  function _playSequence(refs, fallbackText, lang, idx, gapMs) {
     if (idx >= refs.length) return;
-    _playNativeWithCallback(refs[idx], fallbackText, lang, () => {
-      setTimeout(() => _playSequence(refs, fallbackText, lang, idx + 1), 400);
+    var gap = gapMs != null ? gapMs : (refs.length > 3 ? 250 : 400);
+    _playNativeWithCallback(refs[idx], fallbackText, lang, function() {
+      setTimeout(function() { _playSequence(refs, fallbackText, lang, idx + 1, gap); }, gap);
     });
   }
 

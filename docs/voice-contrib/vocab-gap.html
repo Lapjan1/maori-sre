@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vocabulary Gap — Co-Sense</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { padding: 0; }
+  .vg-header { background: var(--green); color: #fff; padding: 1rem 1.5rem; }
+  .vg-header h1 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+  .vg-header p { font-size: 0.85rem; opacity: 0.85; }
+  .vg-body { padding: 1.5rem; max-width: 1000px; margin: 0 auto; }
+  .vg-summary { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .vg-stat { background: var(--card); border-radius: var(--radius); padding: 1rem; flex: 1; min-width: 120px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+  .vg-stat-value { font-size: 1.8rem; font-weight: 700; }
+  .vg-stat-label { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; }
+  .tier-direct { color: var(--green); }
+  .tier-composed { color: #d4a017; }
+  .tier-tts { color: var(--red); }
+  .vg-section { margin-bottom: 1.5rem; }
+  .vg-section h2 { font-size: 1.05rem; color: var(--green); margin-bottom: 0.5rem; }
+  .vg-table-wrap { background: var(--card); border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow-x: auto; }
+  .vg-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .vg-table th { background: var(--green); color: #fff; padding: 0.55rem 0.65rem; text-align: left; font-weight: 600; font-size: 0.77rem; white-space: nowrap; }
+  .vg-table td { padding: 0.5rem 0.65rem; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  .vg-table tr:hover td { background: #f8fcf9; }
+  .vg-table tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+  .badge-avail { background: #d4edda; color: #155724; }
+  .badge-missing { background: #f8d7da; color: #721c24; }
+  .badge-partial { background: #fff3cd; color: #856404; }
+  .word-match { color: var(--green); }
+  .word-nomatch { color: var(--red); }
+  .progress-bar { height: 8px; border-radius: 4px; background: #e0e0e0; margin: 0.5rem 0; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 4px; }
+  .fill-direct { background: var(--green); }
+  .fill-composed { background: #d4a017; }
+  .fill-tts { background: var(--red); }
+  .vg-priority { margin-bottom: 1rem; }
+  .vg-priority ol { list-style: none; padding: 0; }
+  .vg-priority li { padding: 0.5rem 0.65rem; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; }
+  .vg-priority li:last-child { border-bottom: none; }
+  .vg-priority li:hover { background: #f8fcf9; }
+  .priority-word { font-weight: 600; }
+  .priority-count { background: var(--green); color: #fff; border-radius: 10px; padding: 0.1rem 0.5rem; font-size: 0.75rem; }
+</style>
+</head>
+<body>
+  <div class="vg-header">
+    <h1>Māori Vocabulary Gap Analysis</h1>
+    <p>Component-word extraction and recording-priority for missing phrase audio</p>
+  </div>
+  <div class="vg-body">
+    <div id="coverage-stats" class="vg-summary"></div>
+    <div class="progress-bar" id="coverage-bar"></div>
+
+    <div class="vg-section">
+      <h2>Priority — Words Needed for Composition</h2>
+      <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem;">
+        Words are extracted from missing Māori phrases and matched against existing atomic recordings.
+        Unmatched words are ranked by how many phrases they appear in.
+        Recording the highest-reuse word unlocks the most compositions.
+      </p>
+      <div class="vg-table-wrap">
+        <div id="priority-list" class="vg-priority"></div>
+      </div>
+    </div>
+
+    <div class="vg-section">
+      <h2>Missing Phrases — Word-Level Breakdown</h2>
+      <div class="vg-table-wrap">
+        <table class="vg-table">
+          <thead>
+            <tr>
+              <th>Entity</th>
+              <th>Phrase Text</th>
+              <th>Words</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="gap-table-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../packages/language-data/phrase-composer.js"></script>
+  <script src="../../packages/language-data/surface_forms.js"></script>
+  <script src="../../packages/language-data/experiences.js"></script>
+  <script src="../../packages/language-data/curriculum-wife.js"></script>
+  <script>
+    function render() {
+      var analysis = PhraseComposer.vocabularyGap("mi");
+      var coverage = PhraseComposer.compositionCoverage("mi");
+      var s = analysis.stats;
+      var c = coverage;
+
+      // Stats
+      var cards = document.getElementById("coverage-stats");
+      cards.innerHTML =
+        '<div class="vg-stat"><div class="vg-stat-value tier-direct">' + c.direct + '</div><div class="vg-stat-label">Direct native audio</div></div>' +
+        '<div class="vg-stat"><div class="vg-stat-value tier-composed">' + c.composed + '</div><div class="vg-stat-label">Full composition</div></div>' +
+        '<div class="vg-stat"><div class="vg-stat-value" style="color:#d4a017">' + c.partial + '</div><div class="vg-stat-label">Partial composition</div></div>' +
+        '<div class="vg-stat"><div class="vg-stat-value tier-tts">' + c.tts + '</div><div class="vg-stat-label">TTS only</div></div>' +
+        '<div class="vg-stat"><div class="vg-stat-value">' + c.total + '</div><div class="vg-stat-label">Total Māori surface forms</div></div>';
+
+      // Progress bar
+      var bar = document.getElementById("coverage-bar");
+      var dirPct = c.total ? (c.direct / c.total * 100) : 0;
+      var compPct = c.total ? (c.composed / c.total * 100) : 0;
+      var partPct = c.total ? (c.partial / c.total * 100) : 0;
+      bar.innerHTML =
+        '<div class="progress-fill fill-direct" style="width:' + dirPct + '%;float:left"></div>' +
+        '<div class="progress-fill fill-composed" style="width:' + compPct + '%;float:left"></div>' +
+        '<div class="progress-fill" style="width:' + partPct + '%;float:left;background:#d4a017"></div>';
+
+      // Priority list
+      var byWord = analysis.byWord;
+      var priorityEl = document.getElementById("priority-list");
+      if (byWord.length === 0) {
+        priorityEl.innerHTML = '<p style="padding:1rem;color:var(--muted);text-align:center;">No missing words — all Māori phrases are directly covered or composable.</p>';
+      } else {
+        var html = '<ol>';
+        byWord.forEach(function(w) {
+          html += '<li><span><span class="priority-word">' + w.word + '</span> <span style="color:var(--muted);font-size:0.75rem;">appears in ' + w.count + ' phrase' + (w.count > 1 ? 's' : '') + '</span></span><span class="priority-count">' + w.count + '</span></li>';
+        });
+        html += '</ol>';
+        priorityEl.innerHTML = html;
+      }
+
+      // Gap table
+      var gap = analysis.gap;
+      var tbody = document.getElementById("gap-table-body");
+      if (gap.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:2rem;color:var(--muted);">No missing phrases.</td></tr>';
+        return;
+      }
+      var html = "";
+      gap.forEach(function(g) {
+        var wordHtml = g.words.map(function(w) {
+          var cls = w.matched ? "word-match" : "word-nomatch";
+          var icon = w.matched ? "✓" : "✗";
+          var detail = w.matched ? " → " + w.entity_text + " (" + w.entity_id + ")" : "";
+          return '<span class="' + cls + '">' + icon + " " + w.word + detail + "</span><br>";
+        }).join("");
+
+        var status = g.composableWords > 0
+          ? (g.composableWords === g.totalWords ? '<span class="badge badge-avail">Full composition</span>' : '<span class="badge badge-partial">Partial (' + g.composableWords + '/' + g.totalWords + ')</span>')
+          : '<span class="badge badge-missing">TTS only</span>';
+
+        html += "<tr>"
+          + "<td><code>" + g.entity_id + "</code></td>"
+          + "<td>" + g.text + "</td>"
+          + "<td>" + wordHtml + "</td>"
+          + "<td>" + status + "</td>"
+          + "</tr>";
+      });
+      tbody.innerHTML = html;
+    }
+
+    document.addEventListener("DOMContentLoaded", render);
+  </script>
+</body>
+</html>

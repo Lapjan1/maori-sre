@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Audio Inventory — Co-Sense</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { padding: 0; }
+  .inv-header { background: var(--green); color: #fff; padding: 1rem 1.5rem; display: flex; justify-content: space-between; align-items: center; }
+  .inv-header h1 { font-size: 1.3rem; }
+  .inv-header p { font-size: 0.85rem; opacity: 0.85; }
+  .inv-body { padding: 1.5rem; max-width: 1100px; margin: 0 auto; }
+  .inv-tabs { display: flex; gap: 0; margin-bottom: 1.5rem; border-bottom: 2px solid #e0e0e0; }
+  .inv-tab { padding: 0.6rem 1.2rem; cursor: pointer; border: none; background: none; font-size: 0.9rem; color: var(--muted); border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .inv-tab.active { color: var(--green); border-bottom-color: var(--green); font-weight: 600; }
+  .inv-summary { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .inv-stat { background: var(--card); border-radius: var(--radius); padding: 1rem; flex: 1; min-width: 120px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+  .inv-stat-value { font-size: 1.8rem; font-weight: 700; }
+  .inv-stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; }
+  .inv-controls { display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
+  .inv-controls select, .inv-controls input { padding: 0.4rem 0.6rem; border: 1px solid #ddd; border-radius: 6px; font-size: 0.85rem; }
+  .inv-table-wrap { background: var(--card); border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow-x: auto; }
+  .inv-table { width: 100%; border-collapse: collapse; font-size: 0.82rem; }
+  .inv-table th { background: var(--green); color: #fff; padding: 0.55rem 0.65rem; text-align: left; font-weight: 600; font-size: 0.77rem; white-space: nowrap; }
+  .inv-table td { padding: 0.5rem 0.65rem; border-bottom: 1px solid #f0f0f0; vertical-align: top; }
+  .inv-table tr:hover td { background: #f8fcf9; }
+  .inv-table tr:last-child td { border-bottom: none; }
+  .badge { display: inline-block; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+  .badge-legacy { background: #fff3cd; color: #856404; }
+  .badge-explicit { background: #d4edda; color: #155724; }
+  .badge-missing { background: #f8d7da; color: #721c24; }
+  .badge-verified { background: #cce5ff; color: #004085; }
+  .ref-list { font-size: 0.78rem; color: var(--muted); }
+  .ref-item { display: block; padding: 0.1rem 0; }
+  .vt-select { padding: 0.2rem 0.3rem; font-size: 0.78rem; border: 1px solid #ccc; border-radius: 4px; }
+  .inv-actions { margin: 1rem 0; display: flex; gap: 0.75rem; }
+  .inv-actions button { padding: 0.5rem 1rem; border: none; border-radius: 6px; font-size: 0.85rem; cursor: pointer; }
+  .btn-export { background: var(--green); color: #fff; }
+  .btn-apply { background: #2196F3; color: #fff; }
+  .btn-reset { background: #f0f0f0; color: var(--text); }
+  .inv-verified-true { color: var(--green); }
+  .inv-verified-false { color: var(--muted); }
+  .count-highlight { font-weight: 700; }
+</style>
+</head>
+<body>
+  <div class="inv-header">
+    <div>
+      <h1>Audio Inventory</h1>
+      <p>Classify legacy recordings — inspect each ref and assign a voice type</p>
+    </div>
+    <div id="header-stats"></div>
+  </div>
+  <div class="inv-body">
+    <div class="inv-tabs">
+      <button class="inv-tab active" data-tab="legacy" onclick="switchTab('legacy')">Legacy (needs classification)</button>
+      <button class="inv-tab" data-tab="explicit" onclick="switchTab('explicit')">Explicit (classified)</button>
+      <button class="inv-tab" data-tab="missing" onclick="switchTab('missing')">Missing (no audio)</button>
+    </div>
+
+    <div class="inv-summary" id="summary-cards"></div>
+
+    <div class="inv-controls">
+      <select id="filter-lang" onchange="renderTable()">
+        <option value="">All languages</option>
+        <option value="af">Afrikaans</option>
+        <option value="mi">Māori</option>
+        <option value="en">English</option>
+      </select>
+      <select id="filter-source" onchange="renderTable()">
+        <option value="">All curricula</option>
+        <option value="river_world">River World</option>
+        <option value="wife_core_20">Wife's Core 20</option>
+      </select>
+      <input type="text" id="filter-search" placeholder="Search entity or text..." oninput="renderTable()">
+      <span id="row-count" style="font-size:0.85rem;color:var(--muted);margin-left:auto;"></span>
+    </div>
+
+    <div class="inv-actions" id="action-bar">
+      <button class="btn-export" onclick="exportYAML()">Export suggested tags as YAML</button>
+      <button class="btn-reset" onclick="clearSuggestions()">Clear suggestions</button>
+    </div>
+
+    <div class="inv-table-wrap">
+      <table class="inv-table" id="inv-table">
+        <thead>
+          <tr>
+            <th>Ref</th>
+            <th>Entity</th>
+            <th>Surface Form</th>
+            <th>Lang</th>
+            <th>Source</th>
+            <th>Status</th>
+            <th>Current Voice</th>
+            <th>Suggested Voice</th>
+            <th>Verified</th>
+          </tr>
+        </thead>
+        <tbody id="inv-body"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="../../packages/language-data/requirement-matrix.js"></script>
+  <script src="../../packages/language-data/phrase-composer.js"></script>
+  <script src="../../packages/language-data/audio-coverage.js"></script>
+  <script src="../../packages/language-data/surface_forms.js"></script>
+  <script src="../../packages/language-data/experiences.js"></script>
+  <script src="../../packages/language-data/curriculum-wife.js"></script>
+  <script>
+    var _activeTab = "legacy";
+    var _suggestions = {};  // key: "entity_id:lang:voice_type" → suggested voice_type
+
+    function switchTab(tab) {
+      _activeTab = tab;
+      document.querySelectorAll(".inv-tab").forEach(function(t) {
+        t.classList.toggle("active", t.dataset.tab === tab);
+      });
+      var showActions = tab === "legacy";
+      document.getElementById("action-bar").style.display = showActions ? "flex" : "none";
+      renderTable();
+    }
+
+    function coverageStatusFromTab() {
+      if (_activeTab === "explicit") return "explicit";
+      if (_activeTab === "missing") return "missing";
+      return "legacy";
+    }
+
+    function buildRows() {
+      var lang = document.getElementById("filter-lang").value || null;
+      var source = document.getElementById("filter-source").value || null;
+      var search = (document.getElementById("filter-search").value || "").toLowerCase();
+
+      // Get matrix entries for the current tab's coverage status
+      var rows = RequirementMatrix.generate({
+        lang: lang,
+        source: source,
+        coverageStatus: coverageStatusFromTab(),
+      });
+
+      if (search) {
+        rows = rows.filter(function(r) {
+          return r.entity_id.toLowerCase().indexOf(search) !== -1
+            || r.text.toLowerCase().indexOf(search) !== -1;
+        });
+      }
+      return rows;
+    }
+
+    function renderTable() {
+      var rows = buildRows();
+      var tbody = document.getElementById("inv-body");
+      document.getElementById("row-count").textContent = rows.length + " entries";
+
+      if (rows.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--muted);">No entries found.</td></tr>';
+        return;
+      }
+
+      // Show at most 200 per page for performance
+      var display = rows.slice(0, 200);
+      var langLabel = RequirementMatrix.LANG_LABELS;
+
+      var html = "";
+      display.forEach(function(r) {
+        var refs = r.audio_refs;
+        var refHtml = refs.length ? refs.map(function(ref) {
+          return '<span class="ref-item">' + ref.ref + ' <span style="color:#999">(' + ref.quality + ')</span></span>';
+        }).join("") : '<span class="ref-item" style="color:#999">—</span>';
+
+        var statusBadge = '<span class="badge badge-' + r.coverage_status + '">' + r.coverage_status + '</span>';
+
+        var currentVoiceHtml = r.coverage_status === "explicit"
+          ? (refs.length ? refs.map(function(rf) { return rf.voice_type || "—"; }).join(", ") : "—")
+          : '<span style="color:#999">unspecified</span>';
+
+        var suggestionKey = r.entity_id + ":" + r.lang + ":" + r.voice_type;
+        var savedSuggestion = _suggestions[suggestionKey] || "";
+
+        var verifiedIcon = r.native_verified
+          ? '<span class="inv-verified-true">✓ Verified</span>'
+          : '<span class="inv-verified-false">—</span>';
+
+        var suggDropdown = r.coverage_status === "legacy"
+          ? '<select class="vt-select" data-key="' + suggestionKey + '" onchange="setSuggestion(this)">'
+            + '<option value="">— select —</option>'
+            + RequirementMatrix.VOICE_TYPES.map(function(vt) {
+                var sel = vt === savedSuggestion ? " selected" : "";
+                return '<option value="' + vt + '"' + sel + '>' + RequirementMatrix.VOICE_LABELS[vt] + '</option>';
+              }).join("")
+            + '<option value="unspecified"' + (savedSuggestion === "unspecified" ? " selected" : "") + '>Unspecified (leave legacy)</option>'
+            + '</select>'
+          : '<span style="color:#999">—</span>';
+
+        html += "<tr>"
+          + "<td>" + refHtml + "</td>"
+          + "<td><code>" + r.entity_id + "</code></td>"
+          + "<td>" + r.text + "</td>"
+          + "<td>" + (langLabel[r.lang] || r.lang) + "</td>"
+          + "<td>" + (r.sources.length ? r.sources.join(", ") : "—") + "</td>"
+          + "<td>" + statusBadge + "</td>"
+          + "<td>" + currentVoiceHtml + "</td>"
+          + "<td>" + suggDropdown + "</td>"
+          + "<td>" + verifiedIcon + "</td>"
+          + "</tr>";
+      });
+
+      tbody.innerHTML = html;
+
+      if (rows.length > 200) {
+        tbody.innerHTML += '<tr><td colspan="9" style="text-align:center;padding:0.75rem;color:var(--muted);font-size:0.8rem;">Showing 200 of ' + rows.length + ' entries. Refine filters to narrow results.</td></tr>';
+      }
+    }
+
+    function setSuggestion(select) {
+      var key = select.dataset.key;
+      var val = select.value;
+      if (val) {
+        _suggestions[key] = val;
+      } else {
+        delete _suggestions[key];
+      }
+    }
+
+    function clearSuggestions() {
+      if (!confirm("Clear all suggested voice types?")) return;
+      _suggestions = {};
+      renderTable();
+    }
+
+    function exportYAML() {
+      var keys = Object.keys(_suggestions);
+      var lines = [];
+
+      RequirementMatrix.VOICE_TYPES.forEach(function(vt) {
+        var filtered = keys.filter(function(k) {
+          return _suggestions[k] === vt;
+        });
+        if (!filtered.length) return;
+        lines.push("# " + RequirementMatrix.VOICE_LABELS[vt]);
+        filtered.forEach(function(k) {
+          var parts = k.split(":");
+          var entityId = parts[0], lang = parts[1], reqVoice = parts[2];
+          lines.push("- entity_id: " + entityId);
+          lines.push("  lang: " + lang);
+          lines.push("  voice_type: " + vt);
+          lines.push("");
+        });
+      });
+
+      // Unspecified
+      var unspecified = keys.filter(function(k) { return _suggestions[k] === "unspecified"; });
+      if (unspecified.length) {
+        lines.push("# Unspecified (leave as legacy)");
+        unspecified.forEach(function(k) {
+          var parts = k.split(":");
+          lines.push("- entity_id: " + parts[0]);
+          lines.push("  lang: " + parts[1]);
+          lines.push("  voice_type: null");
+          lines.push("");
+        });
+      }
+
+      var blob = new Blob([lines.join("\n")], { type: "text/yaml" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "voice-tag-suggestions.yaml";
+      a.click();
+    }
+
+    function renderSummary() {
+      var s = RequirementMatrix.summary();
+      var cards = document.getElementById("summary-cards");
+      var html = "";
+      Object.keys(s.byLang).forEach(function(lang) {
+        var d = s.byLang[lang];
+        html += '<div class="inv-stat">'
+          + '<div class="inv-stat-value" style="font-size:1.5rem">' + d.total + '</div>'
+          + '<div class="inv-stat-label">' + d.langLabel + '<br>'
+          + '<span class="count-highlight" style="color:var(--green)">' + d.explicit + '</span> explicit · '
+          + '<span class="count-highlight" style="color:#d4a017">' + d.legacy + '</span> legacy · '
+          + '<span class="count-highlight" style="color:var(--red)">' + d.missing + '</span> missing'
+          + '</div></div>';
+      });
+      cards.innerHTML = html;
+    }
+
+    // Initial render
+    renderSummary();
+    renderTable();
+  </script>
+</body>
+</html>

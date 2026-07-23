@@ -67,6 +67,22 @@ const Audio = (() => {
           return;
         }
       }
+      // 1b. No direct recording — try composed audio from component entities
+      if (typeof PhraseComposer !== "undefined" && PhraseComposer.hasComposition(entityId)) {
+        var components = PhraseComposer.resolve(entityId, lang);
+        if (components.length) {
+          var allRefs = [];
+          components.forEach(function(c) {
+            if (c.audio_refs && c.audio_refs.length) {
+              allRefs.push(c.audio_refs[0]);
+            }
+          });
+          if (allRefs.length) {
+            _playSequence(allRefs, text, lang, 0);
+            return;
+          }
+        }
+      }
     }
     // 2. AF_PHRASES: passage recording or phrase filter (backup)
     if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {

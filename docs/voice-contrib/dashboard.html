@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Co-Sense Audio Coverage</title>
+<link rel="stylesheet" href="styles.css">
+<style>
+  body { padding: 0; }
+  .db-header { background: var(--green); color: #fff; padding: 1rem 1.5rem; }
+  .db-header h1 { font-size: 1.3rem; margin-bottom: 0.25rem; }
+  .db-header p { font-size: 0.85rem; opacity: 0.85; }
+  .db-body { padding: 1.5rem; max-width: 960px; margin: 0 auto; }
+  .db-summary { display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+  .db-stat { background: var(--card); border-radius: var(--radius); padding: 1rem; flex: 1; min-width: 140px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center; }
+  .db-stat-value { font-size: 2rem; font-weight: 700; color: var(--green); }
+  .db-stat-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; }
+  .db-matrix { background: var(--card); border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 1.5rem; }
+  .db-matrix table { width: 100%; border-collapse: collapse; }
+  .db-matrix th, .db-matrix td { padding: 0.65rem 0.75rem; text-align: center; font-size: 0.85rem; border-bottom: 1px solid #f0f0f0; }
+  .db-matrix th { background: var(--green); color: #fff; font-weight: 600; font-size: 0.8rem; }
+  .db-matrix th:first-child { text-align: left; }
+  .db-matrix td:first-child { text-align: left; font-weight: 600; }
+  .db-matrix tr:last-child td { border-bottom: none; }
+  .db-matrix tr:hover td { background: #f8fcf9; }
+  .cell-pct { font-weight: 600; }
+  .cell-legacy { font-size: 0.75rem; color: var(--muted); }
+  .status-ok { color: var(--green); }
+  .status-legacy { color: #d4a017; }
+  .status-missing { color: var(--red); }
+  .db-detail { background: var(--card); border-radius: var(--radius); box-shadow: 0 2px 8px rgba(0,0,0,0.08); padding: 1.25rem; margin-bottom: 1.5rem; display: none; }
+  .db-detail h2 { font-size: 1.1rem; color: var(--green); margin-bottom: 0.75rem; }
+  .db-detail h3 { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .db-detail-close { float: right; background: none; border: none; font-size: 1.2rem; cursor: pointer; color: var(--muted); }
+  .db-detail-close:hover { color: var(--text); }
+  .db-queue { list-style: none; margin-top: 0.5rem; }
+  .db-queue li { padding: 0.4rem 0.5rem; font-size: 0.85rem; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; }
+  .db-queue li:last-child { border-bottom: none; }
+  .db-queue-count { font-size: 0.75rem; color: var(--muted); }
+  .db-source { border: 1px solid #ddd; border-radius: 6px; padding: 0.3rem 0.5rem; font-size: 0.8rem; margin-bottom: 1rem; }
+  .db-legend { display: flex; gap: 1rem; font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; flex-wrap: wrap; }
+  .db-legend span { display: flex; align-items: center; gap: 0.3rem; }
+  .db-legend .dot { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+  .dot-ok { background: var(--green); }
+  .dot-legacy { background: #d4a017; }
+  .dot-missing { background: var(--red); }
+</style>
+</head>
+<body>
+  <div class="db-header">
+    <h1>Audio Coverage Dashboard</h1>
+    <p>Language &times; Voice Profile &times; Surface Form — <span id="overall-stat">loading...</span></p>
+  </div>
+  <div class="db-body">
+    <div class="db-summary" id="summary-cards"></div>
+    <div class="db-legend">
+      <span><span class="dot dot-ok"></span> Explicit (voice-tagged)</span>
+      <span><span class="dot dot-legacy"></span> Legacy (voice unspecified)</span>
+      <span><span class="dot dot-missing"></span> Missing (no recording)</span>
+    </div>
+    <div>
+      <select class="db-source" id="source-select">
+        <option value="">All curricula</option>
+        <option value="river_world">River World</option>
+        <option value="wife_core_20">Wife's Core 20</option>
+      </select>
+    </div>
+    <div class="db-matrix" id="matrix"></div>
+    <div class="db-detail" id="detail"></div>
+  </div>
+
+  <script src="../../packages/language-data/requirement-matrix.js"></script>
+  <script src="../../packages/language-data/phrase-composer.js"></script>
+  <script src="../../packages/language-data/audio-coverage.js"></script>
+  <script src="../../packages/language-data/surface_forms.js"></script>
+  <script src="../../packages/language-data/experiences.js"></script>
+  <script src="../../packages/language-data/curriculum-wife.js"></script>
+  <script>
+    const LANG_ORDER = ["af", "mi", "en"];
+
+    function render() {
+      const source = document.getElementById("source-select").value || null;
+      const s = AudioCoverage.summary(source);
+      document.getElementById("overall-stat").textContent =
+        s.totalRecorded + " / " + s.totalForms + " recorded (" + s.overallPct + "%)";
+
+      // Summary cards
+      const cards = document.getElementById("summary-cards");
+      cards.innerHTML = LANG_ORDER.map(function(lang) {
+        var d = s.langs[lang];
+        if (!d) return "";
+        return '<div class="db-stat"><div class="db-stat-value">' + d.pct + '%</div><div class="db-stat-label">' + d.langLabel + '<br>' + d.withAudio + '/' + d.total + '</div></div>';
+      }).join("");
+
+      // Matrix
+      var html = '<table><thead><tr><th>Language</th>';
+      AudioCoverage.VOICE_TYPES.forEach(function(vt) {
+        html += '<th>' + AudioCoverage.VOICE_LABELS[vt] + '</th>';
+      });
+      html += '<th>Any voice</th></tr></thead><tbody>';
+      LANG_ORDER.forEach(function(lang) {
+        var d = s.langs[lang];
+        if (!d) return;
+        html += '<tr><td><strong>' + d.langLabel + '</strong></td>';
+        AudioCoverage.VOICE_TYPES.forEach(function(vt) {
+          var v = d.byVoice[vt];
+          var explicit = v.explicit, legacy = v.legacy, missing = v.missing;
+          var status = explicit > 0 ? "ok" : (legacy > 0 ? "legacy" : "missing");
+          var statusClass = "status-" + status;
+          var pctText = v.pct + "%";
+          var legacyNote = legacy > 0 ? ' <span class="cell-legacy">(' + legacy + ' legacy)</span>' : "";
+          html += '<td class="' + statusClass + '"><a href="#" onclick="showDetail(\'' + lang + '\',\'' + vt + '\');return false" class="cell-pct">' + pctText + '</a>' + legacyNote + '</td>';
+        });
+        html += '<td class="' + (d.noAudio === 0 ? "status-ok" : "status-missing") + '">' + d.pct + '%</td></tr>';
+      });
+      html += '</tbody></table>';
+      document.getElementById("matrix").innerHTML = html;
+    }
+
+    function showDetail(lang, voiceType) {
+      var d = document.getElementById("detail");
+      var source = document.getElementById("source-select").value || null;
+      var c = AudioCoverage.coverage(lang, source);
+      var v = c.byVoice[voiceType];
+      var langLabel = c.langLabel;
+      var vtLabel = AudioCoverage.VOICE_LABELS[voiceType];
+
+      var html = '<button class="db-detail-close" onclick="document.getElementById(\'detail\').style.display=\'none\'">&times;</button>';
+      html += '<h2>' + langLabel + ' &times; ' + vtLabel + '</h2>';
+
+      // Coverage breakdown
+      html += '<div style="display:flex;gap:1rem;margin-bottom:1rem;flex-wrap:wrap;">';
+      html += '<div class="db-stat"><div class="db-stat-value status-ok">' + v.explicit + '</div><div class="db-stat-label">Explicit</div></div>';
+      html += '<div class="db-stat"><div class="db-stat-value status-legacy">' + v.legacy + '</div><div class="db-stat-label">Legacy</div></div>';
+      html += '<div class="db-stat"><div class="db-stat-value status-missing">' + v.missing + '</div><div class="db-stat-label">Missing</div></div>';
+      html += '<div class="db-stat"><div class="db-stat-value">' + v.total + '</div><div class="db-stat-label">Total SF</div></div>';
+      html += '</div>';
+
+      // Missing queue
+      var queue = AudioCoverage.recordingQueue(lang, voiceType, source);
+      if (queue.length) {
+        html += '<h3>Missing (' + queue.length + ')</h3>';
+        html += '<ol class="db-queue">';
+        queue.slice(0, 30).forEach(function(item) {
+          html += '<li><span>' + item.text + '</span><span class="db-queue-count">' + item.entityId + '</span></li>';
+        });
+        if (queue.length > 30) html += '<li class="db-queue-count">+' + (queue.length - 30) + ' more</li>';
+        html += '</ol>';
+      } else {
+        html += '<p class="status-ok">All items have recordings.</p>';
+      }
+
+      // Legacy queue
+      var lq = AudioCoverage.legacyQueue(lang, voiceType, source);
+      if (lq.length) {
+        html += '<h3 style="margin-top:1rem">Legacy (needs voice tagging: ' + lq.length + ')</h3>';
+        html += '<ol class="db-queue">';
+        lq.slice(0, 15).forEach(function(item) {
+          html += '<li><span>' + item.text + '</span><span class="db-queue-count">' + item.entityId + '</span></li>';
+        });
+        if (lq.length > 15) html += '<li class="db-queue-count">+' + (lq.length - 15) + ' more</li>';
+        html += '</ol>';
+      }
+
+      d.innerHTML = html;
+      d.style.display = "block";
+    }
+
+    document.getElementById("source-select").addEventListener("change", function() {
+      document.getElementById("detail").style.display = "none";
+      render();
+    });
+
+    document.addEventListener("DOMContentLoaded", render);
+  </script>
+</body>
+</html>
