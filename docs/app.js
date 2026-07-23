@@ -203,9 +203,12 @@ const App = (() => {
 
     const tags = [];
     chips.forEach((id) => {
-      tags.push(renderOne(id, langA));
-      if (langB && langB !== langA) {
-        tags.push(renderOne(id, langB));
+      const a = renderOne(id, langA);
+      const b = (langB && langB !== langA) ? renderOne(id, langB) : "";
+      if (a && b) {
+        tags.push(`<span class="chip-pair">${a}${b}</span>`);
+      } else if (a) {
+        tags.push(a);
       }
     });
     return `<div class="word-chips">${tags.filter(Boolean).join(" ")}</div>`;
