@@ -93,7 +93,28 @@ const Audio = (() => {
         }
       }
     }
-    // 2b. AF_PHRASES: Afrikaans full passage recordings take priority
+    // 2b. No entity or composition — try atomic sequence from story text
+    if (typeof StoryAudioResolver !== "undefined") {
+      var resolved = StoryAudioResolver.resolveSentence(text, lang);
+      if (resolved.missing.length === 0 && resolved.sequence.length > 0) {
+        var allRefs = [];
+        var allTexts = [];
+        var allHaveAudio = true;
+        resolved.sequence.forEach(function(item) {
+          if (item.audio_ref) {
+            allRefs.push(item.audio_ref);
+            allTexts.push(item.text);
+          } else {
+            allHaveAudio = false;
+          }
+        });
+        if (allHaveAudio && allRefs.length > 0) {
+          _playSequence(allRefs, allTexts, lang, 0, 180);
+          return;
+        }
+      }
+    }
+    // 3. AF_PHRASES: passage recording or phrase filter (backup)
     if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
       const passage = AF_PHRASES.find(
         (p) => (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs?.length
@@ -112,22 +133,6 @@ const Audio = (() => {
           const refs = phraseData.map(function(p) { return p.ref; });
           const texts = phraseData.map(function(p) { return p.text; });
           _playSequence(refs, texts, lang, 0);
-          return;
-        }
-      }
-    }
-    // 2c. No AF passage — try atomic sequence from story text (Māori word-by-word)
-    if (typeof StoryAudioResolver !== "undefined") {
-      var resolved = StoryAudioResolver.resolveSentence(text, lang);
-      if (resolved.sequence.length > 0) {
-        var allRefs = [];
-        var allTexts = [];
-        resolved.sequence.forEach(function(item) {
-          allRefs.push(item.audio_ref);
-          allTexts.push(item.text);
-        });
-        if (allRefs.length > 0) {
-          _playSequence(allRefs, allTexts, lang, 0, 180);
           return;
         }
       }
