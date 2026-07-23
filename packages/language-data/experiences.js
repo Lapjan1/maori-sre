@@ -316,6 +316,24 @@ var EXPERIENCES = [
           "mi": "tipu",
           "af": "groei"
         }
+      },
+      {
+        "id": "THING_PAKIAKA",
+        "category": "THING",
+        "label": {
+          "default": "root",
+          "mi": "pakiaka",
+          "af": "wortel"
+        }
+      },
+      {
+        "id": "PARTICLE_ONA",
+        "category": "PARTICLE",
+        "label": {
+          "default": "its",
+          "mi": "ōna",
+          "af": "sy"
+        }
       }
     ],
     "interactions": [
@@ -372,6 +390,15 @@ var EXPERIENCES = [
           "default": "swim",
           "mi": "kauhoe",
           "af": "swem"
+        }
+      },
+      {
+        "id": "THING_KAINGA",
+        "category": "THING",
+        "label": {
+          "default": "home",
+          "mi": "kāinga",
+          "af": "tuiste"
         }
       }
     ],
@@ -615,6 +642,24 @@ var EXPERIENCES = [
           "default": "together",
           "mi": "noho tahi",
           "af": "saam"
+        }
+      },
+      {
+        "id": "PHRASE_MIHI",
+        "category": "PHRASE",
+        "label": {
+          "default": "acknowledgements, thanks",
+          "mi": "mihi",
+          "af": "dankbetuiging"
+        }
+      },
+      {
+        "id": "PHRASE_WHAKAUTU",
+        "category": "PHRASE",
+        "label": {
+          "default": "answer, reply",
+          "mi": "whakautu",
+          "af": "antwoord"
         }
       }
     ],
