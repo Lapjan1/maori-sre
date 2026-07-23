@@ -126,11 +126,9 @@ const Audio = (() => {
       }
       const phrases = AF_PHRASES.filter((p) => p.intent === phraseId || p.id === phraseId);
       if (phrases.length) {
-        const phraseData = phrases.map(function(p) { return { ref: _bestRefFromList(p.audio_refs || [], lang), text: p.text }; }).filter(function(p) { return p.ref; });
-        if (phraseData.length) {
-          const refs = phraseData.map(function(p) { return p.ref; });
-          const texts = phraseData.map(function(p) { return p.text; });
-          _playSequence(refs, texts, lang, 0);
+        const refs = phrases.map((p) => _bestRefFromList(p.audio_refs || [], lang)).filter(Boolean);
+        if (refs.length) {
+          _playSequence(refs, text, lang, 0);
           return;
         }
       }
