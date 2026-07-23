@@ -62,4 +62,14 @@ These states should be introduced only when they provide genuine value.
 
 The user should never be required to understand the underlying learning system in order to use Co-Sense.
 
+## 4. The Interface Exposes the Data Model
+
+The visual structure of the interface should reflect the structure of the underlying data model.
+
+A learner does not compare two arbitrary strings. They learn a cross-lingual correspondence for the same entity. The UI should communicate **one entity → two language realizations** without requiring the learner to mentally reconstruct this structure.
+
+For example, chip pairs (`[MI] tamaiti` + `[AF] kind`) are grouped visually at the entity level, not scattered by language. The gap between pairs is larger than the gap within a pair, making the entity boundary explicit.
+
+> The interface should surface the data model's structure, not the rendering algorithm's.
+
 > Keep the surface simple. Let interaction reveal depth.

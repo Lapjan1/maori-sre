@@ -43,37 +43,33 @@ const Audio = (() => {
   }
 
   function speak(text, lang, entityId, phraseId) {
+    // 1. Entity lookup → surface form → play all audio_refs (supports multi-word sequences)
     if (entityId) {
       const sfId = SURFACE_FORM_INDEX?.[entityId]?.[lang];
       if (sfId) {
         const sf = SURFACE_FORMS[sfId];
-        const bestRef = _bestAudioRef(sf, lang);
-        if (bestRef) {
-          _playNative(bestRef, text, lang);
+        const refs = sf?.pronunciation?.audio_refs?.filter((r) => r.quality !== "tts") || [];
+        if (refs.length) {
+          const currentPkg = getVoicePackage(lang);
+          const sorted = [...refs].sort((a, b) => {
+            const aCur = a.package === currentPkg ? 0 : 10;
+            const bCur = b.package === currentPkg ? 0 : 10;
+            const order = { studio: 0, field: 1 };
+            return (aCur + (order[a.quality] ?? 2)) - (bCur + (order[b.quality] ?? 2));
+          });
+          if (text && text.includes(" / ") && sorted.length > 1) {
+            // Multi-word phrase: play all refs sequentially
+            _playSequence(sorted, text, lang, 0);
+          } else {
+            // Single word: use best ref
+            _playNative(sorted[0], text, lang);
+          }
           return;
         }
       }
     }
+    // 2. AF_PHRASES: passage recording or phrase filter (backup)
     if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
-      // Multi-word label: "hallo / dankie" → find each part by text
-      if (text && text.includes(" / ")) {
-        const parts = text.split(/\s*\/\s*/).map((s) => s.trim()).filter(Boolean);
-        const refs = [];
-        parts.forEach((part) => {
-          const entry = AF_PHRASES.find(
-            (p) => p.text && p.text.toLowerCase() === part.toLowerCase() && p.audio_refs?.length
-          );
-          if (entry) {
-            const ref = _bestRefFromList(entry.audio_refs, lang);
-            if (ref) refs.push(ref);
-          }
-        });
-        if (refs.length) {
-          _playSequence(refs, text, lang, 0);
-          return;
-        }
-      }
-      // Prefer a passage recording if one exists
       const passage = AF_PHRASES.find(
         (p) => (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs?.length
       );
@@ -84,7 +80,6 @@ const Audio = (() => {
           return;
         }
       }
-      // Fall back: play matching phrase entries
       const phrases = AF_PHRASES.filter((p) => p.intent === phraseId || p.id === phraseId);
       if (phrases.length) {
         const refs = phrases.map((p) => _bestRefFromList(p.audio_refs || [], lang)).filter(Boolean);
@@ -94,6 +89,7 @@ const Audio = (() => {
         }
       }
     }
+    // 3. TTS fallback
     _tryTTS(text, lang);
   }
 
@@ -107,24 +103,6 @@ const Audio = (() => {
   function _bestRefFromList(refs, lang) {
     if (!refs?.length) return null;
     const currentPkg = getVoicePackage(lang);
-    const ranked = refs
-      .filter((r) => r.quality !== "tts")
-      .sort((a, b) => {
-        const aCurrent = a.package === currentPkg ? 0 : 10;
-        const bCurrent = b.package === currentPkg ? 0 : 10;
-        const order = { studio: 0, field: 1 };
-        const aRank = aCurrent + (order[a.quality] ?? 2);
-        const bRank = bCurrent + (order[b.quality] ?? 2);
-        return aRank - bRank;
-      });
-    return ranked[0] || null;
-  }
-
-  function _bestAudioRef(surfaceForm, lang) {
-    if (!surfaceForm?.pronunciation?.audio_refs) return null;
-    const refs = surfaceForm.pronunciation.audio_refs;
-    const currentPkg = getVoicePackage(lang);
-
     const ranked = refs
       .filter((r) => r.quality !== "tts")
       .sort((a, b) => {
