@@ -1,0 +1,138 @@
+{
+  "version": "1.0",
+  "updated": "2026-07-23",
+  "description": "Registry of all information flows, pipelines, and state transitions in the SRE system.",
+  "flows": [
+    {
+      "id": "acquisition-planning-loop",
+      "name": "Acquisition Planning Loop",
+      "description": "Core agent loop: analyze gaps, recommend next acquisition, execute, log outcome, recalibrate",
+      "steps": [
+        { "order": 1, "action": "Load state (experiences + surface forms + audio index)", "component": "acquisition-planner" },
+        { "order": 2, "action": "Compute state hash; skip if unchanged from last run", "component": "acquisition-planner", "state_file": ".agent-state-hash" },
+        { "order": 3, "action": "Tokenize all sentences and check each word against entity index and audio index", "component": "acquisition-planner", "function": "analyze" },
+        { "order": 4, "action": "Classify gaps by type (ENTITY_INTEGRATION, AUDIO_ACQUISITION, JOINT_ACQUISITION)", "component": "acquisition-planner" },
+        { "order": 5, "action": "Identify co-dependency clusters (sentences needing >1 word to resolve)", "component": "acquisition-planner", "function": "findClusters" },
+        { "order": 6, "action": "Build candidate list with coverage gain, completion bonus, cross-story reuse, cost", "component": "acquisition-planner", "function": "buildCandidates" },
+        { "order": 7, "action": "Structural planner: rank candidates by immediate coverage gain", "component": "acquisition-planner" },
+        { "order": 8, "action": "Horizon planner: compute 2-step trajectories for top candidates", "component": "acquisition-planner", "function": "compute2StepPlans" },
+        { "order": 9, "action": "Probabilistic planner: apply calibrated confidence and outcome distributions", "component": "acquisition-planner" },
+        { "order": 10, "action": "Select action and display recommendation", "component": "acquisition-planner" },
+        { "order": 11, "action": "Execute acquisition (create entity + SF + contribution + download MP3)", "component": "human (manual)" },
+        { "order": 12, "action": "Log prediction outcome to ledger", "component": "acquisition-planner", "state_file": ".agent-prediction-ledger.json" },
+        { "order": 13, "action": "Recalibrate confidence and outcome distributions from updated ledger", "component": "acquisition-planner", "functions": ["calibrateConfidence", "calibrateOutcomes"] },
+        { "order": 14, "action": "Clear state hash for fresh analysis next invocation", "component": "human (manual)" }
+      ],
+      "state_transitions": {
+        "input": "coverage state (which sentences are resolvable)",
+        "intermediate": "gap list, candidate list, 2-step plans, calibrated distributions",
+        "output": "recommended action + prediction record"
+      },
+      "feedback_loops": [
+        { "type": "confidence calibration", "from": "prediction error history", "to": "probabilistic planner", "mechanism": "per-gap-type MAE/max_error" },
+        { "type": "outcome calibration", "from": "prediction outcome history", "to": "probabilistic planner", "mechanism": "per-gap-type outcome distribution (unlocked/partial/blocked)" }
+      ]
+    },
+    {
+      "id": "audio-resolution-chain",
+      "name": "Audio Resolution Chain",
+      "description": "Fallback chain for resolving a phrase/sentence to playable audio",
+      "steps": [
+        { "order": 1, "action": "Direct native recording: check phrase_id -> AF_PHRASES[].audio_refs", "component": "audio-runtime" },
+        { "order": 2, "action": "Entity-level recording: entity_id -> SURFACE_FORMS[].pronunciation.audio_refs", "component": "audio-runtime" },
+        { "order": 3, "action": "Composed audio: PhraseComposer.resolve() concatenates approved atomic recordings", "component": "phrase-composer" },
+        { "order": 4, "action": "Atomic sequence: StoryAudioResolver.resolveSentence() tokenizes and looks up each word", "component": "story-audio-resolver" },
+        { "order": 5, "action": "Dictionary fallback: lookupAudio() in AUDIO_INDEX for remaining unmatched words", "component": "audio-index" },
+        { "order": 6, "action": "TTS fallback: speechSynthesis in the panel's language", "component": "audio-runtime" }
+      ],
+      "governance_gate": "CONTRIBUTIONS.isRefPlayable() — only canonical contributions are playable"
+    },
+    {
+      "id": "contribution-lifecycle",
+      "name": "Contribution Governance Pipeline",
+      "description": "Lifecycle of an audio asset from proposal to canonical integration",
+      "steps": [
+        { "order": 1, "state": "pending", "action": "Contribution proposed with source, speaker metadata, and proposed entity mapping", "component": "contributions" },
+        { "order": 2, "state": "validated", "action": "Validation: source URL confirmed, file integrity checked, metadata verified", "component": "contributions" },
+        { "order": 3, "state": "approved", "action": "Approval: entity_id and voice_type assigned; recording becomes playable for that profile", "component": "contributions" },
+        { "order": 4, "state": "canonical", "action": "Canonical: permanent inclusion in the dataset; irreversible", "component": "contributions" },
+        { "order": null, "state": "rejected", "action": "Rejected at any stage; cannot proceed further", "component": "contributions" }
+      ],
+      "gate_conditions": {
+        "pending->validated": "Source URL accessible, file passes integrity check",
+        "validated->approved": "Human reviewer assigns entity mapping and voice type",
+        "approved->canonical": "Human sign-off; no further changes allowed",
+        "any->rejected": "Human reviewer rejects; record preserved for audit"
+      }
+    },
+    {
+      "id": "voice-recording-workflow",
+      "name": "Voice Recording Workflow",
+      "description": "End-to-end flow for recording and contributing new voice audio",
+      "steps": [
+        { "order": 1, "action": "Select language and voice type (male_adult/female_adult/male_child/female_child)", "component": "recorder" },
+        { "order": 2, "action": "Generate recording queue from AudioCoverage for missing items", "component": "audio-coverage" },
+        { "order": 3, "action": "Record audio via browser MediaRecorder API", "component": "recorder" },
+        { "order": 4, "action": "Playback, re-record if needed", "component": "recorder" },
+        { "order": 5, "action": "Download bundle: YAML metadata + audio file", "component": "recorder" },
+        { "order": 6, "action": "Submit as contribution record (future: direct integration)", "component": "contributions" },
+        { "order": 7, "action": "Review workflow (Phase 2): approve/reject via reviewer", "component": "reviewer" }
+      ],
+      "state_transitions": {
+        "input": "language, voice_type => missing items queue",
+        "output": "YAML + audio file bundle"
+      }
+    },
+    {
+      "id": "coverage-classification",
+      "name": "Coverage Classification",
+      "description": "How the Requirement Matrix classifies each (entity x language x voice_type) tuple",
+      "steps": [
+        { "order": 1, "action": "Collect all surface forms for a given language", "component": "requirement-matrix" },
+        { "order": 2, "action": "For each voice type, check audio_refs for a matching voice_type tag", "component": "requirement-matrix" },
+        { "order": 3, "state": "explicit", "action": "Has audio_ref with matching voice_type tag", "component": "requirement-matrix" },
+        { "order": 4, "state": "legacy", "action": "Has audio_refs but none tagged for this voice type", "component": "requirement-matrix" },
+        { "order": 5, "state": "missing", "action": "No audio_refs at all", "component": "requirement-matrix" }
+      ]
+    },
+    {
+      "id": "curriculum-rendering",
+      "name": "Curriculum Rendering Flow",
+      "description": "How experiences are rendered in the dual-panel UI",
+      "steps": [
+        { "order": 1, "action": "User selects curriculum (River World / Wife's Core 20)", "component": "app-river-world" },
+        { "order": 2, "action": "User navigates to an experience (story)", "component": "app-river-world" },
+        { "order": 3, "action": "App renders experience title, content, and entity word chips for both panels", "component": "app-river-world" },
+        { "order": 4, "action": "Each panel shows the experience in its selected language", "component": "app-river-world" },
+        { "order": 5, "action": "Entity chips link to word detail view with audio playback button", "component": "app-river-world" },
+        { "order": 6, "action": "Audio playback resolved via audio-resolution-chain", "component": "audio-runtime" },
+        { "order": 7, "action": "Learner interactions logged as session events", "component": "session" }
+      ]
+    },
+    {
+      "id": "build-pipeline",
+      "name": "Build Pipeline",
+      "description": "Compile YAML source data into runtime JS bundles for the web app",
+      "steps": [
+        { "order": 1, "action": "Download audio from Te Aka Māori Dictionary", "component": "download-teaka-audio" },
+        { "order": 2, "action": "Update surface_forms.yaml with audio refs and provenance", "component": "update-yaml-audio" },
+        { "order": 3, "action": "(Optional) Compile experiences to runtime graph", "component": "build-app" },
+        { "order": 4, "action": "Regenerate JS bundles from YAML source", "component": "rebuild-js" },
+        { "order": 5, "action": "Copy bundles and audio to apps/river-world/ and docs/", "component": "rebuild-js" }
+      ]
+    },
+    {
+      "id": "deployment",
+      "name": "GitHub Pages Deployment",
+      "description": "How the app is deployed and served via GitHub Pages",
+      "steps": [
+        { "order": 1, "action": "Push to main branch on GitHub", "component": "human" },
+        { "order": 2, "action": "GitHub Pages serves from docs/ directory", "component": "GitHub" },
+        { "order": 3, "action": "index.html loads runtime JS files from docs/ top-level", "component": "browser" },
+        { "order": 4, "action": "Additional package files loaded from docs/packages/language-data/", "component": "browser" },
+        { "order": 5, "action": "Audio files served from docs/voices/", "component": "browser" }
+      ],
+      "note": "Script paths must be relative to GitHub Pages site root (/maori-sre/), not repo root"
+    }
+  ]
+}

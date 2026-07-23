@@ -1,0 +1,118 @@
+{
+  "version": "1.0",
+  "updated": "2026-07-23",
+  "description": "Registry of experiments, architectural decisions, and key findings. Each entry records what was done, what was learned, and how it shaped the system.",
+  "experiments": [
+    {
+      "id": "EXP-001",
+      "name": "10-word river completion (initial session)",
+      "date": "~2026-07-21",
+      "description": "First acquisition loop: identified 10 missing Māori words from River World stories and acquired them (kua, tana, tahi, rangi, teitei, mau, whakakiia, piki, toro, atu)",
+      "initial_state": "37/49 sentences resolvable",
+      "actions": "Acquired 10 words with entity records, surface forms, audio refs, and MP3 downloads",
+      "result": "45/49 sentences resolvable (91.8%), 8/10 stories fully covered",
+      "coverage_gain": 8,
+      "predictions": 0,
+      "findings": "No prediction ledger existed yet; gaps were identified manually via story-gap-analysis.js"
+    },
+    {
+      "id": "EXP-002",
+      "name": "7-word final acquisition to 100%",
+      "date": "2026-07-23",
+      "description": "Final acquisition batch: acquired remaining 7 words (pakiaka, kainga, to, mihi, nga, taku, whakautu) to reach full 49/49 coverage",
+      "initial_state": "45/49 sentences resolvable; 2 co-dependency clusters blocking 4 words",
+      "actions": "Built acquisition-planner.js with 3-planner architecture. Acquired pakiaka (ENTITY_INTEGRATION, gain=1) then 6 co-dependent words (3 clusters resolved). Linked entities to experiences.js.",
+      "result": "49/49 sentences (100%), 10/10 stories fully covered",
+      "coverage_gain": 4,
+      "predictions": 17,
+      "findings": [
+        "Co-dependency clusters require all members to be acquired before any gain is realized",
+        "JOINT_ACQUISITION prediction type accurately models cluster resolution (gain=0 per individual step)",
+        "Horizon planner correctly identifies cluster resolution strategy",
+        "Planner infrastructure didn't exist for EXP-001; those 10 predictions reconstructed retroactively"
+      ]
+    },
+    {
+      "id": "ARCH-DECISION-001",
+      "name": "Three-planner architecture",
+      "date": "2026-07-23",
+      "description": "The acquisition planner uses three planners with distinct strategies, not a single optimizer",
+      "rationale": "Structural planner handles immediate gain maximization. Horizon planner handles multi-step trajectory planning for co-dependency clusters. Probabilistic planner handles uncertainty via calibrated distributions.",
+      "alternatives": "Single optimizer with lookahead was considered but rejected because it conflates different decision types",
+      "components": ["acquisition-planner (Structural)", "acquisition-planner (Horizon)", "acquisition-planner (Probabilistic)"]
+    },
+    {
+      "id": "ARCH-DECISION-002",
+      "name": "Prediction ledger as learning signal",
+      "date": "2026-07-23",
+      "description": "All acquisition predictions are logged to .agent-prediction-ledger.json and used for confidence calibration",
+      "rationale": "Without ground-truth outcomes, the planner cannot improve. The ledger provides empirical error distributions per gap type.",
+      "data": ".agent-prediction-ledger.json"
+    },
+    {
+      "id": "ARCH-DECISION-003",
+      "name": "State hash for termination detection",
+      "date": "2026-07-23",
+      "description": "A state hash is computed from current coverage state. If unchanged from last run, planner skips analysis.",
+      "rationale": "Prevents redundant planner invocations when state hasn't changed (e.g., human hasn't integrated the recommendation yet).",
+      "data": ".agent-state-hash"
+    },
+    {
+      "id": "ARCH-DECISION-004",
+      "name": "Three-gap-type model",
+      "date": "2026-07-23",
+      "description": "Gaps are classified as ENTITY_INTEGRATION, AUDIO_ACQUISITION, or JOINT_ACQUISITION (co-dependency)",
+      "rationale": "Different gap types require different actions and have different prediction characteristics. ENTITY_INTEGRATION needs new entity+SF+audio+contribution. AUDIO_ACQUISITION needs only a new audio_ref. JOINT_ACQUISITION needs multiple coordinated acquisitions."
+    },
+    {
+      "id": "ARCH-DECISION-005",
+      "name": "Language Policy: 4 voice types",
+      "date": "2026-07-23",
+      "description": "Every surface form in the curriculum must eventually have explicit audio recordings for all four voice profiles",
+      "voice_types": ["male_adult", "female_adult", "male_child", "female_child"],
+      "rationale": "Learners need to hear pronunciations from different speaker types to develop robust phonetic perception. Also important for representation in language preservation.",
+      "implementation": "RequirementMatrix tracks explicit/legacy/missing per voice type. AudioCoverage generates recording queues. Legacy recordings (voice_type: null) are classified via inventory tool."
+    },
+    {
+      "id": "ARCH-DECISION-006",
+      "name": "Dual deployment structure",
+      "date": "2026-07-23",
+      "description": "Source files live in apps/river-world/ and packages/language-data/; deployed copies live in docs/ and docs/packages/language-data/",
+      "rationale": "GitHub Pages serves from docs/ as web root. Source files are the canonical location; docs/ is the deployment artefact.",
+      "complexity": "Script paths differ between source (apps/river-world/ → ../../packages/) and deployment (docs/ → packages/)",
+      "known_issue": "docs/index.html had wrong paths (../../packages/ instead of packages/) from EXP-001 era; fixed in commit cf66a3b"
+    },
+    {
+      "id": "FINDING-001",
+      "name": "EXP-001 predictions cannot be reconstructed",
+      "date": "2026-07-23",
+      "description": "The planner and prediction ledger infrastructure didn't exist during EXP-001, making those 10 predictions non-reconstructable",
+      "impact": "Ledger has 17 entries (7 from EXP-002, 10 labeled with note). Prediction accuracy statistics are based on available data only."
+    },
+    {
+      "id": "FINDING-002",
+      "name": "Audio resolution chain",
+      "date": "2026-07-23",
+      "description": "The complete fallback chain is: direct phrase -> entity-level -> composed -> atomic sequence -> dictionary lookup -> TTS",
+      "discovered_during": "Work on story-audio-resolver.js and audio-resolution.js revealed that multiple fallback tiers are needed because different sentences resolve at different tiers"
+    },
+    {
+      "id": "FINDING-003",
+      "name": "afrikaans-phrases.js path broken on GitHub Pages",
+      "date": "2026-07-23",
+      "description": "docs/index.html loaded afrikaans-phrases.js via ../../packages/language-data/ which resolves outside the /maori-sre/ path on GitHub Pages",
+      "impact": "Hannes' Afrikaans voice recordings were not loaded on the live site; Afrikaans fell through to TTS",
+      "fix": "Changed to packages/language-data/afrikaans-phrases.js (relative to site root, not repo root)",
+      "commit": "cf66a3b"
+    },
+    {
+      "id": "FINDING-004",
+      "name": "entities arrays missing in experiences.js",
+      "date": "2026-07-23",
+      "description": "After 7-word acquisition, the entity arrays in experiences.js didn't include the new gap words (pakiaka, ona, kainga, mihi, whakautu)",
+      "impact": "Even though entities existed in surface_forms.js, the app couldn't render word chips for them because experiences.js didn't list them",
+      "fix": "Added THING_PAKIAKA + PARTICLE_ONA to RIVER_005, THING_KAINGA to RIVER_006, PHRASE_MIHI + PHRASE_WHAKAUTU to RIVER_010",
+      "commit": "3db3aad"
+    }
+  ]
+}

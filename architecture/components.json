@@ -1,0 +1,357 @@
+{
+  "version": "1.0",
+  "updated": "2026-07-23",
+  "description": "Canonical registry of all software components in the SRE system. Each entry records file location, purpose, public API, dependencies, and consumers.",
+  "components": [
+    {
+      "id": "surface-forms",
+      "type": "data",
+      "file": "packages/language-data/surface_forms.js",
+      "deployed": ["docs/surface_forms.js", "apps/river-world/surface_forms.js", "docs/packages/language-data/surface_forms.js"],
+      "purpose": "Canonical registry of every surface form (en/mi/af) across all entities, with pronunciation metadata and audio references",
+      "exports": ["SURFACE_FORMS", "SURFACE_FORM_INDEX"],
+      "depends_on": [],
+      "consumed_by": [
+        "audio-resolution", "audio-runtime", "phrase-composer", "requirement-matrix",
+        "story-audio-resolver", "app-river-world", "acquisition-planner",
+        "story-gap-analysis", "evaluate-acquisition-loop"
+      ]
+    },
+    {
+      "id": "experiences",
+      "type": "data",
+      "file": "packages/language-data/experiences.js",
+      "deployed": ["docs/experiences.js", "apps/river-world/experiences.js", "docs/packages/language-data/experiences.js"],
+      "purpose": "River World curriculum: 10 story/observation/procedure/dialogue experiences with multilingual content and entity annotations",
+      "exports": ["EXPERIENCES"],
+      "depends_on": [],
+      "consumed_by": ["app-river-world", "requirement-matrix", "recorder", "acquisition-planner", "story-gap-analysis"]
+    },
+    {
+      "id": "curriculum-wife",
+      "type": "data",
+      "file": "packages/language-data/curriculum-wife.js",
+      "deployed": ["docs/curriculum-wife.js", "apps/river-world/curriculum-wife.js", "docs/packages/language-data/curriculum-wife.js"],
+      "purpose": "Wife's Core 20: 20 essential Māori phrases in progressive order with multilingual content and entity references",
+      "exports": ["CORE_20"],
+      "depends_on": [],
+      "consumed_by": ["app-river-world", "requirement-matrix", "recorder"]
+    },
+    {
+      "id": "contributions",
+      "type": "data",
+      "file": "packages/language-data/contributions.js",
+      "deployed": ["docs/contributions.js", "apps/river-world/contributions.js", "docs/packages/language-data/contributions.js"],
+      "purpose": "Governance registry for audio asset contributions: tracks provenance, validation, approval, and canonical integration lifecycle",
+      "exports": ["CONTRIBUTIONS"],
+      "public_api": ["get", "getAll", "query", "isCanonical", "isRefPlayable", "setStatus", "setApproval", "setValidation", "add", "summary"],
+      "depends_on": [],
+      "consumed_by": ["audio-resolution", "phrase-composer", "story-audio-resolver", "audio-runtime"]
+    },
+    {
+      "id": "audio-index",
+      "type": "data",
+      "file": "packages/language-data/audio_index.js",
+      "deployed": ["docs/audio_index.js", "apps/river-world/audio_index.js", "docs/packages/language-data/audio_index.js"],
+      "purpose": "Flat lookup from normalized Māori word text to Te Aka Dictionary MP3 audio file metadata",
+      "exports": ["AUDIO_INDEX", "lookupAudio"],
+      "depends_on": [],
+      "consumed_by": ["story-audio-resolver", "acquisition-planner", "story-gap-analysis"]
+    },
+    {
+      "id": "voice-packages",
+      "type": "data",
+      "file": "packages/language-data/voice_packages.js",
+      "deployed": ["docs/voice_packages.js", "apps/river-world/voice_packages.js", "docs/packages/language-data/voice_packages.js"],
+      "purpose": "Defines available voice/speaker packages with metadata, coverage stats, and default language mapping",
+      "exports": ["VOICE_PACKAGES", "DEFAULT_VOICE_PACKAGES"],
+      "depends_on": [],
+      "consumed_by": ["audio-runtime", "recorder", "app-river-world"]
+    },
+    {
+      "id": "afrikaans-phrases",
+      "type": "data",
+      "file": "packages/language-data/afrikaans-phrases.js",
+      "deployed": ["docs/packages/language-data/afrikaans-phrases.js"],
+      "purpose": "Afrikaans phrase data with audio references for Hannes' passage recordings, mapped to curriculum intents",
+      "exports": ["AF_PHRASES"],
+      "depends_on": [],
+      "consumed_by": ["audio-runtime", "recorder"]
+    },
+    {
+      "id": "requirement-matrix",
+      "type": "analysis",
+      "file": "packages/language-data/requirement-matrix.js",
+      "deployed": ["docs/packages/language-data/requirement-matrix.js"],
+      "purpose": "Canonical inventory of all required (language x surface_form x voice_type) tuples; derives explicit/legacy/missing coverage status",
+      "exports": ["RequirementMatrix"],
+      "public_api": ["generate", "verify", "unverify", "isVerified", "missing", "legacy", "explicit", "summary", "voiceSummary"],
+      "depends_on": ["surface-forms", "experiences", "curriculum-wife"],
+      "consumed_by": ["audio-coverage"]
+    },
+    {
+      "id": "audio-coverage",
+      "type": "analysis",
+      "file": "packages/language-data/audio-coverage.js",
+      "deployed": ["docs/packages/language-data/audio-coverage.js"],
+      "purpose": "Thin query layer over RequirementMatrix providing per-language/voice coverage data and recording queues",
+      "exports": ["AudioCoverage"],
+      "public_api": ["coverage", "recordingQueue", "legacyQueue", "summary"],
+      "depends_on": ["requirement-matrix"],
+      "consumed_by": ["recorder", "dashboard"]
+    },
+    {
+      "id": "audio-resolution",
+      "type": "analysis",
+      "file": "packages/language-data/audio-resolution.js",
+      "deployed": ["docs/packages/language-data/audio-resolution.js"],
+      "purpose": "Query layer that classifies each entity/phrase as direct/composed/partial/TTS based on available native audio",
+      "exports": ["AudioResolution"],
+      "public_api": ["status", "playable", "coverage", "gainAnalysis"],
+      "depends_on": ["surface-forms", "contributions", "phrase-composer"],
+      "consumed_by": ["vocab-gap"]
+    },
+    {
+      "id": "phrase-composer",
+      "type": "engine",
+      "file": "packages/language-data/phrase-composer.js",
+      "deployed": ["docs/packages/language-data/phrase-composer.js"],
+      "purpose": "Composes audio for multi-word phrases by concatenating approved native recordings of constituent atomic words",
+      "exports": ["PhraseComposer"],
+      "public_api": ["hasComposition", "getComponents", "resolve", "list", "vocabularyGap", "compositionCoverage"],
+      "depends_on": ["surface-forms", "contributions"],
+      "consumed_by": ["audio-resolution", "audio-runtime", "vocab-gap"]
+    },
+    {
+      "id": "story-audio-resolver",
+      "type": "engine",
+      "file": "packages/language-data/story-audio-resolver.js",
+      "deployed": ["docs/packages/language-data/story-audio-resolver.js"],
+      "purpose": "Resolves a story sentence into an ordered sequence of playable native audio units via tokenization, entity lookup, and dictionary fallback",
+      "exports": ["StoryAudioResolver"],
+      "public_api": ["resolveSentence", "tokenize", "isFullyResolvable", "tier"],
+      "depends_on": ["surface-forms", "contributions", "audio-index"],
+      "consumed_by": ["audio-runtime"]
+    },
+    {
+      "id": "audio-runtime",
+      "type": "runtime",
+      "file": "apps/river-world/audio.js",
+      "deployed": ["docs/audio.js"],
+      "purpose": "Runtime audio playback layer: resolves entity/phrase to best available native recording via Web Audio API, with TTS fallback",
+      "exports": ["Audio"],
+      "public_api": ["init", "speak", "setVoicePackage", "getVoicePackage", "getAvailablePackages"],
+      "depends_on": ["voice-packages", "surface-forms", "contributions", "phrase-composer", "story-audio-resolver", "afrikaans-phrases"],
+      "consumed_by": ["app-river-world"]
+    },
+    {
+      "id": "session",
+      "type": "runtime",
+      "file": "apps/river-world/session.js",
+      "deployed": ["docs/session.js"],
+      "purpose": "Event-sourced learner session log: every interaction recorded as immutable event in localStorage",
+      "exports": ["Session"],
+      "public_api": ["log", "getAll", "clear", "exportJSON", "summary"],
+      "depends_on": [],
+      "consumed_by": ["app-river-world"]
+    },
+    {
+      "id": "app-river-world",
+      "type": "runtime",
+      "file": "apps/river-world/app.js",
+      "deployed": ["docs/app.js"],
+      "purpose": "Main application controller: dual-panel language experience rendering, curriculum switching, review mode, audio playback",
+      "exports": ["App"],
+      "public_api": ["init", "setPanelALang", "setPanelBLang", "swapLangs"],
+      "depends_on": ["experiences", "curriculum-wife", "audio-runtime", "session", "surface-forms"],
+      "consumed_by": []
+    },
+    {
+      "id": "sw-river-world",
+      "type": "runtime",
+      "file": "apps/river-world/sw.js",
+      "deployed": ["docs/sw.js"],
+      "purpose": "Service worker for offline support: caches all app resources, serves from cache with network fallback",
+      "exports": [],
+      "depends_on": [],
+      "consumed_by": []
+    },
+    {
+      "id": "recorder",
+      "type": "tool",
+      "file": "apps/voice-contrib/recorder.js",
+      "deployed": ["docs/voice-contrib/recorder.js"],
+      "purpose": "Voice recording tool: record, playback, re-record, and download voice contributions with coverage queue integration",
+      "exports": ["Recorder"],
+      "public_api": ["init"],
+      "depends_on": ["audio-coverage", "voice-packages", "experiences", "curriculum-wife", "afrikaans-phrases", "surface-forms"],
+      "consumed_by": []
+    },
+    {
+      "id": "reviewer",
+      "type": "tool",
+      "file": "apps/voice-contrib/reviewer.js",
+      "deployed": ["docs/voice-contrib/reviewer.js"],
+      "purpose": "Reviewer module stub (Phase 2 placeholder): intended to implement contribution review workflow with approve/reject",
+      "exports": ["Reviewer"],
+      "public_api": ["init"],
+      "depends_on": [],
+      "consumed_by": []
+    },
+    {
+      "id": "acquisition-planner",
+      "type": "agent",
+      "file": "scripts/acquisition-planner.js",
+      "purpose": "Three-planner architecture (Structural/Horizon/Probabilistic) for word acquisition: recommends next word to acquire for maximum coverage gain",
+      "cli_commands": ["planner", "log", "ledger"],
+      "depends_on": ["surface-forms", "experiences", "audio-index"],
+      "consumed_by": [],
+      "state_files": [".agent-state-hash", ".agent-prediction-ledger.json"]
+    },
+    {
+      "id": "story-gap-analysis",
+      "type": "agent",
+      "file": "scripts/story-gap-analysis.js",
+      "purpose": "Per-gap analysis: tokenizes story sentences, classifies words as resolved/missing, ranks by cross-story coverage impact",
+      "depends_on": ["surface-forms", "experiences", "audio-index"],
+      "consumed_by": []
+    },
+    {
+      "id": "evaluate-acquisition-loop",
+      "type": "agent",
+      "file": "scripts/evaluate-acquisition-loop.js",
+      "purpose": "Evaluates acquisition loop model: reconstructs state transitions, compares predicted vs actual coverage gain per step",
+      "depends_on": ["surface-forms", "experiences", "audio-index"],
+      "consumed_by": []
+    },
+    {
+      "id": "find-word-ids",
+      "type": "script",
+      "file": "scripts/find-word-ids.js",
+      "purpose": "Scans Te Aka Māori Dictionary word ID ranges to discover word IDs for target Māori words",
+      "depends_on": [],
+      "consumed_by": []
+    },
+    {
+      "id": "download-teaka-audio",
+      "type": "script",
+      "file": "scripts/download_teaka_audio.py",
+      "purpose": "Downloads Māori audio MP3s from Te Aka Māori Dictionary via web scraping and Google Cloud Storage",
+      "depends_on": [],
+      "consumed_by": ["add-provenance", "update-yaml-audio"],
+      "output": ["scripts/teaka_results.json"]
+    },
+    {
+      "id": "add-provenance",
+      "type": "script",
+      "file": "scripts/add_provenance.py",
+      "purpose": "Adds provenance metadata (source URL, license) to surface_forms.yaml audio refs from teaka_results.json",
+      "depends_on": ["download-teaka-audio"],
+      "consumed_by": []
+    },
+    {
+      "id": "update-yaml-audio",
+      "type": "script",
+      "file": "scripts/update_yaml_audio.py",
+      "purpose": "Updates surface_forms.yaml with audio refs from download results; renames files with spaces",
+      "depends_on": ["download-teaka-audio"],
+      "consumed_by": []
+    },
+    {
+      "id": "build-app",
+      "type": "script",
+      "file": "scripts/build_app.py",
+      "purpose": "Full build pipeline: compiles YAML experiences to JSON, builds runtime graph with inference, bundles app",
+      "depends_on": ["core-compiler"],
+      "consumed_by": []
+    },
+    {
+      "id": "rebuild-js",
+      "type": "script",
+      "file": "scripts/rebuild_js.py",
+      "purpose": "Regenerates JS bundles (surface_forms.js, voice_packages.js) from YAML source and copies audio to app/docs",
+      "depends_on": ["core-languages"],
+      "consumed_by": []
+    },
+    {
+      "id": "debug-prior-coverage",
+      "type": "script",
+      "file": "scripts/debug-prior-coverage.js",
+      "purpose": "Debug script computing sentence coverage excluding specific session entities",
+      "depends_on": ["surface-forms", "experiences", "audio-index"],
+      "consumed_by": []
+    },
+    {
+      "id": "core-compiler",
+      "type": "library",
+      "file": "core/",
+      "purpose": "Python compiler library: validates canonical source, builds deterministic runtime graph, runs forward-chaining inference",
+      "public_api": ["compile_source", "validate_source", "RuntimeGraph", "InferenceEngine"],
+      "depends_on": [],
+      "consumed_by": ["build-app"]
+    },
+    {
+      "id": "core-languages",
+      "type": "library",
+      "file": "core/languages/",
+      "purpose": "Language package support: SurfaceForm and VoicePackage dataclasses with YAML loading and JS bundle generation",
+      "public_api": ["SurfaceFormRegistry", "VoicePackageRegistry"],
+      "depends_on": [],
+      "consumed_by": ["rebuild-js"]
+    },
+    {
+      "id": "core-inference",
+      "type": "library",
+      "file": "core/compiler/inference/",
+      "purpose": "Forward-chaining inference engine with 5 rules (affordance inheritance, composition, chain, transitivity, template applicability)",
+      "public_api": ["InferenceEngine", "RuleRegistry", "InferredFact"],
+      "depends_on": ["core-compiler"],
+      "consumed_by": []
+    },
+    {
+      "id": "dashboard",
+      "type": "tool",
+      "file": "apps/voice-contrib/dashboard.html",
+      "deployed": ["docs/voice-contrib/dashboard.html"],
+      "purpose": "Audio Coverage Dashboard: displays explicit/legacy/missing coverage per language and voice type",
+      "depends_on": ["audio-coverage"],
+      "consumed_by": []
+    },
+    {
+      "id": "vocab-gap",
+      "type": "tool",
+      "file": "apps/voice-contrib/vocab-gap.html",
+      "deployed": ["docs/voice-contrib/vocab-gap.html"],
+      "purpose": "Māori Vocabulary Gap Analysis: component-word extraction and recording priority for missing phrase audio",
+      "depends_on": ["phrase-composer", "audio-resolution"],
+      "consumed_by": []
+    },
+    {
+      "id": "inventory-tool",
+      "type": "tool",
+      "file": "apps/voice-contrib/inventory.html",
+      "deployed": ["docs/voice-contrib/inventory.html"],
+      "purpose": "Audio Inventory: classify legacy recordings and assign voice types",
+      "depends_on": ["requirement-matrix"],
+      "consumed_by": []
+    },
+    {
+      "id": "index-html-river-world",
+      "type": "entry",
+      "file": "apps/river-world/index.html",
+      "deployed": ["docs/index.html"],
+      "purpose": "Main PWA entry point: dual-panel UI for language learning (Co-Sense)",
+      "depends_on": ["app-river-world", "audio-runtime", "surface-forms", "experiences", "curriculum-wife", "session", "voice-packages"],
+      "consumed_by": []
+    },
+    {
+      "id": "index-html-voice-contrib",
+      "type": "entry",
+      "file": "apps/voice-contrib/index.html",
+      "deployed": ["docs/voice-contrib/index.html"],
+      "purpose": "Voice contribution app entry point",
+      "depends_on": ["recorder", "requirement-matrix", "contributions", "phrase-composer", "audio-coverage"],
+      "consumed_by": []
+    }
+  ]
+}

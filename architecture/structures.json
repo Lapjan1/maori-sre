@@ -1,0 +1,209 @@
+{
+  "version": "1.0",
+  "updated": "2026-07-23",
+  "description": "Registry of all data structures and schemas in the SRE system. Each entry documents where the structure is defined, its fields, and which components consume it.",
+  "structures": [
+    {
+      "id": "surface-form",
+      "defined_in": "packages/language-data/surface_forms.js (also surface_forms.yaml source)",
+      "description": "A surface form is the linguistic realization of an entity in a specific language",
+      "fields": {
+        "id": "string — unique surface form identifier (e.g. SF_EN_THING_001)",
+        "entity_id": "string — links to the semantic entity",
+        "lang": "string — language code (en/mi/af)",
+        "text": "string — orthographic text in the language",
+        "pronunciation.ipa": "string — IPA pronunciation notation",
+        "pronunciation.syllables": "string[] — syllable breakdown",
+        "pronunciation.stress": "number — stressed syllable index",
+        "pronunciation.audio_refs": "AudioRef[] — array of audio recording references"
+      },
+      "related_index": "SURFACE_FORM_INDEX — maps entity_id -> { en, mi, af } -> surface_form_id",
+      "consumed_by": [
+        "audio-resolution", "audio-runtime", "phrase-composer", "requirement-matrix",
+        "story-audio-resolver", "app-river-world", "acquisition-planner"
+      ]
+    },
+    {
+      "id": "audio-ref",
+      "defined_in": "packages/language-data/surface_forms.js (inline in surface forms)",
+      "description": "Reference to a single audio recording file",
+      "fields": {
+        "ref": "string — filename (e.g. VC_MRVJ8W1Q.webm or word_5012.mp3)",
+        "package": "string — voice package id",
+        "speaker": "string — speaker name or 'anonymous'",
+        "dialect": "string — dialect label",
+        "quality": "string — 'field', 'studio', or 'tts'",
+        "voice_type": "string|null — one of 'male_adult'/'female_adult'/'male_child'/'female_child' or null (unclassified)"
+      },
+      "consumed_by": ["audio-runtime", "requirement-matrix", "contributions"]
+    },
+    {
+      "id": "entity",
+      "defined_in": "packages/language-data/experiences.js (entity arrays in experiences)",
+      "description": "A semantic entity referenced in a curriculum experience",
+      "fields": {
+        "entity_id": "string — unique identifier (e.g. THING_001, STATE_ORA)",
+        "type": "string — entity type (THING, STATE, ACTION, PERSON, PLACE, PARTICLE, etc.)",
+        "label": "{ en, mi, af } — display labels per language"
+      },
+      "consumed_by": ["surface-forms", "app-river-world", "requirement-matrix", "acquisition-planner"]
+    },
+    {
+      "id": "experience",
+      "defined_in": "packages/language-data/experiences.js",
+      "description": "A curriculum experience (story, observation, procedure, dialogue) with multilingual content and entity annotations",
+      "fields": {
+        "id": "string — unique id (e.g. RIVER_001)",
+        "type": "string — story | observation | procedure | dialogue",
+        "level": "number — difficulty level",
+        "phrase_id": "string — links to phrase identifier",
+        "title": "{ en, mi, af } — experience title per language",
+        "content": "{ en, mi, af } — experience text per language",
+        "entities": "Entity[] — entities referenced in this experience",
+        "interactions": "Interaction[] — available learner interactions"
+      },
+      "consumed_by": ["app-river-world", "requirement-matrix", "recorder", "acquisition-planner"]
+    },
+    {
+      "id": "contribution",
+      "defined_in": "packages/language-data/contributions.js",
+      "description": "Governance record for an audio asset: tracks proposal through validation, approval, and canonical integration",
+      "fields": {
+        "id": "string — unique contribution id (e.g. CONTRIB_MI_HAERE_001)",
+        "source": "{ type, url, retrieved, license } — provenance",
+        "speaker": "{ gender, age_group, identity } — speaker metadata",
+        "proposed": "{ entity_id, audio_ref } — proposed mapping",
+        "validated": "{ by, date, status } — validation record",
+        "approved": "{ entity_id, voice_type } — approved mapping",
+        "canonical": { "status", "date" } — lifecycle terminal state",
+        "status": "string — pending | validated | approved | canonical | rejected",
+        "notes": "string — human-readable notes"
+      },
+      "lifecycle": ["pending", "validated", "approved", "canonical", "(rejected)"],
+      "consumed_by": ["audio-resolution", "phrase-composer", "story-audio-resolver", "audio-runtime"]
+    },
+    {
+      "id": "voice-package",
+      "defined_in": "packages/language-data/voice_packages.js",
+      "description": "Definition of a voice/speaker package with metadata and coverage stats",
+      "fields": {
+        "id": "string — package identifier",
+        "name": "string — human-readable name",
+        "language": "string — language code",
+        "base_path": "string — path to audio files",
+        "format": "string — audio file format (mp3/webm/ogg)",
+        "speaker": "{ name, native } — speaker info",
+        "coverage": "{ corpus, experience_count, surface_form_count, percentage }",
+        "review": "{ native, reviewed, pronunciation, grammar }"
+      },
+      "consumed_by": ["audio-runtime", "recorder", "app-river-world"]
+    },
+    {
+      "id": "afrikaans-phrase",
+      "defined_in": "packages/language-data/afrikaans-phrases.js",
+      "description": "An Afrikaans phrase with optional audio references for Hannes' passage recordings",
+      "fields": {
+        "id": "string — unique phrase id",
+        "lang": "string — 'af'",
+        "text": "string — Afrikaans phrase text",
+        "translation_en": "string — English translation",
+        "intent": "string — links to curriculum phrase ID",
+        "situation": "string — context description",
+        "audio_refs": "AudioRef[] (optional) — recording references",
+        "type": "string (optional) — 'passage' for full story recordings"
+      },
+      "consumed_by": ["audio-runtime", "recorder"]
+    },
+    {
+      "id": "audio-index-entry",
+      "defined_in": "packages/language-data/audio_index.js",
+      "description": "Maps a normalized Māori word to its Te Aka Dictionary MP3 metadata",
+      "fields": {
+        "key": "string — normalized lowercase word (macrons stripped)",
+        "filename": "string — MP3 filename",
+        "word_id": "number — Te Aka word ID",
+        "bytes": "number — file size in bytes"
+      },
+      "consumed_by": ["story-audio-resolver", "acquisition-planner", "story-gap-analysis"]
+    },
+    {
+      "id": "prediction-entry",
+      "defined_in": ".agent-prediction-ledger.json",
+      "description": "Record of a word acquisition prediction: what was predicted vs what actually happened",
+      "fields": {
+        "action": "string — the word/entity that was acquired",
+        "word_id": "number — Te Aka word ID",
+        "predicted_gain": "number — predicted sentence coverage gain",
+        "actual_gain": "number — actual sentence coverage gain",
+        "error": "number — difference between predicted and actual",
+        "gap_type": "string — ENTITY_INTEGRATION | AUDIO_ACQUISITION | JOINT_ACQUISITION",
+        "objective": "string — planner objective used",
+        "cluster_size": "number — size of co-dependency cluster if applicable",
+        "outcome": "string — unlocked | partial | blocked",
+        "classification": "string — accurate | underprediction | co_dependency | overprediction",
+        "timestamp": "string — ISO timestamp"
+      },
+      "consumed_by": ["acquisition-planner"]
+    },
+    {
+      "id": "requirement-matrix-row",
+      "defined_in": "packages/language-data/requirement-matrix.js (generated by .generate())",
+      "description": "A single (entity x language x voice_type) tuple with coverage status",
+      "fields": {
+        "entity_id": "string",
+        "lang": "string — language code",
+        "text": "string — surface form text",
+        "voice_type": "string — male_adult | female_adult | male_child | female_child",
+        "surface_form_id": "string",
+        "sources": "string[] — curriculum sources (river_world, wife_core_20)",
+        "coverage_status": "string — explicit | legacy | missing",
+        "native_verified": "boolean"
+      },
+      "consumed_by": ["audio-coverage"]
+    },
+    {
+      "id": "session-event",
+      "defined_in": "apps/river-world/session.js",
+      "description": "An immutable learner interaction event stored in localStorage",
+      "fields": {
+        "type": "string — event type (listen, click, explore, etc.)",
+        "timestamp": "string — ISO timestamp",
+        "entity_id": "string (optional)",
+        "language": "string (optional)",
+        "experience_id": "string (optional)",
+        "data": "object (optional) — additional event data"
+      },
+      "consumed_by": ["app-river-world"]
+    },
+    {
+      "id": "state-hash",
+      "defined_in": ".agent-state-hash",
+      "description": "Hash of current coverage state for change detection by the acquisition planner. Cleared after each acquisition round to force fresh analysis.",
+      "format": "SHA-256 hex string",
+      "consumed_by": ["acquisition-planner"]
+    },
+    {
+      "id": "voice-type",
+      "defined_in": "packages/language-data/requirement-matrix.js (VOICE_TYPES constant)",
+      "description": "The four voice profiles that define the recording policy. Every surface form must eventually have explicit audio for all four.",
+      "values": ["male_adult", "female_adult", "male_child", "female_child"],
+      "labels": {
+        "male_adult": "Male adult",
+        "female_adult": "Female adult",
+        "male_child": "Male child",
+        "female_child": "Female child"
+      },
+      "consumed_by": ["requirement-matrix", "audio-coverage", "recorder", "inventory-tool"]
+    },
+    {
+      "id": "composition",
+      "defined_in": "packages/language-data/phrase-composer.js",
+      "description": "Maps a multi-word phrase entity to its component atomic entity IDs for audio composition",
+      "fields": {
+        "id": "string — phrase entity ID",
+        "components": "string[] — array of component entity IDs"
+      },
+      "consumed_by": ["phrase-composer", "audio-resolution"]
+    }
+  ]
+}
