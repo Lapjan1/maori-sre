@@ -681,6 +681,7 @@ const App = (() => {
     if (e.target.classList.contains("word-chip")) {
       const entityId = e.target.dataset.entity;
       const lang = e.target.dataset.lang;
+      const labelText = e.target.dataset.text;
       if (entityId) {
         const detail = document.getElementById("word-detail");
         if (detail) {
@@ -688,10 +689,10 @@ const App = (() => {
           const inner = detail.querySelector(".word-detail-inner");
           if (inner) inner.innerHTML = _renderWordDetail(entityId, lang);
         }
-        const sf = _lookupSurfaceForm(entityId, lang);
-        const text = sf?.text || entityId;
-        Audio.speak(text, lang, entityId);
-        Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
+        const exp = _experiences[_currentIndex];
+        const phraseId = exp?.phrase_id;
+        Audio.speak(labelText || entityId, lang, entityId, phraseId);
+        Session.log("audio_played", { text: labelText || entityId, lang, entityId, phraseId, experience_id: exp?.id });
       }
       return;
     }
