@@ -92,6 +92,9 @@ var StoryAudioResolver = (() => {
                 return r.quality !== "tts" && _isPlayable(r);
               })
             : [];
+          // Skip multi-word entity match if entity has no audio_refs
+          // so individual words can be resolved via audio_index lookup
+          if (lookahead > 1 && refs.length === 0) continue;
           sequence.push({
             entity_id: entityId,
             text: sf ? sf.text : phrase,
