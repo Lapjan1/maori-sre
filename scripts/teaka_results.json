@@ -2,7 +2,7 @@
   "ahi": {
     "word_id": "69",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/69.mp3",
-    "file": "audio/ahi.mp3",
+    "file": "audio/69.mp3",
     "entity_ids": [
       "THING_104"
     ],
@@ -15,7 +15,7 @@
   "awa": {
     "word_id": "563",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/563.mp3",
-    "file": "audio/awa.mp3",
+    "file": "audio/563.mp3",
     "entity_ids": [
       "PLACE_005"
     ],
@@ -28,7 +28,7 @@
   "heke": {
     "word_id": "1038",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1038.mp3",
-    "file": "audio/heke.mp3",
+    "file": "audio/1038.mp3",
     "entity_ids": [
       "ACTION_013"
     ],
@@ -41,7 +41,7 @@
   "hoatu": {
     "word_id": "1307",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1307.mp3",
-    "file": "audio/hoatu.mp3",
+    "file": "audio/1307.mp3",
     "entity_ids": [
       "ACTION_010"
     ],
@@ -54,7 +54,7 @@
   "hopu": {
     "word_id": "1405",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1405.mp3",
-    "file": "audio/hopu.mp3",
+    "file": "audio/1405.mp3",
     "entity_ids": [
       "ACTION_018"
     ],
@@ -67,7 +67,7 @@
   "hīkoi": {
     "word_id": "1173",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1173.mp3",
-    "file": "audio/hīkoi.mp3",
+    "file": "audio/1173.mp3",
     "entity_ids": [
       "ACTION_002"
     ],
@@ -80,7 +80,7 @@
   "ika": {
     "word_id": "42348",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/42348.mp3",
-    "file": "audio/ika.mp3",
+    "file": "audio/42348.mp3",
     "entity_ids": [
       "THING_102"
     ],
@@ -93,7 +93,7 @@
   "inu": {
     "word_id": "1754",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1754.mp3",
-    "file": "audio/inu.mp3",
+    "file": "audio/1754.mp3",
     "entity_ids": [
       "ACTION_001"
     ],
@@ -106,7 +106,7 @@
   "kai": {
     "word_id": "1894",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/1894.mp3",
-    "file": "audio/kai.mp3",
+    "file": "audio/1894.mp3",
     "entity_ids": [
       "THING_105",
       "ACTION_021"
@@ -121,7 +121,7 @@
   "kapu": {
     "word_id": "2248",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/2248.mp3",
-    "file": "audio/kapu.mp3",
+    "file": "audio/2248.mp3",
     "entity_ids": [
       "THING_103"
     ],
@@ -134,7 +134,7 @@
   "kauhoe": {
     "word_id": "2424",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/2424.mp3",
-    "file": "audio/kauhoe.mp3",
+    "file": "audio/2424.mp3",
     "entity_ids": [
       "ACTION_017"
     ],
@@ -147,7 +147,7 @@
   "koa": {
     "word_id": "2744",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/2744.mp3",
-    "file": "audio/koa.mp3",
+    "file": "audio/2744.mp3",
     "entity_ids": [
       "STATE_010"
     ],
@@ -167,7 +167,7 @@
   "kupenga": {
     "word_id": "3274",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3274.mp3",
-    "file": "audio/kupenga.mp3",
+    "file": "audio/3274.mp3",
     "entity_ids": [
       "THING_107"
     ],
@@ -180,7 +180,7 @@
   "kurī": {
     "word_id": "3309",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3309.mp3",
-    "file": "audio/kurī.mp3",
+    "file": "audio/3309.mp3",
     "entity_ids": [
       "THING_101"
     ],
@@ -193,7 +193,7 @@
   "matewai": {
     "word_id": "3885",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3885.mp3",
-    "file": "audio/matewai.mp3",
+    "file": "audio/3885.mp3",
     "entity_ids": [
       "STATE_001"
     ],
@@ -206,7 +206,7 @@
   "mākona": {
     "word_id": "3553",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/3553.mp3",
-    "file": "audio/mākona.mp3",
+    "file": "audio/3553.mp3",
     "entity_ids": [
       "STATE_011"
     ],
@@ -219,7 +219,7 @@
   "noho": {
     "word_id": "53247",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/53247.mp3",
-    "file": "audio/noho.mp3",
+    "file": "audio/53247.mp3",
     "entity_ids": [
       "ACTION_016"
     ],
@@ -232,7 +232,7 @@
   "noho tahi": {
     "word_id": "39458",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/39458.mp3",
-    "file": "audio/noho tahi.mp3",
+    "file": "audio/39458.mp3",
     "entity_ids": [
       "STATE_013"
     ],
@@ -245,7 +245,7 @@
   "rere": {
     "word_id": "6719",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/6719.mp3",
-    "file": "audio/rere.mp3",
+    "file": "audio/6719.mp3",
     "entity_ids": [
       "ACTION_014"
     ],
@@ -258,7 +258,7 @@
   "rākau": {
     "word_id": "6439",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/6439.mp3",
-    "file": "audio/rākau.mp3",
+    "file": "audio/6439.mp3",
     "entity_ids": [
       "THING_100"
     ],
@@ -271,7 +271,7 @@
   "tamaiti": {
     "word_id": "7326",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/7326.mp3",
-    "file": "audio/tamaiti.mp3",
+    "file": "audio/7326.mp3",
     "entity_ids": [
       "PERSON_003"
     ],
@@ -284,7 +284,7 @@
   "tipu": {
     "word_id": "8168",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/8168.mp3",
-    "file": "audio/tipu.mp3",
+    "file": "audio/8168.mp3",
     "entity_ids": [
       "ACTION_015"
     ],
@@ -297,7 +297,7 @@
   "tohatoha": {
     "word_id": "8293",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/8293.mp3",
-    "file": "audio/tohatoha.mp3",
+    "file": "audio/8293.mp3",
     "entity_ids": [
       "ACTION_020"
     ],
@@ -310,7 +310,7 @@
   "tunu": {
     "word_id": "8712",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/8712.mp3",
-    "file": "audio/tunu.mp3",
+    "file": "audio/8712.mp3",
     "entity_ids": [
       "ACTION_019"
     ],
@@ -323,7 +323,7 @@
   "ua": {
     "word_id": "51889",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/51889.mp3",
-    "file": "audio/ua.mp3",
+    "file": "audio/51889.mp3",
     "entity_ids": [
       "THING_106"
     ],
@@ -336,7 +336,7 @@
   "wai": {
     "word_id": "9019",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/9019.mp3",
-    "file": "audio/wai.mp3",
+    "file": "audio/9019.mp3",
     "entity_ids": [
       "THING_001"
     ],
@@ -349,7 +349,7 @@
   "whaea": {
     "word_id": "9297",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/9297.mp3",
-    "file": "audio/whaea.mp3",
+    "file": "audio/9297.mp3",
     "entity_ids": [
       "PERSON_010"
     ],
@@ -359,10 +359,10 @@
     "status": "downloaded",
     "match_type": "auto"
   },
-  "whakaki": {
+  "whakakī": {
     "word_id": "9519",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/9519.mp3",
-    "file": "audio/whakaki.mp3",
+    "file": "audio/9519.mp3",
     "entity_ids": [
       "ACTION_012"
     ],
@@ -375,7 +375,7 @@
   "whakawhetai": {
     "word_id": "10035",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/10035.mp3",
-    "file": "audio/whakawhetai.mp3",
+    "file": "audio/10035.mp3",
     "entity_ids": [
       "ACTION_022",
       "STATE_012"
@@ -390,7 +390,7 @@
   "whānau": {
     "word_id": "10062",
     "audio_url": "https://storage.googleapis.com/maori-dictionary-prod2-web-assets/public/10062.mp3",
-    "file": "audio/whānau.mp3",
+    "file": "audio/10062.mp3",
     "entity_ids": [
       "PERSON_011"
     ],

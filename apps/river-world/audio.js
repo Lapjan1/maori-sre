@@ -93,26 +93,39 @@ const Audio = (() => {
         }
       }
     }
-    // 2b. AF_PHRASES: full passage / phrase recordings (natural speech, language-specific)
-    if (phraseId && lang === "af" && typeof AF_PHRASES !== "undefined") {
-      const passage = AF_PHRASES.find(
-        (p) => (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs?.length
-      );
-      if (passage) {
-        const ref = _bestRefFromList(passage.audio_refs, lang);
-        if (ref) {
-          _playNative(ref, text, lang);
-          return;
+    // 2. Phrase / sentence-level recordings (any language) — passage first, then sentences
+    if (phraseId) {
+      var registry = _getPhraseRegistry(lang);
+      if (registry) {
+        // 2a. Full passage recording (single audio for entire text)
+        var passage = registry.filter(function(p) {
+          return (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs && p.audio_refs.length;
+        });
+        if (passage.length) {
+          var bestRef = _bestRefFromList(passage[0].audio_refs, lang);
+          if (bestRef) {
+            _playNative(bestRef, passage[0].text, lang);
+            return;
+          }
         }
-      }
-      const phrases = AF_PHRASES.filter((p) => p.intent === phraseId || p.id === phraseId);
-      if (phrases.length) {
-        const phraseData = phrases.map(function(p) { return { ref: _bestRefFromList(p.audio_refs || [], lang), text: p.text }; }).filter(function(p) { return p.ref; });
-        if (phraseData.length) {
-          const refs = phraseData.map(function(p) { return p.ref; });
-          const texts = phraseData.map(function(p) { return p.text; });
-          _playSequence(refs, texts, lang, 0);
-          return;
+        // 2b. Sentence-level recordings (play each sentence that has audio, word-compose rest)
+        var sentences = registry.filter(function(p) {
+          return p.intent === phraseId && p.audio_refs && p.audio_refs.length;
+        });
+        if (sentences.length) {
+          var seqRefs = [];
+          var seqTexts = [];
+          sentences.forEach(function(s) {
+            var ref = _bestRefFromList(s.audio_refs, lang);
+            if (ref) {
+              seqRefs.push(ref);
+              seqTexts.push(s.text);
+            }
+          });
+          if (seqRefs.length) {
+            _playSequence(seqRefs, seqTexts, lang, 0);
+            return;
+          }
         }
       }
     }
@@ -139,6 +152,17 @@ const Audio = (() => {
     }
     // 3. TTS fallback
     _tryTTS(text, lang);
+  }
+
+  /**
+   * Get the phrase/sentence registry for a given language.
+   * Each language can define a global {LANG}_PHRASES array (e.g. AF_PHRASES, MI_PHRASES).
+   * When the registry exists, the playback hierarchy checks it for full recordings
+   * before falling back to word-by-word composition.
+   */
+  function _getPhraseRegistry(lang) {
+    var varName = lang.toUpperCase() + "_PHRASES";
+    return window[varName] || null;
   }
 
   function _playSequence(refs, fallbackText, lang, idx, gapMs) {

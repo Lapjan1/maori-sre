@@ -22,7 +22,7 @@ content:
   mi: >
     He pōuri te rangi.
     Ka heke te ua i te rangi.
-    Ka whakaki te ua i te awa.
+    Ka whakakī te ua i te awa.
     Ka piki te awa.
     Ka rere te wai.
   af: >
@@ -92,7 +92,7 @@ interactions:
     action: ACTION_012
     sentences:
       en: "The rain fills the river."
-      mi: "Ka whakaki te ua i te awa."
+      mi: "Ka whakakī te ua i te awa."
       af: "Die reën vul die rivier."
 
   - interaction_id: INT_R004_03

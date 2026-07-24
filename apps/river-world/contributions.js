@@ -1703,21 +1703,21 @@ var CONTRIBUTIONS = (() => {
       source: {
         provider: "Te Aka Māori Dictionary",
         word_id: "9519",
-        asset: "whakaki.mp3",
+        asset: "whakakī.mp3",
         source_url: "https://maoridictionary.co.nz/word/9519",
         retrieved: "2026-07-23",
         license: "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use",
-        correction_note: "whakakiia is the passive form of whakaki (to fill). Uses existing whakaki.mp3 audio from word_id 9519. No separate audio acquisition needed."
+        correction_note: "whakakiia is the passive form of whakakī (to fill). Uses existing whakakī.mp3 audio from word_id 9519. No separate audio acquisition needed."
       },
       speaker: { gender: null, age_group: null, identity: null },
-      proposed: { entity_id: "ACTION_WHAKAKIIA", type: "ACTION", gloss: "to fill (passive form of whakaki)" },
+      proposed: { entity_id: "ACTION_WHAKAKIIA", type: "ACTION",       gloss: "to fill (passive form of whakakī)" },
       approved: { entity_id: "ACTION_WHAKAKIIA", voice_type: null },
       status: "canonical",
       validation: {
         audio_integrity: true, pronunciation_match: true, language_correct: true,
         native_speaker: null, source_verified: true,
         reviewed_by: "system_validation", reviewed_date: "2026-07-23",
-        notes: "Derived form. whakakiia is the passive suffix -ia applied to whakaki (to fill). Uses existing whakaki.mp3 (word_id 9519, 39800 bytes) which was already acquired. No new audio download needed."
+        notes: "Derived form. whakakiia is the passive suffix -ia applied to whakakī (to fill). Uses existing whakakī.mp3 (word_id 9519, 39800 bytes) which was already acquired. No new audio download needed."
       },
       native_verified: false,
       created: "2026-07-23",

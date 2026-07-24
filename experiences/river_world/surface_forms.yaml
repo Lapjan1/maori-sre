@@ -17,7 +17,7 @@ surface_forms:
     syllables:
     - wai
     audio_refs:
-    - ref: wai.mp3
+    - ref: 9019.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -56,7 +56,7 @@ surface_forms:
     - a
     - wa
     audio_refs:
-    - ref: awa.mp3
+    - ref: 563.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -96,7 +96,7 @@ surface_forms:
     - te
     - wai
     audio_refs:
-    - ref: matewai.mp3
+    - ref: 3885.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -164,7 +164,7 @@ surface_forms:
     - i
     - nu
     audio_refs:
-    - ref: inu.mp3
+    - ref: 1754.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -200,7 +200,7 @@ surface_forms:
     - koi
     stress: 1
     audio_refs:
-    - ref: hīkoi.mp3
+    - ref: 1173.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -237,7 +237,7 @@ surface_forms:
     - i
     - ti
     audio_refs:
-    - ref: tamaiti.mp3
+    - ref: 7326.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -275,7 +275,7 @@ surface_forms:
     - e
     - a
     audio_refs:
-    - ref: whaea.mp3
+    - ref: 9297.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -313,7 +313,7 @@ surface_forms:
     - whā
     - nau
     audio_refs:
-    - ref: whānau.mp3
+    - ref: 10062.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -352,7 +352,7 @@ surface_forms:
     - a
     - tu
     audio_refs:
-    - ref: hoatu.mp3
+    - ref: 1307.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -381,14 +381,14 @@ surface_forms:
 - id: SF_MI_ACTION_012
   entity_id: ACTION_012
   lang: mi
-  text: whakaki
+  text: whakakī
   pronunciation:
     syllables:
     - wha
     - ka
-    - ki
+    - kī
     audio_refs:
-    - ref: whakaki.mp3
+    - ref: 9519.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -425,7 +425,7 @@ surface_forms:
     - ko
     - a
     audio_refs:
-    - ref: koa.mp3
+    - ref: 2744.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -460,7 +460,7 @@ surface_forms:
     - ku
     - rī
     audio_refs:
-    - ref: kurī.mp3
+    - ref: 3309.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -495,7 +495,7 @@ surface_forms:
     - u
     - a
     audio_refs:
-    - ref: ua.mp3
+    - ref: 51889.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -531,7 +531,7 @@ surface_forms:
     - he
     - ke
     audio_refs:
-    - ref: heke.mp3
+    - ref: 1038.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -566,7 +566,7 @@ surface_forms:
     - re
     - re
     audio_refs:
-    - ref: rere.mp3
+    - ref: 6719.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -601,7 +601,7 @@ surface_forms:
     - rā
     - kau
     audio_refs:
-    - ref: rākau.mp3
+    - ref: 6439.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -636,7 +636,7 @@ surface_forms:
     - ti
     - pu
     audio_refs:
-    - ref: tipu.mp3
+    - ref: 8168.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -671,7 +671,7 @@ surface_forms:
     - i
     - ka
     audio_refs:
-    - ref: ika.mp3
+    - ref: 42348.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -706,7 +706,7 @@ surface_forms:
     - 'no'
     - ho
     audio_refs:
-    - ref: noho.mp3
+    - ref: 53247.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -742,7 +742,7 @@ surface_forms:
     - ho
     - e
     audio_refs:
-    - ref: kauhoe.mp3
+    - ref: 2424.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -778,7 +778,7 @@ surface_forms:
     - pe
     - nga
     audio_refs:
-    - ref: kupenga.mp3
+    - ref: 3274.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -813,7 +813,7 @@ surface_forms:
     - ho
     - pu
     audio_refs:
-    - ref: hopu.mp3
+    - ref: 1405.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -848,7 +848,7 @@ surface_forms:
     - ka
     - pu
     audio_refs:
-    - ref: kapu.mp3
+    - ref: 2248.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -887,7 +887,7 @@ surface_forms:
     - a
     - hi
     audio_refs:
-    - ref: ahi.mp3
+    - ref: 69.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -921,7 +921,7 @@ surface_forms:
     syllables:
     - kai
     audio_refs:
-    - ref: kai.mp3
+    - ref: 1894.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -956,7 +956,7 @@ surface_forms:
     - tu
     - nu
     audio_refs:
-    - ref: tunu.mp3
+    - ref: 8712.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -993,7 +993,7 @@ surface_forms:
     - to
     - ha
     audio_refs:
-    - ref: tohatoha.mp3
+    - ref: 8293.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -1027,7 +1027,7 @@ surface_forms:
     syllables:
     - kai
     audio_refs:
-    - ref: kai.mp3
+    - ref: 1894.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -1063,7 +1063,7 @@ surface_forms:
     - ko
     - na
     audio_refs:
-    - ref: mākona.mp3
+    - ref: 3553.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -1103,7 +1103,7 @@ surface_forms:
     - whe
     - tai
     audio_refs:
-    - ref: whakawhetai.mp3
+    - ref: 10035.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -1144,7 +1144,7 @@ surface_forms:
     - whe
     - tai
     audio_refs:
-    - ref: whakawhetai.mp3
+    - ref: 10035.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard
@@ -1186,7 +1186,7 @@ surface_forms:
     - ta
     - hi
     audio_refs:
-    - ref: noho_tahi.mp3
+    - ref: 39458.mp3
       package: mi_teaka_v1
       speaker: Te Aka Māori Dictionary
       dialect: Standard

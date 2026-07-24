@@ -109,7 +109,7 @@ var EXPERIENCES = [
     },
     "content": {
       "en": "The mother sees the child is thirsty. She takes a cup. She fills the cup with water from the river. She gives the cup to the child. The child drinks. The child is happy.\n",
-      "mi": "Ka kite te whaea kei te matewai te tamaiti. Ka mau ia ki te kapu. Ka whakakiia e ia te kapu ki te wai mai i te awa. Ka hoatu e ia te kapu ki te tamaiti. Ka inu te tamaiti. Kei te koa te tamaiti.\n",
+      "mi": "Ka kite te whaea kei te matewai te tamaiti. Ka mau ia ki te kapu. Ka whakakīia e ia te kapu ki te wai mai i te awa. Ka hoatu e ia te kapu ki te tamaiti. Ka inu te tamaiti. Kei te koa te tamaiti.\n",
       "af": "Die ma sien die kind is dors. Sy vat 'n koppie. Sy vul die koppie met water uit die rivier. Sy gee die koppie aan die kind. Die kind drink. Die kind is bly.\n"
     },
     "entities": [
@@ -145,7 +145,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "fill",
-          "mi": "whakaki",
+          "mi": "whakakī",
           "af": "vul"
         }
       },
@@ -233,7 +233,7 @@ var EXPERIENCES = [
     },
     "content": {
       "en": "The sky is dark. Rain falls from the sky. The rain fills the river. The river rises. The water flows.\n",
-      "mi": "He pōuri te rangi. Ka heke te ua i te rangi. Ka whakaki te ua i te awa. Ka piki te awa. Ka rere te wai.\n",
+      "mi": "He pōuri te rangi. Ka heke te ua i te rangi. Ka whakakī te ua i te awa. Ka piki te awa. Ka rere te wai.\n",
       "af": "Die lug is donker. Reën val uit die lug. Die reën vul die rivier. Die rivier styg. Die water vloei.\n"
     },
     "entities": [

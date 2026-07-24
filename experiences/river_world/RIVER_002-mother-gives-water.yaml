@@ -23,7 +23,7 @@ content:
   mi: >
     Ka kite te whaea kei te matewai te tamaiti.
     Ka mau ia ki te kapu.
-    Ka whakakiia e ia te kapu ki te wai mai i te awa.
+    Ka whakakīia e ia te kapu ki te wai mai i te awa.
     Ka hoatu e ia te kapu ki te tamaiti.
     Ka inu te tamaiti.
     Kei te koa te tamaiti.
@@ -64,7 +64,7 @@ entities:
     category: ACTION
     label:
       default: fill
-      mi: whakaki
+      mi: whakakī
       af: vul
     definition: "To make something full."
 
@@ -110,7 +110,7 @@ interactions:
     action: ACTION_012
     sentences:
       en: "The mother fills the cup with water from the river."
-      mi: "Ka whakakiia e te whaea te kapu ki te wai mai i te awa."
+      mi: "Ka whakakīia e te whaea te kapu ki te wai mai i te awa."
       af: "Die ma vul die koppie met water uit die rivier."
 
   - interaction_id: INT_R002_03
