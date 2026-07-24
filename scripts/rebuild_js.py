@@ -1,5 +1,5 @@
 """Regenerate JS bundles and copy audio files to app/docs dirs."""
-import sys, shutil, yaml, re
+import sys, shutil, yaml, re, json
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -8,65 +8,98 @@ sys.path.insert(0, str(ROOT / "core"))
 from languages.surface_form import SurfaceFormRegistry
 from languages.voice_package import VoicePackageRegistry
 
-# --- surface_forms.js ---
-sf_reg = SurfaceFormRegistry.from_yaml(
-    ROOT / "experiences" / "river_world" / "surface_forms.yaml"
-)
-sf_js = sf_reg.to_js_bundle()
+EXPERIENCE_DIRS = ["river_world", "wife_world"]
+APP_DIRS = [ROOT / "apps" / "river-world", ROOT / "docs"]
+PKG_DIR = ROOT / "docs" / "packages" / "language-data"
 
-for dest in [ROOT / "apps" / "river-world", ROOT / "docs"]:
+# --- surface_forms.js — merge from all experience dirs ---
+all_surface_forms = {}
+sf_index = 0
+for exp_dir in EXPERIENCE_DIRS:
+    sf_path = ROOT / "experiences" / exp_dir / "surface_forms.yaml"
+    if not sf_path.exists():
+        print(f"Skipping {exp_dir}: no surface_forms.yaml")
+        continue
+    sf_reg = SurfaceFormRegistry.from_yaml(sf_path)
+    for sf in sf_reg._by_id.values():
+        # Avoid duplicates by text+lang+entity_id
+        key = (sf.text, sf.lang, sf.entity_id)
+        if key not in all_surface_forms:
+            all_surface_forms[key] = sf
+
+# Rebuild as a merged SurfaceFormRegistry
+merged_reg = SurfaceFormRegistry()
+for sf in all_surface_forms.values():
+    merged_reg.register(sf)
+sf_js = merged_reg.to_js_bundle()
+
+for dest in APP_DIRS:
     (dest / "surface_forms.js").write_text(sf_js, encoding="utf-8")
     print(f"Wrote surface_forms.js to {dest}")
+(PKG_DIR / "surface_forms.js").write_text(sf_js, encoding="utf-8")
+print(f"Wrote surface_forms.js to {PKG_DIR}")
 
-# --- voice_packages.js ---
-vp_reg = VoicePackageRegistry.from_directory(
-    ROOT / "experiences" / "river_world" / "voices"
-)
-vp_js = vp_reg.to_js_bundle()
+# --- voice_packages.js — merge from all experience dirs ---
+all_voice_packages = {}
+for exp_dir in EXPERIENCE_DIRS:
+    vp_path = ROOT / "experiences" / exp_dir / "voices"
+    if not vp_path.exists():
+        continue
+    vp_reg = VoicePackageRegistry.from_directory(vp_path)
+    for vp in vp_reg._by_id.values():
+        all_voice_packages[vp.id] = vp
 
-for dest in [ROOT / "apps" / "river-world", ROOT / "docs"]:
+merged_vp = VoicePackageRegistry()
+for vp in all_voice_packages.values():
+    merged_vp.register(vp)
+vp_js = merged_vp.to_js_bundle()
+
+for dest in APP_DIRS:
     (dest / "voice_packages.js").write_text(vp_js, encoding="utf-8")
     print(f"Wrote voice_packages.js to {dest}")
 
-# --- maori-phrases.js — sentence-level recording registry (initially empty) ---
-# Populated from RIVER YAML files so structure is ready for when recordings are added
-RIVER_DIR = ROOT / "experiences" / "river_world"
+# --- maori-phrases.js — sentence-level recording registry from all YAMLs ---
+# Populated from RIVER and WIFE YAML files so structure is ready for recordings
 mi_phrases = []
-for yf in sorted(RIVER_DIR.glob("RIVER_*.yaml")):
-    with open(yf, encoding="utf-8") as f:
-        data = yaml.safe_load(f)
-    exp_id = data.get("experience_id", yf.stem)
-    mi_content = data.get("content", {}).get("mi", "")
-    # Split into individual sentences
-    sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', mi_content) if s.strip()]
-    for idx, sentence in enumerate(sentences):
-        phrase_id = f"{exp_id}_S{idx+1:02d}"
+for exp_dir in EXPERIENCE_DIRS:
+    dir_path = ROOT / "experiences" / exp_dir
+    for yf in sorted(dir_path.glob("*.yaml")):
+        if yf.name == "surface_forms.yaml":
+            continue  # skip surface_forms
+        with open(yf, encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+        exp_id = data.get("experience_id", yf.stem)
+        mi_content = data.get("content", {}).get("mi", "")
+        if not mi_content:
+            continue
+        # Split into individual sentences
+        sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', mi_content) if s.strip()]
+        for idx, sentence in enumerate(sentences):
+            phrase_id = f"{exp_id}_S{idx+1:02d}"
+            mi_phrases.append({
+                "id": phrase_id,
+                "lang": "mi",
+                "text": sentence,
+                "intent": exp_id,
+                "situation": f"Sentence {idx+1} of {exp_id}",
+                "audio_refs": [],
+            })
+        # Also add a full-passage entry (no audio_refs yet)
         mi_phrases.append({
-            "id": phrase_id,
+            "id": exp_id,
             "lang": "mi",
-            "text": sentence,
+            "text": mi_content.strip(),
             "intent": exp_id,
-            "situation": f"Sentence {idx+1} of {exp_id}",
-            "audio_refs": [],  # No recordings yet; populate when acquired
+            "type": "passage",
+            "situation": f"Full passage recording for {exp_id}",
+            "audio_refs": [],
         })
-    # Also add a full-passage entry (no audio_refs yet)
-    mi_phrases.append({
-        "id": exp_id,
-        "lang": "mi",
-        "text": mi_content.strip(),
-        "intent": exp_id,
-        "type": "passage",
-        "situation": f"Full passage recording for {exp_id}",
-        "audio_refs": [],
-    })
 
-# Generate JS bundle using json.dumps (valid JS object literal syntax)
-import json
 mi_json = json.dumps(mi_phrases, ensure_ascii=False, indent=2)
 lines = [
     "/**",
     " * Māori Phrase Registry — sentence & passage-level recordings (extensible).",
-    " * Auto-generated by rebuild_js.py from RIVER YAML files.",
+    " * Auto-generated by rebuild_js.py from RIVER and WIFE YAML files.",
     " * Add audio_refs to entries when sentence or passage recordings are acquired.",
     " * The runtime automatically prefers these over word-by-word composition.",
     " */",
@@ -74,7 +107,7 @@ lines = [
     "",
     "/**",
     " * Look up Māori phrase/sentence recordings by intent and optional type.",
-    " * @param {string} intent — passage ID like 'RIVER_002'",
+    " * @param {string} intent — passage ID like 'RIVER_002' or 'WIFE_001'",
     " * @param {string} [type] — 'passage' for full passage, 'sentence' for individual",
     " * @returns {Array} matching phrase entries",
     " */",
@@ -89,23 +122,31 @@ lines = [
 ]
 
 lines.insert(1, " *")
-lines.insert(1, " * Auto-generated — do not edit directly. Edit the RIVER YAML files and rebuild.")
+lines.insert(1, " * Auto-generated — do not edit directly. Edit the RIVER/WIFE YAML files and rebuild.")
 
-for dest in [ROOT / "apps" / "river-world", ROOT / "docs"]:
+for dest in APP_DIRS:
     (dest / "maori-phrases.js").write_text("\n".join(lines), encoding="utf-8")
     print(f"Wrote maori-phrases.js to {dest}")
+(PKG_DIR / "maori-phrases.js").write_text("\n".join(lines), encoding="utf-8")
+print(f"Wrote maori-phrases.js to {PKG_DIR}")
 
-# Also write to packages/language-data/ for voice-contrib tools
-pkg_dir = ROOT / "docs" / "packages" / "language-data"
-(pkg_dir / "maori-phrases.js").write_text("\n".join(lines), encoding="utf-8")
-print(f"Wrote maori-phrases.js to {pkg_dir}")
-
-# --- Copy audio files ---
-src_voices = ROOT / "experiences" / "river_world" / "voices"
-for dest in [ROOT / "apps" / "river-world" / "voices", ROOT / "docs" / "voices"]:
+# --- Copy audio files from all experience dirs ---
+for dest in [d / "voices" for d in APP_DIRS]:
     if dest.exists():
         shutil.rmtree(dest)
-    shutil.copytree(src_voices, dest)
-    print(f"Copied audio files to {dest}")
+    dest.mkdir(parents=True, exist_ok=True)
+
+for exp_dir in EXPERIENCE_DIRS:
+    src_voices = ROOT / "experiences" / exp_dir / "voices"
+    if not src_voices.exists():
+        continue
+    for item in src_voices.rglob("*"):
+        if item.is_file():
+            rel_path = item.relative_to(src_voices)
+            for dest in [d / "voices" for d in APP_DIRS]:
+                target = dest / rel_path
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(item, target)
+    print(f"Copied voice packages from {exp_dir} to app/docs")
 
 print("Done")

@@ -1,0 +1,68 @@
+# Wife World — WIFE_001
+# Type: dialogue
+# "Hello / thank you."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_001
+type: dialogue
+level: 1
+
+title:
+  en: "Hello / thank you."
+  mi: "Kia ora."
+  af: "Hallo / dankie."
+
+content:
+  en: "Hello / thank you."
+  mi: "Kia ora."
+  af: "Hallo / dankie."
+
+entities:
+  - entity_id: PHRASE_KIA_ORA
+    category: PHRASE
+    label:
+      default: kia ora
+      mi: kia ora
+      en: "hello / thank you"
+      af: "hallo / dankie"
+    definition: "The most important Māori word — hello, thank you, and good wishes."
+
+interactions:
+  - interaction_id: INT_WIFE_001_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_GREET
+    sentences:
+      en: "Hello."
+      mi: "Kia ora."
+      af: "Hallo."
+
+language_mappings:
+  - entity_id: PHRASE_KIA_ORA
+    language: mi
+    surface: kia ora
+    pronunciation:
+      approx: "kia ora"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_KIA_ORA
+    language: en
+    surface: "hello / thank you"
+    pronunciation:
+      approx: "hello / thank you"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_KIA_ORA
+    language: af
+    surface: "hallo / dankie"
+    pronunciation:
+      approx: "hallo / dankie"
+    grammar:
+      word_class: phrase
+
+metadata:
+  experience_id: WIFE_001
+  phrase_mi: "Kia ora."
+  phrase_en: "Hello / thank you."
+  phrase_af: "Hallo / dankie."
+  course: wife_core_20

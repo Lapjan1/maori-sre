@@ -1,0 +1,89 @@
+# Wife World — WIFE_009
+# Type: dialogue
+# "Where is the bathroom?"
+# Level 1 — Essential phrase
+
+experience_id: WIFE_009
+type: dialogue
+level: 1
+
+title:
+  en: "Where is the bathroom?"
+  mi: "Kei hea te wharepaku?"
+  af: "Waar is die badkamer?"
+
+content:
+  en: "Where is the bathroom?"
+  mi: "Kei hea te wharepaku?"
+  af: "Waar is die badkamer?"
+
+entities:
+  - entity_id: PHRASE_WHERE_BATHROOM
+    category: PHRASE
+    label:
+      default: wharepaku
+      mi: wharepaku
+      en: "bathroom"
+      af: "badkamer"
+    definition: "Ask where the bathroom is."
+
+interactions:
+  - interaction_id: INT_WIFE_009_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_ASK_LOCATION
+    sentences:
+      en: "Where is the bathroom?"
+      mi: "Kei hea te wharepaku?"
+      af: "Waar is die badkamer?"
+
+language_mappings:
+  - entity_id: PHRASE_WHERE_BATHROOM
+    language: mi
+    surface: wharepaku
+    pronunciation:
+      approx: "wharepaku"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WHERE_BATHROOM
+    language: en
+    surface: "bathroom"
+    pronunciation:
+      approx: "bathroom"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WHERE_BATHROOM
+    language: af
+    surface: "badkamer"
+    pronunciation:
+      approx: "badkamer"
+    grammar:
+      word_class: phrase
+  - entity_id: THING_WHARE
+    language: mi
+    surface: whare
+    pronunciation:
+      approx: "whare"
+    grammar:
+      word_class: noun
+  - entity_id: THING_WHARE
+    language: en
+    surface: "house / building"
+    pronunciation:
+      approx: "house / building"
+    grammar:
+      word_class: other
+  - entity_id: THING_WHARE
+    language: af
+    surface: "huis / gebou"
+    pronunciation:
+      approx: "huis / gebou"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_009
+  phrase_mi: "Kei hea te wharepaku?"
+  phrase_en: "Where is the bathroom?"
+  phrase_af: "Waar is die badkamer?"
+  course: wife_core_20

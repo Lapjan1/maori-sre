@@ -1,0 +1,111 @@
+# Wife World — WIFE_008
+# Type: dialogue
+# "Greetings all."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_008
+type: dialogue
+level: 1
+
+title:
+  en: "Greetings all."
+  mi: "Tēnā koutou."
+  af: "Groete aan almal."
+
+content:
+  en: "Greetings all."
+  mi: "Tēnā koutou."
+  af: "Groete aan almal."
+
+entities:
+  - entity_id: PHRASE_GREET_ALL
+    category: PHRASE
+    label:
+      default: Tēnā koutou
+      mi: Tēnā koutou
+      en: "Greetings all"
+      af: "Groete aan almal"
+    definition: "Greeting three or more people at once."
+
+interactions:
+  - interaction_id: INT_WIFE_008_01
+    participants:
+      - entity_id: PERSON_ANY
+      - entity_id: PERSON_GROUP
+    action: SOCIAL_GREET_GROUP
+    sentences:
+      en: "Greetings all."
+      mi: "Tēnā koutou."
+      af: "Groete aan almal."
+
+language_mappings:
+  - entity_id: PHRASE_GREET_ALL
+    language: mi
+    surface: Tēnā koutou
+    pronunciation:
+      approx: "Tēnā koutou"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_GREET_ALL
+    language: en
+    surface: "Greetings all"
+    pronunciation:
+      approx: "Greetings all"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_GREET_ALL
+    language: af
+    surface: "Groete aan almal"
+    pronunciation:
+      approx: "Groete aan almal"
+    grammar:
+      word_class: phrase
+  - entity_id: DETERMINER_TENA
+    language: mi
+    surface: tēnā
+    pronunciation:
+      approx: "tēnā"
+    grammar:
+      word_class: determiner
+  - entity_id: DETERMINER_TENA
+    language: en
+    surface: "that (near you)"
+    pronunciation:
+      approx: "that (near you)"
+    grammar:
+      word_class: other
+  - entity_id: DETERMINER_TENA
+    language: af
+    surface: "daardie (naby jou)"
+    pronunciation:
+      approx: "daardie (naby jou)"
+    grammar:
+      word_class: other
+  - entity_id: PERSON_KOUTOU
+    language: mi
+    surface: koutou
+    pronunciation:
+      approx: "koutou"
+    grammar:
+      word_class: pronoun
+  - entity_id: PERSON_KOUTOU
+    language: en
+    surface: "you all (3+)"
+    pronunciation:
+      approx: "you all (3+)"
+    grammar:
+      word_class: other
+  - entity_id: PERSON_KOUTOU
+    language: af
+    surface: "julle almal (3+)"
+    pronunciation:
+      approx: "julle almal (3+)"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_008
+  phrase_mi: "Tēnā koutou."
+  phrase_en: "Greetings all."
+  phrase_af: "Groete aan almal."
+  course: wife_core_20

@@ -1,0 +1,68 @@
+# Wife World — WIFE_004
+# Type: dialogue
+# "Welcome / come here."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_004
+type: dialogue
+level: 1
+
+title:
+  en: "Welcome / come here."
+  mi: "Haere mai."
+  af: "Welkom / kom hier."
+
+content:
+  en: "Welcome / come here."
+  mi: "Haere mai."
+  af: "Welkom / kom hier."
+
+entities:
+  - entity_id: PHRASE_WELCOME
+    category: PHRASE
+    label:
+      default: Haere mai
+      mi: Haere mai
+      en: "Welcome"
+      af: "Welkom"
+    definition: "Used to welcome someone arriving."
+
+interactions:
+  - interaction_id: INT_WIFE_004_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_WELCOME
+    sentences:
+      en: "Welcome."
+      mi: "Haere mai."
+      af: "Welkom."
+
+language_mappings:
+  - entity_id: PHRASE_WELCOME
+    language: mi
+    surface: Haere mai
+    pronunciation:
+      approx: "Haere mai"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WELCOME
+    language: en
+    surface: "Welcome"
+    pronunciation:
+      approx: "Welcome"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WELCOME
+    language: af
+    surface: "Welkom"
+    pronunciation:
+      approx: "Welkom"
+    grammar:
+      word_class: phrase
+
+metadata:
+  experience_id: WIFE_004
+  phrase_mi: "Haere mai."
+  phrase_en: "Welcome / come here."
+  phrase_af: "Welkom / kom hier."
+  course: wife_core_20

@@ -1,0 +1,69 @@
+# Wife World — WIFE_010
+# Type: dialogue
+# "Please sit / stay."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_010
+type: dialogue
+level: 1
+
+title:
+  en: "Please sit / stay."
+  mi: "Noho mai."
+  af: "Sit gerus / bly."
+
+content:
+  en: "Please sit / stay."
+  mi: "Noho mai."
+  af: "Sit gerus / bly."
+
+entities:
+  - entity_id: PHRASE_NOHO_MAI
+    category: PHRASE
+    label:
+      default: Noho mai
+      mi: Noho mai
+      en: "Please sit"
+      af: "Sit gerus"
+    definition: "Invite someone to sit down."
+
+interactions:
+  - interaction_id: INT_WIFE_010_01
+    participants:
+      - entity_id: PERSON_ANY
+      - entity_id: PERSON_ANY
+    action: SOCIAL_OFFER_SEAT
+    sentences:
+      en: "Please sit."
+      mi: "Noho mai."
+      af: "Sit gerus."
+
+language_mappings:
+  - entity_id: PHRASE_NOHO_MAI
+    language: mi
+    surface: Noho mai
+    pronunciation:
+      approx: "Noho mai"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_NOHO_MAI
+    language: en
+    surface: "Please sit"
+    pronunciation:
+      approx: "Please sit"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_NOHO_MAI
+    language: af
+    surface: "Sit gerus"
+    pronunciation:
+      approx: "Sit gerus"
+    grammar:
+      word_class: phrase
+
+metadata:
+  experience_id: WIFE_010
+  phrase_mi: "Noho mai."
+  phrase_en: "Please sit / stay."
+  phrase_af: "Sit gerus / bly."
+  course: wife_core_20

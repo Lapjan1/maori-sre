@@ -1,0 +1,90 @@
+# Wife World — WIFE_006
+# Type: dialogue
+# "Where are you from?"
+# Level 1 — Essential phrase
+
+experience_id: WIFE_006
+type: dialogue
+level: 1
+
+title:
+  en: "Where are you from?"
+  mi: "Nō hea koe?"
+  af: "Van waar af kom jy?"
+
+content:
+  en: "Where are you from?"
+  mi: "Nō hea koe?"
+  af: "Van waar af kom jy?"
+
+entities:
+  - entity_id: PHRASE_WHERE_FROM
+    category: PHRASE
+    label:
+      default: Nō hea
+      mi: Nō hea
+      en: "Where from?"
+      af: "Waarvandaan?"
+    definition: "Ask someone where they are from."
+
+interactions:
+  - interaction_id: INT_WIFE_006_01
+    participants:
+      - entity_id: PERSON_ANY
+      - entity_id: PERSON_ANY
+    action: SOCIAL_ASK_ORIGIN
+    sentences:
+      en: "Where are you from?"
+      mi: "Nō hea koe?"
+      af: "Van waar af kom jy?"
+
+language_mappings:
+  - entity_id: PHRASE_WHERE_FROM
+    language: mi
+    surface: Nō hea
+    pronunciation:
+      approx: "Nō hea"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WHERE_FROM
+    language: en
+    surface: "Where from?"
+    pronunciation:
+      approx: "Where from?"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WHERE_FROM
+    language: af
+    surface: "Waarvandaan?"
+    pronunciation:
+      approx: "Waarvandaan?"
+    grammar:
+      word_class: phrase
+  - entity_id: CONCEPT_HEA
+    language: mi
+    surface: hea
+    pronunciation:
+      approx: "hea"
+    grammar:
+      word_class: question_word
+  - entity_id: CONCEPT_HEA
+    language: en
+    surface: "where (non-past)"
+    pronunciation:
+      approx: "where (non-past)"
+    grammar:
+      word_class: other
+  - entity_id: CONCEPT_HEA
+    language: af
+    surface: "waar"
+    pronunciation:
+      approx: "waar"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_006
+  phrase_mi: "Nō hea koe?"
+  phrase_en: "Where are you from?"
+  phrase_af: "Van waar af kom jy?"
+  course: wife_core_20

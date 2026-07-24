@@ -1,0 +1,89 @@
+# Wife World — WIFE_019
+# Type: dialogue
+# "It is delicious."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_019
+type: dialogue
+level: 1
+
+title:
+  en: "It is delicious."
+  mi: "He reka."
+  af: "Dit is heerlik."
+
+content:
+  en: "It is delicious."
+  mi: "He reka."
+  af: "Dit is heerlik."
+
+entities:
+  - entity_id: PHRASE_DELICIOUS
+    category: PHRASE
+    label:
+      default: He reka
+      mi: He reka
+      en: "It is delicious"
+      af: "Dit is heerlik"
+    definition: "Compliment the food."
+
+interactions:
+  - interaction_id: INT_WIFE_019_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_COMPLIMENT
+    sentences:
+      en: "It is delicious."
+      mi: "He reka."
+      af: "Dit is heerlik."
+
+language_mappings:
+  - entity_id: PHRASE_DELICIOUS
+    language: mi
+    surface: He reka
+    pronunciation:
+      approx: "He reka"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_DELICIOUS
+    language: en
+    surface: "It is delicious"
+    pronunciation:
+      approx: "It is delicious"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_DELICIOUS
+    language: af
+    surface: "Dit is heerlik"
+    pronunciation:
+      approx: "Dit is heerlik"
+    grammar:
+      word_class: phrase
+  - entity_id: STATE_REKA
+    language: mi
+    surface: reka
+    pronunciation:
+      approx: "reka"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_REKA
+    language: en
+    surface: "delicious / sweet"
+    pronunciation:
+      approx: "delicious / sweet"
+    grammar:
+      word_class: other
+  - entity_id: STATE_REKA
+    language: af
+    surface: "heerlik / soet"
+    pronunciation:
+      approx: "heerlik / soet"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_019
+  phrase_mi: "He reka."
+  phrase_en: "It is delicious."
+  phrase_af: "Dit is heerlik."
+  course: wife_core_20

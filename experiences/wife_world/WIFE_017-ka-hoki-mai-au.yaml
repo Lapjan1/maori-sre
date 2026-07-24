@@ -1,0 +1,89 @@
+# Wife World — WIFE_017
+# Type: dialogue
+# "I will return."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_017
+type: dialogue
+level: 1
+
+title:
+  en: "I will return."
+  mi: "Ka hoki mai au."
+  af: "Ek sal weer kom."
+
+content:
+  en: "I will return."
+  mi: "Ka hoki mai au."
+  af: "Ek sal weer kom."
+
+entities:
+  - entity_id: PHRASE_WILL_RETURN
+    category: PHRASE
+    label:
+      default: hoki mai
+      mi: hoki mai
+      en: "return"
+      af: "terugkom"
+    definition: "Promise your family you will come back."
+
+interactions:
+  - interaction_id: INT_WIFE_017_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_PROMISE
+    sentences:
+      en: "I will return."
+      mi: "Ka hoki mai au."
+      af: "Ek sal weer kom."
+
+language_mappings:
+  - entity_id: PHRASE_WILL_RETURN
+    language: mi
+    surface: hoki mai
+    pronunciation:
+      approx: "hoki mai"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WILL_RETURN
+    language: en
+    surface: "return"
+    pronunciation:
+      approx: "return"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WILL_RETURN
+    language: af
+    surface: "terugkom"
+    pronunciation:
+      approx: "terugkom"
+    grammar:
+      word_class: phrase
+  - entity_id: ACTION_HOKI
+    language: mi
+    surface: hoki
+    pronunciation:
+      approx: "hoki"
+    grammar:
+      word_class: verb
+  - entity_id: ACTION_HOKI
+    language: en
+    surface: "return / go back"
+    pronunciation:
+      approx: "return / go back"
+    grammar:
+      word_class: other
+  - entity_id: ACTION_HOKI
+    language: af
+    surface: "terugkeer"
+    pronunciation:
+      approx: "terugkeer"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_017
+  phrase_mi: "Ka hoki mai au."
+  phrase_en: "I will return."
+  phrase_af: "Ek sal weer kom."
+  course: wife_core_20

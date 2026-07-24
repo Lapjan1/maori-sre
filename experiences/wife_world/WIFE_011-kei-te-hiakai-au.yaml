@@ -1,0 +1,89 @@
+# Wife World — WIFE_011
+# Type: dialogue
+# "I am hungry."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_011
+type: dialogue
+level: 1
+
+title:
+  en: "I am hungry."
+  mi: "Kei te hiakai au."
+  af: "Ek is honger."
+
+content:
+  en: "I am hungry."
+  mi: "Kei te hiakai au."
+  af: "Ek is honger."
+
+entities:
+  - entity_id: PHRASE_HUNGRY
+    category: PHRASE
+    label:
+      default: hiakai
+      mi: hiakai
+      en: "hungry"
+      af: "honger"
+    definition: "Let someone know you are hungry."
+
+interactions:
+  - interaction_id: INT_WIFE_011_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_EXPRESS_NEED
+    sentences:
+      en: "I am hungry."
+      mi: "Kei te hiakai au."
+      af: "Ek is honger."
+
+language_mappings:
+  - entity_id: PHRASE_HUNGRY
+    language: mi
+    surface: hiakai
+    pronunciation:
+      approx: "hiakai"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_HUNGRY
+    language: en
+    surface: "hungry"
+    pronunciation:
+      approx: "hungry"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_HUNGRY
+    language: af
+    surface: "honger"
+    pronunciation:
+      approx: "honger"
+    grammar:
+      word_class: phrase
+  - entity_id: STATE_HIAKAI
+    language: mi
+    surface: hiakai
+    pronunciation:
+      approx: "hiakai"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_HIAKAI
+    language: en
+    surface: "hungry"
+    pronunciation:
+      approx: "hungry"
+    grammar:
+      word_class: other
+  - entity_id: STATE_HIAKAI
+    language: af
+    surface: "honger"
+    pronunciation:
+      approx: "honger"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_011
+  phrase_mi: "Kei te hiakai au."
+  phrase_en: "I am hungry."
+  phrase_af: "Ek is honger."
+  course: wife_core_20

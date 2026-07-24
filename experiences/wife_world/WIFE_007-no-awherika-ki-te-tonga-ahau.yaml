@@ -1,0 +1,110 @@
+# Wife World — WIFE_007
+# Type: dialogue
+# "I am from South Africa."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_007
+type: dialogue
+level: 1
+
+title:
+  en: "I am from South Africa."
+  mi: "Nō Āwherika ki te Tonga ahau."
+  af: "Ek is van Suid-Afrika."
+
+content:
+  en: "I am from South Africa."
+  mi: "Nō Āwherika ki te Tonga ahau."
+  af: "Ek is van Suid-Afrika."
+
+entities:
+  - entity_id: PHRASE_FROM_SA
+    category: PHRASE
+    label:
+      default: Āwherika ki te Tonga
+      mi: Āwherika ki te Tonga
+      en: "South Africa"
+      af: "Suid-Afrika"
+    definition: "South Africa — telling people where you are from."
+
+interactions:
+  - interaction_id: INT_WIFE_007_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_SAY_ORIGIN
+    sentences:
+      en: "I am from South Africa."
+      mi: "Nō Āwherika ki te Tonga ahau."
+      af: "Ek is van Suid-Afrika."
+
+language_mappings:
+  - entity_id: PHRASE_FROM_SA
+    language: mi
+    surface: Āwherika ki te Tonga
+    pronunciation:
+      approx: "Āwherika ki te Tonga"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_FROM_SA
+    language: en
+    surface: "South Africa"
+    pronunciation:
+      approx: "South Africa"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_FROM_SA
+    language: af
+    surface: "Suid-Afrika"
+    pronunciation:
+      approx: "Suid-Afrika"
+    grammar:
+      word_class: phrase
+  - entity_id: PLACE_AWHERIKA
+    language: mi
+    surface: Āwherika
+    pronunciation:
+      approx: "Āwherika"
+    grammar:
+      word_class: noun
+  - entity_id: PLACE_AWHERIKA
+    language: en
+    surface: "Africa"
+    pronunciation:
+      approx: "Africa"
+    grammar:
+      word_class: other
+  - entity_id: PLACE_AWHERIKA
+    language: af
+    surface: "Afrika"
+    pronunciation:
+      approx: "Afrika"
+    grammar:
+      word_class: other
+  - entity_id: PLACE_TONGA
+    language: mi
+    surface: Tonga
+    pronunciation:
+      approx: "Tonga"
+    grammar:
+      word_class: noun
+  - entity_id: PLACE_TONGA
+    language: en
+    surface: "south / South (in names)"
+    pronunciation:
+      approx: "south / South (in names)"
+    grammar:
+      word_class: other
+  - entity_id: PLACE_TONGA
+    language: af
+    surface: "suid"
+    pronunciation:
+      approx: "suid"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_007
+  phrase_mi: "Nō Āwherika ki te Tonga ahau."
+  phrase_en: "I am from South Africa."
+  phrase_af: "Ek is van Suid-Afrika."
+  course: wife_core_20

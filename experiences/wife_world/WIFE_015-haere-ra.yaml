@@ -1,0 +1,69 @@
+# Wife World — WIFE_015
+# Type: dialogue
+# "Goodbye (to those staying)."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_015
+type: dialogue
+level: 1
+
+title:
+  en: "Goodbye (to those staying)."
+  mi: "Haere rā."
+  af: "Totsiens (vir dié wat bly)."
+
+content:
+  en: "Goodbye (to those staying)."
+  mi: "Haere rā."
+  af: "Totsiens (vir dié wat bly)."
+
+entities:
+  - entity_id: PHRASE_GOODBYE_STAY
+    category: PHRASE
+    label:
+      default: Haere rā
+      mi: Haere rā
+      en: "Goodbye (to those staying)"
+      af: "Totsiens"
+    definition: "Use when you are leaving and others are staying."
+
+interactions:
+  - interaction_id: INT_WIFE_015_01
+    participants:
+      - entity_id: PERSON_ANY
+      - entity_id: PERSON_ANY
+    action: SOCIAL_FAREWELL
+    sentences:
+      en: "Goodbye."
+      mi: "Haere rā."
+      af: "Totsiens."
+
+language_mappings:
+  - entity_id: PHRASE_GOODBYE_STAY
+    language: mi
+    surface: Haere rā
+    pronunciation:
+      approx: "Haere rā"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_GOODBYE_STAY
+    language: en
+    surface: "Goodbye (to those staying)"
+    pronunciation:
+      approx: "Goodbye (to those staying)"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_GOODBYE_STAY
+    language: af
+    surface: "Totsiens"
+    pronunciation:
+      approx: "Totsiens"
+    grammar:
+      word_class: phrase
+
+metadata:
+  experience_id: WIFE_015
+  phrase_mi: "Haere rā."
+  phrase_en: "Goodbye (to those staying)."
+  phrase_af: "Totsiens (vir dié wat bly)."
+  course: wife_core_20

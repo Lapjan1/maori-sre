@@ -1,0 +1,89 @@
+# Wife World — WIFE_018
+# Type: dialogue
+# "Be strong."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_018
+type: dialogue
+level: 1
+
+title:
+  en: "Be strong."
+  mi: "Kia kaha."
+  af: "Hou moed / wees sterk."
+
+content:
+  en: "Be strong."
+  mi: "Kia kaha."
+  af: "Hou moed / wees sterk."
+
+entities:
+  - entity_id: PHRASE_BE_STRONG
+    category: PHRASE
+    label:
+      default: Kia kaha
+      mi: Kia kaha
+      en: "Be strong"
+      af: "Wees sterk"
+    definition: "A powerful saying meaning 'be strong', 'stay well'."
+
+interactions:
+  - interaction_id: INT_WIFE_018_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_ENCOURAGE
+    sentences:
+      en: "Be strong."
+      mi: "Kia kaha."
+      af: "Wees sterk."
+
+language_mappings:
+  - entity_id: PHRASE_BE_STRONG
+    language: mi
+    surface: Kia kaha
+    pronunciation:
+      approx: "Kia kaha"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_BE_STRONG
+    language: en
+    surface: "Be strong"
+    pronunciation:
+      approx: "Be strong"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_BE_STRONG
+    language: af
+    surface: "Wees sterk"
+    pronunciation:
+      approx: "Wees sterk"
+    grammar:
+      word_class: phrase
+  - entity_id: STATE_KAHA
+    language: mi
+    surface: kaha
+    pronunciation:
+      approx: "kaha"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_KAHA
+    language: en
+    surface: "strong"
+    pronunciation:
+      approx: "strong"
+    grammar:
+      word_class: other
+  - entity_id: STATE_KAHA
+    language: af
+    surface: "sterk"
+    pronunciation:
+      approx: "sterk"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_018
+  phrase_mi: "Kia kaha."
+  phrase_en: "Be strong."
+  phrase_af: "Hou moed / wees sterk."
+  course: wife_core_20

@@ -1,5 +1,5 @@
 """
-Build River World App — Full Pipeline
+Build River World + Wife World App — Full Pipeline
 
 1. Compile experiences from YAML to JSON
 2. Build Runtime Graph with inference
@@ -18,15 +18,26 @@ sys.path.insert(0, str(CORE))
 def step(label):
     print(f"\n=== {label} ===")
 
-def main():
-    # Step 1: Compile experiences
-    step("Compile experiences")
+def compile_experience_dir(exp_dir_name, out_dir):
+    """Compile all experiences in a directory and return results."""
     from compiler.experience import compile_all_experiences
-    exps_dir = ROOT / "experiences" / "river_world"
-    out_dir = ROOT / "output" / "experiences"
+    exps_dir = ROOT / "experiences" / exp_dir_name
     results = compile_all_experiences(str(exps_dir), str(out_dir))
     ok = sum(1 for r in results if r.success)
-    print(f"  {ok}/{len(results)} compiled")
+    print(f"  {exp_dir_name}: {ok}/{len(results)} compiled")
+    return results
+
+def main():
+    # Step 1: Compile experiences from all worlds
+    step("Compile experiences")
+    out_dir = ROOT / "output" / "experiences"
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    all_results = []
+    all_results.extend(compile_experience_dir("river_world", out_dir))
+    all_results.extend(compile_experience_dir("wife_world", out_dir))
+    total_ok = sum(1 for r in all_results if r.success)
+    print(f"  Total: {total_ok}/{len(all_results)} compiled")
 
     # Step 2: Build runtime graph with inference
     step("Build Runtime Graph")
@@ -51,7 +62,7 @@ def main():
     if report.total_new_facts > 0:
         engine.commit()
 
-    runtime_dir = ROOT / "runtime" / "river_world"
+    runtime_dir = ROOT / "runtime"
     runtime_dir.mkdir(parents=True, exist_ok=True)
 
     manifest = {
@@ -80,10 +91,8 @@ def main():
     print(f"  Hash: {manifest['runtime_hash'][:12]}...")
     print(f"  Inferred: {report.total_new_facts} facts")
 
-    # Step 3: Bundle experiences for app
+    # Step 3: Bundle experiences for app (write to both app dirs + packages)
     step("Bundle app experiences")
-    app_dir = ROOT / "apps" / "river_world"
-    app_dir.mkdir(parents=True, exist_ok=True)
 
     experiences = []
     for f in sorted(out_dir.glob("*.json")):
@@ -104,17 +113,19 @@ def main():
             ],
         })
 
-    js = "const EXPERIENCES = " + json.dumps(experiences, indent=2, ensure_ascii=False) + ";"
-    with open(app_dir / "experiences.js", "w", encoding="utf-8") as f:
-        f.write(js)
+    js = "var EXPERIENCES = " + json.dumps(experiences, indent=2, ensure_ascii=False) + ";"
 
-    print(f"  Bundled {len(experiences)} experiences")
+    for dest in [ROOT / "apps" / "river-world", ROOT / "docs", ROOT / "packages" / "language-data"]:
+        dest.mkdir(parents=True, exist_ok=True)
+        (dest / "experiences.js").write_text(js, encoding="utf-8")
+        print(f"  Wrote experiences.js to {dest}")
 
-    # Step 4: Copy audio/images if they exist
+    print(f"  Bundled {len(experiences)} experiences from all experience dirs")
+
+    # Step 4: Done
     step("Done")
-    print(f"  App ready: {app_dir}")
-    print(f"  Serve: python -m http.server 8080 --directory {app_dir}")
-    print(f"  Or open index.html directly from file system")
+    print(f"  Experiences bundled to apps/river-world, docs/, packages/language-data")
+    print(f"  Runtime graph: runtime/")
 
 if __name__ == "__main__":
     main()

@@ -1,0 +1,89 @@
+# Wife World — WIFE_014
+# Type: dialogue
+# "Thank you for the food."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_014
+type: dialogue
+level: 1
+
+title:
+  en: "Thank you for the food."
+  mi: "Kia ora mō te kai."
+  af: "Dankie vir die kos."
+
+content:
+  en: "Thank you for the food."
+  mi: "Kia ora mō te kai."
+  af: "Dankie vir die kos."
+
+entities:
+  - entity_id: PHRASE_THANK_FOOD
+    category: PHRASE
+    label:
+      default: Kia ora mō te kai
+      mi: Kia ora mō te kai
+      en: "Thank you for the food"
+      af: "Dankie vir die kos"
+    definition: "Graceful thanks before or after a meal."
+
+interactions:
+  - interaction_id: INT_WIFE_014_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_THANK
+    sentences:
+      en: "Thank you for the food."
+      mi: "Kia ora mō te kai."
+      af: "Dankie vir die kos."
+
+language_mappings:
+  - entity_id: PHRASE_THANK_FOOD
+    language: mi
+    surface: Kia ora mō te kai
+    pronunciation:
+      approx: "Kia ora mō te kai"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_THANK_FOOD
+    language: en
+    surface: "Thank you for the food"
+    pronunciation:
+      approx: "Thank you for the food"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_THANK_FOOD
+    language: af
+    surface: "Dankie vir die kos"
+    pronunciation:
+      approx: "Dankie vir die kos"
+    grammar:
+      word_class: phrase
+  - entity_id: THING_KAI
+    language: mi
+    surface: kai
+    pronunciation:
+      approx: "kai"
+    grammar:
+      word_class: noun
+  - entity_id: THING_KAI
+    language: en
+    surface: "food"
+    pronunciation:
+      approx: "food"
+    grammar:
+      word_class: other
+  - entity_id: THING_KAI
+    language: af
+    surface: "kos"
+    pronunciation:
+      approx: "kos"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_014
+  phrase_mi: "Kia ora mō te kai."
+  phrase_en: "Thank you for the food."
+  phrase_af: "Dankie vir die kos."
+  course: wife_core_20

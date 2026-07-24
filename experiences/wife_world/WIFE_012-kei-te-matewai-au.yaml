@@ -1,0 +1,89 @@
+# Wife World — WIFE_012
+# Type: dialogue
+# "I am thirsty."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_012
+type: dialogue
+level: 1
+
+title:
+  en: "I am thirsty."
+  mi: "Kei te matewai au."
+  af: "Ek is dors."
+
+content:
+  en: "I am thirsty."
+  mi: "Kei te matewai au."
+  af: "Ek is dors."
+
+entities:
+  - entity_id: PHRASE_THIRSTY
+    category: PHRASE
+    label:
+      default: matewai
+      mi: matewai
+      en: "thirsty"
+      af: "dors"
+    definition: "Tell someone you are thirsty."
+
+interactions:
+  - interaction_id: INT_WIFE_012_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_EXPRESS_NEED
+    sentences:
+      en: "I am thirsty."
+      mi: "Kei te matewai au."
+      af: "Ek is dors."
+
+language_mappings:
+  - entity_id: PHRASE_THIRSTY
+    language: mi
+    surface: matewai
+    pronunciation:
+      approx: "matewai"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_THIRSTY
+    language: en
+    surface: "thirsty"
+    pronunciation:
+      approx: "thirsty"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_THIRSTY
+    language: af
+    surface: "dors"
+    pronunciation:
+      approx: "dors"
+    grammar:
+      word_class: phrase
+  - entity_id: STATE_MATEWAI
+    language: mi
+    surface: matewai
+    pronunciation:
+      approx: "matewai"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_MATEWAI
+    language: en
+    surface: "thirsty"
+    pronunciation:
+      approx: "thirsty"
+    grammar:
+      word_class: other
+  - entity_id: STATE_MATEWAI
+    language: af
+    surface: "dors"
+    pronunciation:
+      approx: "dors"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_012
+  phrase_mi: "Kei te matewai au."
+  phrase_en: "I am thirsty."
+  phrase_af: "Ek is dors."
+  course: wife_core_20

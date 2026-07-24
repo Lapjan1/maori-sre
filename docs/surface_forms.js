@@ -98,6 +98,44 @@ var SURFACE_FORMS = {
   SF_EN_STATE_013: {"id": "SF_EN_STATE_013", "entity_id": "STATE_013", "lang": "en", "text": "together", "pronunciation": {"ipa": "/təˈɡɛðər/", "syllables": ["to", "geth", "er"], "stress": 2}},
   SF_MI_STATE_013: {"id": "SF_MI_STATE_013", "entity_id": "STATE_013", "lang": "mi", "text": "noho tahi", "pronunciation": {"syllables": ["no", "ho", "ta", "hi"], "audio_refs": [{"ref": "39458.mp3", "package": "mi_teaka_v1", "speaker": "Te Aka Māori Dictionary", "dialect": "Standard", "speed": "normal", "quality": "field", "source_url": "https://maoridictionary.co.nz/word/39458", "retrieved": "2026-07-20", "source_license": "Copyright John C Moorfield / Te Aka Māori Dictionary — educational use"}]}},
   SF_AF_STATE_013: {"id": "SF_AF_STATE_013", "entity_id": "STATE_013", "lang": "af", "text": "saam", "pronunciation": {"ipa": "/sɑːm/", "syllables": ["saam"]}},
+  SF_MI_PARTICLE_KIA: {"id": "SF_MI_PARTICLE_KIA", "entity_id": "PARTICLE_KIA", "lang": "mi", "text": "kia", "pronunciation": {"syllables": ["kia"]}},
+  SF_MI_STATE_ORA: {"id": "SF_MI_STATE_ORA", "entity_id": "STATE_ORA", "lang": "mi", "text": "ora", "pronunciation": {"syllables": ["ora"]}},
+  SF_MI_PARTICLE_KEI: {"id": "SF_MI_PARTICLE_KEI", "entity_id": "PARTICLE_KEI", "lang": "mi", "text": "kei", "pronunciation": {"syllables": ["kei"]}},
+  SF_MI_PARTICLE_TE: {"id": "SF_MI_PARTICLE_TE", "entity_id": "PARTICLE_TE", "lang": "mi", "text": "te", "pronunciation": {"syllables": ["te"]}},
+  SF_MI_STATE_PEHEA: {"id": "SF_MI_STATE_PEHEA", "entity_id": "STATE_PEHEA", "lang": "mi", "text": "pēhea", "pronunciation": {"syllables": ["pehea"]}},
+  SF_MI_PERSON_KOE: {"id": "SF_MI_PERSON_KOE", "entity_id": "PERSON_KOE", "lang": "mi", "text": "koe", "pronunciation": {"syllables": ["koe"]}},
+  SF_MI_STATE_PAI: {"id": "SF_MI_STATE_PAI", "entity_id": "STATE_PAI", "lang": "mi", "text": "pai", "pronunciation": {"syllables": ["pai"]}},
+  SF_MI_ACTION_HAERE: {"id": "SF_MI_ACTION_HAERE", "entity_id": "ACTION_HAERE", "lang": "mi", "text": "haere", "pronunciation": {"syllables": ["haere"]}},
+  SF_MI_PARTICLE_MAI: {"id": "SF_MI_PARTICLE_MAI", "entity_id": "PARTICLE_MAI", "lang": "mi", "text": "mai", "pronunciation": {"syllables": ["mai"]}},
+  SF_MI_PARTICLE_KO: {"id": "SF_MI_PARTICLE_KO", "entity_id": "PARTICLE_KO", "lang": "mi", "text": "ko", "pronunciation": {"syllables": ["ko"]}},
+  SF_MI_POSSESSIVE_TOKU: {"id": "SF_MI_POSSESSIVE_TOKU", "entity_id": "POSSESSIVE_TOKU", "lang": "mi", "text": "tōku", "pronunciation": {"syllables": ["toku"]}},
+  SF_MI_CONCEPT_INGOA: {"id": "SF_MI_CONCEPT_INGOA", "entity_id": "CONCEPT_INGOA", "lang": "mi", "text": "ingoa", "pronunciation": {"syllables": ["ingoa"]}},
+  SF_MI_PARTICLE_NO: {"id": "SF_MI_PARTICLE_NO", "entity_id": "PARTICLE_NO", "lang": "mi", "text": "nō", "pronunciation": {"syllables": [false]}},
+  SF_MI_CONCEPT_HEA: {"id": "SF_MI_CONCEPT_HEA", "entity_id": "CONCEPT_HEA", "lang": "mi", "text": "hea", "pronunciation": {"syllables": ["hea"]}},
+  SF_MI_PLACE_AWHERIKA: {"id": "SF_MI_PLACE_AWHERIKA", "entity_id": "PLACE_AWHERIKA", "lang": "mi", "text": "āwherika", "pronunciation": {"syllables": ["awherika"]}},
+  SF_MI_PARTICLE_KI: {"id": "SF_MI_PARTICLE_KI", "entity_id": "PARTICLE_KI", "lang": "mi", "text": "ki", "pronunciation": {"syllables": ["ki"]}},
+  SF_MI_PLACE_TONGA: {"id": "SF_MI_PLACE_TONGA", "entity_id": "PLACE_TONGA", "lang": "mi", "text": "tonga", "pronunciation": {"syllables": ["tonga"]}},
+  SF_MI_PERSON_AHAU: {"id": "SF_MI_PERSON_AHAU", "entity_id": "PERSON_AHAU", "lang": "mi", "text": "ahau", "pronunciation": {"syllables": ["ahau"]}},
+  SF_MI_DETERMINER_TENA: {"id": "SF_MI_DETERMINER_TENA", "entity_id": "DETERMINER_TENA", "lang": "mi", "text": "tēnā", "pronunciation": {"syllables": ["tena"]}},
+  SF_MI_PERSON_KOUTOU: {"id": "SF_MI_PERSON_KOUTOU", "entity_id": "PERSON_KOUTOU", "lang": "mi", "text": "koutou", "pronunciation": {"syllables": ["koutou"]}},
+  SF_MI_WORD_WHAREPAKU: {"id": "SF_MI_WORD_WHAREPAKU", "entity_id": "WORD_WHAREPAKU", "lang": "mi", "text": "wharepaku", "pronunciation": {"syllables": ["wharepaku"]}},
+  SF_MI_ACTION_NOHO: {"id": "SF_MI_ACTION_NOHO", "entity_id": "ACTION_NOHO", "lang": "mi", "text": "noho", "pronunciation": {"syllables": ["noho"]}},
+  SF_MI_STATE_HIAKAI: {"id": "SF_MI_STATE_HIAKAI", "entity_id": "STATE_HIAKAI", "lang": "mi", "text": "hiakai", "pronunciation": {"syllables": ["hiakai"]}},
+  SF_MI_PERSON_AU: {"id": "SF_MI_PERSON_AU", "entity_id": "PERSON_AU", "lang": "mi", "text": "au", "pronunciation": {"syllables": ["au"]}},
+  SF_MI_STATE_MATEWAI: {"id": "SF_MI_STATE_MATEWAI", "entity_id": "STATE_MATEWAI", "lang": "mi", "text": "matewai", "pronunciation": {"syllables": ["matewai"]}},
+  SF_MI_PARTICLE_HE: {"id": "SF_MI_PARTICLE_HE", "entity_id": "PARTICLE_HE", "lang": "mi", "text": "he", "pronunciation": {"syllables": ["he"]}},
+  SF_MI_THING_WAI: {"id": "SF_MI_THING_WAI", "entity_id": "THING_WAI", "lang": "mi", "text": "wai", "pronunciation": {"syllables": ["wai"]}},
+  SF_MI_WORD_KOA: {"id": "SF_MI_WORD_KOA", "entity_id": "WORD_KOA", "lang": "mi", "text": "koa", "pronunciation": {"syllables": ["koa"]}},
+  SF_MI_PARTICLE_MO: {"id": "SF_MI_PARTICLE_MO", "entity_id": "PARTICLE_MO", "lang": "mi", "text": "mō", "pronunciation": {"syllables": ["mo"]}},
+  SF_MI_THING_KAI: {"id": "SF_MI_THING_KAI", "entity_id": "THING_KAI", "lang": "mi", "text": "kai", "pronunciation": {"syllables": ["kai"]}},
+  SF_MI_PARTICLE_RA: {"id": "SF_MI_PARTICLE_RA", "entity_id": "PARTICLE_RA", "lang": "mi", "text": "rā", "pronunciation": {"syllables": ["ra"]}},
+  SF_MI_PARTICLE_E: {"id": "SF_MI_PARTICLE_E", "entity_id": "PARTICLE_E", "lang": "mi", "text": "e", "pronunciation": {"syllables": ["e"]}},
+  SF_MI_PARTICLE_KA: {"id": "SF_MI_PARTICLE_KA", "entity_id": "PARTICLE_KA", "lang": "mi", "text": "ka", "pronunciation": {"syllables": ["ka"]}},
+  SF_MI_ACTION_HOKI: {"id": "SF_MI_ACTION_HOKI", "entity_id": "ACTION_HOKI", "lang": "mi", "text": "hoki", "pronunciation": {"syllables": ["hoki"]}},
+  SF_MI_STATE_KAHA: {"id": "SF_MI_STATE_KAHA", "entity_id": "STATE_KAHA", "lang": "mi", "text": "kaha", "pronunciation": {"syllables": ["kaha"]}},
+  SF_MI_STATE_REKA: {"id": "SF_MI_STATE_REKA", "entity_id": "STATE_REKA", "lang": "mi", "text": "reka", "pronunciation": {"syllables": ["reka"]}},
+  SF_MI_THING_WHARE: {"id": "SF_MI_THING_WHARE", "entity_id": "THING_WHARE", "lang": "mi", "text": "whare", "pronunciation": {"syllables": ["whare"]}},
+  SF_MI_STATE_ATAHUA: {"id": "SF_MI_STATE_ATAHUA", "entity_id": "STATE_ATAHUA", "lang": "mi", "text": "ātaahua", "pronunciation": {"syllables": ["ataahua"]}},
 };
 var SURFACE_FORM_INDEX = {
   "THING_001": {
@@ -264,5 +302,119 @@ var SURFACE_FORM_INDEX = {
     "en": "SF_EN_STATE_013",
     "mi": "SF_MI_STATE_013",
     "af": "SF_AF_STATE_013",
+  },
+  "PARTICLE_KIA": {
+    "mi": "SF_MI_PARTICLE_KIA",
+  },
+  "STATE_ORA": {
+    "mi": "SF_MI_STATE_ORA",
+  },
+  "PARTICLE_KEI": {
+    "mi": "SF_MI_PARTICLE_KEI",
+  },
+  "PARTICLE_TE": {
+    "mi": "SF_MI_PARTICLE_TE",
+  },
+  "STATE_PEHEA": {
+    "mi": "SF_MI_STATE_PEHEA",
+  },
+  "PERSON_KOE": {
+    "mi": "SF_MI_PERSON_KOE",
+  },
+  "STATE_PAI": {
+    "mi": "SF_MI_STATE_PAI",
+  },
+  "ACTION_HAERE": {
+    "mi": "SF_MI_ACTION_HAERE",
+  },
+  "PARTICLE_MAI": {
+    "mi": "SF_MI_PARTICLE_MAI",
+  },
+  "PARTICLE_KO": {
+    "mi": "SF_MI_PARTICLE_KO",
+  },
+  "POSSESSIVE_TOKU": {
+    "mi": "SF_MI_POSSESSIVE_TOKU",
+  },
+  "CONCEPT_INGOA": {
+    "mi": "SF_MI_CONCEPT_INGOA",
+  },
+  "PARTICLE_NO": {
+    "mi": "SF_MI_PARTICLE_NO",
+  },
+  "CONCEPT_HEA": {
+    "mi": "SF_MI_CONCEPT_HEA",
+  },
+  "PLACE_AWHERIKA": {
+    "mi": "SF_MI_PLACE_AWHERIKA",
+  },
+  "PARTICLE_KI": {
+    "mi": "SF_MI_PARTICLE_KI",
+  },
+  "PLACE_TONGA": {
+    "mi": "SF_MI_PLACE_TONGA",
+  },
+  "PERSON_AHAU": {
+    "mi": "SF_MI_PERSON_AHAU",
+  },
+  "DETERMINER_TENA": {
+    "mi": "SF_MI_DETERMINER_TENA",
+  },
+  "PERSON_KOUTOU": {
+    "mi": "SF_MI_PERSON_KOUTOU",
+  },
+  "WORD_WHAREPAKU": {
+    "mi": "SF_MI_WORD_WHAREPAKU",
+  },
+  "ACTION_NOHO": {
+    "mi": "SF_MI_ACTION_NOHO",
+  },
+  "STATE_HIAKAI": {
+    "mi": "SF_MI_STATE_HIAKAI",
+  },
+  "PERSON_AU": {
+    "mi": "SF_MI_PERSON_AU",
+  },
+  "STATE_MATEWAI": {
+    "mi": "SF_MI_STATE_MATEWAI",
+  },
+  "PARTICLE_HE": {
+    "mi": "SF_MI_PARTICLE_HE",
+  },
+  "THING_WAI": {
+    "mi": "SF_MI_THING_WAI",
+  },
+  "WORD_KOA": {
+    "mi": "SF_MI_WORD_KOA",
+  },
+  "PARTICLE_MO": {
+    "mi": "SF_MI_PARTICLE_MO",
+  },
+  "THING_KAI": {
+    "mi": "SF_MI_THING_KAI",
+  },
+  "PARTICLE_RA": {
+    "mi": "SF_MI_PARTICLE_RA",
+  },
+  "PARTICLE_E": {
+    "mi": "SF_MI_PARTICLE_E",
+  },
+  "PARTICLE_KA": {
+    "mi": "SF_MI_PARTICLE_KA",
+  },
+  "ACTION_HOKI": {
+    "mi": "SF_MI_ACTION_HOKI",
+  },
+  "STATE_KAHA": {
+    "mi": "SF_MI_STATE_KAHA",
+  },
+  "STATE_REKA": {
+    "mi": "SF_MI_STATE_REKA",
+  },
+  "THING_WHARE": {
+    "mi": "SF_MI_THING_WHARE",
+  },
+  "STATE_ATAHUA": {
+    "mi": "SF_MI_STATE_ATAHUA",
   },
 };

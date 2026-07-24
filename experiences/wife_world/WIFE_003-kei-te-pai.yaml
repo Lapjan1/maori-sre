@@ -1,0 +1,68 @@
+# Wife World — WIFE_003
+# Type: dialogue
+# "I am well."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_003
+type: dialogue
+level: 1
+
+title:
+  en: "I am well."
+  mi: "Kei te pai."
+  af: "Dit gaan goed."
+
+content:
+  en: "I am well."
+  mi: "Kei te pai."
+  af: "Dit gaan goed."
+
+entities:
+  - entity_id: PHRASE_I_AM_WELL
+    category: PHRASE
+    label:
+      default: Kei te pai
+      mi: Kei te pai
+      en: "I am well"
+      af: "Dit gaan goed"
+    definition: "Standard positive response to 'Kei te pēhea koe?'."
+
+interactions:
+  - interaction_id: INT_WIFE_003_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_RESPOND
+    sentences:
+      en: "I am well."
+      mi: "Kei te pai."
+      af: "Dit gaan goed."
+
+language_mappings:
+  - entity_id: PHRASE_I_AM_WELL
+    language: mi
+    surface: Kei te pai
+    pronunciation:
+      approx: "Kei te pai"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_I_AM_WELL
+    language: en
+    surface: "I am well"
+    pronunciation:
+      approx: "I am well"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_I_AM_WELL
+    language: af
+    surface: "Dit gaan goed"
+    pronunciation:
+      approx: "Dit gaan goed"
+    grammar:
+      word_class: phrase
+
+metadata:
+  experience_id: WIFE_003
+  phrase_mi: "Kei te pai."
+  phrase_en: "I am well."
+  phrase_af: "Dit gaan goed."
+  course: wife_core_20

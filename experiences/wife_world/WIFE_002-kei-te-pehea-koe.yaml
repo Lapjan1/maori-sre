@@ -1,0 +1,69 @@
+# Wife World — WIFE_002
+# Type: dialogue
+# "How are you?"
+# Level 1 — Essential phrase
+
+experience_id: WIFE_002
+type: dialogue
+level: 1
+
+title:
+  en: "How are you?"
+  mi: "Kei te pēhea koe?"
+  af: "Hoe gaan dit?"
+
+content:
+  en: "How are you?"
+  mi: "Kei te pēhea koe?"
+  af: "Hoe gaan dit?"
+
+entities:
+  - entity_id: PHRASE_HOW_ARE_YOU
+    category: PHRASE
+    label:
+      default: Kei te pēhea koe?
+      mi: Kei te pēhea koe?
+      en: "How are you?"
+      af: "Hoe gaan dit?"
+    definition: "A common greeting asking how someone is."
+
+interactions:
+  - interaction_id: INT_WIFE_002_01
+    participants:
+      - entity_id: PERSON_ANY
+      - entity_id: PERSON_ANY
+    action: SOCIAL_ASK_HEALTH
+    sentences:
+      en: "How are you?"
+      mi: "Kei te pēhea koe?"
+      af: "Hoe gaan dit?"
+
+language_mappings:
+  - entity_id: PHRASE_HOW_ARE_YOU
+    language: mi
+    surface: Kei te pēhea koe?
+    pronunciation:
+      approx: "Kei te pēhea koe?"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_HOW_ARE_YOU
+    language: en
+    surface: "How are you?"
+    pronunciation:
+      approx: "How are you?"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_HOW_ARE_YOU
+    language: af
+    surface: "Hoe gaan dit?"
+    pronunciation:
+      approx: "Hoe gaan dit?"
+    grammar:
+      word_class: phrase
+
+metadata:
+  experience_id: WIFE_002
+  phrase_mi: "Kei te pēhea koe?"
+  phrase_en: "How are you?"
+  phrase_af: "Hoe gaan dit?"
+  course: wife_core_20

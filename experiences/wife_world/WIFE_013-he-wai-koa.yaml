@@ -1,0 +1,89 @@
+# Wife World — WIFE_013
+# Type: dialogue
+# "Some water, please."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_013
+type: dialogue
+level: 1
+
+title:
+  en: "Some water, please."
+  mi: "He wai, koa."
+  af: "Water, asseblief."
+
+content:
+  en: "Some water, please."
+  mi: "He wai, koa."
+  af: "Water, asseblief."
+
+entities:
+  - entity_id: PHRASE_WATER_PLEASE
+    category: PHRASE
+    label:
+      default: He wai, koa
+      mi: He wai, koa
+      en: "Some water, please"
+      af: "Water, asseblief"
+    definition: "A polite way to ask for water."
+
+interactions:
+  - interaction_id: INT_WIFE_013_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_REQUEST
+    sentences:
+      en: "Some water, please."
+      mi: "He wai, koa."
+      af: "Water, asseblief."
+
+language_mappings:
+  - entity_id: PHRASE_WATER_PLEASE
+    language: mi
+    surface: He wai, koa
+    pronunciation:
+      approx: "He wai, koa"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WATER_PLEASE
+    language: en
+    surface: "Some water, please"
+    pronunciation:
+      approx: "Some water, please"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_WATER_PLEASE
+    language: af
+    surface: "Water, asseblief"
+    pronunciation:
+      approx: "Water, asseblief"
+    grammar:
+      word_class: phrase
+  - entity_id: THING_WAI
+    language: mi
+    surface: wai
+    pronunciation:
+      approx: "wai"
+    grammar:
+      word_class: noun
+  - entity_id: THING_WAI
+    language: en
+    surface: "water"
+    pronunciation:
+      approx: "water"
+    grammar:
+      word_class: other
+  - entity_id: THING_WAI
+    language: af
+    surface: "water"
+    pronunciation:
+      approx: "water"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_013
+  phrase_mi: "He wai, koa."
+  phrase_en: "Some water, please."
+  phrase_af: "Water, asseblief."
+  course: wife_core_20

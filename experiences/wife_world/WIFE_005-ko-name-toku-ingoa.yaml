@@ -1,0 +1,110 @@
+# Wife World — WIFE_005
+# Type: dialogue
+# "My name is [name]."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_005
+type: dialogue
+level: 1
+
+title:
+  en: "My name is [name]."
+  mi: "Ko [name] tōku ingoa."
+  af: "My naam is [name]."
+
+content:
+  en: "My name is [name]."
+  mi: "Ko [name] tōku ingoa."
+  af: "My naam is [name]."
+
+entities:
+  - entity_id: PHRASE_MY_NAME
+    category: PHRASE
+    label:
+      default: tōku ingoa
+      mi: tōku ingoa
+      en: "my name"
+      af: "my naam"
+    definition: "Used to introduce yourself."
+
+interactions:
+  - interaction_id: INT_WIFE_005_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_INTRODUCE
+    sentences:
+      en: "My name is [name]."
+      mi: "Ko [name] tōku ingoa."
+      af: "My naam is [name]."
+
+language_mappings:
+  - entity_id: PHRASE_MY_NAME
+    language: mi
+    surface: tōku ingoa
+    pronunciation:
+      approx: "tōku ingoa"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_MY_NAME
+    language: en
+    surface: "my name"
+    pronunciation:
+      approx: "my name"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_MY_NAME
+    language: af
+    surface: "my naam"
+    pronunciation:
+      approx: "my naam"
+    grammar:
+      word_class: phrase
+  - entity_id: CONCEPT_INGOA
+    language: mi
+    surface: ingoa
+    pronunciation:
+      approx: "ingoa"
+    grammar:
+      word_class: question_word
+  - entity_id: CONCEPT_INGOA
+    language: en
+    surface: "name"
+    pronunciation:
+      approx: "name"
+    grammar:
+      word_class: other
+  - entity_id: CONCEPT_INGOA
+    language: af
+    surface: "naam"
+    pronunciation:
+      approx: "naam"
+    grammar:
+      word_class: other
+  - entity_id: POSSESSIVE_TOKU
+    language: mi
+    surface: tōku
+    pronunciation:
+      approx: "tōku"
+    grammar:
+      word_class: possessive
+  - entity_id: POSSESSIVE_TOKU
+    language: en
+    surface: "my (singular, alienable)"
+    pronunciation:
+      approx: "my (singular, alienable)"
+    grammar:
+      word_class: other
+  - entity_id: POSSESSIVE_TOKU
+    language: af
+    surface: "my"
+    pronunciation:
+      approx: "my"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_005
+  phrase_mi: "Ko [name] tōku ingoa."
+  phrase_en: "My name is [name]."
+  phrase_af: "My naam is [name]."
+  course: wife_core_20

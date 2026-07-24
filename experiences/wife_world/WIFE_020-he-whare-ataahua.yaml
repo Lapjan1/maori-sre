@@ -1,0 +1,110 @@
+# Wife World — WIFE_020
+# Type: dialogue
+# "Beautiful house."
+# Level 1 — Essential phrase
+
+experience_id: WIFE_020
+type: dialogue
+level: 1
+
+title:
+  en: "Beautiful house."
+  mi: "He whare ātaahua."
+  af: "Pragtige huis."
+
+content:
+  en: "Beautiful house."
+  mi: "He whare ātaahua."
+  af: "Pragtige huis."
+
+entities:
+  - entity_id: PHRASE_BEAUTIFUL_HOUSE
+    category: PHRASE
+    label:
+      default: whare ātaahua
+      mi: whare ātaahua
+      en: "beautiful house"
+      af: "pragtige huis"
+    definition: "Compliment the home."
+
+interactions:
+  - interaction_id: INT_WIFE_020_01
+    participants:
+      - entity_id: PERSON_ANY
+    action: SOCIAL_COMPLIMENT
+    sentences:
+      en: "Beautiful house."
+      mi: "He whare ātaahua."
+      af: "Pragtige huis."
+
+language_mappings:
+  - entity_id: PHRASE_BEAUTIFUL_HOUSE
+    language: mi
+    surface: whare ātaahua
+    pronunciation:
+      approx: "whare ātaahua"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_BEAUTIFUL_HOUSE
+    language: en
+    surface: "beautiful house"
+    pronunciation:
+      approx: "beautiful house"
+    grammar:
+      word_class: phrase
+  - entity_id: PHRASE_BEAUTIFUL_HOUSE
+    language: af
+    surface: "pragtige huis"
+    pronunciation:
+      approx: "pragtige huis"
+    grammar:
+      word_class: phrase
+  - entity_id: THING_WHARE
+    language: mi
+    surface: whare
+    pronunciation:
+      approx: "whare"
+    grammar:
+      word_class: noun
+  - entity_id: THING_WHARE
+    language: en
+    surface: "house / building"
+    pronunciation:
+      approx: "house / building"
+    grammar:
+      word_class: other
+  - entity_id: THING_WHARE
+    language: af
+    surface: "huis / gebou"
+    pronunciation:
+      approx: "huis / gebou"
+    grammar:
+      word_class: other
+  - entity_id: STATE_ATAHUA
+    language: mi
+    surface: ātaahua
+    pronunciation:
+      approx: "ātaahua"
+    grammar:
+      word_class: stative_verb
+  - entity_id: STATE_ATAHUA
+    language: en
+    surface: "beautiful"
+    pronunciation:
+      approx: "beautiful"
+    grammar:
+      word_class: other
+  - entity_id: STATE_ATAHUA
+    language: af
+    surface: "pragtig"
+    pronunciation:
+      approx: "pragtig"
+    grammar:
+      word_class: other
+
+metadata:
+  experience_id: WIFE_020
+  phrase_mi: "He whare ātaahua."
+  phrase_en: "Beautiful house."
+  phrase_af: "Pragtige huis."
+  course: wife_core_20

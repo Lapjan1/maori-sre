@@ -3,7 +3,6 @@ var EXPERIENCES = [
     "id": "RIVER_001",
     "type": "story",
     "level": 1,
-    "phrase_id": "RIVER_001",
     "title": {
       "en": "The Child Drinks Water",
       "mi": "Ka Inu te Tamaiti i te Wai",
@@ -101,7 +100,6 @@ var EXPERIENCES = [
     "id": "RIVER_002",
     "type": "story",
     "level": 1,
-    "phrase_id": "RIVER_002",
     "title": {
       "en": "Mother Gives Water to the Child",
       "mi": "Ka Hoatu te Whaea i te Wai ki te Tamaiti",
@@ -186,7 +184,6 @@ var EXPERIENCES = [
     "id": "RIVER_003",
     "type": "observation",
     "level": 1,
-    "phrase_id": "RIVER_003",
     "title": {
       "en": "Dog Drinks from the River",
       "mi": "Ka Inu te Kurī i te Awa",
@@ -225,7 +222,6 @@ var EXPERIENCES = [
     "id": "RIVER_004",
     "type": "observation",
     "level": 2,
-    "phrase_id": "RIVER_004",
     "title": {
       "en": "Rain Fills the River",
       "mi": "Ka Whakaki te Ua i te Awa",
@@ -287,7 +283,6 @@ var EXPERIENCES = [
     "id": "RIVER_005",
     "type": "observation",
     "level": 2,
-    "phrase_id": "RIVER_005",
     "title": {
       "en": "Tree Grows Beside the River",
       "mi": "Ka Tipu te Rākau i te Taha o te Awa",
@@ -316,24 +311,6 @@ var EXPERIENCES = [
           "mi": "tipu",
           "af": "groei"
         }
-      },
-      {
-        "id": "THING_PAKIAKA",
-        "category": "THING",
-        "label": {
-          "default": "root",
-          "mi": "pakiaka",
-          "af": "wortel"
-        }
-      },
-      {
-        "id": "PARTICLE_ONA",
-        "category": "PARTICLE",
-        "label": {
-          "default": "its",
-          "mi": "ōna",
-          "af": "sy"
-        }
       }
     ],
     "interactions": [
@@ -353,7 +330,6 @@ var EXPERIENCES = [
     "id": "RIVER_006",
     "type": "observation",
     "level": 1,
-    "phrase_id": "RIVER_006",
     "title": {
       "en": "Fish Live in the River",
       "mi": "Ka Noho te Ika ki te Awa",
@@ -391,15 +367,6 @@ var EXPERIENCES = [
           "mi": "kauhoe",
           "af": "swem"
         }
-      },
-      {
-        "id": "THING_KAINGA",
-        "category": "THING",
-        "label": {
-          "default": "home",
-          "mi": "kāinga",
-          "af": "tuiste"
-        }
       }
     ],
     "interactions": [
@@ -419,7 +386,6 @@ var EXPERIENCES = [
     "id": "RIVER_007",
     "type": "procedure",
     "level": 2,
-    "phrase_id": "RIVER_007",
     "title": {
       "en": "Family Catches a Fish",
       "mi": "Ka Hopu te Whānau i te Ika",
@@ -476,7 +442,6 @@ var EXPERIENCES = [
     "id": "RIVER_008",
     "type": "procedure",
     "level": 2,
-    "phrase_id": "RIVER_008",
     "title": {
       "en": "Family Cooks the Fish",
       "mi": "Ka Tunu te Whānau i te Ika",
@@ -533,7 +498,6 @@ var EXPERIENCES = [
     "id": "RIVER_009",
     "type": "dialogue",
     "level": 2,
-    "phrase_id": "RIVER_009",
     "title": {
       "en": "Family Shares Food",
       "mi": "Ka Tohatoha te Whānau i te Kai",
@@ -542,7 +506,7 @@ var EXPERIENCES = [
     "content": {
       "en": "The food is ready. The mother calls the family. \"Come and eat,\" she says. Everyone sits together. The mother shares the fish. The child eats. \"This is delicious,\" says the child. The family is happy.\n",
       "mi": "Kua māoa te kai. Ka karanga te whaea ki te whānau. \"Haere mai ki te kai,\" tāna. Ka noho tahi te katoa. Ka tohatoha te whaea i te ika. Ka kai te tamaiti. \"He reka tēnei,\" e kī ana te tamaiti. Kei te koa te whānau.\n",
-      "af": "Die kos is gereed. Die ma roep die familie. 'Kom en eet,' sê sy. Almal sit saam. Die ma deel die vis. Die kind eet. 'Dit is heerlik,' sê die kind. Die familie is bly.\n"
+      "af": "Die kos is gereed. Die ma roep die familie. \"Kom en eet,\" sê sy. Almal sit saam. Die ma deel die vis. Die kind eet. \"Dit is heerlik,\" sê die kind. Die familie is bly.\n"
     },
     "entities": [
       {
@@ -605,7 +569,6 @@ var EXPERIENCES = [
     "id": "RIVER_010",
     "type": "story",
     "level": 1,
-    "phrase_id": "RIVER_010",
     "title": {
       "en": "The Child Thanks the Mother",
       "mi": "Ka Whakawhetai te Tamaiti ki te Whaea",
@@ -614,7 +577,7 @@ var EXPERIENCES = [
     "content": {
       "en": "The child is full. The child looks at the mother. \"Thank you, Mother, for the food,\" says the child. The mother smiles. \"You are welcome, my child,\" she says. The family is together.\n",
       "mi": "Kua mākona te tamaiti. Ka titiro te tamaiti ki te whaea. \"Ngā mihi e te whaea mō te kai,\" e kī ana te tamaiti. Ka kata te whaea. \"Ko tēnei te whakautu, e taku tamaiti,\" tāna. Kei te noho tahi te whānau.\n",
-      "af": "Die kind is versadig. Die kind kyk na die ma. 'Dankie, Ma, vir die kos,' sê die kind. Die ma glimlag. 'Jy is welkom, my kind,' sê sy. Die familie is saam.\n"
+      "af": "Die kind is versadig. Die kind kyk na die ma. \"Dankie, Ma, vir die kos,\" sê die kind. Die ma glimlag. \"Jy is welkom, my kind,\" sê sy. Die familie is saam.\n"
     },
     "entities": [
       {
@@ -643,24 +606,6 @@ var EXPERIENCES = [
           "mi": "noho tahi",
           "af": "saam"
         }
-      },
-      {
-        "id": "PHRASE_MIHI",
-        "category": "PHRASE",
-        "label": {
-          "default": "acknowledgements, thanks",
-          "mi": "mihi",
-          "af": "dankbetuiging"
-        }
-      },
-      {
-        "id": "PHRASE_WHAKAUTU",
-        "category": "PHRASE",
-        "label": {
-          "default": "answer, reply",
-          "mi": "whakautu",
-          "af": "antwoord"
-        }
       }
     ],
     "interactions": [
@@ -683,6 +628,695 @@ var EXPERIENCES = [
         "id": "INT_R010_04",
         "sentences": {},
         "action": ""
+      }
+    ]
+  },
+  {
+    "id": "UNKNOWN",
+    "type": "story",
+    "level": 1,
+    "title": {},
+    "content": {},
+    "entities": [],
+    "interactions": []
+  },
+  {
+    "id": "WIFE_001",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Hello / thank you.",
+      "mi": "Kia ora.",
+      "af": "Hallo / dankie."
+    },
+    "content": {
+      "en": "Hello / thank you.",
+      "mi": "Kia ora.",
+      "af": "Hallo / dankie."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_KIA_ORA",
+        "category": "PHRASE",
+        "label": {
+          "default": "kia ora",
+          "mi": "kia ora",
+          "en": "hello / thank you",
+          "af": "hallo / dankie"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_001_01",
+        "sentences": {},
+        "action": "SOCIAL_GREET"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_002",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "How are you?",
+      "mi": "Kei te pēhea koe?",
+      "af": "Hoe gaan dit?"
+    },
+    "content": {
+      "en": "How are you?",
+      "mi": "Kei te pēhea koe?",
+      "af": "Hoe gaan dit?"
+    },
+    "entities": [
+      {
+        "id": "PHRASE_HOW_ARE_YOU",
+        "category": "PHRASE",
+        "label": {
+          "default": "Kei te pēhea koe?",
+          "mi": "Kei te pēhea koe?",
+          "en": "How are you?",
+          "af": "Hoe gaan dit?"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_002_01",
+        "sentences": {},
+        "action": "SOCIAL_ASK_HEALTH"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_003",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "I am well.",
+      "mi": "Kei te pai.",
+      "af": "Dit gaan goed."
+    },
+    "content": {
+      "en": "I am well.",
+      "mi": "Kei te pai.",
+      "af": "Dit gaan goed."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_I_AM_WELL",
+        "category": "PHRASE",
+        "label": {
+          "default": "Kei te pai",
+          "mi": "Kei te pai",
+          "en": "I am well",
+          "af": "Dit gaan goed"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_003_01",
+        "sentences": {},
+        "action": "SOCIAL_RESPOND"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_004",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Welcome / come here.",
+      "mi": "Haere mai.",
+      "af": "Welkom / kom hier."
+    },
+    "content": {
+      "en": "Welcome / come here.",
+      "mi": "Haere mai.",
+      "af": "Welkom / kom hier."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_WELCOME",
+        "category": "PHRASE",
+        "label": {
+          "default": "Haere mai",
+          "mi": "Haere mai",
+          "en": "Welcome",
+          "af": "Welkom"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_004_01",
+        "sentences": {},
+        "action": "SOCIAL_WELCOME"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_005",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "My name is [name].",
+      "mi": "Ko [name] tōku ingoa.",
+      "af": "My naam is [name]."
+    },
+    "content": {
+      "en": "My name is [name].",
+      "mi": "Ko [name] tōku ingoa.",
+      "af": "My naam is [name]."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_MY_NAME",
+        "category": "PHRASE",
+        "label": {
+          "default": "tōku ingoa",
+          "mi": "tōku ingoa",
+          "en": "my name",
+          "af": "my naam"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_005_01",
+        "sentences": {},
+        "action": "SOCIAL_INTRODUCE"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_006",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Where are you from?",
+      "mi": "Nō hea koe?",
+      "af": "Van waar af kom jy?"
+    },
+    "content": {
+      "en": "Where are you from?",
+      "mi": "Nō hea koe?",
+      "af": "Van waar af kom jy?"
+    },
+    "entities": [
+      {
+        "id": "PHRASE_WHERE_FROM",
+        "category": "PHRASE",
+        "label": {
+          "default": "Nō hea",
+          "mi": "Nō hea",
+          "en": "Where from?",
+          "af": "Waarvandaan?"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_006_01",
+        "sentences": {},
+        "action": "SOCIAL_ASK_ORIGIN"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_007",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "I am from South Africa.",
+      "mi": "Nō Āwherika ki te Tonga ahau.",
+      "af": "Ek is van Suid-Afrika."
+    },
+    "content": {
+      "en": "I am from South Africa.",
+      "mi": "Nō Āwherika ki te Tonga ahau.",
+      "af": "Ek is van Suid-Afrika."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_FROM_SA",
+        "category": "PHRASE",
+        "label": {
+          "default": "Āwherika ki te Tonga",
+          "mi": "Āwherika ki te Tonga",
+          "en": "South Africa",
+          "af": "Suid-Afrika"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_007_01",
+        "sentences": {},
+        "action": "SOCIAL_SAY_ORIGIN"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_008",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Greetings all.",
+      "mi": "Tēnā koutou.",
+      "af": "Groete aan almal."
+    },
+    "content": {
+      "en": "Greetings all.",
+      "mi": "Tēnā koutou.",
+      "af": "Groete aan almal."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_GREET_ALL",
+        "category": "PHRASE",
+        "label": {
+          "default": "Tēnā koutou",
+          "mi": "Tēnā koutou",
+          "en": "Greetings all",
+          "af": "Groete aan almal"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_008_01",
+        "sentences": {},
+        "action": "SOCIAL_GREET_GROUP"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_009",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Where is the bathroom?",
+      "mi": "Kei hea te wharepaku?",
+      "af": "Waar is die badkamer?"
+    },
+    "content": {
+      "en": "Where is the bathroom?",
+      "mi": "Kei hea te wharepaku?",
+      "af": "Waar is die badkamer?"
+    },
+    "entities": [
+      {
+        "id": "PHRASE_WHERE_BATHROOM",
+        "category": "PHRASE",
+        "label": {
+          "default": "wharepaku",
+          "mi": "wharepaku",
+          "en": "bathroom",
+          "af": "badkamer"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_009_01",
+        "sentences": {},
+        "action": "SOCIAL_ASK_LOCATION"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_010",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Please sit / stay.",
+      "mi": "Noho mai.",
+      "af": "Sit gerus / bly."
+    },
+    "content": {
+      "en": "Please sit / stay.",
+      "mi": "Noho mai.",
+      "af": "Sit gerus / bly."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_NOHO_MAI",
+        "category": "PHRASE",
+        "label": {
+          "default": "Noho mai",
+          "mi": "Noho mai",
+          "en": "Please sit",
+          "af": "Sit gerus"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_010_01",
+        "sentences": {},
+        "action": "SOCIAL_OFFER_SEAT"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_011",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "I am hungry.",
+      "mi": "Kei te hiakai au.",
+      "af": "Ek is honger."
+    },
+    "content": {
+      "en": "I am hungry.",
+      "mi": "Kei te hiakai au.",
+      "af": "Ek is honger."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_HUNGRY",
+        "category": "PHRASE",
+        "label": {
+          "default": "hiakai",
+          "mi": "hiakai",
+          "en": "hungry",
+          "af": "honger"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_011_01",
+        "sentences": {},
+        "action": "SOCIAL_EXPRESS_NEED"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_012",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "I am thirsty.",
+      "mi": "Kei te matewai au.",
+      "af": "Ek is dors."
+    },
+    "content": {
+      "en": "I am thirsty.",
+      "mi": "Kei te matewai au.",
+      "af": "Ek is dors."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_THIRSTY",
+        "category": "PHRASE",
+        "label": {
+          "default": "matewai",
+          "mi": "matewai",
+          "en": "thirsty",
+          "af": "dors"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_012_01",
+        "sentences": {},
+        "action": "SOCIAL_EXPRESS_NEED"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_013",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Some water, please.",
+      "mi": "He wai, koa.",
+      "af": "Water, asseblief."
+    },
+    "content": {
+      "en": "Some water, please.",
+      "mi": "He wai, koa.",
+      "af": "Water, asseblief."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_WATER_PLEASE",
+        "category": "PHRASE",
+        "label": {
+          "default": "He wai, koa",
+          "mi": "He wai, koa",
+          "en": "Some water, please",
+          "af": "Water, asseblief"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_013_01",
+        "sentences": {},
+        "action": "SOCIAL_REQUEST"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_014",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Thank you for the food.",
+      "mi": "Kia ora mō te kai.",
+      "af": "Dankie vir die kos."
+    },
+    "content": {
+      "en": "Thank you for the food.",
+      "mi": "Kia ora mō te kai.",
+      "af": "Dankie vir die kos."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_THANK_FOOD",
+        "category": "PHRASE",
+        "label": {
+          "default": "Kia ora mō te kai",
+          "mi": "Kia ora mō te kai",
+          "en": "Thank you for the food",
+          "af": "Dankie vir die kos"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_014_01",
+        "sentences": {},
+        "action": "SOCIAL_THANK"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_015",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Goodbye (to those staying).",
+      "mi": "Haere rā.",
+      "af": "Totsiens (vir dié wat bly)."
+    },
+    "content": {
+      "en": "Goodbye (to those staying).",
+      "mi": "Haere rā.",
+      "af": "Totsiens (vir dié wat bly)."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_GOODBYE_STAY",
+        "category": "PHRASE",
+        "label": {
+          "default": "Haere rā",
+          "mi": "Haere rā",
+          "en": "Goodbye (to those staying)",
+          "af": "Totsiens"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_015_01",
+        "sentences": {},
+        "action": "SOCIAL_FAREWELL"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_016",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Goodbye (to those leaving).",
+      "mi": "E noho rā.",
+      "af": "Totsiens (as die een wat vertrek)."
+    },
+    "content": {
+      "en": "Goodbye (to those leaving).",
+      "mi": "E noho rā.",
+      "af": "Totsiens (as die een wat vertrek)."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_GOODBYE_LEAVE",
+        "category": "PHRASE",
+        "label": {
+          "default": "E noho rā",
+          "mi": "E noho rā",
+          "en": "Goodbye (to those leaving)",
+          "af": "Totsiens"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_016_01",
+        "sentences": {},
+        "action": "SOCIAL_FAREWELL"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_017",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "I will return.",
+      "mi": "Ka hoki mai au.",
+      "af": "Ek sal weer kom."
+    },
+    "content": {
+      "en": "I will return.",
+      "mi": "Ka hoki mai au.",
+      "af": "Ek sal weer kom."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_WILL_RETURN",
+        "category": "PHRASE",
+        "label": {
+          "default": "hoki mai",
+          "mi": "hoki mai",
+          "en": "return",
+          "af": "terugkom"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_017_01",
+        "sentences": {},
+        "action": "SOCIAL_PROMISE"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_018",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Be strong.",
+      "mi": "Kia kaha.",
+      "af": "Hou moed / wees sterk."
+    },
+    "content": {
+      "en": "Be strong.",
+      "mi": "Kia kaha.",
+      "af": "Hou moed / wees sterk."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_BE_STRONG",
+        "category": "PHRASE",
+        "label": {
+          "default": "Kia kaha",
+          "mi": "Kia kaha",
+          "en": "Be strong",
+          "af": "Wees sterk"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_018_01",
+        "sentences": {},
+        "action": "SOCIAL_ENCOURAGE"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_019",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "It is delicious.",
+      "mi": "He reka.",
+      "af": "Dit is heerlik."
+    },
+    "content": {
+      "en": "It is delicious.",
+      "mi": "He reka.",
+      "af": "Dit is heerlik."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_DELICIOUS",
+        "category": "PHRASE",
+        "label": {
+          "default": "He reka",
+          "mi": "He reka",
+          "en": "It is delicious",
+          "af": "Dit is heerlik"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_019_01",
+        "sentences": {},
+        "action": "SOCIAL_COMPLIMENT"
+      }
+    ]
+  },
+  {
+    "id": "WIFE_020",
+    "type": "dialogue",
+    "level": 1,
+    "title": {
+      "en": "Beautiful house.",
+      "mi": "He whare ātaahua.",
+      "af": "Pragtige huis."
+    },
+    "content": {
+      "en": "Beautiful house.",
+      "mi": "He whare ātaahua.",
+      "af": "Pragtige huis."
+    },
+    "entities": [
+      {
+        "id": "PHRASE_BEAUTIFUL_HOUSE",
+        "category": "PHRASE",
+        "label": {
+          "default": "whare ātaahua",
+          "mi": "whare ātaahua",
+          "en": "beautiful house",
+          "af": "pragtige huis"
+        }
+      }
+    ],
+    "interactions": [
+      {
+        "id": "INT_WIFE_020_01",
+        "sentences": {},
+        "action": "SOCIAL_COMPLIMENT"
       }
     ]
   }
