@@ -30,7 +30,7 @@ Write-Host "STEP 1/6: Copying app assets..." -ForegroundColor Yellow
 $appFiles = @(
   "index.html", "app.js", "experiences.js", "surface_forms.js",
   "voice_packages.js", "audio_index.js", "session.js",
-  "curriculum-wife.js", "audio.js", "sw.js", "manifest.json"
+  "audio.js", "sw.js", "manifest.json"
 )
 foreach ($f in $appFiles) {
   $src = Join-Path $SourceApp $f

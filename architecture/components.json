@@ -22,7 +22,7 @@
       "type": "data",
       "file": "packages/language-data/experiences.js",
       "deployed": ["docs/experiences.js", "apps/river-world/experiences.js", "docs/packages/language-data/experiences.js"],
-      "purpose": "River World curriculum: 10 story/observation/procedure/dialogue experiences with multilingual content and entity annotations",
+      "purpose": "Unified Māori course: 30 experiences (10 River World + 20 Wife World) with multilingual content and entity annotations",
       "exports": ["EXPERIENCES"],
       "depends_on": [],
       "consumed_by": ["app-river-world", "requirement-matrix", "recorder", "acquisition-planner", "story-gap-analysis"]
@@ -32,10 +32,11 @@
       "type": "data",
       "file": "packages/language-data/curriculum-wife.js",
       "deployed": ["docs/curriculum-wife.js", "apps/river-world/curriculum-wife.js", "docs/packages/language-data/curriculum-wife.js"],
-      "purpose": "Wife's Core 20: 20 essential Māori phrases in progressive order with multilingual content and entity references",
+      "purpose": "(Deprecated) Wife's Core 20 legacy data — superseded by unified experiences.js. Retained for voice-contrib tools.",
       "exports": ["CORE_20"],
+      "deprecated": true,
       "depends_on": [],
-      "consumed_by": ["app-river-world", "requirement-matrix", "recorder"]
+      "consumed_by": ["requirement-matrix", "recorder"]
     },
     {
       "id": "contributions",
@@ -160,10 +161,10 @@
       "type": "runtime",
       "file": "apps/river-world/app.js",
       "deployed": ["docs/app.js"],
-      "purpose": "Main application controller: dual-panel language experience rendering, curriculum switching, review mode, audio playback",
+      "purpose": "Main application controller: dual-panel language experience rendering, review mode, audio playback",
       "exports": ["App"],
       "public_api": ["init", "setPanelALang", "setPanelBLang", "swapLangs"],
-      "depends_on": ["experiences", "curriculum-wife", "audio-runtime", "session", "surface-forms"],
+      "depends_on": ["experiences", "audio-runtime", "session", "surface-forms"],
       "consumed_by": []
     },
     {
@@ -361,7 +362,7 @@
       "file": "apps/river-world/index.html",
       "deployed": ["docs/index.html"],
       "purpose": "Main PWA entry point: dual-panel UI for language learning (Co-Sense)",
-      "depends_on": ["app-river-world", "audio-runtime", "surface-forms", "experiences", "curriculum-wife", "session", "voice-packages"],
+      "depends_on": ["app-river-world", "audio-runtime", "surface-forms", "experiences", "session", "voice-packages"],
       "consumed_by": []
     },
     {

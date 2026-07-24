@@ -7,14 +7,10 @@ const App = (() => {
   let _panelBLang = "af";
   let _experiences = [];
   let _reviewMode = false;
-  let _activeCurriculum = "river_world";
-
   const REVIEW_KEY = "river_world_pass1";
-  const CURRICULUM_KEY = "river_world_curriculum";
 
   function _getCurriculumName() {
-    if (_activeCurriculum === "wife_core_20") return "Wife's Core 20";
-    return "River World";
+    return "Māori Course";
   }
 
   function init() {
@@ -26,42 +22,12 @@ const App = (() => {
     }
     Audio.init();
     _restoreLang();
-    _restoreCurriculum();
     const header = document.querySelector(".sidebar-header");
     if (header) header.textContent = _getCurriculumName();
     _populateVoicePackages();
     _renderExperienceList();
     _showExperience(0);
-    Session.log("app_started", { totalExperiences: _experiences.length, curriculum: _activeCurriculum });
-  }
-
-  function _restoreCurriculum() {
-    try {
-      const saved = localStorage.getItem(CURRICULUM_KEY);
-      if (saved === "wife_core_20" && typeof CORE_20 !== "undefined") {
-        _activeCurriculum = "wife_core_20";
-        _experiences = CORE_20;
-      }
-    } catch (e) { /* ignore */ }
-  }
-
-  function _switchCurriculum(name) {
-    if (name === "wife_core_20" && typeof CORE_20 !== "undefined") {
-      _activeCurriculum = "wife_core_20";
-      _experiences = CORE_20;
-      _currentIndex = 0;
-    } else {
-      _activeCurriculum = "river_world";
-      _experiences = window.EXPERIENCES || [];
-      _currentIndex = 0;
-    }
-    try { localStorage.setItem(CURRICULUM_KEY, _activeCurriculum); } catch (e) { /* ignore */ }
-    _reviewMode = false;
-    const header = document.querySelector(".sidebar-header");
-    if (header) header.textContent = _getCurriculumName();
-    _renderExperienceList();
-    _showExperience(0);
-    Session.log("curriculum_changed", { curriculum: _activeCurriculum });
+    Session.log("app_started", { totalExperiences: _experiences.length });
   }
 
   function _restoreLang() {
@@ -381,11 +347,7 @@ const App = (() => {
 
   function _renderExperienceList() {
     const container = document.getElementById("exp-list");
-    let html = `<div class="curriculum-switcher">`;
-    html += `<button class="curriculum-btn ${_activeCurriculum === "river_world" ? "active" : ""}" data-curriculum="river_world">River World</button>`;
-    html += `<button class="curriculum-btn ${_activeCurriculum === "wife_core_20" ? "active" : ""}" data-curriculum="wife_core_20">Wife's Core 20</button>`;
-    html += `<div class="curriculum-label">${_escape(_getCurriculumName())} · ${_experiences.length} items</div>`;
-    html += `</div>`;
+    let html = `<div class="curriculum-label">${_escape(_getCurriculumName())} · ${_experiences.length} items</div>`;
     html += `<div class="exp-list-scroll">`;
     html += _experiences
       .map(
@@ -733,12 +695,6 @@ const App = (() => {
     // Swap languages
     if (e.target.id === "swap-langs") {
       swapLangs();
-      return;
-    }
-
-    // Curriculum switcher
-    if (e.target.classList.contains("curriculum-btn")) {
-      _switchCurriculum(e.target.dataset.curriculum);
       return;
     }
 

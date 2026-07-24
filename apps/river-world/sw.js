@@ -8,7 +8,6 @@ const URLS = [
   "surface_forms.js",
   "voice_packages.js",
   "experiences.js",
-  "curriculum-wife.js",
   "packages/language-data/afrikaans-phrases.js",
   "manifest.json",
 ];
