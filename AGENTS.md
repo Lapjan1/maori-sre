@@ -177,3 +177,26 @@ This test:
 - `docs/voice-contrib/index.html` — same HTML changes
 - `docs/voice-contrib/recorder.js` — synced from apps copy
 - `docs/voice-contrib/styles.css` — synced from apps copy
+
+### Session 2026-07-25 — Batch Audio Index: 24 Words Added
+
+**Objective:** Add 24 common Māori words to `audio_index.js` with correct Te Aka word_ids and native audio, reducing TTS fallback during word-by-word playback.
+
+#### Completed
+1. **Batch lookup script** found 24 word_ids by querying Te Aka search API for each word's canonical entry
+2. **Corrected two wrong IDs** after manual verification:
+   - `muri`: 14140 (to sigh/breeze) → **4283** (locative: after/behind) — found via search results HTML parsing
+   - `whai`: 10744 (to have/possess) → **9302** (to follow/chase) — confirmed "whai muri" needs the "follow" meaning
+3. **24 entries added** to `audio_index.js` in both `packages/language-data/` and `docs/packages/language-data/`:
+   `ahurea`, `etahi`, `hei`, `hou`, `ina`, `iwi`, `kupu`, `mama`, `me`, `mea`, `mua`, `muri`, `neke`, `oati`, `ranei`, `tikanga`, `tino`, `tohu`, `tono`, `tonu`, `tuatahi`, `tuku`, `wa`, `whai`
+4. **24 MP3s downloaded** from Te Aka CDN to both `apps/river-world/voices/` and `docs/voices/` (168 total entries, 24 new)
+5. **All verified** — every entry has valid word_id, byte count, and MP3 file on disk
+
+#### Key Lesson
+The batch lookup script (search API) can return a word_id for a *different sense* of the same word (e.g., `muri` = "sigh" instead of "after"). Always verify against the live entry page when multiple meanings exist.
+
+#### Relevant Files
+- `packages/language-data/audio_index.js` — 24 new entries + byte counts
+- `docs/packages/language-data/audio_index.js` — synced copy
+- `apps/river-world/voices/mi_teaka_v1/audio/` — 24 new MP3s
+- `docs/voices/mi_teaka_v1/audio/` — 24 new MP3s
