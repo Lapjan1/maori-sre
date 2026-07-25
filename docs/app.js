@@ -15,6 +15,17 @@ const App = (() => {
 
   function init() {
     _experiences = window.EXPERIENCES || [];
+    if (window.CORE_20) {
+      var map = {};
+      window.CORE_20.forEach(function(e) { map[e.id] = e; });
+      _experiences.forEach(function(e) {
+        var p = map[e.id];
+        if (p && p.content) {
+          e.content = p.content;
+          if (p.situation) e.situation = p.situation;
+        }
+      });
+    }
     if (!_experiences.length) {
       document.getElementById("app").innerHTML =
         '<p style="padding:2rem;text-align:center;">No experiences found.</p>';
@@ -639,7 +650,6 @@ const App = (() => {
       var spans = document.querySelectorAll(".panel-content .pw");
       if (!spans.length) return;
       var norm = text.toLowerCase().replace(/[^a-zāēīōū\s]/g, "").trim();
-      // Advance cursor: find next matching span after the last highlighted one
       var match = null;
       for (var i = Math.max(0, _lastPW); i < spans.length; i++) {
         if (spans[i].dataset.wt === norm) { match = spans[i]; _lastPW = i; break; }
@@ -730,7 +740,7 @@ const App = (() => {
       if (entityId) {
         const sf = _lookupSurfaceForm(entityId, lang);
         const text = sf?.text || entityId;
-        _lastPW = -1;
+_lastPW = -1;
         Audio.onWordStart = _highlightOnPlay(lang);
         Audio.speak(text, lang, entityId);
         Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
@@ -752,7 +762,7 @@ const App = (() => {
           const inner = detail.querySelector(".word-detail-inner");
           if (inner) inner.innerHTML = _renderWordDetail(entityId, lang);
         }
-        _lastPW = -1;
+_lastPW = -1;
         Audio.onWordStart = _highlightOnPlay(lang);
         if (labelText && labelText.includes(" ")) {
           Audio.speak(labelText, lang);
