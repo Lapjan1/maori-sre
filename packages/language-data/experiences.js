@@ -1,6 +1,7 @@
 var EXPERIENCES = [
   {
     "id": "RIVER_001",
+    "phrase_id": "RIVER_001",
     "type": "story",
     "level": 1,
     "title": {
@@ -98,6 +99,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_002",
+    "phrase_id": "RIVER_002",
     "type": "story",
     "level": 1,
     "title": {
@@ -182,6 +184,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_003",
+    "phrase_id": "RIVER_003",
     "type": "observation",
     "level": 1,
     "title": {
@@ -220,6 +223,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_004",
+    "phrase_id": "RIVER_004",
     "type": "observation",
     "level": 2,
     "title": {
@@ -281,6 +285,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_005",
+    "phrase_id": "RIVER_005",
     "type": "observation",
     "level": 2,
     "title": {
@@ -328,6 +333,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_006",
+    "phrase_id": "RIVER_006",
     "type": "observation",
     "level": 1,
     "title": {
@@ -384,6 +390,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_007",
+    "phrase_id": "RIVER_007",
     "type": "procedure",
     "level": 2,
     "title": {
@@ -440,6 +447,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_008",
+    "phrase_id": "RIVER_008",
     "type": "procedure",
     "level": 2,
     "title": {
@@ -496,6 +504,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_009",
+    "phrase_id": "RIVER_009",
     "type": "dialogue",
     "level": 2,
     "title": {
@@ -567,6 +576,7 @@ var EXPERIENCES = [
   },
   {
     "id": "RIVER_010",
+    "phrase_id": "RIVER_010",
     "type": "story",
     "level": 1,
     "title": {
@@ -632,16 +642,8 @@ var EXPERIENCES = [
     ]
   },
   {
-    "id": "UNKNOWN",
-    "type": "story",
-    "level": 1,
-    "title": {},
-    "content": {},
-    "entities": [],
-    "interactions": []
-  },
-  {
     "id": "WIFE_001",
+    "phrase_id": "WIFE_001",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -676,6 +678,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_002",
+    "phrase_id": "WIFE_002",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -710,6 +713,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_003",
+    "phrase_id": "WIFE_003",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -744,6 +748,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_004",
+    "phrase_id": "WIFE_004",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -778,6 +783,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_005",
+    "phrase_id": "WIFE_005",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -812,6 +818,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_006",
+    "phrase_id": "WIFE_006",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -846,6 +853,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_007",
+    "phrase_id": "WIFE_007",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -880,6 +888,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_008",
+    "phrase_id": "WIFE_008",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -914,6 +923,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_009",
+    "phrase_id": "WIFE_009",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -948,6 +958,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_010",
+    "phrase_id": "WIFE_010",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -982,6 +993,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_011",
+    "phrase_id": "WIFE_011",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1016,6 +1028,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_012",
+    "phrase_id": "WIFE_012",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1050,6 +1063,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_013",
+    "phrase_id": "WIFE_013",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1084,6 +1098,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_014",
+    "phrase_id": "WIFE_014",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1118,6 +1133,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_015",
+    "phrase_id": "WIFE_015",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1152,6 +1168,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_016",
+    "phrase_id": "WIFE_016",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1186,6 +1203,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_017",
+    "phrase_id": "WIFE_017",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1220,6 +1238,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_018",
+    "phrase_id": "WIFE_018",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1254,6 +1273,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_019",
+    "phrase_id": "WIFE_019",
     "type": "dialogue",
     "level": 1,
     "title": {
@@ -1288,6 +1308,7 @@ var EXPERIENCES = [
   },
   {
     "id": "WIFE_020",
+    "phrase_id": "WIFE_020",
     "type": "dialogue",
     "level": 1,
     "title": {

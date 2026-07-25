@@ -37,6 +37,7 @@ body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-
 .phrase-card-header { display: flex; justify-content: space-between; margin-bottom: 1rem; }
 .phrase-lang { font-size: 0.75rem; text-transform: uppercase; color: var(--muted); font-weight: 600; }
 .phrase-id { font-size: 0.7rem; color: var(--muted); font-family: monospace; }
+.phrase-context { font-size: 0.7rem; color: var(--green); font-weight: 600; }
 .phrase-text { font-size: 1.8rem; font-weight: 600; color: var(--green); margin-bottom: 0.5rem; line-height: 1.3; }
 .phrase-translation { font-size: 1rem; color: var(--muted); margin-bottom: 0.5rem; }
 .phrase-notes { font-size: 0.8rem; color: var(--brown); font-style: italic; }

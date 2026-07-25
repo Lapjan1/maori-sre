@@ -100,3 +100,80 @@ If we discover an actual error in Te Aka's data (headword, pronunciation, or def
 
 ### Ordinary corrections
 If a word_id mapping in *our* data (YAML / JS) disagrees with Te Aka, assume we are wrong first, verify against the live page, and correct our side. This was the case with `whakaki` → `whakakī` (word_id 9519): the error was a missing macron in our YAML, not in Te Aka's entry.
+
+## Rule 6: Regression Audit
+
+Before committing changes that add, modify, or re-map Māori words, run the audit as a regression check:
+
+```bash
+python scripts/verify_words_vs_teaka.py --ci
+```
+
+This test:
+- Extracts every unique Māori word from all 30 experience texts
+- Resolves each to a Te Aka word_id (via `audio_index.js` or `surface_forms.js`)
+- Fetches the live Te Aka page and compares headwords
+- Classifies known exceptions (`name` → placeholder, `whakakīia` → derived passive)
+- Exits with code 1 if any actual mismatch or unresolved NO_ID remains
+
+**Target:** 0 mismatches, 0 unresolved NO_ID (103/103 verified or classified).
+
+**Current state (2026-07-24):** 101/103 direct verification, 2 explicitly classified (`name`, `whakakīia`).
+
+---
+
+## Progress Log
+
+### Session 2026-07-24 — Data Consolidation & WIFE Curriculum Merge
+
+**Objective:** Consolidate all language data files into single source of truth (`packages/language-data/`); merge CORE_20 WIFE curriculum; fix word_id audio mappings.
+
+#### Completed
+1. **6 word_id corrections** verified live vs Te Aka: kia 2583→2597, kite 4989→2722, koe 2694→2761, nui 53700→4488, pōuri 7064→5962, tēnei 8184→7927
+2. **pātai word_id** fixed: was 6541 (rārangi piro/goal line) → corrected to 5343 (ask/question)
+3. **77 MP3s downloaded** from Te Aka CDN for corrected + previously missing word_ids
+4. **Data consolidation complete**: `audio_index.js`, `surface_forms.js`, `experiences.js`, `voice_packages.js` now load from `../../packages/language-data/` in both `apps/river-world/` and `docs/` index.html
+5. **Duplicate files deleted** from `apps/river-world/` and `docs/` (local copies of audio_index.js, surface_forms.js, experiences.js, voice_packages.js, curriculum-wife.js)
+6. **`curriculum-wife.js`** added to script tags; `app.js` merges CORE_20 paragraph content (replaces short exp.content with long-form paragraphs + situation)
+7. **5 surface_forms macron fixes**: māoa, kāinga, tō, ngā, ōna
+8. **2 NO_ID words classified**: `name` (English placeholder), `whakakīia` (derived passive)
+9. **Audit CI check passes**: `python scripts/verify_words_vs_teaka.py --ci` — 101 verified, 0 mismatches, 2 classified
+10. **Deploy script & sw.js updated** to reflect new file structure
+
+#### Identified Bugs
+1. **WIFE Afrikaans audio silent** — `AF_PASSAGE_WIFE_*` entries in `afrikaans-phrases.js` lack a `text` field. When `speak()` resolves the passage, it passes `undefined` as `fallbackText` to `_playNative()`. The `_highlightOnPlay` callback crashes on `undefined.toLowerCase()`, halting execution before `_playNativeWithCallback` is ever called — so no native audio plays AND no TTS fallback fires. **Fixed:** `audio.js` lines 111 & 126 now use `passage[0].text || text` and `s.text || text` to fall back to the button's original `text` parameter when the phrase entry lacks a `text` field.
+2. RIVER experiences: Afrikaans native audio works correctly (118 .webm files)
+3. Word chip audio works for both RIVER and WIFE (PhraseComposer composition + StoryAudioResolver)
+
+#### Relevant Files
+- `packages/language-data/audio_index.js` — single source, all word_id fixes applied
+- `packages/language-data/surface_forms.js` — single source, word_id + macron fixes
+- `packages/language-data/experiences.js` — single source, RIVER + WIFE experience data
+- `packages/language-data/curriculum-wife.js` — CORE_20 long-form paragraphs
+- `packages/language-data/voice_packages.js` — mi_teaka_v1 + af_v1 package defs
+- `packages/language-data/afrikaans-phrases.js` — AF_PASSAGE_WIFE_* entries (missing `text` field)
+- `apps/river-world/audio.js` — `speak()` function (fix location for bug #1)
+- `apps/river-world/app.js` — CORE_20 merge logic
+
+### Session 2026-07-25 — Recorder Refactor: Unified Source, Correct Language Display
+
+**Objective:** Remove 4 separate source selectors from the voice-contrib recorder; use the single unified `EXPERIENCES` array; show correct target-language text (not Māori key phrase) for Phrase/Reading modes; add curriculum context for contributors.
+
+#### Completed
+1. **Removed source selector** from `apps/voice-contrib/index.html` and `docs/voice-contrib/index.html` — `river_world`, `wife_core_20`, and `af_phrases` sources replaced by single implicit EXPERIENCES source
+2. **Removed `_populateSources()`**, `_onSourceChange()`, `_entityIdsForSource()` from `recorder.js`
+3. **`_loadPhrases()` rewritten** — uses `EXPERIENCES` directly; derives target text from `exp.title[lang]` or primary entity label in the target language instead of the last line of content (which was always the Māori key phrase)
+4. **`_loadReadings()` rewritten** — uses `EXPERIENCES` directly; shows full `exp.content[lang]` text
+5. **Added `_expTargetLabel()`** helper that picks the primary entity label in the target language, falling back to title
+6. **Added curriculum context to card** — new `phrase-context` element shows `exp_id · Level N · Type` so contributors know which experience they're recording for
+7. **Fixed reference audio path** — `_playNative()` now tries multiple candidate paths (`../river-world/voices/...`, `../voices/...`, `../../apps/river-world/voices/...`) to work from any serving directory
+8. **Updated contribution YAML** — includes `experience_id`, `experience_level` in addition to existing fields
+9. **Both copies updated** — `apps/voice-contrib/` and `docs/voice-contrib/` in sync
+
+#### Relevant Files
+- `apps/voice-contrib/index.html` — removed source-selector, added phrase-context
+- `apps/voice-contrib/recorder.js` — full rewrite of source-dependent functions
+- `apps/voice-contrib/styles.css` — added `.phrase-context` style
+- `docs/voice-contrib/index.html` — same HTML changes
+- `docs/voice-contrib/recorder.js` — synced from apps copy
+- `docs/voice-contrib/styles.css` — synced from apps copy

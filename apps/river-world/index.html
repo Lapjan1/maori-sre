@@ -89,6 +89,12 @@
   }
   .word-chip:hover { background: #3a7a8a; transform: scale(1.05); }
   .word-chip:active { transform: scale(0.95); }
+  .word-chip.shadow {
+    background: #1d5a2d; box-shadow: 0 0 0 3px #4caf50, 0 3px 12px rgba(76,175,80,0.4);
+    transform: scale(1.08); transition: all 0.12s;
+  }
+  .pw { transition: background 0.15s, box-shadow 0.15s; border-radius: 3px; padding: 0 1px; }
+  .pw.shadow { background: #d4edda; box-shadow: 0 0 0 2px #4caf50, 0 2px 8px rgba(76,175,80,0.3); }
   .chip-lang {
     display: inline-block; font-size: 0.55rem; font-weight: 700;
     background: rgba(255,255,255,0.25); color: #fff;
@@ -114,6 +120,32 @@
   .parallel-text { font-size: 0.85rem; line-height: 1.5; padding: 0.4rem 0.5rem; border-radius: 4px; background: #fafafa; }
   .btn-audio-seq { background: var(--green); color: #fff; border: none; border-radius: 6px; padding: 0.2rem 0.5rem; cursor: pointer; font-size: 0.7rem; }
   .btn-audio-seq:hover { filter: brightness(1.1); }
+
+  /* Help / About modal */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 40;
+    background: rgba(0,0,0,0.45);
+    align-items: center; justify-content: center;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal-box {
+    background: var(--card); border-radius: var(--radius);
+    max-width: 560px; width: 90%; max-height: 80vh; overflow-y: auto;
+    padding: 1.5rem; position: relative; box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+  .modal-close {
+    position: absolute; top: 0.5rem; right: 0.75rem;
+    background: none; border: none; font-size: 1.5rem; cursor: pointer;
+    color: var(--muted); line-height: 1;
+  }
+  .modal-close:hover { color: var(--text); }
+  .modal-box h2 { font-size: 1.3rem; color: var(--green); margin-bottom: 0.75rem; }
+  .modal-box h3 { font-size: 1rem; color: var(--green); margin: 1rem 0 0.4rem; }
+  .modal-box p, .modal-box li { font-size: 0.9rem; line-height: 1.6; color: var(--text); }
+  .modal-box ul { padding-left: 1.25rem; }
+  .modal-box hr { border: none; border-top: 1px solid #e0dbd5; margin: 1rem 0; }
+  .modal-box .about-links { font-size: 0.8rem; color: var(--muted); }
+  .modal-box .about-links a { color: var(--water); }
 
   @media (max-width: 600px) {
     .lang-controls { gap: 0.25rem; }
@@ -152,6 +184,20 @@
   .exp-list-item.active { background: #e3f0e8; border-left: 3px solid var(--green); }
   .exp-list-title { display: block; font-weight: 500; }
   .exp-list-type { display: block; font-size: 0.75rem; color: var(--muted); margin-top: 0.15rem; }
+  .exp-group { border-bottom: 1px solid #eee; }
+  .exp-group[open] { padding-bottom: 0.25rem; }
+  .exp-group-label {
+    padding: 0.6rem 1rem; cursor: pointer; font-size: 0.8rem;
+    font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em;
+    color: var(--muted); background: #f8f6f4; user-select: none;
+    list-style: none; display: flex; align-items: center; gap: 0.4rem;
+  }
+  .exp-group-label::-webkit-details-marker { display: none; }
+  .exp-group-label::before {
+    content: "\25B6"; font-size: 0.65rem; transition: transform 0.15s;
+  }
+  .exp-group[open] > .exp-group-label::before { transform: rotate(90deg); }
+  .exp-group-label:hover { background: #f0ebe6; }
 
   /* Main content */
   #app {
@@ -270,6 +316,10 @@
   .sidebar-review { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; border: none; background: none; cursor: pointer; border-bottom: 1px solid #eee; font-size: 0.9rem; color: var(--water); font-weight: 500; }
   .sidebar-review:hover { background: #e8f4f8; }
   .sidebar-review.active { background: #e3f0e8; border-left: 3px solid var(--water); }
+  .sidebar-links { padding: 0.5rem 0; margin-top: auto; }
+  .sidebar-link { display: block; width: 100%; text-align: left; padding: 0.75rem 1rem; border: none; background: none; cursor: pointer; border-bottom: 1px solid #eee; font-size: 0.9rem; color: var(--muted); }
+  .sidebar-link:hover { background: #f0ebe6; color: var(--text); }
+  .sidebar-links .sidebar-link:first-child { border-top: 1px solid #eee; }
 
   .curriculum-label { font-size: 0.75rem; color: #888; text-align: center; padding: 0.5rem; border-bottom: 1px solid #eee; }
   .exp-list-scroll { flex: 1; overflow-y: auto; }
@@ -335,18 +385,32 @@
   </div>
   <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
-  <script src="experiences.js?v=5"></script>
-  <script src="surface_forms.js?v=5"></script>
-  <script src="voice_packages.js?v=4"></script>
-  <script src="audio_index.js?v=4"></script>
+  <div class="modal-overlay" id="help-overlay">
+    <div class="modal-box">
+      <button class="modal-close" data-action="close-help">&times;</button>
+      <div id="help-content"></div>
+    </div>
+  </div>
+  <div class="modal-overlay" id="about-overlay">
+    <div class="modal-box">
+      <button class="modal-close" data-action="close-about">&times;</button>
+      <div id="about-content"></div>
+    </div>
+  </div>
+
+  <script src="../../packages/language-data/curriculum-wife.js?v=1"></script>
+  <script src="../../packages/language-data/experiences.js?v=6"></script>
+  <script src="../../packages/language-data/surface_forms.js?v=8"></script>
+  <script src="../../packages/language-data/voice_packages.js?v=5"></script>
+  <script src="../../packages/language-data/audio_index.js?v=6"></script>
   <script src="session.js?v=4"></script>
   <script src="../../packages/language-data/afrikaans-phrases.js?v=4"></script>
-  <script src="maori-phrases.js?v=1"></script>
+  <script src="maori-phrases.js?v=2"></script>
   <script src="../../packages/language-data/contributions.js?v=1"></script>
   <script src="../../packages/language-data/phrase-composer.js?v=2"></script>
   <script src="../../packages/language-data/audio-resolution.js?v=1"></script>
   <script src="../../packages/language-data/story-audio-resolver.js?v=1"></script>
-  <script src="audio.js?v=10"></script>
-  <script src="app.js?v=18"></script>
+  <script src="audio.js?v=13"></script>
+  <script src="app.js?v=25"></script>
 </body>
 </html>

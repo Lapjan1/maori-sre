@@ -28,8 +28,7 @@ Write-Host ""
 # ── Step 1: Copy app assets ──────────────────────────────────
 Write-Host "STEP 1/6: Copying app assets..." -ForegroundColor Yellow
 $appFiles = @(
-  "index.html", "app.js", "experiences.js", "surface_forms.js",
-  "voice_packages.js", "audio_index.js", "session.js",
+  "index.html", "app.js", "session.js",
   "audio.js", "sw.js", "manifest.json"
 )
 foreach ($f in $appFiles) {

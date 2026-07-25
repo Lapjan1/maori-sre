@@ -1,7 +1,7 @@
 /**
  * Voice Contributor — Recorder
  * Phase 1: local recording, playback, re-record, download bundle
- * Supports: Words (surface forms) and Phrases (full sentences from courses)
+ * Supports: Words (surface forms), Phrases and Readings (from unified EXPERIENCES)
  */
 const Recorder = (() => {
   /* ---------- state ---------- */
@@ -18,19 +18,19 @@ const Recorder = (() => {
   let _queueIndex = -1;
 
   const _CONTRIB_PREFIX = "VC";
-  const _langNames = { mi: "M\u0101ori", en: "English", af: "Afrikaans" };
+  const _langNames = { mi: "Māori", en: "English", af: "Afrikaans" };
 
   /* ---------- DOM refs ---------- */
   const $ = (id) => document.getElementById(id);
   const modeSel = $("mode-selector");
   const langSel = $("lang-selector");
-  const sourceSel = $("source-selector");
   const phraseSel = $("phrase-selector");
   const counter = $("counter");
   const welcome = $("welcome");
   const cardContainer = $("card-container");
   const phraseLang = $("phrase-lang");
   const phraseId = $("phrase-id");
+  const phraseContext = $("phrase-context");
   const phraseText = $("phrase-text");
   const phraseTranslation = $("phrase-translation");
   const phraseNotes = $("phrase-notes");
@@ -64,7 +64,6 @@ const Recorder = (() => {
     _populateVoiceTypes();
     modeSel.addEventListener("change", _onModeChange);
     langSel.addEventListener("change", _onLangChange);
-    sourceSel.addEventListener("change", _onSourceChange);
     phraseSel.addEventListener("change", _onPhraseChange);
     btnRef.addEventListener("click", _playReference);
     btnRecord.addEventListener("click", _startRecording);
@@ -84,8 +83,9 @@ const Recorder = (() => {
     const vt = typeof AudioCoverage !== "undefined" ? AudioCoverage.VOICE_TYPES : [];
     const labels = typeof AudioCoverage !== "undefined" ? AudioCoverage.VOICE_LABELS : {};
     const sel = $("voice-selector");
-    sel.innerHTML = '<option value="">All voices</option>';
+    sel.innerHTML = '<option value="male_adult">Male adult</option><option value="">All voices</option>';
     vt.forEach((v) => {
+      if (v === "male_adult") return;
       const opt = document.createElement("option");
       opt.value = v;
       opt.textContent = labels[v] || v;
@@ -93,7 +93,11 @@ const Recorder = (() => {
     });
   }
 
-  /* ---------- language / mode ---------- */
+  function _resolveVoiceType(raw) {
+    return raw || "male_adult";
+  }
+
+  /* ---------- language support ---------- */
   function _populateLanguages() {
     if (typeof DEFAULT_VOICE_PACKAGES === "undefined") return;
     Object.keys(DEFAULT_VOICE_PACKAGES).forEach((code) => {
@@ -112,34 +116,12 @@ const Recorder = (() => {
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
     welcome.style.display = "block";
     cardContainer.style.display = "none";
-    sourceSel.style.display = "inline-block";
-    _populateSources();
-    if (_currentMode === "readings") {
-      _loadReadings(langSel.value);
-    }
+    _loadItems(langSel.value);
     _setStatus("Switched to " + _currentMode + " mode", "info");
   }
 
-  function _populateSources() {
-    sourceSel.innerHTML = '<option value="">All items</option>';
-    if (typeof EXPERIENCES !== "undefined") {
-      const opt = document.createElement("option");
-      opt.value = "river_world";
-      opt.textContent = "River World";
-      sourceSel.appendChild(opt);
-    }
-    if (typeof CORE_20 !== "undefined") {
-      const opt = document.createElement("option");
-      opt.value = "wife_core_20";
-      opt.textContent = "Wife's Core 20";
-      sourceSel.appendChild(opt);
-    }
-    if (typeof AF_PHRASES !== "undefined") {
-      const opt = document.createElement("option");
-      opt.value = "af_phrases";
-      opt.textContent = "Afrikaans Phrases";
-      sourceSel.appendChild(opt);
-    }
+  function _selectedVoiceType() {
+    return _resolveVoiceType($("voice-selector").value);
   }
 
   function _onLangChange() {
@@ -149,6 +131,11 @@ const Recorder = (() => {
     phraseSel.innerHTML = '<option value="">Select phrase</option>';
     $("coverage-panel").style.display = "none";
     _refreshCoverage();
+    _loadItems(lang);
+  }
+
+  function _loadItems(lang) {
+    if (!lang) return;
     if (_currentMode === "words") {
       _loadWords(lang);
     } else if (_currentMode === "readings") {
@@ -161,8 +148,11 @@ const Recorder = (() => {
   function _refreshCoverage() {
     const lang = langSel.value;
     if (!lang || typeof AudioCoverage === "undefined") return;
-    const voiceType = $("voice-selector").value || null;
-    const queue = AudioCoverage.recordingQueue(lang, voiceType || "male_adult");
+    const vt = $("voice-selector").value || null;
+    const voiceType = vt || "male_adult";
+    const missing = AudioCoverage.recordingQueue(lang, voiceType);
+    const legacy = AudioCoverage.legacyQueue(lang, voiceType);
+    const queue = missing.concat(legacy);
     _queueItems = queue;
     _queueIndex = -1;
 
@@ -170,14 +160,15 @@ const Recorder = (() => {
     const list = $("coverage-list");
     const stats = $("coverage-stats");
     const c = AudioCoverage.coverage(lang);
-    stats.textContent = c.withAudio + "/" + c.total + " (" + c.pct + "%)";
+    var pctDisplay = Math.round((c.withAudio / Math.max(c.total, 1)) * 100);
+    stats.textContent = c.withAudio + "/" + c.total + " (" + pctDisplay + "%)";
     if (!queue.length) {
       list.innerHTML = '<div class="coverage-empty">✓ All items recorded for this voice</div>';
       panel.style.display = "block";
       return;
     }
-    const voiceLabel = voiceType ? (AudioCoverage.VOICE_LABELS[voiceType] || voiceType) : "any voice";
-    list.innerHTML = "<h4>Missing for " + voiceLabel + " (" + queue.length + ")</h4>";
+    const voiceLabel = vt ? (AudioCoverage.VOICE_LABELS[voiceType] || voiceType) : "any voice";
+    list.innerHTML = "<h4>Need recording for " + voiceLabel + " (" + queue.length + ")</h4>";
     const ul = document.createElement("ul");
     ul.className = "queue-list";
     queue.slice(0, 50).forEach(function(item) {
@@ -219,109 +210,80 @@ const Recorder = (() => {
     }
   }
 
-  function _onSourceChange() {
-    const lang = langSel.value;
-    if (!lang) return;
-    phraseSel.innerHTML = '<option value="">Select phrase</option>';
-    if (_currentMode === "words") {
-      _loadWords(lang);
-    } else if (_currentMode === "readings") {
-      _loadReadings(lang);
-    } else {
-      _loadPhrases(lang);
-    }
+  /* Check if a surface form needs recording for the given voice type */
+  function _needsRecording(sf, voiceType) {
+    if (!sf || !sf.pronunciation || !sf.pronunciation.audio_refs) return true;
+    var refs = sf.pronunciation.audio_refs.filter(function(r) { return r.quality !== "tts"; });
+    if (!refs.length) return true;
+    if (!voiceType) return false;
+    return !refs.some(function(r) { return r.voice_type === voiceType; });
   }
 
-  /* return entity IDs used by a given source (course) */
-  function _entityIdsForSource(source) {
-    var exps = [];
-    if (source === "river_world" && typeof EXPERIENCES !== "undefined") exps = EXPERIENCES;
-    else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") exps = CORE_20;
-    var ids = {};
-    exps.forEach(function(e) {
-      (e.entities || []).forEach(function(en) {
-        ids[en.entity_id || en.id] = true;
-      });
-    });
-    return Object.keys(ids);
+  /* Check if an entity's surface form for a given language needs recording */
+  function _entityNeedsRecording(entityId, lang, voiceType) {
+    if (typeof SURFACE_FORM_INDEX === "undefined" || typeof SURFACE_FORMS === "undefined") return true;
+    var sfId = SURFACE_FORM_INDEX[entityId] && SURFACE_FORM_INDEX[entityId][lang];
+    if (!sfId) return true;
+    return _needsRecording(SURFACE_FORMS[sfId], voiceType);
   }
 
   /* ---------- load words (surface forms) ---------- */
   function _loadWords(lang) {
-    var sfs = typeof SURFACE_FORMS !== "undefined" ? SURFACE_FORMS : {};
-    var matches = Object.values(sfs).filter(function(sf) { return sf.lang === lang; });
-    var source = sourceSel.value;
-    if (source) {
-      var entityIds = _entityIdsForSource(source);
-      matches = matches.filter(function(sf) { return entityIds.indexOf(sf.entity_id) !== -1; });
-    }
+    if (typeof SURFACE_FORMS === "undefined") return;
+    var vt = _selectedVoiceType();
+    var matches = Object.values(SURFACE_FORMS).filter(function(sf) {
+      if (sf.lang !== lang) return false;
+      if (!_needsRecording(sf, vt)) return false;
+      /* Economy filter: skip PHRASE entities covered by PhraseComposer decomposition */
+      if (typeof PhraseComposer !== "undefined" && PhraseComposer.hasComposition(sf.entity_id)) return false;
+      return true;
+    });
     matches.sort(function(a, b) { return (a.text || "").localeCompare(b.text || ""); });
     matches.forEach(function(sf) {
-      var en = sf.translations && sf.translations.en ? " \u2014 " + sf.translations.en : "";
+      var en = sf.translations && sf.translations.en ? " — " + sf.translations.en : "";
       var opt = document.createElement("option");
       opt.value = sf.id;
       opt.textContent = (sf.text || sf.id) + en;
       phraseSel.appendChild(opt);
     });
-    _setStatus(matches.length + " words available for " + (_langNames[lang] || lang), "info");
+    _setStatus(matches.length + " words need recording for " + (_langNames[lang] || lang), "info");
   }
 
-  /* ---------- load phrases (from courses) ---------- */
+  /* ---------- load phrases (from unified EXPERIENCES) ---------- */
   function _loadPhrases(lang) {
-    const source = sourceSel.value;
-    let phrases = [];
-    if (source === "river_world" && typeof EXPERIENCES !== "undefined") {
-      phrases = _extractPhrases(EXPERIENCES, lang, source);
-    } else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
-      phrases = _extractPhrases(CORE_20, lang, source);
-    } else if (source === "af_phrases" && typeof AF_PHRASES !== "undefined") {
-      phrases = AF_PHRASES.filter(function(p) { return p.lang === lang; }).map(function(p) {
-        return { id: p.id, text: p.text, translation: p.translation_en, source_experience: p.id, source_course: "af_phrases", semantic_intent: p.intent || "" };
-      });
-    }
-    if (!phrases.length) {
-      _setStatus(`No ${_langNames[lang] || lang} phrases found for this course`, "info");
+    if (typeof EXPERIENCES === "undefined") return;
+    var vt = _selectedVoiceType();
+    const exps = EXPERIENCES;
+    if (!exps.length) {
+      _setStatus("No " + (_langNames[lang] || lang) + " phrases found", "info");
       return;
     }
-    phrases.forEach((p) => {
-      const opt = document.createElement("option");
-      opt.value = p.id;
-      opt.textContent = p.text + (p.translation ? " \u2014 " + p.translation : "");
+    exps.forEach(function(exp) {
+      if (!exp.entities || !exp.entities.length) return;
+      var primaryEntity = exp.entities[0];
+      var entityId = primaryEntity.entity_id || primaryEntity.id;
+      if (!_entityNeedsRecording(entityId, lang, vt)) return;
+      var label = _expTargetLabel(exp, lang);
+      if (!label) return;
+      var en = exp.title && exp.title.en ? " — " + exp.title.en : "";
+      var opt = document.createElement("option");
+      opt.value = exp.phrase_id || exp.id;
+      opt.textContent = label + en;
       phraseSel.appendChild(opt);
     });
-    _setStatus(`${phrases.length} phrases available for ${_langNames[lang] || lang}`, "info");
+    if (phraseSel.options.length <= 1) {
+      _setStatus("No " + (_langNames[lang] || lang) + " phrase labels found for this curriculum", "info");
+    } else {
+      _setStatus((phraseSel.options.length - 1) + " phrases need recording for " + (_langNames[lang] || lang), "info");
+    }
   }
 
-  function _extractPhrases(experiences, lang, sourceId) {
-    const result = [];
-    experiences.forEach((exp) => {
-      const content = exp.content && (exp.content[lang] || exp.content["en"]);
-      const enContent = exp.content && exp.content["en"];
-      if (!content) return;
-      const lines = content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0);
-      const enLines = enContent ? enContent.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
-      const keyPhrase = lines[lines.length - 1] || content;
-      const enPhrase = enLines[enLines.length - 1] || enContent || "";
-      result.push({
-        id: exp.phrase_id || exp.id,
-        text: keyPhrase,
-        translation: enPhrase,
-        source_experience: exp.id,
-        source_course: sourceId,
-        semantic_intent: exp.phrase_id || "",
-      });
-    });
-    return result;
-  }
-
-  /* ---------- load readings (full passages from courses) ---------- */
+  /* ---------- load readings (full passages from unified EXPERIENCES) ---------- */
   function _loadReadings(lang) {
-    const source = sourceSel.value;
-    let exps = [];
-    if (source === "river_world" && typeof EXPERIENCES !== "undefined") exps = EXPERIENCES;
-    else if (source === "wife_core_20" && typeof CORE_20 !== "undefined") exps = CORE_20;
+    if (typeof EXPERIENCES === "undefined") return;
+    const exps = EXPERIENCES;
     if (!exps.length) {
-      _setStatus("No " + (_langNames[lang] || lang) + " readings found for this course", "info");
+      _setStatus("No " + (_langNames[lang] || lang) + " readings found", "info");
       return;
     }
     exps.forEach(function(exp) {
@@ -333,6 +295,21 @@ const Recorder = (() => {
       phraseSel.appendChild(opt);
     });
     _setStatus(exps.length + " readings available for " + (_langNames[lang] || lang), "info");
+  }
+
+  /* Return the target-language label for an experience's key phrase */
+  function _expTargetLabel(exp, lang) {
+    var title = exp.title && (exp.title[lang] || exp.title["en"]);
+    var entityLabel = _expPrimaryEntityLabel(exp, lang);
+    return entityLabel || title || exp.id;
+  }
+
+  /* Find the primary entity label in the target language */
+  function _expPrimaryEntityLabel(exp, lang) {
+    if (!exp.entities || !exp.entities.length) return null;
+    var primary = exp.entities[0];
+    var label = primary.label || {};
+    return label[lang] || label["default"] || label["en"] || null;
   }
 
   /* ---------- show selected item ---------- */
@@ -356,61 +333,53 @@ const Recorder = (() => {
           text: sf.text || "",
           translation: sf.translations ? sf.translations.en || "" : "",
           notes: sf.context || "",
-          source_course: sourceSel.value || "river_world",
+          source_course: "river_world",
           semantic_intent: "",
+          type: "word",
+          exp_id: "",
+          exp_level: "",
+          exp_type: "",
         };
       }
     } else {
-      const source = sourceSel.value;
-      let items = [];
-      if (source === "wife_core_20" && typeof CORE_20 !== "undefined") {
-        items = CORE_20;
-      } else if (source === "af_phrases" && typeof AF_PHRASES !== "undefined") {
-        items = AF_PHRASES;
-      } else if (typeof EXPERIENCES !== "undefined") {
-        items = EXPERIENCES;
-      }
-      const found = items.find((e) => (e.phrase_id || e.id) === id);
-      if (found) {
-        if (source === "af_phrases") {
-          item = {
-            id: found.id,
-            text: found.text,
-            translation: found.translation_en || "",
-            notes: found.situation || "",
-            source_course: "af_phrases",
-            source_experience: found.id,
-            semantic_intent: found.intent || "",
-          };
-        } else {
-          const lang = langSel.value;
-          const content = found.content && (found.content[lang] || found.content["en"]);
-          const enContent = found.content && found.content["en"];
-          const lines = content ? content.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
-          const enLines = enContent ? enContent.split("\n").map((l) => l.trim()).filter((l) => l.length > 0) : [];
-          if (_currentMode === "readings") {
-            item = {
-              id: found.phrase_id || found.id,
-              text: lines.join("\n") || content || "",
-              translation: enLines.join("\n") || enContent || "",
-              notes: found.situation || "",
-              source_course: source,
-              source_experience: found.id,
-              semantic_intent: found.phrase_id || "",
-              type: "passage",
-            };
-          } else {
-            item = {
-              id: found.phrase_id || found.id,
-              text: lines[lines.length - 1] || content || "",
-              translation: enLines[enLines.length - 1] || enContent || "",
-              notes: found.situation || "",
-              source_course: source,
-              source_experience: found.id,
-              semantic_intent: found.phrase_id || "",
-            };
-          }
-        }
+      if (typeof EXPERIENCES === "undefined") return;
+      const found = EXPERIENCES.find(function(e) { return (e.phrase_id || e.id) === id; });
+      if (!found) return;
+      const lang = langSel.value;
+      const content = found.content && (found.content[lang] || found.content["en"]);
+      const enContent = found.content && found.content["en"];
+      if (_currentMode === "readings") {
+        item = {
+          id: found.phrase_id || found.id,
+          entity_id: "",
+          text: content || "",
+          translation: enContent || "",
+          notes: found.situation || "",
+          source_course: "river_world",
+          source_experience: found.id,
+          semantic_intent: found.phrase_id || "",
+          type: "passage",
+          exp_id: found.id,
+          exp_level: found.level || "",
+          exp_type: found.type || "",
+        };
+      } else {
+        var label = _expTargetLabel(found, lang);
+        const enTitle = found.title && found.title.en ? found.title.en : "";
+        item = {
+          id: found.phrase_id || found.id,
+          entity_id: "",
+          text: label || content || "",
+          translation: enTitle || enContent || "",
+          notes: found.situation || "",
+          source_course: "river_world",
+          source_experience: found.id,
+          semantic_intent: found.phrase_id || "",
+          type: "phrase",
+          exp_id: found.id,
+          exp_level: found.level || "",
+          exp_type: found.type || "",
+        };
       }
     }
     if (!item) return;
@@ -418,12 +387,15 @@ const Recorder = (() => {
 
     phraseLang.textContent = _langNames[langSel.value] || langSel.value;
     phraseId.textContent = item.id;
+    phraseContext.textContent = item.exp_id
+      ? (item.exp_id + (item.exp_level ? " · Level " + item.exp_level : "") + (item.exp_type ? " · " + item.exp_type : ""))
+      : (item.source_course || "");
     phraseText.textContent = item.text || item.id;
     phraseTranslation.textContent = _currentMode === "words"
-      ? (item.translations ? item.translations.en || "" : "")
+      ? (item.translation || "")
       : (item.translation || "");
     phraseNotes.textContent = _currentMode === "words"
-      ? (item.notes || item.context || "")
+      ? (item.notes || "")
       : (item.notes || "");
     correctionSection.style.display = _currentMode === "words" ? "block" : "none";
     correctionField.value = "";
@@ -453,27 +425,42 @@ const Recorder = (() => {
     const pkgId = ref.package;
     const pkg = typeof VOICE_PACKAGES !== "undefined" ? VOICE_PACKAGES[pkgId] : null;
     const basePath = pkg ? pkg.base_path : "audio/";
-    const fullPath = "../river-world/" + basePath + ref.ref;
-    fetch(fullPath)
-      .then((r) => {
+    var candidates = [];
+    if (window.location.pathname.indexOf("/apps/") !== -1) {
+      candidates.push("../river-world/" + basePath + ref.ref);
+    } else {
+      candidates.push("../" + basePath + ref.ref);
+      candidates.push("../../apps/river-world/" + basePath + ref.ref);
+    }
+    candidates.push(basePath + ref.ref);
+    _tryFetchAudio(candidates, 0, fallbackText, lang);
+  }
+
+  function _tryFetchAudio(paths, idx, fallbackText, lang) {
+    if (idx >= paths.length) {
+      _tryTts(fallbackText, lang);
+      return;
+    }
+    fetch(paths[idx])
+      .then(function(r) {
         if (!r.ok) throw new Error("HTTP " + r.status);
         return r.arrayBuffer();
       })
-      .then((buf) => {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      .then(function(buf) {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
         return ctx.decodeAudioData(buf);
       })
-      .then((decoded) => {
-        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      .then(function(decoded) {
+        var ctx = new (window.AudioContext || window.webkitAudioContext)();
         if (ctx.state === "suspended") ctx.resume();
-        const src = ctx.createBufferSource();
+        var src = ctx.createBufferSource();
         src.buffer = decoded;
         src.connect(ctx.destination);
         src.start(0);
         _setStatus("Playing reference...", "info");
       })
-      .catch(() => {
-        _tryTts(fallbackText, lang);
+      .catch(function() {
+        _tryFetchAudio(paths, idx + 1, fallbackText, lang);
       });
   }
 
@@ -537,7 +524,7 @@ const Recorder = (() => {
     btnPlay.style.display = "inline-block";
     btnReRecord.style.display = "inline-block";
     metaSection.style.display = "block";
-    _setStatus(`Recording complete: ${(blob.size / 1024).toFixed(0)} KB`, "success");
+    _setStatus("Recording complete: " + (blob.size / 1024).toFixed(0) + " KB", "success");
     _updateDownloadState();
   }
 
@@ -574,7 +561,7 @@ const Recorder = (() => {
     _stopTimer();
     _timerInterval = setInterval(() => {
       const elapsed = Math.floor((Date.now() - _startTime) / 1000);
-      timerEl.textContent = `${Math.floor(elapsed / 60)}:${String(elapsed % 60).padStart(2, "0")}`;
+      timerEl.textContent = Math.floor(elapsed / 60) + ":" + String(elapsed % 60).padStart(2, "0");
     }, 200);
   }
   function _stopTimer() {
@@ -585,7 +572,7 @@ const Recorder = (() => {
   function _generateId() {
     _contributionCount++;
     const ts = Date.now().toString(36).toUpperCase();
-    return `${_CONTRIB_PREFIX}_${ts}`;
+    return _CONTRIB_PREFIX + "_" + ts;
   }
 
   function _buildYaml(contribId, itemId) {
@@ -601,45 +588,46 @@ const Recorder = (() => {
     const correction = correctionField.value.trim();
     let prov = "";
     if (meta) {
-      prov = `  entity_id: ${meta.entity_id || ""}
-  source_course: ${meta.source_course || ""}
-`;
+      prov = "  entity_id: " + (meta.entity_id || "") + "\n";
+      prov += "  source_course: " + (meta.source_course || "") + "\n";
+      if (meta.exp_id) {
+        prov += "  experience_id: " + meta.exp_id + "\n";
+        prov += "  experience_level: " + (meta.exp_level || "") + "\n";
+      }
       if (isPhrase || isReading) {
-        prov += `  type: ${yamlType}
-  semantic_intent: ${meta.semantic_intent || ""}
-  source_experience: ${meta.source_experience || ""}
-`;
+        prov += "  type: " + yamlType + "\n";
+        prov += "  semantic_intent: " + (meta.semantic_intent || "") + "\n";
+        prov += "  source_experience: " + (meta.source_experience || "") + "\n";
       }
     }
     const voiceType = $("voice-selector").value || "";
     let extra = "";
     if (correction) {
-      extra = `  correction_suggested: ${correction}
-`;
+      extra = "  correction_suggested: " + correction + "\n";
     }
-    return `contribution:
-  id: ${contribId}
-  type: ${yamlType}
-  ref_id: ${itemId}
-  language: ${lang}
-${prov}${extra}  text: ${text}
-  translation_en: ${translation}
-  voice_type: ${voiceType}
-  recording:
-    filename: ${contribId}.${ext}
-    format: ${_recordedBlob.type}
-    size_bytes: ${_recordedBlob.size}
-  speaker:
-    name: ${speakerName.value.trim() || "anonymous"}
-    native: ${speakerNative.value || "unspecified"}
-    region: ${speakerRegion.value.trim() || ""}
-    age_range: ${speakerAge.value || "unspecified"}
-  consent:
-    license: CC-BY-4.0
-    confirmed: ${consentCheck.checked}
-  review:
-    status: pending
-`;
+    return "contribution:\n" +
+      "  id: " + contribId + "\n" +
+      "  type: " + yamlType + "\n" +
+      "  ref_id: " + itemId + "\n" +
+      "  language: " + lang + "\n" +
+      prov + extra +
+      "  text: " + text + "\n" +
+      "  translation_en: " + translation + "\n" +
+      "  voice_type: " + voiceType + "\n" +
+      "  recording:\n" +
+      "    filename: " + contribId + "." + ext + "\n" +
+      "    format: " + _recordedBlob.type + "\n" +
+      "    size_bytes: " + _recordedBlob.size + "\n" +
+      "  speaker:\n" +
+      "    name: " + (speakerName.value.trim() || "anonymous") + "\n" +
+      "    native: " + (speakerNative.value || "unspecified") + "\n" +
+      "    region: " + (speakerRegion.value.trim() || "") + "\n" +
+      "    age_range: " + (speakerAge.value || "unspecified") + "\n" +
+      "  consent:\n" +
+      "    license: CC-BY-4.0\n" +
+      "    confirmed: " + consentCheck.checked + "\n" +
+      "  review:\n" +
+      "    status: pending\n";
   }
 
   function _updateDownloadState() {
@@ -657,8 +645,8 @@ ${prov}${extra}  text: ${text}
     yamlPreview.textContent = yaml;
     bundlePreview.style.display = "block";
 
-    const audioFilename = `${contribId}.${ext}`;
-    const yamlFilename = `${contribId}.yaml`;
+    const audioFilename = contribId + "." + ext;
+    const yamlFilename = contribId + ".yaml";
 
     const audioBlob = _recordedBlob;
     const yamlBlob = new Blob([yaml], { type: "text/yaml;charset=utf-8" });
@@ -667,11 +655,11 @@ ${prov}${extra}  text: ${text}
     const yamlSaved = await _saveFile(yamlFilename, yamlBlob);
 
     if (audioSaved && yamlSaved) {
-      _setStatus(`Saved to ${_dirName || "folder"}: ${audioFilename} + ${yamlFilename}`, "success");
+      _setStatus("Saved to " + (_dirName || "folder") + ": " + audioFilename + " + " + yamlFilename, "success");
     } else {
       _triggerDownload(audioFilename, audioBlob);
       _triggerDownload(yamlFilename, yamlBlob);
-      _setStatus(`Contribution ${contribId} downloaded to Downloads folder.`, "success");
+      _setStatus("Contribution " + contribId + " downloaded to Downloads folder.", "success");
     }
     btnNext.style.display = "inline-block";
   }

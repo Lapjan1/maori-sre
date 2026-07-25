@@ -97,8 +97,11 @@ def main():
     experiences = []
     for f in sorted(out_dir.glob("*.json")):
         data = json.load(open(f, "r", encoding="utf-8"))
+        if data.get("experience_id", "").startswith("UNKNOWN"):
+            continue
         experiences.append({
             "id": data["experience_id"],
+            "phrase_id": data["experience_id"],
             "type": data["type"],
             "level": data["level"],
             "title": data["title"],

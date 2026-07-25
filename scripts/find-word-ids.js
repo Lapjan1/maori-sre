@@ -23,8 +23,8 @@ var wordIdCandidates = {};
 // Pronouns cluster around 1642-2700
 // Let's check known ranges
 var KNOWN = {
-  "ia": 1641, "koe": 2694, "koutou": 2695, "ka": 1828, "i": 1640,
-  "te": 7876, "ki": 2596, "ke": 2514, "he": 1022, "no": 4426,
+  "ia": 1641, "koe": 2761, "koutou": 3165, "ka": 1828, "i": 1640,
+  "te": 7876, "ki": 2596, "ke": 2514, "he": 1005, "no": 4426,
   "mo": 4117, "ra": 6403, "e": 602, "mai": 3474, "kia": 2583,
   "kore": 2989, "ana": 206, "o": 4695, "taha": 7038
 };

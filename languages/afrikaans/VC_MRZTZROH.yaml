@@ -1,0 +1,29 @@
+contribution:
+  id: VC_MRZTZROH
+  type: phrase
+  ref_id: WIFE_013
+  language: af
+  entity_id: 
+  source_course: river_world
+  experience_id: WIFE_013
+  experience_level: 1
+  type: phrase
+  semantic_intent: WIFE_013
+  source_experience: WIFE_013
+  text: Water, asseblief
+  translation_en: Some water, please.
+  voice_type: male_adult
+  recording:
+    filename: VC_MRZTZROH.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 32129
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

@@ -1,0 +1,24 @@
+contribution:
+  id: VC_MRZS6QZO
+  type: word
+  ref_id: SF_AF_CONCEPT_INGOA
+  language: af
+  entity_id: CONCEPT_INGOA
+  source_course: river_world
+  text: naam
+  translation_en: 
+  voice_type: male_adult
+  recording:
+    filename: VC_MRZS6QZO.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 17214
+  speaker:
+    name: anonymous
+    native: unspecified
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

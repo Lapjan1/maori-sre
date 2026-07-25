@@ -27,13 +27,13 @@ surface_forms:
     pronunciation:
       syllables: [ora]
     audio_refs:
-      - ref: 5905.mp3
+      - ref: 4791.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/5905
+        source_url: https://maoridictionary.co.nz/word/4791
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -78,13 +78,13 @@ surface_forms:
     pronunciation:
       syllables: [pehea]
     audio_refs:
-      - ref: 6767.mp3
+      - ref: 5421.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/6767
+        source_url: https://maoridictionary.co.nz/word/5421
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -95,13 +95,13 @@ surface_forms:
     pronunciation:
       syllables: [koe]
     audio_refs:
-      - ref: 2694.mp3
+      - ref: 2761.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/2694
+        source_url: https://maoridictionary.co.nz/word/2761
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -112,13 +112,13 @@ surface_forms:
     pronunciation:
       syllables: [pai]
     audio_refs:
-      - ref: 6103.mp3
+      - ref: 4936.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/6103
+        source_url: https://maoridictionary.co.nz/word/4936
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -248,13 +248,13 @@ surface_forms:
     pronunciation:
       syllables: [awherika]
     audio_refs:
-      - ref: 574.mp3
+      - ref: 590.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/574
+        source_url: https://maoridictionary.co.nz/word/590
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -282,13 +282,13 @@ surface_forms:
     pronunciation:
       syllables: [tonga]
     audio_refs:
-      - ref: 8423.mp3
+      - ref: 8433.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/8423
+        source_url: https://maoridictionary.co.nz/word/8433
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -316,13 +316,13 @@ surface_forms:
     pronunciation:
       syllables: [tena]
     audio_refs:
-      - ref: 8175.mp3
+      - ref: 7913.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/8175
+        source_url: https://maoridictionary.co.nz/word/7913
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -333,13 +333,13 @@ surface_forms:
     pronunciation:
       syllables: [koutou]
     audio_refs:
-      - ref: 2695.mp3
+      - ref: 3165.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/2695
+        source_url: https://maoridictionary.co.nz/word/3165
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -350,13 +350,13 @@ surface_forms:
     pronunciation:
       syllables: [wharepaku]
     audio_refs:
-      - ref: 10097.mp3
+      - ref: 11568.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/10097
+        source_url: https://maoridictionary.co.nz/word/11568
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -435,13 +435,13 @@ surface_forms:
     pronunciation:
       syllables: [he]
     audio_refs:
-      - ref: 1022.mp3
+      - ref: 1005.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/1022
+        source_url: https://maoridictionary.co.nz/word/1005
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 
@@ -605,13 +605,13 @@ surface_forms:
     pronunciation:
       syllables: [reka]
     audio_refs:
-      - ref: 7006.mp3
+      - ref: 6690.mp3
         package: mi_teaka_v1
         speaker: Te Aka Māori Dictionary
         dialect: Standard
         quality: field
         speed: normal
-        source_url: https://maoridictionary.co.nz/word/7006
+        source_url: https://maoridictionary.co.nz/word/6690
         retrieved: '2026-07-20'
         source_license: Copyright John C Moorfield / Te Aka Māori Dictionary — educational use
 

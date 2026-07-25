@@ -2350,6 +2350,536 @@ var CONTRIBUTIONS = (() => {
       native_verified: false,
       created: "2026-07-23",
       updated: "2026-07-23"
+    },
+
+    // --- Afrikaans user contributions ---
+    CONTRIB_AF_PHRASE_001: {
+      contribution_id: "CONTRIB_AF_PHRASE_001",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_001",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZS6GF8",
+        recording: "VC_MRZS6GF8.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_001", type: "PHRASE", gloss: "thank you" },
+      approved: { entity_id: "PHRASE_001", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_CONCEPT_INGOA: {
+      contribution_id: "CONTRIB_AF_CONCEPT_INGOA",
+      language: "af",
+      surface_form: "SF_AF_CONCEPT_INGOA",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZS6QZO",
+        recording: "VC_MRZS6QZO.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "CONCEPT_INGOA", type: "CONCEPT", gloss: "name" },
+      approved: { entity_id: "CONCEPT_INGOA", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_001: {
+      contribution_id: "CONTRIB_AF_WIFE_001",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_KIA_ORA",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTCOSR",
+        recording: "VC_MRZTCOSR.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_KIA_ORA", type: "PHRASE", gloss: "hello / thank you" },
+      approved: { entity_id: "PHRASE_KIA_ORA", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_002: {
+      contribution_id: "CONTRIB_AF_WIFE_002",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_HOW_ARE_YOU",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTD48D",
+        recording: "VC_MRZTD48D.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_HOW_ARE_YOU", type: "PHRASE", gloss: "How are you?" },
+      approved: { entity_id: "PHRASE_HOW_ARE_YOU", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_003: {
+      contribution_id: "CONTRIB_AF_WIFE_003",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_I_AM_WELL",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTDBZX",
+        recording: "VC_MRZTDBZX.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_I_AM_WELL", type: "PHRASE", gloss: "I am well" },
+      approved: { entity_id: "PHRASE_I_AM_WELL", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_004: {
+      contribution_id: "CONTRIB_AF_WIFE_004",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_WELCOME",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTE3VS",
+        recording: "VC_MRZTE3VS.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_WELCOME", type: "PHRASE", gloss: "Welcome / come here" },
+      approved: { entity_id: "PHRASE_WELCOME", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_005: {
+      contribution_id: "CONTRIB_AF_WIFE_005",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_MY_NAME",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTEMCP",
+        recording: "VC_MRZTEMCP.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_MY_NAME", type: "PHRASE", gloss: "my name" },
+      approved: { entity_id: "PHRASE_MY_NAME", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_006: {
+      contribution_id: "CONTRIB_AF_WIFE_006",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_WHERE_FROM",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTF2QL",
+        recording: "VC_MRZTF2QL.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_WHERE_FROM", type: "PHRASE", gloss: "Where are you from?" },
+      approved: { entity_id: "PHRASE_WHERE_FROM", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_007: {
+      contribution_id: "CONTRIB_AF_WIFE_007",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_FROM_SA",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTFFMN",
+        recording: "VC_MRZTFFMN.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_FROM_SA", type: "PHRASE", gloss: "I am from South Africa" },
+      approved: { entity_id: "PHRASE_FROM_SA", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_008: {
+      contribution_id: "CONTRIB_AF_WIFE_008",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_GREET_ALL",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTG1KR",
+        recording: "VC_MRZTG1KR.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_GREET_ALL", type: "PHRASE", gloss: "Greetings all" },
+      approved: { entity_id: "PHRASE_GREET_ALL", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_009: {
+      contribution_id: "CONTRIB_AF_WIFE_009",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_WHERE_BATHROOM",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTGBMV",
+        recording: "VC_MRZTGBMV.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_WHERE_BATHROOM", type: "PHRASE", gloss: "Where is the bathroom?" },
+      approved: { entity_id: "PHRASE_WHERE_BATHROOM", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_010: {
+      contribution_id: "CONTRIB_AF_WIFE_010",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_NOHO_MAI",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTGMUE",
+        recording: "VC_MRZTGMUE.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_NOHO_MAI", type: "PHRASE", gloss: "Please sit / stay" },
+      approved: { entity_id: "PHRASE_NOHO_MAI", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_011: {
+      contribution_id: "CONTRIB_AF_WIFE_011",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_HUNGRY",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTGUD4",
+        recording: "VC_MRZTGUD4.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_HUNGRY", type: "PHRASE", gloss: "I am hungry" },
+      approved: { entity_id: "PHRASE_HUNGRY", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_015: {
+      contribution_id: "CONTRIB_AF_WIFE_015",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_GOODBYE_STAY",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTHUPL",
+        recording: "VC_MRZTHUPL.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_GOODBYE_STAY", type: "PHRASE", gloss: "Goodbye (to those staying)" },
+      approved: { entity_id: "PHRASE_GOODBYE_STAY", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_016: {
+      contribution_id: "CONTRIB_AF_WIFE_016",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_GOODBYE_LEAVE",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTIBV9",
+        recording: "VC_MRZTIBV9.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_GOODBYE_LEAVE", type: "PHRASE", gloss: "Goodbye (to those leaving)" },
+      approved: { entity_id: "PHRASE_GOODBYE_LEAVE", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_017: {
+      contribution_id: "CONTRIB_AF_WIFE_017",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_WILL_RETURN",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTIKOY",
+        recording: "VC_MRZTIKOY.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_WILL_RETURN", type: "PHRASE", gloss: "I will return" },
+      approved: { entity_id: "PHRASE_WILL_RETURN", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_018: {
+      contribution_id: "CONTRIB_AF_WIFE_018",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_BE_STRONG",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTIXOL",
+        recording: "VC_MRZTIXOL.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_BE_STRONG", type: "PHRASE", gloss: "Be strong" },
+      approved: { entity_id: "PHRASE_BE_STRONG", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_019: {
+      contribution_id: "CONTRIB_AF_WIFE_019",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_DELICIOUS",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTJ8DP",
+        recording: "VC_MRZTJ8DP.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_DELICIOUS", type: "PHRASE", gloss: "It is delicious" },
+      approved: { entity_id: "PHRASE_DELICIOUS", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_020: {
+      contribution_id: "CONTRIB_AF_WIFE_020",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_BEAUTIFUL_HOUSE",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTJICU",
+        recording: "VC_MRZTJICU.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_BEAUTIFUL_HOUSE", type: "PHRASE", gloss: "Beautiful house" },
+      approved: { entity_id: "PHRASE_BEAUTIFUL_HOUSE", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_012: {
+      contribution_id: "CONTRIB_AF_WIFE_012",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_THIRSTY",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTZG61",
+        recording: "VC_MRZTZG61.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_THIRSTY", type: "PHRASE", gloss: "I am thirsty" },
+      approved: { entity_id: "PHRASE_THIRSTY", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_013: {
+      contribution_id: "CONTRIB_AF_WIFE_013",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_WATER_PLEASE",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZTZROH",
+        recording: "VC_MRZTZROH.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_WATER_PLEASE", type: "PHRASE", gloss: "Some water, please" },
+      approved: { entity_id: "PHRASE_WATER_PLEASE", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
+    },
+    CONTRIB_AF_WIFE_014: {
+      contribution_id: "CONTRIB_AF_WIFE_014",
+      language: "af",
+      surface_form: "SF_AF_PHRASE_THANK_FOOD",
+      source: {
+        provider: "community_recording",
+        contribution_token: "VC_MRZU03B4",
+        recording: "VC_MRZU03B4.webm",
+        license: "CC-BY-4.0"
+      },
+      speaker: { gender: null, age_group: null, identity: null },
+      proposed: { entity_id: "PHRASE_THANK_FOOD", type: "PHRASE", gloss: "Thank you for the food" },
+      approved: { entity_id: "PHRASE_THANK_FOOD", voice_type: "male_adult" },
+      status: "pending",
+      validation: {
+        audio_integrity: true, pronunciation_match: null, language_correct: null,
+        native_speaker: null, source_verified: true,
+        reviewed_by: null, reviewed_date: null,
+        notes: "Community recording. Awaiting review."
+      },
+      native_verified: false,
+      created: "2026-07-25",
+      updated: "2026-07-25"
     }
   };
 

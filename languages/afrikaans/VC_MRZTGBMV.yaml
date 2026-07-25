@@ -1,0 +1,29 @@
+contribution:
+  id: VC_MRZTGBMV
+  type: phrase
+  ref_id: WIFE_009
+  language: af
+  entity_id: 
+  source_course: river_world
+  experience_id: WIFE_009
+  experience_level: 1
+  type: phrase
+  semantic_intent: WIFE_009
+  source_experience: WIFE_009
+  text: badkamer
+  translation_en: Where is the bathroom?
+  voice_type: male_adult
+  recording:
+    filename: VC_MRZTGBMV.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 24791
+  speaker:
+    name: anonymous
+    native: true
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

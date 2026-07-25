@@ -2,12 +2,13 @@ const CACHE = "river-world-v19";
 const URLS = [
   "index.html",
   "app.js",
-  "audio_index.js",
   "session.js",
   "audio.js",
-  "surface_forms.js",
-  "voice_packages.js",
-  "experiences.js",
+  "packages/language-data/curriculum-wife.js",
+  "packages/language-data/experiences.js",
+  "packages/language-data/surface_forms.js",
+  "packages/language-data/voice_packages.js",
+  "packages/language-data/audio_index.js",
   "packages/language-data/afrikaans-phrases.js",
   "manifest.json",
 ];

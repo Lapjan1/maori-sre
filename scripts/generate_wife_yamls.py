@@ -406,15 +406,15 @@ def generate_surface_forms_yaml():
     word_audio = {
         "ahau": 63, "au": 502, "koa": 2744, "haere": 715, "kai": 1894,
         "hoki": 1352, "ingoa": 1760, "kaha": 49915,
-        "kia": 2583, "koe": 2694, "koutou": 2695, "mai": 3474,
-        "matewai": 3885, "noho": 53247, "pai": 6103, "pehea": 6767,
-        "ra": 6403, "reka": 7006, "wai": 9019, "whare": 10111,
-        "wharepaku": 10097, "hiakai": 1134, "ataahua": 457,
-        "awherika": 574, "tonga": 8423, "tena": 8175, "toku": 8398,
+        "kia": 2583, "koe": 2761, "koutou": 3165, "mai": 3474,
+        "matewai": 3885, "noho": 53247, "pai": 4936, "pehea": 5421,
+        "ra": 6403, "reka": 6690, "wai": 9019, "whare": 10111,
+        "wharepaku": 11568, "hiakai": 1134, "ataahua": 457,
+        "awherika": 590, "tonga": 8433, "tena": 7913, "toku": 8398,
         "mo": 4117, "no": 4426, "te": 7876, "ko": 2743,
-        "kei": 2514, "he": 1022, "e": 602, "ka": 1828,
+        "kei": 2514, "he": 1005, "e": 602, "ka": 1828,
         "ki": 2596, "i": 1640, "o": 4695, "atu": 493,
-        "ora": 5905, "hea": 1006,
+        "ora": 4791, "hea": 1006,
     }
 
     # Generate entries for each word

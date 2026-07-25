@@ -132,7 +132,7 @@ const App = (() => {
         </div>
         <div class="panel-content">
           ${sentences.map((s, i) =>
-            `<p class="sentence${i === sentences.length - 1 ? " sentence-key" : ""}">${_escape(s)}</p>`
+            `<p class="sentence${i === sentences.length - 1 ? " sentence-key" : ""}">${s.split(/\s+/).filter(Boolean).map(function(w) { var c = w.replace(/[^a-zāēīōū]+/gi, '').toLowerCase(); return '<span class="pw" data-wt="' + _escape(c) + '">' + _escape(w) + '</span>'; }).join(" ")}</p>`
           ).join("")}
         </div>
         <div class="panel-word-breakdown">
@@ -347,22 +347,42 @@ const App = (() => {
 
   function _renderExperienceList() {
     const container = document.getElementById("exp-list");
+    const groups = [
+      { label: "River Stories I", ids: ["RIVER_001","RIVER_002","RIVER_003","RIVER_004","RIVER_005"] },
+      { label: "River Stories II", ids: ["RIVER_006","RIVER_007","RIVER_008","RIVER_009","RIVER_010"] },
+      { label: "Greetings", ids: ["WIFE_001","WIFE_002","WIFE_003","WIFE_004","WIFE_005","WIFE_006","WIFE_007"] },
+      { label: "Hospitality", ids: ["WIFE_008","WIFE_009","WIFE_010","WIFE_011","WIFE_012","WIFE_013","WIFE_014"] },
+      { label: "Departures", ids: ["WIFE_015","WIFE_016","WIFE_017","WIFE_018","WIFE_019","WIFE_020"] },
+    ];
     let html = `<div class="curriculum-label">${_escape(_getCurriculumName())} · ${_experiences.length} items</div>`;
     html += `<div class="exp-list-scroll">`;
-    html += _experiences
-      .map(
-        (exp, i) => `
-      <button class="exp-list-item ${i === _currentIndex && !_reviewMode ? "active" : ""}"
-              data-index="${i}">
-        <span class="exp-list-title">${_escape(exp.title["en"] || exp.id)}</span>
-        <span class="exp-list-type">${exp.type} · Level ${exp.level}</span>
-      </button>`
-      )
-      .join("");
+    groups.forEach(function(g) {
+      html += `<details class="exp-group"${_currentGroupOpen(g.ids) ? " open" : ""}>`;
+      html += `<summary class="exp-group-label">${_escape(g.label)} (${g.ids.length})</summary>`;
+      g.ids.forEach(function(eid) {
+        var idx = _experiences.findIndex(function(e) { return e.id === eid; });
+        if (idx === -1) return;
+        var exp = _experiences[idx];
+        html += `<button class="exp-list-item ${idx === _currentIndex && !_reviewMode ? "active" : ""}" data-index="${idx}">`;
+        html += `<span class="exp-list-title">${_escape(exp.title["en"] || exp.id)}</span>`;
+        html += `<span class="exp-list-type">${exp.type} · Level ${exp.level}</span>`;
+        html += `</button>`;
+      });
+      html += `</details>`;
+    });
     html += `</div>`;
     html += `<hr class="sidebar-divider">`;
     html += `<button class="sidebar-review ${_reviewMode ? "active" : ""}" data-action="review">Pass 1 Review</button>`;
+    html += `<div class="sidebar-links">`;
+    html += `<button class="sidebar-link" data-action="help">Help</button>`;
+    html += `<button class="sidebar-link" data-action="about">About</button>`;
+    html += `</div>`;
     container.innerHTML = html;
+  }
+
+  function _currentGroupOpen(ids) {
+    var cur = _experiences[_currentIndex];
+    return cur && ids.indexOf(cur.id) !== -1;
   }
 
   // --- Pass 1 Review mode ---
@@ -610,6 +630,81 @@ const App = (() => {
     return sfId ? SURFACE_FORMS[sfId] : null;
   }
 
+  // --- Word shadow (reading highlight) ---
+
+  var _lastPW = -1;
+
+  function _highlightOnPlay(lang) {
+    return function(text, idx, total) {
+      var spans = document.querySelectorAll(".panel-content .pw");
+      if (!spans.length) return;
+      var norm = text.toLowerCase().replace(/[^a-zāēīōū\s]/g, "").trim();
+      // Advance cursor: find next matching span after the last highlighted one
+      var match = null;
+      for (var i = Math.max(0, _lastPW); i < spans.length; i++) {
+        if (spans[i].dataset.wt === norm) { match = spans[i]; _lastPW = i; break; }
+      }
+      if (!match) {
+        for (var i = 0; i < Math.min(_lastPW, spans.length); i++) {
+          if (spans[i].dataset.wt === norm) { match = spans[i]; _lastPW = i; break; }
+        }
+      }
+      spans.forEach(function(s) { s.classList.remove("shadow"); });
+      if (match) match.classList.add("shadow");
+      if (idx === total - 1 || idx < 0) {
+        _lastPW = -1;
+        setTimeout(function() { spans.forEach(function(s) { s.classList.remove("shadow"); }); }, 600);
+      }
+    };
+  }
+
+  // --- Help / About ---
+
+  function _showHelp() {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("help-content").innerHTML = `
+      <h2>How to Use Co-Sense</h2>
+
+      <h3>Navigating Lessons</h3>
+      <p>Open the sidebar <button style="font-size:.7rem;padding:1px 6px;background:#eee;border:1px solid #ccc;border-radius:3px;">&#9776;</button> at top-left to browse all experiences. Use <b>Previous</b> and <b>Next</b> buttons at the bottom of each lesson.</p>
+
+      <h3>Languages</h3>
+      <p>Use the top bar to choose languages for the <b>top panel</b> (words with breakdowns) and <b>parallel panel</b> (side-by-side text). Click the swap button (&#8646;) to exchange them. Your selections are saved automatically.</p>
+
+      <h3>Audio</h3>
+      <p>Click <button style="font-size:.7rem;padding:1px 6px;background:var(--water);color:#fff;border:none;border-radius:3px;">&#9654; Listen</button> to hear any phrase spoken aloud. <b>Native</b> uses a pre-recorded native speaker when available. Click <b>Both</b> to hear the languages in sequence.</p>
+
+      <h3>Word Breakdown</h3>
+      <p>Tap a word chip (e.g. <span style="font-size:.75rem;display:inline-block;padding:1px 6px;background:#e3f0e8;border-radius:3px;">MI kai</span>) to see its meaning, pronunciation, and syllables. Some words link to native speaker recordings.</p>
+
+      <h3>Review Mode</h3>
+      <p>From the sidebar, open <b>Pass 1 Review</b> to mark phrases as S (want to say), R (recognise), or X (explore). Export your results as JSON when done.</p>
+    `;
+    document.getElementById("help-overlay").classList.add("open");
+  }
+
+  function _showAbout() {
+    document.getElementById("sidebar").classList.remove("open");
+    document.getElementById("about-content").innerHTML = `
+      <h2>About Co-Sense</h2>
+
+      <p><b>Co-Sense</b> is a language-learning companion built around practical phrases, word-level breakdowns, and native-speaker audio to make a new language feel approachable.</p>
+
+      <h3>Why "Co-Sense"?</h3>
+      <p>The name blends <i>co</i> (together) and <i>sense</i> (meaning / feeling). Language is something we make sense of together — across cultures, families, and conversations.</p>
+
+      <h3>Content</h3>
+      <p>All Māori phrases use Te Aka Māori Dictionary as the canonical audio source. Afrikaans content was contributed by volunteers. Every sentence is categorised by type, level, and situation for progressive learning.</p>
+
+      <h3>Technical</h3>
+      <p class="about-links">Built as a static single-page app. Audio uses pre-recorded native voice packages with TTS fallback.</p>
+
+      <hr>
+      <p class="about-links" style="text-align:center;">Co-Sense &middot; Māori Course &middot; 2025</p>
+    `;
+    document.getElementById("about-overlay").classList.add("open");
+  }
+
   // --- Event delegation ---
 
   document.addEventListener("click", (e) => {
@@ -620,6 +715,8 @@ const App = (() => {
       const phraseId = e.target.dataset.phraseId;
       const entityId = e.target.dataset.entityId || null;
       if (text) {
+        _lastPW = -1;
+        Audio.onWordStart = _highlightOnPlay(lang);
         Audio.speak(text, lang, entityId, phraseId);
         Session.log("audio_played", { text, lang, entityId, phraseId, experience_id: _experiences[_currentIndex]?.id });
       }
@@ -633,6 +730,8 @@ const App = (() => {
       if (entityId) {
         const sf = _lookupSurfaceForm(entityId, lang);
         const text = sf?.text || entityId;
+        _lastPW = -1;
+        Audio.onWordStart = _highlightOnPlay(lang);
         Audio.speak(text, lang, entityId);
         Session.log("audio_played", { text, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
       }
@@ -640,6 +739,8 @@ const App = (() => {
     }
 
     // Word chips — show detail and play audio
+    // Single-word chips use entity-level lookup; multi-word chips decompose
+    // to sentence-level word-by-word native audio via StoryAudioResolver.
     if (e.target.classList.contains("word-chip")) {
       const entityId = e.target.dataset.entity;
       const lang = e.target.dataset.lang;
@@ -651,10 +752,14 @@ const App = (() => {
           const inner = detail.querySelector(".word-detail-inner");
           if (inner) inner.innerHTML = _renderWordDetail(entityId, lang);
         }
-        const exp = _experiences[_currentIndex];
-        const phraseId = exp?.phrase_id;
-        Audio.speak(labelText || entityId, lang, entityId, phraseId);
-        Session.log("audio_played", { text: labelText || entityId, lang, entityId, phraseId, experience_id: exp?.id });
+        _lastPW = -1;
+        Audio.onWordStart = _highlightOnPlay(lang);
+        if (labelText && labelText.includes(" ")) {
+          Audio.speak(labelText, lang);
+        } else {
+          Audio.speak(labelText || entityId, lang, entityId);
+        }
+        Session.log("audio_played", { text: labelText || entityId, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
       }
       return;
     }
@@ -667,8 +772,11 @@ const App = (() => {
       const textB = e.target.dataset.textb;
       const phraseId = e.target.dataset.phraseId;
       if (textA && textB) {
+        _lastPW = -1;
+        Audio.onWordStart = _highlightOnPlay(langA);
         Audio.speak(textA, langA, null, phraseId);
         setTimeout(() => {
+          Audio.onWordStart = _highlightOnPlay(langB);
           Audio.speak(textB, langB, null, phraseId);
         }, 800);
         Session.log("audio_played", { text: textA + " | " + textB, lang: langA + "/" + langB, phraseId, experience_id: _experiences[_currentIndex]?.id });
@@ -708,6 +816,16 @@ const App = (() => {
     if (e.target.dataset.action === "back-to-exp") {
       _saveReviewNow();
       _exitReview();
+      return;
+    }
+
+    // Sidebar help / about
+    if (e.target.dataset.action === "help") {
+      _showHelp();
+      return;
+    }
+    if (e.target.dataset.action === "about") {
+      _showAbout();
       return;
     }
 
@@ -792,6 +910,16 @@ const App = (() => {
     }
     if (e.target.id === "sidebar-overlay") {
       document.getElementById("sidebar").classList.remove("open");
+    }
+    // Close modals
+    if (e.target.dataset.action === "close-help") {
+      document.getElementById("help-overlay").classList.remove("open");
+    }
+    if (e.target.dataset.action === "close-about") {
+      document.getElementById("about-overlay").classList.remove("open");
+    }
+    if (e.target.classList.contains("modal-overlay")) {
+      e.target.classList.remove("open");
     }
   });
 

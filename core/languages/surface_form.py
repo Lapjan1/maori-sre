@@ -99,9 +99,12 @@ class SurfaceFormRegistry:
             data = yaml.safe_load(f)
         for entry in data.get("surface_forms", []):
             pron = entry.get("pronunciation", {}) or {}
+            # Accept audio_refs at either pronunciation level or entry level
+            # (wife_world generator puts them at entry level)
+            raw_refs = pron.get("audio_refs") or entry.get("audio_refs") or []
             audio_refs = [
-                AudioRef(**r) for r in pron.get("audio_refs", [])
-            ] if pron.get("audio_refs") else []
+                AudioRef(**r) for r in raw_refs
+            ] if raw_refs else []
             pronunciation = Pronunciation(
                 ipa=pron.get("ipa"),
                 syllables=pron.get("syllables", []),
@@ -154,7 +157,7 @@ class SurfaceFormRegistry:
                 pron["stress"] = sf.pronunciation.stress
             if sf.pronunciation.audio_refs:
                 pron["audio_refs"] = [
-                    {
+                    {k: v for k, v in {
                         "ref": r.ref,
                         "package": r.package,
                         "speaker": r.speaker,
@@ -164,7 +167,7 @@ class SurfaceFormRegistry:
                         "source_url": r.source_url,
                         "retrieved": r.retrieved,
                         "source_license": r.source_license,
-                    }
+                    }.items() if v is not None}
                     for r in sf.pronunciation.audio_refs
                 ]
             d["pronunciation"] = pron

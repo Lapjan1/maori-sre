@@ -1,0 +1,29 @@
+contribution:
+  id: VC_MRZTF2QL
+  type: phrase
+  ref_id: WIFE_006
+  language: af
+  entity_id: 
+  source_course: river_world
+  experience_id: WIFE_006
+  experience_level: 1
+  type: phrase
+  semantic_intent: WIFE_006
+  source_experience: WIFE_006
+  text: Waarvandaan?
+  translation_en: Where are you from?
+  voice_type: male_adult
+  recording:
+    filename: VC_MRZTF2QL.webm
+    format: audio/webm;codecs=opus
+    size_bytes: 31815
+  speaker:
+    name: anonymous
+    native: true
+    region: 
+    age_range: unspecified
+  consent:
+    license: CC-BY-4.0
+    confirmed: true
+  review:
+    status: pending

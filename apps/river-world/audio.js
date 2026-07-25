@@ -92,6 +92,10 @@ const Audio = (() => {
           }
         }
       }
+      // Entity-level failed — TTS directly, don't cascade to phrase level
+      if (_onWordStart) { _onWordStart(text, 0, 1); }
+      _tryTTS(text, lang, function() { if (_onWordStart) { _onWordStart = null; } });
+      return;
     }
     // 2. Phrase / sentence-level recordings (any language) — passage first, then sentences
     if (phraseId) {
@@ -99,18 +103,18 @@ const Audio = (() => {
       if (registry) {
         // 2a. Full passage recording (single audio for entire text)
         var passage = registry.filter(function(p) {
-          return (p.intent === phraseId || p.id === phraseId) && p.type === "passage" && p.audio_refs && p.audio_refs.length;
+          return (p.intent === phraseId || p.id === phraseId || p.source_experience === phraseId) && p.type === "passage" && p.audio_refs && p.audio_refs.length;
         });
         if (passage.length) {
           var bestRef = _bestRefFromList(passage[0].audio_refs, lang);
           if (bestRef) {
-            _playNative(bestRef, passage[0].text, lang);
+            _playNative(bestRef, passage[0].text || text, lang);
             return;
           }
         }
         // 2b. Sentence-level recordings (play each sentence that has audio, word-compose rest)
         var sentences = registry.filter(function(p) {
-          return p.intent === phraseId && p.audio_refs && p.audio_refs.length;
+          return (p.intent === phraseId || p.source_experience === phraseId) && p.audio_refs && p.audio_refs.length;
         });
         if (sentences.length) {
           var seqRefs = [];
@@ -119,7 +123,7 @@ const Audio = (() => {
             var ref = _bestRefFromList(s.audio_refs, lang);
             if (ref) {
               seqRefs.push(ref);
-              seqTexts.push(s.text);
+              seqTexts.push(s.text || text);
             }
           });
           if (seqRefs.length) {
@@ -130,28 +134,23 @@ const Audio = (() => {
       }
     }
     // 2c. Atomic sequence: word-by-word native concatenation (fallback for full passages)
+    // Each word plays natively if available; words without audio fall back to TTS individually
     if (typeof StoryAudioResolver !== "undefined") {
       var resolved = StoryAudioResolver.resolveSentence(text, lang);
-      if (resolved.missing.length === 0 && resolved.sequence.length > 0) {
-        var allRefs = [];
-        var allTexts = [];
-        var allHaveAudio = true;
+      if (resolved.sequence && resolved.sequence.length > 0) {
+        var seqRefs = [];
+        var seqTexts = [];
         resolved.sequence.forEach(function(item) {
-          if (item.audio_ref) {
-            allRefs.push(item.audio_ref);
-            allTexts.push(item.text);
-          } else {
-            allHaveAudio = false;
-          }
+          seqRefs.push(item.audio_ref || null);
+          seqTexts.push(item.text);
         });
-        if (allHaveAudio && allRefs.length > 0) {
-          _playSequence(allRefs, allTexts, lang, 0, 180);
-          return;
-        }
+        _playSequence(seqRefs, seqTexts, lang, 0, 180);
+        return;
       }
     }
     // 3. TTS fallback
-    _tryTTS(text, lang);
+    if (_onWordStart) { _onWordStart(text, 0, 1); }
+    _tryTTS(text, lang, function() { if (_onWordStart) { _onWordStart = null; } });
   }
 
   /**
@@ -166,9 +165,13 @@ const Audio = (() => {
   }
 
   function _playSequence(refs, fallbackText, lang, idx, gapMs) {
-    if (idx >= refs.length) return;
+    if (idx >= refs.length) {
+      if (_onWordStart) { _onWordStart = null; }
+      return;
+    }
     var gap = gapMs != null ? gapMs : (refs.length > 3 ? 250 : 400);
     var perTokenText = Array.isArray(fallbackText) ? fallbackText[idx] : fallbackText;
+    if (_onWordStart) { _onWordStart(perTokenText, idx, refs.length); }
     _playNativeWithCallback(refs[idx], perTokenText, lang, function() {
       setTimeout(function() { _playSequence(refs, fallbackText, lang, idx + 1, gap); }, gap);
     });
@@ -191,13 +194,15 @@ const Audio = (() => {
   }
 
   function _playNative(audioRef, fallbackText, lang) {
-    _playNativeWithCallback(audioRef, fallbackText, lang, null);
+    if (_onWordStart) { _onWordStart(fallbackText, 0, 1); }
+    _playNativeWithCallback(audioRef, fallbackText, lang, function() {
+      if (_onWordStart) { _onWordStart = null; }
+    });
   }
 
   function _playNativeWithCallback(audioRef, fallbackText, lang, onDone) {
     if (!audioRef) {
-      _tryTTS(fallbackText, lang);
-      if (onDone) onDone();
+      _tryTTS(fallbackText, lang, onDone);
       return;
     }
     const pkg = VOICE_PACKAGES?.[audioRef.package];
@@ -221,19 +226,22 @@ const Audio = (() => {
       })
       .catch(() => {
         console.warn("Audio: native failed:", fullPath, "falling back to TTS");
-        _tryTTS(fallbackText, lang);
-        if (onDone) onDone();
+        _tryTTS(fallbackText, lang, onDone);
       });
   }
 
-  function _tryTTS(text, lang) {
+  function _tryTTS(text, lang, onDone) {
     if ("speechSynthesis" in window) {
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = _mapLang(lang);
       utterance.rate = 0.9;
       utterance.pitch = 1.0;
+      utterance.onend = function() { if (onDone) onDone(); };
+      utterance.onerror = function() { if (onDone) onDone(); };
       window.speechSynthesis.speak(utterance);
+    } else {
+      if (onDone) onDone();
     }
   }
 
@@ -242,5 +250,12 @@ const Audio = (() => {
     return map[lang] || lang;
   }
 
-  return { init, speak, setVoicePackage, getVoicePackage, getAvailablePackages };
+  /**
+   * Callback fired when each word in a sequence begins playing.
+   * Signature: function(text, wordIndex, totalWords)
+   * Set to null to disable. Cleared automatically after sequence ends.
+   */
+  var _onWordStart = null;
+
+  return { init, speak, setVoicePackage, getVoicePackage, getAvailablePackages, set onWordStart(cb) { _onWordStart = cb; }, get onWordStart() { return _onWordStart; } };
 })();
