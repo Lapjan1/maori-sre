@@ -3,8 +3,8 @@
  */
 const App = (() => {
   let _currentIndex = 0;
-  let _panelALang = "en";
-  let _panelBLang = "af";
+  let _panelALang = "mi";
+  let _panelBLang = "en";
   let _experiences = [];
   let _reviewMode = false;
   const REVIEW_KEY = "river_world_pass1";
