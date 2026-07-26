@@ -143,7 +143,7 @@ const App = (() => {
         </div>
         <div class="panel-content">
           ${sentences.map((s, i) =>
-            `<p class="sentence${i === sentences.length - 1 ? " sentence-key" : ""}">${s.split(/\s+/).filter(Boolean).map(function(w) { var c = _stripMacrons(w.replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]+/gi, '').toLowerCase()); return '<span class="pw" data-wt="' + _escape(c) + '">' + _escape(w) + '</span>'; }).join(" ")}</p>`
+            `<p class="sentence${i === sentences.length - 1 ? " sentence-key" : ""}">${_renderSentenceChips(s, exp.entities, lang)}</p>`
           ).join("")}
         </div>
         <div class="panel-word-breakdown">
@@ -334,7 +334,12 @@ const App = (() => {
   }
 
   function _renderSentenceChips(sentence, entities, lang) {
-    if (!entities || !entities.length) return _escape(sentence);
+    const langCode = { en: "EN", mi: "MI", af: "AF" };
+    if (!entities || !entities.length) {
+      return sentence.split(/\s+/).filter(Boolean).map(function(w) {
+        return '<span class="pw" data-wt="' + _escape(_stripMacrons(w.replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]+/gi, '').toLowerCase())) + '">' + _escape(w) + '</span>';
+      }).join(" ");
+    }
     const labelMap = {};
     entities.forEach(e => {
       const id = e.entity_id || e.id;
@@ -343,17 +348,22 @@ const App = (() => {
         labelMap[label.toLowerCase()] = { id, label };
       }
     });
-    if (!Object.keys(labelMap).length) return _escape(sentence);
+    if (!Object.keys(labelMap).length) {
+      return sentence.split(/\s+/).filter(Boolean).map(function(w) {
+        return '<span class="pw" data-wt="' + _escape(_stripMacrons(w.replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]+/gi, '').toLowerCase())) + '">' + _escape(w) + '</span>';
+      }).join(" ");
+    }
 
     const tokens = sentence.split(/(\s+)/);
     return tokens.map(t => {
       if (t.trim() === "") return t;
-      const key = t.replace(/^[^\wāēīōūĀĒĪŌŪ']+|[^\wāēīōūĀĒĪŌŪ']+$/g, "").toLowerCase();
-      const info = labelMap[key];
+      var clean = t.replace(/^[^\w\u0101\u0113\u012b\u014d\u016b\u0100\u0112\u012a\u014c\u016a']+|[^\w\u0101\u0113\u012b\u014d\u016b\u0100\u0112\u012a\u014c\u016a']+$/g, "").toLowerCase();
+      var wt = _stripMacrons(clean.replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]+/gi, '').toLowerCase());
+      const info = labelMap[clean];
       if (info) {
-        return `<button class="word-chip" data-entity="${_escape(info.id)}" data-lang="${_escape(lang)}">${_escape(t)}</button>`;
+        return '<button class="word-chip lang-' + _escape(lang) + '" data-entity="' + _escape(info.id) + '" data-lang="' + _escape(lang) + '" data-text="' + _escape(info.label) + '"><span class="chip-lang">' + (langCode[lang] || lang) + '</span><span class="pw" data-wt="' + _escape(wt) + '">' + _escape(t) + '</span></button>';
       }
-      return _escape(t);
+      return '<span class="pw" data-wt="' + _escape(wt) + '">' + _escape(t) + '</span>';
     }).join("");
   }
 
@@ -754,10 +764,11 @@ _lastPW = -1;
     // Word chips — show detail and play audio
     // Single-word chips use entity-level lookup; multi-word chips decompose
     // to sentence-level word-by-word native audio via StoryAudioResolver.
-    if (e.target.classList.contains("word-chip")) {
-      const entityId = e.target.dataset.entity;
-      const lang = e.target.dataset.lang;
-      const labelText = e.target.dataset.text;
+    var _wordChip = e.target.closest(".word-chip");
+    if (_wordChip) {
+      const entityId = _wordChip.dataset.entity;
+      const lang = _wordChip.dataset.lang;
+      const labelText = _wordChip.dataset.text;
       if (entityId) {
         const detail = document.getElementById("word-detail");
         if (detail) {
