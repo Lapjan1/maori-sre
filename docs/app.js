@@ -143,7 +143,7 @@ const App = (() => {
         </div>
         <div class="panel-content">
           ${sentences.map((s, i) =>
-            `<p class="sentence${i === sentences.length - 1 ? " sentence-key" : ""}">${s.split(/\s+/).filter(Boolean).map(function(w) { var c = w.replace(/[^a-zāēīōū]+/gi, '').toLowerCase(); return '<span class="pw" data-wt="' + _escape(c) + '">' + _escape(w) + '</span>'; }).join(" ")}</p>`
+            `<p class="sentence${i === sentences.length - 1 ? " sentence-key" : ""}">${s.split(/\s+/).filter(Boolean).map(function(w) { var c = _stripMacrons(w.replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]+/gi, '').toLowerCase()); return '<span class="pw" data-wt="' + _escape(c) + '">' + _escape(w) + '</span>'; }).join(" ")}</p>`
           ).join("")}
         </div>
         <div class="panel-word-breakdown">
@@ -644,13 +644,15 @@ const App = (() => {
 
   // --- Word shadow (reading highlight) ---
 
+  var _MACRONS = {"\u0101":"a","\u0113":"e","\u012b":"i","\u014d":"o","\u016b":"u"};
+  function _stripMacrons(s) { return s.replace(/[\u0101\u0113\u012b\u014d\u016b]/g, function(m) { return _MACRONS[m]; }); }
   var _lastPW = -1;
 
   function _highlightOnPlay(lang) {
     return function(text, idx, total) {
       var spans = document.querySelectorAll(".panel-content .pw");
       if (!spans.length) return;
-      var norm = text.toLowerCase().replace(/[^a-zāēīōū\s]/g, "").trim();
+      var norm = _stripMacrons(text.toLowerCase().replace(/[^a-z\u0101\u0113\u012b\u014d\u016b\s]/g, "").trim());
       var match = null;
       for (var i = Math.max(0, _lastPW); i < spans.length; i++) {
         if (spans[i].dataset.wt === norm) { match = spans[i]; _lastPW = i; break; }
