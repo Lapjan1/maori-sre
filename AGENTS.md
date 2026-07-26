@@ -101,7 +101,91 @@ If we discover an actual error in Te Aka's data (headword, pronunciation, or def
 ### Ordinary corrections
 If a word_id mapping in *our* data (YAML / JS) disagrees with Te Aka, assume we are wrong first, verify against the live page, and correct our side. This was the case with `whakaki` → `whakakī` (word_id 9519): the error was a missing macron in our YAML, not in Te Aka's entry.
 
-## Rule 6: Regression Audit
+## Rule 7: Entity Representation Policy
+
+Every word chip in the UI is a **learner unit** — something the learner can recognise, tap, and hear. The entity model defines what exists at this level.
+
+### 7.1 Three entity levels
+
+| Level | Category | When to use | Example |
+|-------|----------|-------------|---------|
+| **Phrase** | `PHRASE` | Fixed/semi-fixed expression learned as a unit; meaning > sum of parts | `PHRASE_KIA_ORA` ("kia ora") |
+| **Word** | `ACTION`, `STATE`, `THING`, `PERSON`, `PLACE`, `CONCEPT`, `ANIMAL` | Independently reusable vocabulary item | `THING_WAI` ("wai/water") |
+| **Grammatical** | `PARTICLE`, `DETERMINER`, `PRONOUN`, `POSSESSIVE`, `NEGATION`, `ADVERB` | Support word with grammatical function | `PARTICLE_TE` ("te/the") |
+
+### 7.2 Granularity rule
+
+> **One learner unit per text — unless deliberately layered.**
+
+- **Phrase-level entity** — the entire expression is a single chip (e.g. "Haere rā")
+- **Word-level entities** — individual words are separate chips (e.g. "He" + "wai" + "koa")
+
+Do **not** expose both tiers for the same text by default. Exceptions:
+- WIFE 013–014 (mixed pattern) — word chips for vocabulary building + phrase chip for the expression as a whole. This is a deliberate two-layer pedagogical design.
+
+### 7.3 Label contract
+
+```text
+entity.label.mi   REQUIRED
+entity.label.en   REQUIRED
+entity.label.af   OPTIONAL
+```
+
+- `mi` and `en` labels are mandatory for every visible entity
+- `af` is optional — add only when the entity has a corresponding Afrikaans surface form or translation
+- Missing labels never fall back to another language (enforced in `_renderWordChips`)
+- The label text should match the surface form text when possible
+
+### 7.4 Composition belongs to entity data
+
+Each phrase-level entity **may** declare its decomposition into component entity IDs. This replaces the manual `COMPOSITIONS` map in `phrase-composer.js` over time.
+
+**Current state (2026-07-25):** Phrase composition is still maintained in `phrase-composer.js` as an intermediate step. New entities should include a `components` array in their definition:
+
+```javascript
+{
+  "id": "PHRASE_GOODBYE_STAY",
+  "category": "PHRASE",
+  "label": { ... },
+  "components": ["ACTION_HAERE", "PARTICLE_RA"]
+}
+```
+
+### 7.5 Component entities
+
+Component entities (used only in composition, never exposed as chips) live in `surface_forms.js` with full audio_refs. They are not listed in any experience's `entities` array. This is valid — they are internal assembly parts.
+
+Exception: if a word from the phrase text has independent vocabulary value, promote it to a visible entity with its own chip and label.
+
+### 7.6 Entity reuse and semantic integrity
+
+An entity ID must have a **single consistent meaning** across all experiences it appears in.
+
+- ❌ `STATE_010` used as "happy" (RIVER_002) AND "please" (WIFE_013) — **conflict**
+- ✅ Reuse is safe when the meaning is the same (e.g. `THING_WAI` = "water" everywhere)
+
+When a word has different senses across contexts, create separate entity IDs:
+- `STATE_010_HAPPY` (happy/koa)
+- `STATE_PLEASE` (please/koa)
+
+### 7.7 Audio fallback chain for chip playback
+
+1. Direct surface form audio_ref (entity → SF → audio)
+2. Composed audio from component entities (via PhraseComposer)
+3. TTS fallback
+
+The same hierarchy applies to every entity — no special cases.
+
+### 7.8 Policy enforcement
+
+Before adding or modifying entities in `experiences.js`:
+1. Verify the entity follows the granularity rule (7.2)
+2. Ensure `label.mi` and `label.en` exist (7.3)
+3. If `af` label is provided, verify an Afrikaans surface form exists
+4. If adding a `components` array, verify all references exist in `surface_forms.js`
+5. Check no semantic conflict with existing entity IDs (7.6)
+
+## Rule 8: Regression Audit
 
 Before committing changes that add, modify, or re-map Māori words, run the audit as a regression check:
 

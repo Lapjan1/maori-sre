@@ -173,7 +173,8 @@ const App = (() => {
     const renderOne = (id, lang) => {
       const e = entities.find((x) => (x.entity_id || x.id) === id);
       if (!e) return "";
-      const label = _entityLabel(e, lang);
+      if (!e.label[lang]) return "";
+      const label = e.label[lang];
       if (!label) return "";
       return `<button class="word-chip lang-${_escape(lang)}" data-entity="${_escape(id)}" data-lang="${_escape(lang)}" data-text="${_escape(label)}"><span class="chip-lang">${langCode[lang] || lang}</span> ${_escape(label)}</button>`;
     };
@@ -764,11 +765,7 @@ _lastPW = -1;
         }
 _lastPW = -1;
         Audio.onWordStart = _highlightOnPlay(lang);
-        if (labelText && labelText.includes(" ")) {
-          Audio.speak(labelText, lang);
-        } else {
-          Audio.speak(labelText || entityId, lang, entityId);
-        }
+        Audio.speak(labelText || entityId, lang, entityId);
         Session.log("audio_played", { text: labelText || entityId, lang, entityId, experience_id: _experiences[_currentIndex]?.id });
       }
       return;

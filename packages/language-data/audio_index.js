@@ -6,6 +6,7 @@
  * Normalized = lowercase, macrons replaced with plain vowels.
  */
 var AUDIO_INDEX = {
+  "a": {"filename": "47.mp3", "word_id": "47", "bytes": 6240},
   "ahau": {"filename": "63.mp3", "word_id": "63", "bytes": 11232},
   "ahi": {"filename": "69.mp3", "word_id": "69", "bytes": 10464},
   "aotearoa": {"filename": "270.mp3", "word_id": "270", "bytes": 16225},
@@ -40,7 +41,7 @@ var AUDIO_INDEX = {
   "kite": {"filename": "2722.mp3", "word_id": "2722", "bytes": 9344},
   "koa": {"filename": "2744.mp3", "word_id": "2744", "bytes": 8192},
   "koe": {"filename": "2761.mp3", "word_id": "2761", "bytes": 9344},
-  "korero": {"filename": "2835.mp3", "word_id": "2835", "bytes": 10112},
+  "korero": {"filename": "3003.mp3", "word_id": "3003", "bytes": 12032},
   "koroua": {"filename": "42893.mp3", "word_id": "42893", "bytes": 40716},
   "kuia": {"filename": "3159.mp3", "word_id": "3159", "bytes": 13184},
   "kupenga": {"filename": "3274.mp3", "word_id": "3274", "bytes": 12800},
@@ -70,7 +71,8 @@ var AUDIO_INDEX = {
   "reira": {"filename": "6711.mp3", "word_id": "6711", "bytes": 18476},
   "reka": {"filename": "6690.mp3", "word_id": "6690", "bytes": 13472},
   "rere": {"filename": "6719.mp3", "word_id": "6719", "bytes": 12638},
-  "roto": {"filename": "7004.mp3", "word_id": "7004", "bytes": 29318},
+  /* CORRECTED 2026-07-26: was 7004 (Rurutao, Wiremu / Shakespeare), corrected to 6934 (roto — inside, locative) */
+  "roto": {"filename": "6934.mp3", "word_id": "6934", "bytes": 13889},
   "rakau": {"filename": "6439.mp3", "word_id": "6439", "bytes": 17195},
   "tae": {"filename": "7020.mp3", "word_id": "7020", "bytes": 11387},
   "tamaiti": {"filename": "7326.mp3", "word_id": "7326", "bytes": 14306},
@@ -90,7 +92,7 @@ var AUDIO_INDEX = {
   "ua": {"filename": "51889.mp3", "word_id": "51889", "bytes": 25184},
   "wai": {"filename": "9019.mp3", "word_id": "9019", "bytes": 25184},
   "waiata": {"filename": "9071.mp3", "word_id": "9071", "bytes": 36668},
-  "wera": {"filename": "9514.mp3", "word_id": "9514", "bytes": 47108},
+  "wera": {"filename": "9229.mp3", "word_id": "9229", "bytes": 23096},
   "whaea": {"filename": "9297.mp3", "word_id": "9297", "bytes": 32492},
   "whakakī": {"filename": "9519.mp3", "word_id": "9519", "bytes": 39800},
   "whakawhetai": {"filename": "10035.mp3", "word_id": "10035", "bytes": 42932},
@@ -140,7 +142,7 @@ var AUDIO_INDEX = {
   "kakara": {"filename": "2100.mp3", "word_id": "2100", "bytes": 10880},
   "maoa": {"filename": "3642.mp3", "word_id": "3642", "bytes": 12800},
   "karanga": {"filename": "2286.mp3", "word_id": "2286", "bytes": 11264},
-  "katoa": {"filename": "46863.mp3", "word_id": "46863", "bytes": 35648},
+  "katoa": {"filename": "2399.mp3", "word_id": "2399", "bytes": 10880},
   "titiro": {"filename": "8226.mp3", "word_id": "8226", "bytes": 27272},
   "kata": {"filename": "2370.mp3", "word_id": "2370", "bytes": 8960},
   "ona": {"filename": "4756.mp3", "word_id": "4756", "bytes": 25184},
@@ -153,12 +155,13 @@ var AUDIO_INDEX = {
   "whakautu": {"filename": "9997.mp3", "word_id": "9997", "bytes": 40844},
   /* Batch 2026-07-25: 24 common words from WIFE + RIVER content */
   "ahurea": {"filename": "101.mp3", "word_id": "101", "bytes": 13921},
-  "etahi": {"filename": "697.mp3", "word_id": "697", "bytes": 43505},
+  "etahi": {"filename": "695.mp3", "word_id": "695", "bytes": 13543},
   "hei": {"filename": "1018.mp3", "word_id": "1018", "bytes": 8192},
   "hou": {"filename": "1464.mp3", "word_id": "1464", "bytes": 11264},
   "ina": {"filename": "1708.mp3", "word_id": "1708", "bytes": 10880},
   "iwi": {"filename": "1822.mp3", "word_id": "1822", "bytes": 10496},
   "kupu": {"filename": "3275.mp3", "word_id": "3275", "bytes": 9728},
+  "maori": {"filename": "3647.mp3", "word_id": "3647", "bytes": 14336},
   "mama": {"filename": "3417.mp3", "word_id": "3417", "bytes": 12416},
   "me": {"filename": "3987.mp3", "word_id": "3987", "bytes": 10880},
   "mea": {"filename": "3988.mp3", "word_id": "3988", "bytes": 11648},
@@ -170,12 +173,39 @@ var AUDIO_INDEX = {
   "tikanga": {"filename": "8043.mp3", "word_id": "8043", "bytes": 33536},
   "tino": {"filename": "8122.mp3", "word_id": "8122", "bytes": 26228},
   "tohu": {"filename": "51755.mp3", "word_id": "51755", "bytes": 25184},
+  "tokotoru": {"filename": "8394.mp3", "word_id": "8394", "bytes": 32492},
   "tono": {"filename": "8426.mp3", "word_id": "8426", "bytes": 24140},
   "tonu": {"filename": "8429.mp3", "word_id": "8429", "bytes": 24140},
   "tuatahi": {"filename": "13402.mp3", "word_id": "13402", "bytes": 30404},
   "tuku": {"filename": "51838.mp3", "word_id": "51838", "bytes": 23096},
   "wa": {"filename": "8952.mp3", "word_id": "8952", "bytes": 27272},
-  "whai": {"filename": "9302.mp3", "word_id": "9302", "bytes": 30404}
+  "whai": {"filename": "9302.mp3", "word_id": "9302", "bytes": 30404},
+  "whakataki": {"filename": "9874.mp3", "word_id": "9874", "bytes": 38756},
+  "manuhiri": {"filename": "3467.mp3", "word_id": "3467", "bytes": 15104},
+  "pohiri": {"filename": "5717.mp3", "word_id": "5717", "bytes": 15535},
+  "rangona": {"filename": "6505.mp3", "word_id": "6505", "bytes": 14276},
+  "tatau": {"filename": "7654.mp3", "word_id": "7654", "bytes": 28316},
+  "whakamahi": {"filename": "9562.mp3", "word_id": "9562", "bytes": 33536},
+  "whakamahia": {"filename": "9562.mp3", "word_id": "9562", "bytes": 33536},
+  "whakamohio": {"filename": "9644.mp3", "word_id": "9644", "bytes": 48152},
+  /* WIFE_001 sentence: kōrerotia (passive of kōrero) and tūtaki (meet) */
+  "korerotia": {"filename": "3003.mp3", "word_id": "3003", "bytes": 12032},
+  "tutaki": {"filename": "8808.mp3", "word_id": "8808", "bytes": 20144},
+  /* WIFE_005 sentence: whakakapia (passive of whakakapi) and mema (member, loan word) */
+  "whakakapia": {"filename": "9501.mp3", "word_id": "9501", "bytes": 40844},
+  "mema": {"filename": "4012.mp3", "word_id": "4012", "bytes": 10496},
+  /* WIFE_007: pākiki (curious/inquisitive) */
+  "pakiki": {"filename": "5020.mp3", "word_id": "5020", "bytes": 20122},
+  /* WIFE batch 2026-07-26: 7 words + 2 LOCAL_ compounds */
+  "kianga": {"filename": "2607.mp3", "word_id": "2607", "bytes": 13184},
+  "mahana": {"filename": "3344.mp3", "word_id": "3344", "bytes": 11264},
+  "nohoanga": {"filename": "4440.mp3", "word_id": "4440", "bytes": 37712},
+  "taea": {"filename": "7022.mp3", "word_id": "7022", "bytes": 14306},
+  "wehe": {"filename": "9197.mp3", "word_id": "9197", "bytes": 19964},
+  "whakamihi": {"filename": "9633.mp3", "word_id": "9633", "bytes": 39800},
+  "whakaute": {"filename": "11092.mp3", "word_id": "11092", "bytes": 46064},
+  "kaihauora": {"filename": "LOCAL_001.mp3", "word_id": null, "bytes": 0},
+  "kaitao": {"filename": "LOCAL_002.mp3", "word_id": null, "bytes": 0}
 };
 
 /**

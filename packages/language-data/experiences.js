@@ -20,6 +20,7 @@ var EXPERIENCES = [
         "category": "PERSON",
         "label": {
           "default": "child",
+          "en": "child",
           "mi": "tamaiti",
           "af": "kind"
         }
@@ -29,6 +30,7 @@ var EXPERIENCES = [
         "category": "THING",
         "label": {
           "default": "water",
+          "en": "water",
           "mi": "wai",
           "af": "water"
         }
@@ -38,6 +40,7 @@ var EXPERIENCES = [
         "category": "PLACE",
         "label": {
           "default": "river",
+          "en": "river",
           "mi": "awa",
           "af": "rivier"
         }
@@ -47,6 +50,7 @@ var EXPERIENCES = [
         "category": "STATE",
         "label": {
           "default": "thirsty",
+          "en": "thirsty",
           "mi": "matewai",
           "af": "dors"
         }
@@ -56,6 +60,7 @@ var EXPERIENCES = [
         "category": "STATE",
         "label": {
           "default": "hydrated",
+          "en": "hydrated",
           "mi": "kore matewai",
           "af": "nie dors nie"
         }
@@ -65,6 +70,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "drink",
+          "en": "drink",
           "mi": "inu",
           "af": "drink"
         }
@@ -74,6 +80,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "walk",
+          "en": "walk",
           "mi": "hīkoi",
           "af": "loop"
         }
@@ -118,6 +125,7 @@ var EXPERIENCES = [
         "category": "PERSON",
         "label": {
           "default": "mother",
+          "en": "mother",
           "mi": "whaea",
           "af": "ma"
         }
@@ -127,6 +135,7 @@ var EXPERIENCES = [
         "category": "THING",
         "label": {
           "default": "cup",
+          "en": "cup",
           "mi": "kapu",
           "af": "koppie"
         }
@@ -136,6 +145,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "give",
+          "en": "give",
           "mi": "hoatu",
           "af": "gee"
         }
@@ -145,6 +155,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "fill",
+          "en": "fill",
           "mi": "whakakī",
           "af": "vul"
         }
@@ -154,6 +165,7 @@ var EXPERIENCES = [
         "category": "STATE",
         "label": {
           "default": "happy",
+          "en": "happy",
           "mi": "koa",
           "af": "bly"
         }
@@ -203,6 +215,7 @@ var EXPERIENCES = [
         "category": "ANIMAL",
         "label": {
           "default": "dog",
+          "en": "dog",
           "mi": "kurī",
           "af": "hond"
         }
@@ -242,6 +255,7 @@ var EXPERIENCES = [
         "category": "THING",
         "label": {
           "default": "rain",
+          "en": "rain",
           "mi": "ua",
           "af": "reën"
         }
@@ -251,6 +265,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "fall",
+          "en": "fall",
           "mi": "heke",
           "af": "val"
         }
@@ -260,6 +275,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "flow",
+          "en": "flow",
           "mi": "rere",
           "af": "vloei"
         }
@@ -304,6 +320,7 @@ var EXPERIENCES = [
         "category": "THING",
         "label": {
           "default": "tree",
+          "en": "tree",
           "mi": "rākau",
           "af": "boom"
         }
@@ -313,6 +330,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "grow",
+          "en": "grow",
           "mi": "tipu",
           "af": "groei"
         }
@@ -352,6 +370,7 @@ var EXPERIENCES = [
         "category": "ANIMAL",
         "label": {
           "default": "fish",
+          "en": "fish",
           "mi": "ika",
           "af": "vis"
         }
@@ -361,6 +380,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "live",
+          "en": "live",
           "mi": "noho",
           "af": "woon"
         }
@@ -370,6 +390,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "swim",
+          "en": "swim",
           "mi": "kauhoe",
           "af": "swem"
         }
@@ -409,6 +430,7 @@ var EXPERIENCES = [
         "category": "PERSON",
         "label": {
           "default": "family",
+          "en": "family",
           "mi": "whānau",
           "af": "familie"
         }
@@ -418,6 +440,7 @@ var EXPERIENCES = [
         "category": "THING",
         "label": {
           "default": "net",
+          "en": "net",
           "mi": "kupenga",
           "af": "net"
         }
@@ -427,6 +450,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "catch",
+          "en": "catch",
           "mi": "hopu",
           "af": "vang"
         }
@@ -466,6 +490,7 @@ var EXPERIENCES = [
         "category": "THING",
         "label": {
           "default": "fire",
+          "en": "fire",
           "mi": "ahi",
           "af": "vuur"
         }
@@ -475,6 +500,7 @@ var EXPERIENCES = [
         "category": "THING",
         "label": {
           "default": "food",
+          "en": "food",
           "mi": "kai",
           "af": "kos"
         }
@@ -484,6 +510,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "cook",
+          "en": "cook",
           "mi": "tunu",
           "af": "kook"
         }
@@ -523,6 +550,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "share",
+          "en": "share",
           "mi": "tohatoha",
           "af": "deel"
         }
@@ -532,6 +560,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "eat",
+          "en": "eat",
           "mi": "kai",
           "af": "eet"
         }
@@ -541,6 +570,7 @@ var EXPERIENCES = [
         "category": "STATE",
         "label": {
           "default": "full",
+          "en": "full",
           "mi": "mākona",
           "af": "versadig"
         }
@@ -595,6 +625,7 @@ var EXPERIENCES = [
         "category": "ACTION",
         "label": {
           "default": "thank",
+          "en": "thank",
           "mi": "whakawhetai",
           "af": "bedank"
         }
@@ -604,6 +635,7 @@ var EXPERIENCES = [
         "category": "STATE",
         "label": {
           "default": "grateful",
+          "en": "grateful",
           "mi": "whakawhetai",
           "af": "dankbaar"
         }
@@ -613,6 +645,7 @@ var EXPERIENCES = [
         "category": "STATE",
         "label": {
           "default": "together",
+          "en": "together",
           "mi": "noho tahi",
           "af": "saam"
         }
@@ -1086,6 +1119,35 @@ var EXPERIENCES = [
           "en": "Some water, please",
           "af": "Water, asseblief"
         }
+      },
+      {
+        "id": "PARTICLE_HE",
+        "category": "PARTICLE",
+        "label": {
+          "default": "a/an",
+          "mi": "He",
+          "en": "a/an"
+        }
+      },
+      {
+        "id": "THING_WAI",
+        "category": "THING",
+        "label": {
+          "default": "water",
+          "mi": "wai",
+          "en": "water",
+          "af": "water"
+        }
+      },
+      {
+        "id": "STATE_PLEASE",
+        "category": "STATE",
+        "label": {
+          "default": "please",
+          "mi": "koa",
+          "en": "please",
+          "af": "asseblief"
+        }
       }
     ],
     "interactions": [
@@ -1120,6 +1182,52 @@ var EXPERIENCES = [
           "mi": "Kia ora mō te kai",
           "en": "Thank you for the food",
           "af": "Dankie vir die kos"
+        }
+      },
+      {
+        "id": "PARTICLE_KIA",
+        "category": "PARTICLE",
+        "label": {
+          "default": "kia (particle)",
+          "mi": "Kia",
+          "en": "kia"
+        }
+      },
+      {
+        "id": "STATE_ORA",
+        "category": "STATE",
+        "label": {
+          "default": "well / alive",
+          "mi": "ora",
+          "en": "well"
+        }
+      },
+      {
+        "id": "PARTICLE_MO",
+        "category": "PARTICLE",
+        "label": {
+          "default": "for",
+          "mi": "mō",
+          "en": "for"
+        }
+      },
+      {
+        "id": "PARTICLE_TE",
+        "category": "PARTICLE",
+        "label": {
+          "default": "the (singular)",
+          "mi": "te",
+          "en": "the"
+        }
+      },
+      {
+        "id": "THING_KAI",
+        "category": "THING",
+        "label": {
+          "default": "food",
+          "mi": "kai",
+          "en": "food",
+          "af": "kos"
         }
       }
     ],

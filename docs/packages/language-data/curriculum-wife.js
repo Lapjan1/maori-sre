@@ -214,7 +214,9 @@ var CORE_20 = [
     },
     "entities": [
       {"id": "PHRASE_WATER_PLEASE", "category": "PHRASE", "label": {"default": "he wai koa", "mi": "He wai, koa", "en": "Some water, please", "af": "Water, asseblief"}},
-      {"id": "THING_WAI", "category": "THING", "label": {"default": "water", "mi": "wai", "en": "water", "af": "water"}}
+      {"id": "PARTICLE_HE", "category": "PARTICLE", "label": {"default": "a/an", "mi": "He", "en": "a/an"}},
+      {"id": "THING_WAI", "category": "THING", "label": {"default": "water", "mi": "wai", "en": "water", "af": "water"}},
+      {"id": "STATE_010", "category": "STATE", "label": {"default": "please", "mi": "koa", "en": "please"}}
     ],
     "phrase_id": "VISIT_WATER_PLEASE",
     "situation": {"en": "You sit down at the table. There is food but you would like a drink.", "af": "Jy sit by die tafel. Daar is kos, maar jy wil graag 'n drankie hê."}
