@@ -574,6 +574,16 @@ var EXPERIENCES = [
           "mi": "mākona",
           "af": "versadig"
         }
+      },
+      {
+        "id": "STATE_013",
+        "category": "STATE",
+        "label": {
+          "default": "together",
+          "en": "together",
+          "mi": "noho tahi",
+          "af": "saam"
+        }
       }
     ],
     "interactions": [

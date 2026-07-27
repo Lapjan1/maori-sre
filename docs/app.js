@@ -341,30 +341,73 @@ const App = (() => {
       }).join(" ");
     }
     const labelMap = {};
+    const multiLabelMap = {};
     entities.forEach(e => {
       const id = e.entity_id || e.id;
       const label = _entityLabel(e, lang);
-      if (label && !/\s/.test(label)) {
-        labelMap[label.toLowerCase()] = { id, label };
+      if (label) {
+        if (!/\s/.test(label)) {
+          labelMap[label.toLowerCase()] = { id, label };
+        } else {
+          multiLabelMap[label.toLowerCase()] = { id, label, words: label.toLowerCase().split(/\s+/) };
+        }
       }
     });
-    if (!Object.keys(labelMap).length) {
+    if (!Object.keys(labelMap).length && !Object.keys(multiLabelMap).length) {
       return sentence.split(/\s+/).filter(Boolean).map(function(w) {
         return '<span class="pw" data-wt="' + _escape(_stripMacrons(w.replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]+/gi, '').toLowerCase())) + '">' + _escape(w) + '</span>';
       }).join(" ");
     }
 
+    // Sort multi-word keys longest-first for greedy matching
+    var multiKeys = Object.keys(multiLabelMap).sort(function(a, b) {
+      return b.split(/\s+/).length - a.split(/\s+/).length;
+    });
+
     const tokens = sentence.split(/(\s+)/);
-    return tokens.map(t => {
-      if (t.trim() === "") return t;
+    var out = [];
+    var ti = 0;
+    while (ti < tokens.length) {
+      if (tokens[ti].trim() === "") { out.push(tokens[ti]); ti++; continue; }
+      var matched = false;
+      // Multi-word lookahead (greedy, longest first)
+      for (var mi = 0; mi < multiKeys.length; mi++) {
+        var phrase = multiKeys[mi];
+        var wordCount = multiLabelMap[phrase].words.length;
+        var collected = [];
+        var tj = ti;
+        while (collected.length < wordCount && tj < tokens.length) {
+          if (tokens[tj].trim() !== "") collected.push(tokens[tj]);
+          tj++;
+        }
+        if (collected.length < wordCount) continue;
+        var collectedClean = collected.map(function(w) {
+          return w.replace(/^[^\w\u0101\u0113\u012b\u014d\u016b\u0100\u0112\u012a\u014c\u016a']+|[^\w\u0101\u0113\u012b\u014d\u016b\u0100\u0112\u012a\u014c\u016a']+$/g, "").toLowerCase();
+        }).join(" ");
+        if (collectedClean === phrase) {
+          var info = multiLabelMap[phrase];
+          var multiText = collected.join(" ");
+          var multiWt = _stripMacrons(multiText.toLowerCase().replace(/[^a-z\u0101\u0113\u012b\u014d\u016b\s]/g, "").trim());
+          out.push('<button class="word-chip lang-' + _escape(lang) + '" data-entity="' + _escape(info.id) + '" data-lang="' + _escape(lang) + '" data-text="' + _escape(info.label) + '"><span class="chip-lang">' + (langCode[lang] || lang) + '</span><span class="pw" data-wt="' + _escape(multiWt) + '">' + _escape(multiText) + '</span></button>');
+          ti += wordCount * 2 - 1;
+          matched = true;
+          break;
+        }
+      }
+      if (matched) continue;
+      // Single token
+      var t = tokens[ti];
       var clean = t.replace(/^[^\w\u0101\u0113\u012b\u014d\u016b\u0100\u0112\u012a\u014c\u016a']+|[^\w\u0101\u0113\u012b\u014d\u016b\u0100\u0112\u012a\u014c\u016a']+$/g, "").toLowerCase();
       var wt = _stripMacrons(clean.replace(/[^a-z\u0101\u0113\u012b\u014d\u016b]+/gi, '').toLowerCase());
-      const info = labelMap[clean];
-      if (info) {
-        return '<button class="word-chip lang-' + _escape(lang) + '" data-entity="' + _escape(info.id) + '" data-lang="' + _escape(lang) + '" data-text="' + _escape(info.label) + '"><span class="chip-lang">' + (langCode[lang] || lang) + '</span><span class="pw" data-wt="' + _escape(wt) + '">' + _escape(t) + '</span></button>';
+      var sinfo = labelMap[clean];
+      if (sinfo) {
+        out.push('<button class="word-chip lang-' + _escape(lang) + '" data-entity="' + _escape(sinfo.id) + '" data-lang="' + _escape(lang) + '" data-text="' + _escape(sinfo.label) + '"><span class="chip-lang">' + (langCode[lang] || lang) + '</span><span class="pw" data-wt="' + _escape(wt) + '">' + _escape(t) + '</span></button>');
+      } else {
+        out.push('<span class="pw" data-wt="' + _escape(wt) + '">' + _escape(t) + '</span>');
       }
-      return '<span class="pw" data-wt="' + _escape(wt) + '">' + _escape(t) + '</span>';
-    }).join("");
+      ti++;
+    }
+    return out.join("");
   }
 
   function _renderExperienceList() {
@@ -639,7 +682,7 @@ const App = (() => {
     if (typeof s !== "string") return "";
     const d = document.createElement("div");
     d.textContent = s;
-    return d.innerHTML;
+    return d.innerHTML.replace(/"/g, "&quot;");
   }
 
   function _entityLabel(e, lang) {

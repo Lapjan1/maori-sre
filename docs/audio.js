@@ -49,6 +49,10 @@ const Audio = (() => {
   }
 
   function speak(text, lang, entityId, phraseId) {
+    // Ensure AudioContext is created/resumed synchronously in the user gesture context
+    // (Browsers block audio outside user gesture handlers)
+    var _spCtx = _getCtx();
+    if (_spCtx.state === "suspended") { _spCtx.resume(); }
     // 1. Entity lookup → surface form → play all audio_refs (supports multi-word sequences)
     if (entityId) {
       const sfId = SURFACE_FORM_INDEX?.[entityId]?.[lang];
@@ -133,18 +137,48 @@ const Audio = (() => {
         }
       }
     }
-    // 2c. Atomic sequence: word-by-word native concatenation (fallback for full passages)
-    // Each word plays natively if available; words without audio fall back to TTS individually
+    // 2c. Sentence-by-sentence: split text on sentence boundaries, resolve each independently
+    // Each sentence first checks the phrase registry for a native recording; if unavailable,
+    // falls back to word-by-word composition. This mirrors the UI's sentence structure.
     if (typeof StoryAudioResolver !== "undefined") {
-      var resolved = StoryAudioResolver.resolveSentence(text, lang);
-      if (resolved.sequence && resolved.sequence.length > 0) {
-        var seqRefs = [];
-        var seqTexts = [];
-        resolved.sequence.forEach(function(item) {
-          seqRefs.push(item.audio_ref || null);
-          seqTexts.push(item.text);
-        });
-        _playSequence(seqRefs, seqTexts, lang, 0, 180);
+      console.log("Audio: speak() received text length =", text.length, "text =", text.substring(0, 80)+"...", "text.last40 =", text.substring(text.length - 40));
+      var sentenceParts = text.match(/[^.!?]*[.!?]+/g);
+      if (!sentenceParts || sentenceParts.length === 0) sentenceParts = [text];
+      console.log("Audio: sentenceParts count =", sentenceParts ? sentenceParts.length : 0, "parts[0]=", sentenceParts && sentenceParts[0] ? sentenceParts[0].substring(0, 30) : "(none)");
+      var allSeqRefs = [];
+      var allSeqTexts = [];
+      var hasResolved = false;
+      sentenceParts.forEach(function(part, pi) {
+        console.log("Audio: processing sentence part", pi, "=", part.substring(0, 40));
+        var trimmed = part.trim();
+        if (!trimmed) return;
+        var nativeRef = null;
+        if (registry) {
+          var nativeSentence = registry.filter(function(p) {
+            return (p.intent === phraseId || p.id === phraseId || p.source_experience === phraseId) && p.text === trimmed && p.audio_refs && p.audio_refs.length;
+          });
+          if (nativeSentence.length) {
+            nativeRef = _bestRefFromList(nativeSentence[0].audio_refs, lang);
+          }
+        }
+        if (nativeRef) {
+          allSeqRefs.push(nativeRef);
+          allSeqTexts.push(trimmed);
+          hasResolved = true;
+        } else {
+          var resolved = StoryAudioResolver.resolveSentence(trimmed, lang);
+          if (resolved.sequence && resolved.sequence.length > 0) {
+            resolved.sequence.forEach(function(item) {
+              allSeqRefs.push(item.audio_ref || null);
+              allSeqTexts.push(item.text);
+            });
+            hasResolved = true;
+          }
+        }
+      });
+      console.log("Audio: loop done, allSeqRefs.length =", allSeqRefs.length, "hasResolved =", hasResolved);
+      if (hasResolved) {
+        _playSequence(allSeqRefs, allSeqTexts, lang, 0, 180);
         return;
       }
     }
@@ -167,10 +201,12 @@ const Audio = (() => {
   function _playSequence(refs, fallbackText, lang, idx, gapMs) {
     if (idx >= refs.length) {
       if (_onWordStart) { _onWordStart = null; }
+      console.log("Audio: sequence complete,", refs.length, "words");
       return;
     }
     var gap = gapMs != null ? gapMs : (refs.length > 3 ? 250 : 400);
     var perTokenText = Array.isArray(fallbackText) ? fallbackText[idx] : fallbackText;
+    console.log("Audio: playing word", idx + 1 + "/" + refs.length, "=", perTokenText ? perTokenText.substring(0, 20) : "(null)");
     if (_onWordStart) { _onWordStart(perTokenText, idx, refs.length); }
     _playNativeWithCallback(refs[idx], perTokenText, lang, function() {
       setTimeout(function() { _playSequence(refs, fallbackText, lang, idx + 1, gap); }, gap);
@@ -200,7 +236,7 @@ const Audio = (() => {
     });
   }
 
-  function _playNativeWithCallback(audioRef, fallbackText, lang, onDone) {
+  async function _playNativeWithCallback(audioRef, fallbackText, lang, onDone) {
     if (!audioRef) {
       _tryTTS(fallbackText, lang, onDone);
       return;
@@ -209,25 +245,27 @@ const Audio = (() => {
     const basePath = pkg?.base_path || "audio/";
     const fullPath = basePath + audioRef.ref;
 
-    fetch(fullPath)
-      .then((r) => {
-        if (!r.ok) throw new Error("HTTP " + r.status);
-        return r.arrayBuffer();
-      })
-      .then((buf) => _getCtx().decodeAudioData(buf))
-      .then((decoded) => {
-        const ctx = _getCtx();
-        if (ctx.state === "suspended") ctx.resume();
-        const src = ctx.createBufferSource();
-        src.buffer = decoded;
-        src.connect(ctx.destination);
-        src.onended = () => { if (onDone) onDone(); };
+    try {
+      const r = await fetch(fullPath);
+      if (!r.ok) throw new Error("HTTP " + r.status);
+      const buf = await r.arrayBuffer();
+      const decoded = await _getCtx().decodeAudioData(buf);
+      const ctx = _getCtx();
+      if (ctx.state === "suspended") await ctx.resume();
+      const src = ctx.createBufferSource();
+      src.buffer = decoded;
+      src.connect(ctx.destination);
+      await new Promise(function(resolve) {
+        src.onended = function() {
+          if (onDone) onDone();
+          resolve();
+        };
         src.start(0);
-      })
-      .catch(() => {
-        console.warn("Audio: native failed:", fullPath, "falling back to TTS");
-        _tryTTS(fallbackText, lang, onDone);
       });
+    } catch (e) {
+      console.warn("Audio: native failed:", fullPath, "falling back to TTS");
+      _tryTTS(fallbackText, lang, onDone);
+    }
   }
 
   function _tryTTS(text, lang, onDone) {

@@ -284,3 +284,26 @@ The batch lookup script (search API) can return a word_id for a *different sense
 - `docs/packages/language-data/audio_index.js` — synced copy
 - `apps/river-world/voices/mi_teaka_v1/audio/` — 24 new MP3s
 - `docs/voices/mi_teaka_v1/audio/` — 24 new MP3s
+
+### Session 2026-07-27 — Audio Playback Fixes: _escape Quotes, Multi-Word Chips, RIVER_010 Sound
+
+**Objective:** Fix RIVER_009 audio only playing 2 sentences (11/45 words), fix multi-word entity highlighting ("noho tahi"), and get RIVER_010 playing full audio.
+
+#### Completed
+1. **Root cause of truncated playback**: `_escape()` used `innerHTML` which does not escape `"` (valid in HTML text content). When the text contained direct speech quotes like `"Haere mai ki te kai," tāna`, the first unescaped `"` was interpreted by the HTML parser as the end of the `data-text` attribute, truncating it to 51 characters (2 sentences). **Fixed** by adding `.replace(/"/g, "&quot;")` to `_escape()` return value.
+2. **Multi-word entity chips**: `_renderSentenceChips` filtered out labels with whitespace (`!/\s/.test(label)`), so "noho tahi" rendered as two separate `<span>`s instead of one chip. Audio's `resolveSentence` sends `"noho tahi"` as a single unit — highlighter couldn't find `data-wt="noho tahi"`. **Fixed** by adding `multiLabelMap` and greedy lookahead matching in `_renderSentenceChips`.
+3. **Added STATE_013 to RIVER_009**: "noho tahi" (STATE_013) was only in RIVER_010's entities. Added it to RIVER_009 so the multi-word chip renders correctly in both experiences.
+4. **Syntax fix**: `const info` conflicted with `var info` in the same while-loop scope. Renamed to `var sinfo`.
+
+#### Bugs Fixed
+1. `_escape()` quote-unsafe for HTML attributes — truncated `data-text` at first `"` in text content containing direct speech
+2. `_renderSentenceChips` ignored multi-word entities — "noho tahi" split into two chips, could not highlight together
+3. JavaScript syntax error (`const info` redeclaration) caused page to hang on "Loading..."
+
+#### Relevant Files
+- `apps/river-world/app.js` — fixed `_escape()` (line 641), fixed `_renderSentenceChips()` (line 336)
+- `docs/app.js` — synced fixes
+- `packages/language-data/experiences.js` — added STATE_013 to RIVER_009 entities
+- `docs/packages/language-data/experiences.js` — synced
+- `apps/river-world/index.html` — cache bumps (app.js v25→28, experiences.js v7→8)
+- `docs/index.html` — synced cache bumps
