@@ -575,7 +575,7 @@ const Recorder = (() => {
     return _CONTRIB_PREFIX + "_" + ts;
   }
 
-  function _buildYaml(contribId, itemId) {
+  function _buildYamlEntry(contribId, itemId) {
     const lang = langSel.value;
     const ext = _recordedBlob.type.includes("webm") ? "webm" : "wav";
     const text = phraseText.textContent;
@@ -588,7 +588,7 @@ const Recorder = (() => {
     const correction = correctionField.value.trim();
     let prov = "";
     if (meta) {
-      prov = "  entity_id: " + (meta.entity_id || "") + "\n";
+      prov += "  entity_id: " + (meta.entity_id || "") + "\n";
       prov += "  source_course: " + (meta.source_course || "") + "\n";
       if (meta.exp_id) {
         prov += "  experience_id: " + meta.exp_id + "\n";
@@ -603,35 +603,58 @@ const Recorder = (() => {
     const voiceType = $("voice-selector").value || "";
     let extra = "";
     if (correction) {
-      extra = "  correction_suggested: " + correction + "\n";
+      extra += "  correction_suggested: " + correction + "\n";
     }
-    return "contribution:\n" +
-      "  id: " + contribId + "\n" +
-      "  type: " + yamlType + "\n" +
-      "  ref_id: " + itemId + "\n" +
-      "  language: " + lang + "\n" +
+    return "  - id: " + contribId + "\n" +
+      "    type: " + yamlType + "\n" +
+      "    ref_id: " + itemId + "\n" +
+      "    language: " + lang + "\n" +
       prov + extra +
-      "  text: " + text + "\n" +
-      "  translation_en: " + translation + "\n" +
-      "  voice_type: " + voiceType + "\n" +
-      "  recording:\n" +
-      "    filename: " + contribId + "." + ext + "\n" +
-      "    format: " + _recordedBlob.type + "\n" +
-      "    size_bytes: " + _recordedBlob.size + "\n" +
-      "  speaker:\n" +
-      "    name: " + (speakerName.value.trim() || "anonymous") + "\n" +
-      "    native: " + (speakerNative.value || "unspecified") + "\n" +
-      "    region: " + (speakerRegion.value.trim() || "") + "\n" +
-      "    age_range: " + (speakerAge.value || "unspecified") + "\n" +
-      "  consent:\n" +
-      "    license: CC-BY-4.0\n" +
-      "    confirmed: " + consentCheck.checked + "\n" +
-      "  review:\n" +
-      "    status: pending\n";
+      "    text: " + text + "\n" +
+      "    translation_en: " + translation + "\n" +
+      "    voice_type: " + voiceType + "\n" +
+      "    recording:\n" +
+      "      filename: audio/" + contribId + "." + ext + "\n" +
+      "      format: " + _recordedBlob.type + "\n" +
+      "      size_bytes: " + _recordedBlob.size + "\n" +
+      "    speaker:\n" +
+      "      name: " + (speakerName.value.trim() || "anonymous") + "\n" +
+      "      native: " + (speakerNative.value || "unspecified") + "\n" +
+      "      region: " + (speakerRegion.value.trim() || "") + "\n" +
+      "      age_range: " + (speakerAge.value || "unspecified") + "\n" +
+      "    consent:\n" +
+      "      license: CC-BY-4.0\n" +
+      "      confirmed: " + consentCheck.checked + "\n" +
+      "    review:\n" +
+      "      status: pending\n";
   }
 
   function _updateDownloadState() {
     btnDownload.disabled = !(_recordedBlob && consentCheck.checked);
+  }
+
+  /* Read existing manifest, return text or null */
+  async function _readManifest(dirHandle) {
+    try {
+      var fh = await dirHandle.getFileHandle("contributions.yaml");
+      var file = await fh.getFile();
+      return await file.text();
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /* Write manifest text to the directory */
+  async function _writeManifest(dirHandle, text) {
+    var fh = await dirHandle.getFileHandle("contributions.yaml", { create: true });
+    var writable = await fh.createWritable();
+    await writable.write(text);
+    await writable.close();
+  }
+
+  /* Get or create audio/ subdirectory handle */
+  async function _getAudioDir(dirHandle) {
+    return await dirHandle.getDirectoryHandle("audio", { create: true });
   }
 
   async function _downloadBundle() {
@@ -640,28 +663,55 @@ const Recorder = (() => {
     if (!itemId) return;
     const contribId = _generateId();
     const ext = _recordedBlob.type.includes("webm") ? "webm" : "wav";
-    const yaml = _buildYaml(contribId, itemId);
+    const yamlEntry = _buildYamlEntry(contribId, itemId);
 
-    yamlPreview.textContent = yaml;
+    yamlPreview.textContent = yamlEntry;
     bundlePreview.style.display = "block";
 
     const audioFilename = contribId + "." + ext;
-    const yamlFilename = contribId + ".yaml";
-
     const audioBlob = _recordedBlob;
-    const yamlBlob = new Blob([yaml], { type: "text/yaml;charset=utf-8" });
 
-    const audioSaved = await _saveFile(audioFilename, audioBlob);
-    const yamlSaved = await _saveFile(yamlFilename, yamlBlob);
+    if (_dirHandle) {
+      /* Save to chosen donations directory: audio/ subdir + single manifest */
+      try {
+        var audioDir = await _getAudioDir(_dirHandle);
+        await _saveFileHandle(audioDir, audioFilename, audioBlob);
 
-    if (audioSaved && yamlSaved) {
-      _setStatus("Saved to " + (_dirName || "folder") + ": " + audioFilename + " + " + yamlFilename, "success");
-    } else {
-      _triggerDownload(audioFilename, audioBlob);
-      _triggerDownload(yamlFilename, yamlBlob);
-      _setStatus("Contribution " + contribId + " downloaded to Downloads folder.", "success");
+        /* Read / update / write manifest */
+        var existing = await _readManifest(_dirHandle);
+        var manifest;
+        if (existing && existing.trim().length > 0) {
+          manifest = existing.trimEnd() + "\n" + yamlEntry;
+        } else {
+          manifest = "# Contributions manifest\n" +
+            "# Generated by Voice Contributor\n" +
+            "# License: CC-BY-4.0\n" +
+            "contributions:\n" + yamlEntry;
+        }
+        await _writeManifest(_dirHandle, manifest);
+
+        _setStatus("Donation saved: " + audioFilename + " (manifest updated)", "success");
+        btnNext.style.display = "inline-block";
+        return;
+      } catch (err) {
+        _setStatus("Save to donations folder failed: " + err.message + " — falling back to download", "error");
+      }
     }
+
+    /* Fallback: download individual files */
+    var yamlBlob = new Blob(["contribution:\n" + yamlEntry], { type: "text/yaml;charset=utf-8" });
+    _triggerDownload(audioFilename, audioBlob);
+    _triggerDownload(contribId + ".yaml", yamlBlob);
+    _setStatus("Contribution " + contribId + " downloaded to Downloads folder.", "success");
     btnNext.style.display = "inline-block";
+  }
+
+  /* Save a blob to a file within a directory handle */
+  async function _saveFileHandle(dirHandle, filename, blob) {
+    var fh = await dirHandle.getFileHandle(filename, { create: true });
+    var writable = await fh.createWritable();
+    await writable.write(blob);
+    await writable.close();
   }
 
   /* ---------- folder picker ---------- */
@@ -672,9 +722,9 @@ const Recorder = (() => {
     try {
       _dirHandle = await window.showDirectoryPicker();
       _dirName = _dirHandle.name;
-      folderPath.textContent = _dirName;
+      folderPath.textContent = _dirName + "/audio/ + contributions.yaml";
       btnFolder.classList.add("active");
-      _setStatus("Saving to: " + _dirName, "success");
+      _setStatus("Saving to: " + _dirName + "/ (audio/ + contributions.yaml)", "success");
     } catch (err) {
       if (err.name !== "AbortError") {
         _setStatus("Folder selection cancelled or failed", "error");
@@ -682,21 +732,7 @@ const Recorder = (() => {
     }
   }
 
-  async function _saveFile(filename, blob) {
-    if (_dirHandle) {
-      try {
-        const fileHandle = await _dirHandle.getFileHandle(filename, { create: true });
-        const writable = await fileHandle.createWritable();
-        await writable.write(blob);
-        await writable.close();
-        return true;
-      } catch (err) {
-        _setStatus("Failed to save to folder: " + err.message, "error");
-        return false;
-      }
-    }
-    return false;
-  }
+  /* (deprecated — use _saveFileHandle) */
 
   function _triggerDownload(filename, blob) {
     const url = URL.createObjectURL(blob);
