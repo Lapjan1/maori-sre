@@ -1,0 +1,10 @@
+{
+  "name": "maori-voice-contrib",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Māori language learning app with voice contribution",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node serve_local.js"
+  }
+}
