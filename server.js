@@ -10,7 +10,7 @@ function ensureDir(dir) {
 
 http.createServer((req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   if (req.method === 'OPTIONS') { res.writeHead(204); res.end(); return; }
 
@@ -46,12 +46,31 @@ http.createServer((req, res) => {
   }
 
   /* GET /api/donations/yaml — return contributions.yaml content */
-  if (req.url === '/api/donations/yaml') {
+  if (req.method === 'GET' && req.url === '/api/donations/yaml') {
     var yamlPath = path.join(donationsDir, 'contributions.yaml');
     if (!fs.existsSync(yamlPath)) { res.writeHead(404); res.end('No contributions yet'); return; }
     var yaml = fs.readFileSync(yamlPath, 'utf8');
     res.writeHead(200, { 'Content-Type': 'text/yaml;charset=utf-8' });
     res.end(yaml);
+    return;
+  }
+
+  /* POST /api/donations/yaml — overwrite contributions.yaml */
+  if (req.method === 'POST' && req.url === '/api/donations/yaml') {
+    var body = [];
+    req.on('data', function(c) { body.push(c); });
+    req.on('end', function() {
+      try {
+        var data = JSON.parse(Buffer.concat(body).toString());
+        var yamlPath = path.join(donationsDir, 'contributions.yaml');
+        fs.writeFileSync(yamlPath, data.yaml);
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: true }));
+      } catch (e) {
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ ok: false, error: e.message }));
+      }
+    });
     return;
   }
 
@@ -63,6 +82,35 @@ http.createServer((req, res) => {
     var ext = path.extname(audioFile);
     res.writeHead(200, { 'Content-Type': mime[ext] || 'audio/webm' });
     fs.createReadStream(audioFile).pipe(res);
+    return;
+  }
+
+  /* DELETE /api/donations/:id — delete a contribution by ID */
+  var delMatch = req.method === 'DELETE' && req.url.match(/^\/api\/donations\/(.+)$/);
+  if (delMatch) {
+    var delId = delMatch[1];
+    var audioDir = path.join(donationsDir, 'audio');
+    var yamlPath = path.join(donationsDir, 'contributions.yaml');
+    /* Delete audio file */
+    var entries = fs.readdirSync(audioDir);
+    entries.forEach(function(e) {
+      if (e.startsWith(delId + '.')) fs.unlinkSync(path.join(audioDir, e));
+    });
+    /* Remove from YAML */
+    if (fs.existsSync(yamlPath)) {
+      var yaml = fs.readFileSync(yamlPath, 'utf8');
+      var lines = yaml.split('\n');
+      var filtered = [];
+      var skip = false;
+      lines.forEach(function(line) {
+        if (line.trim().startsWith('- id: ' + delId)) { skip = true; }
+        else if (skip && line.startsWith('  ')) { /* skip indented lines */ }
+        else { skip = false; filtered.push(line); }
+      });
+      fs.writeFileSync(yamlPath, filtered.join('\n'));
+    }
+    res.writeHead(200, { 'Content-Type': 'application/json' });
+    res.end(JSON.stringify({ ok: true, id: delId }));
     return;
   }
 
