@@ -1,112 +1,47 @@
-# Contributing
+# Contributing to Co-Sense
 
-Different people contribute in different ways. Here is how you can help,
-whatever your background.
+## Two kinds of contribution
 
-## I want to add a new language
+### Code
 
-1. Create a directory under `languages/` for your language (e.g.
-   `languages/swahili/`).
-2. Define entities and surface forms in `surface_forms.yaml`. See the
-   Māori or Afrikaans packages for the format.
-3. Record or source audio files and create a voice package.
-4. Translate existing experiences into your language.
-5. Run the compiler to validate everything links correctly.
+The source code in this repository is open under **Apache License 2.0**. You may fork, modify, and redistribute it in accordance with that license. Code contributions (bug fixes, features, improvements) are welcome via pull request.
 
-You do not need to modify any engine code. Languages are data.
+### Voice recordings
 
-## I want to record audio
+Co-Sense is building a corpus of native-speaker audio for language learning. Volunteers contribute recordings through the **Co-Sense Voice Contributor** app — a web-based recording tool that does not require cloning the repository.
 
-Great. Voice packages are independent of the language data.
+## How to contribute a recording
 
-1. Record each word or phrase as a clean MP3 or WAV file.
-2. Create a voice package manifest (`voice_package.yaml`). See
-   `languages/mi/voices/mi_teaka_v1/` for an example.
-3. Add the audio references to the surface forms.
-4. Choose a license for your recordings.
+1. Open the Voice Contributor app at the URL provided by the project maintainers.
+2. Select a language, phrase, or passage from the available list.
+3. Record your pronunciation using your device microphone.
+4. Provide optional speaker metadata (name, dialect, age range).
+5. Consent to the CC-BY-4.0 license and submit.
 
-If you are recording for a language that already has a voice package,
-you can create an alternative package. The compiler supports multiple
-packages per language and will rank them by quality and provenance.
+Submitted recordings are saved to a staging volume. They are **not** automatically added to the canonical dataset.
 
-## I found an error
+## Review process
 
-Open an issue with:
+All recordings are reviewed by a project maintainer before being accepted into the repository's canonical language data. The reviewer checks:
 
-- What is wrong (incorrect translation, broken audio, wrong IPA, ...)
-- Where it is (entity ID, surface form ID, file path)
-- What the correct value should be, if you know it
+- Audio quality and clarity
+- Correct pronunciation for the target language
+- Metadata completeness (entity_id, language, speaker info)
+- No duplicate or conflicting entries
 
-If you know YAML, you can submit a pull request directly.
+Accepted recordings are merged into the repository and become part of the project's educational materials under CC-BY-4.0.
 
-## I want to write stories
+## What happens to rejected submissions
 
-Experiences are YAML files under `experiences/`.
+Recordings that fail review are removed from the staging volume. Reasons for rejection may include: poor audio quality, incorrect language, incomplete metadata, or duplicate content.
 
-1. Pick an entity set (things, people, actions, states).
-2. Write a short narrative using those entities.
-3. Provide translations for each supported language.
-4. Define interactions so the app can highlight audio and actions.
+## License
 
-See `experiences/river_world/` for examples.
+- **Code:** Apache License 2.0 (see `LICENSE`)
+- **Recordings (accepted):** Creative Commons Attribution 4.0 International (CC-BY-4.0)
 
-## I want to build an app
+By submitting a recording you agree to license it under CC-BY-4.0. You retain ownership of your voice recording while granting the project permission to distribute it as part of the educational dataset.
 
-The compiled runtime graph (`output/` or `runtime/`) is plain JSON/JS.
-You can consume it from:
+## Project maintainers
 
-- A web application (fetch the JS bundles as module scripts)
-- A mobile app (embed the JSON data)
-- A desktop app
-- A command-line tool
-
-You do not need the SRE compiler to build an app. You only need the
-compiled output.
-
-If you want to extend the compiler or build custom output formats,
-the compiler is in `core/compiler/` and is Apache 2.0 licensed.
-
-## I want to contribute to the engine
-
-### What needs help
-
-- **Inference rules** — new INF rules to derive edges automatically
-- **Validation** — stricter checks for surface form completeness
-- **Compiler plugins** — TTS, STT, embedding, storage
-- **Formal verification** — invariants, cardinality, graph properties
-- **Tests** — golden test cases, property-based testing
-- **Documentation** — tutorials, examples, architecture diagrams
-- **Application polish** — UI, accessibility, performance
-
-### Getting started
-
-```bash
-git clone https://github.com/Lapjan1/maori-sre.git
-cd maori-sre
-pip install -e .
-sre validate core/canonical/examples/
-sre build core/canonical/examples/ --out output/
-```
-
-### Pull request guidelines
-
-- One logical change per PR.
-- Include tests for new inference rules or compiler features.
-- Preserve backward compatibility unless explicitly breaking.
-- Do not commit language data without provenance metadata.
-- Do not commit audio files without license information.
-
-## Code of conduct
-
-Be respectful. This project involves cultural knowledge. Contributors
-work with languages that may be endangered or sacred to their
-communities. Treat linguistic data and its contributors with care.
-
-## Licensing
-
-By contributing code to this repository, you agree to license your
-contributions under the Apache 2.0 license (see LICENSE).
-
-Language data contributions (YAML files, translations, audio) retain
-whatever license you assign to them. The project does not claim
-ownership of your language data.
+Project maintainers decide which contributions are merged. The repository's commit history records who approved each addition.
