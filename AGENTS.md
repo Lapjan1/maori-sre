@@ -307,3 +307,76 @@ The batch lookup script (search API) can return a word_id for a *different sense
 - `docs/packages/language-data/experiences.js` — synced
 - `apps/river-world/index.html` — cache bumps (app.js v25→28, experiences.js v7→8)
 - `docs/index.html` — synced cache bumps
+
+### Session 2026-07-27 (later) — Recorder Refactor: Auto-Download + In-Browser Manifest
+
+**Objective:** Remove folder-picker requirement; always auto-download audio, accumulate YAML manifest in-browser.
+
+#### Completed
+1. **Removed folder picker** (`_pickFolder()`, `_dirHandle`, `_readManifest/_writeManifest/_saveFileHandle/_getAudioDir`) — no more `showDirectoryPicker` dependency
+2. **Added `_sessionEntries[]`** — accumulates all contributions in current browser session
+3. **`_saveContribution()`** — replaces `_downloadBundle()`; auto-downloads audio as `audio/VC_XXXX.webm`; pushes YAML entry to session; updates live preview
+4. **`_downloadManifest()`** — exports full accumulated `contributions.yaml` from session entries
+5. **`_updatePreview()`** — shows live YAML preview with item count; "Download manifest" button appears after first save
+6. **UI changes** — Folder button removed; "Save" replaces "Download contribution"; record count shown in topbar
+7. **Both copies synced** — `apps/voice-contrib/` and `docs/voice-contrib/`
+
+#### Relevant Files
+- `apps/voice-contrib/recorder.js` — removed folder picker, added session-driven save + manifest export
+- `apps/voice-contrib/index.html` — removed folder button/path, added manifest-count + btn-manifest
+- `apps/voice-contrib/styles.css` — removed .btn-folder/.folder-path, added .record-count/.manifest-count/.btn-manifest
+- `docs/voice-contrib/` — synced copies
+
+### Session 2026-07-28 — Railway Deployment: Persistent Volume Contribution Pipeline
+
+**Objective:** Deploy voice-contrib app to Railway with persistent storage so volunteers can record via a URL and contributors can review via API.
+
+#### Completed
+1. **`server.js`** — new production server with:
+   - `POST /api/donate` — accepts base64 audio + YAML metadata, saves to volume
+   - `GET /api/donations/yaml` — returns manifest
+   - `GET /api/donations/audio/:file` — serves audio for playback
+   - `GET /api/donations` — lists all files
+   - `DELETE /api/donations/:id` — removes contribution + YAML entry
+   - `POST /api/donations/yaml` — overwrite manifest (admin)
+   - Static file serving for all apps (river-world, voice-contrib)
+2. **`package.json`** — with `node server.js` as start script for Railway
+3. **`railway.json`** — nixpacks builder config to force Node.js detection (avoids Python auto-detection from utility scripts)
+4. **`serve_local.js`** — now wraps `server.js` (single source of truth)
+5. **Railway project `perfect-ambition`** deployed at `https://perfect-ambition-production-5d4a.up.railway.app`
+6. **Volume `perfect-ambition-volume`** — 5 GB, mounted at `/data`, set via `DONATIONS_DIR=/data` env var — **persists across redeploys**
+7. **Recorder.js updated** — `_saveContribution()` tries `POST /api/donate` first; falls back to browser download when server unavailable (GitHub Pages)
+
+#### Branding & Metadata
+- UI branded as **Co-Sense Voice Contributor**
+- YAML metadata now uses `project: co_sense` + `course: river_world` pattern:
+  ```yaml
+  project: co_sense
+  entity_id: STATE_PLEASE
+  course: river_world
+  experience_id: RIVER_009
+  ```
+- `RIVER_001`–`RIVER_010` experience IDs preserved as stable references
+- `apps/river-world/` directory preserved (no functional gain to rename)
+
+#### Contribution Pipeline
+```
+Volunteer → Voice Contributor UI → Railway volume (staging) → Review API → Human approval → Merge into canonical repo
+```
+- Railway volume is **staging/inbox**, not canonical source of truth
+- Git repository remains authoritative history
+
+#### Key URLs
+- `https://perfect-ambition-production-5d4a.up.railway.app/apps/voice-contrib/` — send to volunteers
+- `https://perfect-ambition-production-5d4a.up.railway.app/api/donations/yaml` — review manifest
+- `https://perfect-ambition-production-5d4a.up.railway.app/api/donations` — list files
+
+#### Relevant Files
+- `server.js` — production server (all API endpoints + static serving)
+- `package.json` — Railway start script
+- `railway.json` — builder config (nixpacks)
+- `serve_local.js` — dev wrapper around server.js
+- `apps/voice-contrib/recorder.js` — `_tryServerDonate()` with fallback
+- `apps/voice-contrib/index.html` — Co-Sense branding
+- `apps/voice-contrib/styles.css` — (unchanged)
+- `docs/voice-contrib/` — synced copies
