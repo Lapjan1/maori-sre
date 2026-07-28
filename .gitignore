@@ -1,18 +1,37 @@
+# Python
 __pycache__/
-*.pyc
-*.pyo
-core/compiler/__pycache__/
-core/compiler/inference/__pycache__/
-core/compiler/inference/rules/__pycache__/
-core/compiler/experience/__pycache__/
-core/evaluation/__pycache__/
-core/scripts/__pycache__/
-core/tests/__pycache__/
-scripts/__pycache__/
-output/
-runtime/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+dist/
+
+# OS files
 .DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+.idea/
 *.swp
 *.swo
+
+# Temporary / generated
+*.tmp
+*.log
+*.bak
+scratch/
+temp/
+runtime/
+core/runtime/
+output/
 .agent-state-hash
-.agent-prediction-ledger.json
+
+# One-off developer utilities (root level only)
+/check_*.py
+/download_*.py
+/fix_*.py
+/merge_*.py
+/verify_*.py
+/wife_*.py
+/wife_audio_audit.txt
